@@ -14,5 +14,5 @@ class Config {
     ),
   );
 
-  static get getApplicationDocumentsDirectory => null;
+  static Path? get getApplicationDocumentsDirectory => null;
 }

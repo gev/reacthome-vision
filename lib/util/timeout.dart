@@ -28,7 +28,7 @@ class Timeout<K> {
   }
 
   /// Cancels the timer with the given [id] if it exists.
-  void cancel(id) {
+  void cancel(K id) {
     _timers[id]?.cancel();
     _timers.remove(id);
   }
