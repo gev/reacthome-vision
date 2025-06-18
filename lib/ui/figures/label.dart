@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:studio/ui/figures/figure.dart';
 
-class Label implements DisposableFigure {
+class Label implements Figure, Disposable {
   final Offset offset;
 
   // late final Paragraph paragraph;

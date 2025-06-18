@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:studio/scheme/element.dart';
+import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/painters/grid_painter.dart';
 import 'package:studio/ui/painters/scheme_painter.dart';
-import 'package:studio/ui/stages/scheme.dart';
+import 'package:studio/ui/stages/scheme_stage.dart';
 import 'package:studio/ui/widgets/scheme_interactive_viewer.dart';
 import 'package:studio/ui/widgets/scheme_paint.dart';
 import 'package:studio/ui_kit/theme.dart';
@@ -11,9 +11,9 @@ import 'package:studio/ui_kit/theme.dart';
 const double gap = 100;
 
 class SchemeEditor extends StatelessWidget {
-  final Items items;
+  final Scheme scheme;
 
-  const SchemeEditor({required this.items, super.key});
+  const SchemeEditor({required this.scheme, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,29 +29,28 @@ class SchemeEditor extends StatelessWidget {
       strokeWidth: 0.5,
     );
     return _SchemeEditor(
+      items: scheme,
       background: background,
-      labelStyle: labelStyle,
       axisStyle: axisStyle,
-      child: SchemePaint(
-        painter: SchemePainter(
-          scheme: Scheme(items: items, gap: gap, textStyle: textStyle),
-        ),
-      ),
+      labelStyle: labelStyle,
+      textStyle: textStyle,
     );
   }
 }
 
 class _SchemeEditor extends StatefulWidget {
-  final Widget child;
+  final Scheme items;
+  final Paint axisStyle;
   final Color background;
   final TextStyle labelStyle;
-  final Paint axisStyle;
+  final TextStyle textStyle;
 
   const _SchemeEditor({
-    required this.child,
+    required this.items,
+    required this.axisStyle,
     required this.background,
     required this.labelStyle,
-    required this.axisStyle,
+    required this.textStyle,
   });
 
   @override
@@ -59,20 +58,40 @@ class _SchemeEditor extends StatefulWidget {
 }
 
 class _SchemeEditorState extends State<_SchemeEditor> {
-  double scale = 1;
-  Offset offset = const Offset(0, 0);
-  final controller = TransformationController();
+  late SchemeStage stage;
+  late GridController gridController;
+  late TransformationController transformationController;
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(() {
-      setState(() {
-        final translation = controller.value.getTranslation();
-        offset = Offset(translation[0], translation[1]);
-        scale = controller.value.getMaxScaleOnAxis();
-      });
+    stage = SchemeStage(
+      scheme: widget.items,
+      gap: gap,
+      textStyle: widget.textStyle,
+    );
+    gridController = GridController();
+    transformationController = TransformationController();
+    transformationController.addListener(() {
+      final translation = transformationController.value.getTranslation();
+      final offset = Offset(translation[0], translation[1]);
+      final scale = transformationController.value.getMaxScaleOnAxis();
+      gridController.update(offset, scale);
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant _SchemeEditor oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.items != oldWidget.items ||
+        widget.textStyle != oldWidget.textStyle) {
+      stage.dispose();
+      stage = SchemeStage(
+        scheme: widget.items,
+        gap: gap,
+        textStyle: widget.textStyle,
+      );
+    }
   }
 
   @override
@@ -82,16 +101,18 @@ class _SchemeEditorState extends State<_SchemeEditor> {
         SchemePaint(
           painter: GridPainter(
             gap: gap,
-            offset: offset,
-            scale: scale,
             background: widget.background,
             labelStyle: widget.labelStyle,
             axisStyle: widget.axisStyle,
+            controller: gridController,
           ),
         ),
+
         SchemeInteractiveViewer(
-          transformationController: controller,
-          child: widget.child,
+          transformationController: transformationController,
+          onSelect: stage.hitTest,
+          onDrag: (_) => print('drag'),
+          child: SchemePaint(painter: SchemePainter(scheme: stage)),
         ),
       ],
     );
@@ -99,7 +120,9 @@ class _SchemeEditorState extends State<_SchemeEditor> {
 
   @override
   void dispose() {
-    controller.dispose();
+    transformationController.dispose();
+    gridController.dispose();
+    stage.dispose();
     super.dispose();
   }
 }

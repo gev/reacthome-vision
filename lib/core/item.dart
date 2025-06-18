@@ -1,10 +1,12 @@
 enum Direction { column, row }
 
 class Item<Id> {
-  final Id id;
-  double x;
-  double y;
   Item({required this.id, required this.x, required this.y});
+  final Id id;
+  final int x;
+  final int y;
+
+  void move(int x, int y) => Item(id: id, x: x, y: y);
 }
 
 class Group<Id> extends Item<Id> {
@@ -18,5 +20,3 @@ class Group<Id> extends Item<Id> {
     required super.y,
   });
 }
-
-typedef Items<Id> = Iterable<Item<Id>>;

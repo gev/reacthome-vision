@@ -1,35 +1,44 @@
 import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/label.dart';
 
+class GridController with ChangeNotifier {
+  Offset _offset = const Offset(0, 0);
+  double _scale = 1;
+
+  Offset get offset => _offset;
+  double get scale => _scale;
+
+  void update(Offset offset, double scale) {
+    if (_offset != offset || _scale != scale) {
+      _offset = offset;
+      _scale = scale;
+      notifyListeners();
+    }
+  }
+}
+
 class GridPainter extends CustomPainter {
-  final Offset offset;
-  final double scale;
+  final GridController controller;
   late final Color background;
   final TextStyle labelStyle;
   final Paint axisStyle;
   final double gap;
-
-  late final double _gap;
-  late final int _step;
 
   GridPainter({
     required this.background,
     required this.labelStyle,
     required this.axisStyle,
     this.gap = 100,
-    required this.offset,
-    required this.scale,
-  }) {
-    final scaled = gap * scale;
-    final ration = (100 / scaled).round();
-    _step = ration > 1 ? ration : 1;
-    _gap = scaled * ration;
-  }
+    required this.controller,
+  }) : super(repaint: controller);
 
   @override
   void paint(Canvas canvas, Size size) {
     late int i;
     late double x, y;
+    final ration = (1 / controller.scale).round();
+    final step = ration > 1 ? ration : 1;
+    final scaled = gap * controller.scale * ration;
 
     void line({required Offset from, required Offset to}) {
       canvas.drawLine(from, to, axisStyle);
@@ -38,7 +47,7 @@ class GridPainter extends CustomPainter {
     void label({required Offset offset}) {
       final label = Label(
         text: i.toString(),
-        maxWidth: _gap - 8,
+        maxWidth: scaled - 8,
         offset: offset,
         style: labelStyle,
       );
@@ -59,42 +68,41 @@ class GridPainter extends CustomPainter {
     canvas.drawColor(background, BlendMode.src);
 
     i = 0;
-    x = offset.dx;
+    x = controller.offset.dx;
     while (x >= 0) {
       xAxis();
-      x -= _gap;
-      i -= _step;
+      x -= scaled;
+      i -= step;
     }
 
-    i = _step;
-    x = offset.dx + _gap;
+    i = step;
+    x = controller.offset.dx + scaled;
     while (x <= size.width) {
       xAxis();
-      x += _gap;
-      i += _step;
+      x += scaled;
+      i += step;
     }
 
     i = 0;
-    y = offset.dy;
+    y = controller.offset.dy;
     while (y > 0) {
       yAxis();
-      y -= _gap;
-      i -= _step;
+      y -= scaled;
+      i -= step;
     }
 
-    i = _step;
-    y = offset.dy + _gap;
+    i = step;
+    y = controller.offset.dy + scaled;
     while (y < size.height) {
       yAxis();
-      y += _gap;
-      i += _step;
+      y += scaled;
+      i += step;
     }
   }
 
   @override
   bool shouldRepaint(GridPainter oldDelegate) =>
-      offset != oldDelegate.offset ||
-      scale != oldDelegate.scale ||
+      controller != oldDelegate.controller ||
       background != oldDelegate.background ||
       labelStyle != oldDelegate.labelStyle ||
       axisStyle != oldDelegate.axisStyle ||

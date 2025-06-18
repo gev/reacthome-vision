@@ -1,16 +1,15 @@
 import 'package:flutter/rendering.dart';
-import 'package:studio/ui/stages/scheme.dart';
+import 'package:studio/ui/stages/scheme_stage.dart';
 
 class SchemePainter extends CustomPainter {
-  final Scheme scheme;
+  final SchemeStage scheme;
 
-  const SchemePainter({required this.scheme});
-
-  @override
-  void paint(Canvas canvas, Size size) => scheme.paint(canvas);
+  const SchemePainter({required this.scheme}) : super(repaint: scheme);
 
   @override
-  bool hitTest(Offset position) => scheme.hitTest(position);
+  void paint(Canvas canvas, Size size) {
+    scheme.paint(canvas);
+  }
 
   @override
   bool shouldRepaint(SchemePainter oldDelegate) => oldDelegate.scheme != scheme;

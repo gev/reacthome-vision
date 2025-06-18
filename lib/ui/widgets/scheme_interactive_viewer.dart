@@ -4,10 +4,14 @@ import 'package:flutter/widgets.dart';
 class SchemeInteractiveViewer extends StatefulWidget {
   final Widget child;
   final TransformationController transformationController;
+  final bool Function(Offset) onSelect;
+  final void Function(Offset) onDrag;
 
   const SchemeInteractiveViewer({
     required this.child,
     required this.transformationController,
+    required this.onSelect,
+    required this.onDrag,
     super.key,
   });
 
@@ -25,7 +29,7 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
     });
   }
 
-  void disablePan(_) {
+  void disablePan() {
     setState(() {
       panEnabled = false;
     });
@@ -43,6 +47,16 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
     });
   }
 
+  void onSelect(ScaleStartDetails details) {
+    if (details.pointerCount == 1) {
+      if (widget.onSelect(
+        widget.transformationController.toScene(details.localFocalPoint),
+      )) {
+        disablePan();
+      }
+    }
+  }
+
   void onInteract(ScaleUpdateDetails details) {
     if (panEnabled) {
       if (HardwareKeyboard.instance.isAltPressed ||
@@ -52,7 +66,7 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
         disableTrackpadScrollCausesScale();
       }
     } else {
-      print(details);
+      widget.onDrag(details.focalPoint);
     }
   }
 
@@ -60,17 +74,16 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
   Widget build(BuildContext context) {
     return InteractiveViewer(
       boundaryMargin: const EdgeInsets.all(double.infinity),
-      minScale: 0.5,
+      minScale: 0.05,
       maxScale: 2.0,
       trackpadScrollCausesScale: trackpadScrollCausesScale,
       panEnabled: panEnabled,
       scaleEnabled: true,
       transformationController: widget.transformationController,
+      onInteractionStart: onSelect,
       onInteractionUpdate: onInteract,
       onInteractionEnd: enablePan,
-      child: panEnabled
-          ? GestureDetector(onLongPressDown: disablePan, child: widget.child)
-          : widget.child,
+      child: widget.child,
     );
   }
 }

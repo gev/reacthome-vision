@@ -5,7 +5,7 @@ abstract interface class Figure {
   bool hitTest(Offset position);
 }
 
-abstract interface class DisposableFigure extends Figure {
+abstract interface class Disposable {
   void dispose();
 }
 

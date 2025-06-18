@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/figure.dart';
 
-class Stage implements DisposableFigure {
-  final List<Figure> figures;
-
+class Stage implements Figure, Disposable {
   Stage({required this.figures});
+
+  final List<Figure> figures;
 
   @override
   void paint(Canvas canvas) {
@@ -27,7 +27,7 @@ class Stage implements DisposableFigure {
   @override
   void dispose() {
     for (final figure in figures) {
-      if (figure case DisposableFigure f) f.dispose();
+      if (figure case Disposable it) it.dispose();
     }
   }
 }
