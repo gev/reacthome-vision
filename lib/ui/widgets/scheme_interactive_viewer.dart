@@ -22,6 +22,7 @@ class SchemeInteractiveViewer extends StatefulWidget {
 class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
   var panEnabled = true;
   var trackpadScrollCausesScale = false;
+  var previousPoint = const Offset(0, 0);
 
   void enablePan(_) {
     setState(() {
@@ -49,9 +50,10 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
 
   void onSelect(ScaleStartDetails details) {
     if (details.pointerCount == 1) {
-      if (widget.onSelect(
-        widget.transformationController.toScene(details.localFocalPoint),
-      )) {
+      previousPoint = widget.transformationController.toScene(
+        details.localFocalPoint,
+      );
+      if (widget.onSelect(previousPoint)) {
         disablePan();
       }
     }
@@ -66,7 +68,11 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
         disableTrackpadScrollCausesScale();
       }
     } else {
-      widget.onDrag(details.focalPoint);
+      final currentPoint = widget.transformationController.toScene(
+        details.localFocalPoint,
+      );
+      widget.onDrag(currentPoint - previousPoint);
+      previousPoint = currentPoint;
     }
   }
 

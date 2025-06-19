@@ -111,7 +111,7 @@ class _SchemeEditorState extends State<_SchemeEditor> {
         SchemeInteractiveViewer(
           transformationController: transformationController,
           onSelect: stage.hitTest,
-          onDrag: (_) => print('drag'),
+          onDrag: stage.drag,
           child: SchemePaint(painter: SchemePainter(scheme: stage)),
         ),
       ],

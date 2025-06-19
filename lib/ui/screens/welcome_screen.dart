@@ -10,14 +10,6 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = <Item<int>>[];
-    // int id = 0;
-    // for (int i = 0; i < 100; i++) {
-    //   for (int j = 0; j < 100; j++) {
-    //     items.add(Item(id: id++, x: i, y: j));
-    //   }
-    // }
-    items.add(Item(id: 0, x: 0, y: 0));
     return MacosWindow(
       sidebar: Sidebar(
         minWidth: 200,
@@ -28,7 +20,12 @@ class WelcomeScreen extends StatelessWidget {
       ),
       titleBar: const TitleBar(height: 48),
       child: DefaultLayout(
-        body: SchemeEditor(scheme: Scheme(id: 0, items: items)),
+        body: SchemeEditor(
+          scheme: Scheme(
+            id: 0,
+            items: [Item(id: 0, x: 2, y: 3), Item(id: 1, x: 4, y: 3)],
+          ),
+        ),
       ),
     );
   }

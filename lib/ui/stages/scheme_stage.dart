@@ -5,7 +5,7 @@ import 'package:studio/ui/figures/figure.dart';
 
 class SchemeStage<Id> with ChangeNotifier implements Figure {
   final _stage = <Element<Id>>[];
-  final _selected = <Id>{};
+  final _selected = <Element<Id>>{};
 
   SchemeStage({
     required TextStyle textStyle,
@@ -21,7 +21,7 @@ class SchemeStage<Id> with ChangeNotifier implements Figure {
   void paint(Canvas canvas) {
     for (final element in _stage) {
       element.paint(canvas);
-      if (_selected.contains(element.id)) {
+      if (_selected.contains(element)) {
         element.paintSelection(canvas);
       }
     }
@@ -31,9 +31,9 @@ class SchemeStage<Id> with ChangeNotifier implements Figure {
   bool hitTest(Offset position) {
     for (final element in _stage) {
       if (element.hitTest(position)) {
-        if (!_selected.contains(element.id)) {
+        if (!_selected.contains(element)) {
           _selected.clear();
-          _selected.add(element.id);
+          _selected.add(element);
           notifyListeners();
         }
         return true;
@@ -42,6 +42,13 @@ class SchemeStage<Id> with ChangeNotifier implements Figure {
     _selected.clear();
     notifyListeners();
     return false;
+  }
+
+  void drag(Offset offset) {
+    for (final element in _selected) {
+      element.moveBy(offset);
+    }
+    notifyListeners();
   }
 
   // @override
@@ -57,7 +64,7 @@ class SchemeStage<Id> with ChangeNotifier implements Figure {
 
 class Element<Id> implements Figure {
   final Id id;
-  final Offset center;
+  Offset center;
   final double radius;
   final double radiusSelected;
   final double radiusSquared;
@@ -83,6 +90,10 @@ class Element<Id> implements Figure {
          color: Colors.green[800],
          strokeWidth: 1,
        );
+
+  void moveBy(Offset offset) {
+    center += offset;
+  }
 
   @override
   void paint(Canvas canvas) {
