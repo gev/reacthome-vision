@@ -1,5 +1,5 @@
 import 'package:flutter/rendering.dart';
-import 'package:studio/ui/stages/scheme_stage.dart';
+import 'package:studio/ui/scheme/scheme_stage.dart';
 
 class SchemePainter extends CustomPainter {
   final SchemeStage scheme;

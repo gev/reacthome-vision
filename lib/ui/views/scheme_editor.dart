@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:studio/core/scheme.dart';
-import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/painters/grid_painter.dart';
 import 'package:studio/ui/painters/scheme_painter.dart';
-import 'package:studio/ui/stages/scheme_stage.dart';
+import 'package:studio/ui/scheme/scheme_stage.dart';
 import 'package:studio/ui/widgets/scheme_interactive_viewer.dart';
 import 'package:studio/ui/widgets/scheme_paint.dart';
 import 'package:studio/ui_kit/theme.dart';
+import 'package:studio/ui_kit/theme/theme.dart';
 
 const double gap = 100;
 
@@ -18,40 +18,15 @@ class SchemeEditor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final background = theme.backgroundColor!;
-    final textStyle = theme.bodyStyle!;
-    final labelStyle = textStyle.copyWith(
-      color: textStyle.color!.withAlpha(80),
-    );
-    final axisStyle = paintStyle(
-      style: PaintingStyle.stroke,
-      color: labelStyle.color,
-      strokeWidth: 0.5,
-    );
-    return _SchemeEditor(
-      items: scheme,
-      background: background,
-      axisStyle: axisStyle,
-      labelStyle: labelStyle,
-      textStyle: textStyle,
-    );
+    return _SchemeEditor(items: scheme, theme: theme);
   }
 }
 
 class _SchemeEditor extends StatefulWidget {
   final Scheme items;
-  final Paint axisStyle;
-  final Color background;
-  final TextStyle labelStyle;
-  final TextStyle textStyle;
+  final ThemeContainer theme;
 
-  const _SchemeEditor({
-    required this.items,
-    required this.axisStyle,
-    required this.background,
-    required this.labelStyle,
-    required this.textStyle,
-  });
+  const _SchemeEditor({required this.items, required this.theme});
 
   @override
   State<_SchemeEditor> createState() => _SchemeEditorState();
@@ -65,11 +40,7 @@ class _SchemeEditorState extends State<_SchemeEditor> {
   @override
   void initState() {
     super.initState();
-    stage = SchemeStage(
-      scheme: widget.items,
-      gap: gap,
-      textStyle: widget.textStyle,
-    );
+    stage = SchemeStage(scheme: widget.items, gap: gap, theme: widget.theme);
     gridController = GridController();
     transformationController = TransformationController();
     transformationController.addListener(() {
@@ -83,14 +54,9 @@ class _SchemeEditorState extends State<_SchemeEditor> {
   @override
   void didUpdateWidget(covariant _SchemeEditor oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.items != oldWidget.items ||
-        widget.textStyle != oldWidget.textStyle) {
+    if (widget.items != oldWidget.items || widget.theme != oldWidget.theme) {
       stage.dispose();
-      stage = SchemeStage(
-        scheme: widget.items,
-        gap: gap,
-        textStyle: widget.textStyle,
-      );
+      stage = SchemeStage(scheme: widget.items, gap: gap, theme: widget.theme);
     }
   }
 
@@ -101,9 +67,7 @@ class _SchemeEditorState extends State<_SchemeEditor> {
         SchemePaint(
           painter: GridPainter(
             gap: gap,
-            background: widget.background,
-            labelStyle: widget.labelStyle,
-            axisStyle: widget.axisStyle,
+            theme: widget.theme,
             controller: gridController,
           ),
         ),

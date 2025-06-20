@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/label.dart';
+import 'package:studio/ui_kit/theme/theme.dart';
 
 class GridController with ChangeNotifier {
   Offset _offset = const Offset(0, 0);
@@ -25,12 +27,19 @@ class GridPainter extends CustomPainter {
   final double gap;
 
   GridPainter({
-    required this.background,
-    required this.labelStyle,
-    required this.axisStyle,
     this.gap = 100,
     required this.controller,
-  }) : super(repaint: controller);
+    required ThemeContainer theme,
+  }) : background = theme.backgroundColor!,
+       labelStyle = theme.bodyStyle!.copyWith(
+         color: theme.bodyStyle!.color!.withAlpha(128),
+       ),
+       axisStyle = paintStyle(
+         style: PaintingStyle.stroke,
+         color: theme.bodyStyle!.color!.withAlpha(64),
+         strokeWidth: 0.5,
+       ),
+       super(repaint: controller);
 
   @override
   void paint(Canvas canvas, Size size) {
