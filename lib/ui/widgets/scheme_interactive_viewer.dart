@@ -80,7 +80,7 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
   Widget build(BuildContext context) {
     return InteractiveViewer(
       boundaryMargin: const EdgeInsets.all(double.infinity),
-      minScale: 0.05,
+      minScale: 0.2,
       maxScale: 2.0,
       trackpadScrollCausesScale: trackpadScrollCausesScale,
       panEnabled: panEnabled,

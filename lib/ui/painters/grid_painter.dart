@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/label.dart';
@@ -23,31 +25,36 @@ class GridPainter extends CustomPainter {
   final GridController controller;
   late final Color background;
   final TextStyle labelStyle;
+  final double axisSize;
   final Paint axisStyle;
+  final Paint pointStyle;
   final double gap;
 
   GridPainter({
     this.gap = 100,
     required this.controller,
     required ThemeContainer theme,
-  }) : background = theme.backgroundColor!,
-       labelStyle = theme.bodyStyle!.copyWith(
-         color: theme.bodyStyle!.color!.withAlpha(128),
-       ),
+  }) : background = theme.backgroundColor,
+       labelStyle = theme.bodyStyle.copyWith(color: theme.color.withAlpha(128)),
+       axisSize = theme.bodyStyle.fontSize!,
        axisStyle = paintStyle(
          style: PaintingStyle.stroke,
-         color: theme.bodyStyle!.color!.withAlpha(64),
-         strokeWidth: 0.5,
+         color: theme.color.withAlpha(128),
+       ),
+       pointStyle = paintStyle(
+         style: PaintingStyle.stroke,
+         color: theme.color.withAlpha(64),
        ),
        super(repaint: controller);
 
   @override
   void paint(Canvas canvas, Size size) {
     late int i;
-    late double x, y;
+    late double x, y, xmin, xmax, ymin, ymax;
     final ration = (1 / controller.scale).round();
     final step = ration > 1 ? ration : 1;
-    final scaled = gap * controller.scale * ration;
+    final preScaled = gap * controller.scale;
+    final scaled = preScaled * ration;
 
     void line({required Offset from, required Offset to}) {
       canvas.drawLine(from, to, axisStyle);
@@ -64,13 +71,26 @@ class GridPainter extends CustomPainter {
       label.dispose();
     }
 
+    void points() {
+      final points = <Offset>[];
+      for (double x = xmin + preScaled; x < xmax; x += preScaled) {
+        for (double y = ymin + preScaled; y < ymax; y += preScaled) {
+          if (x > axisSize + 4 && y > axisSize + 4) {
+            points.add(Offset(x, y));
+          }
+        }
+      }
+      pointStyle.strokeWidth = 0.5 + controller.scale;
+      canvas.drawPoints(PointMode.points, points, pointStyle);
+    }
+
     void xAxis() {
-      line(from: Offset(x, 0), to: Offset(x, size.height));
+      line(from: Offset(x, 0), to: Offset(x, axisSize));
       label(offset: Offset(x + 4, 4));
     }
 
     void yAxis() {
-      line(from: Offset(0, y), to: Offset(size.width, y));
+      line(from: Offset(0, y), to: Offset(axisSize, y));
       label(offset: Offset(4, y + 4));
     }
 
@@ -83,6 +103,7 @@ class GridPainter extends CustomPainter {
       x -= scaled;
       i -= step;
     }
+    xmin = x;
 
     i = step;
     x = controller.offset.dx + scaled;
@@ -91,6 +112,7 @@ class GridPainter extends CustomPainter {
       x += scaled;
       i += step;
     }
+    xmax = x;
 
     i = 0;
     y = controller.offset.dy;
@@ -99,6 +121,7 @@ class GridPainter extends CustomPainter {
       y -= scaled;
       i -= step;
     }
+    ymin = y;
 
     i = step;
     y = controller.offset.dy + scaled;
@@ -107,6 +130,9 @@ class GridPainter extends CustomPainter {
       y += scaled;
       i += step;
     }
+    ymax = y;
+
+    points();
   }
 
   @override

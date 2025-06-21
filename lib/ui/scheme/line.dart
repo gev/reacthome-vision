@@ -1,16 +1,17 @@
 import 'package:flutter/widgets.dart' hide Element;
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/scheme/node.dart';
+import 'package:studio/ui_kit/theme/theme.dart';
 
 class Line<Id> implements Figure {
   Line({
     required this.id,
     required this.start,
     required this.end,
-    required Color color,
+    required ThemeContainer theme,
   }) : style = paintStyle(
          style: PaintingStyle.stroke,
-         color: color,
+         color: theme.bodyStyle.color!,
          strokeWidth: 1,
        );
 

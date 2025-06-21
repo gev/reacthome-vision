@@ -1,35 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
+import 'package:studio/ui_kit/theme/theme.dart';
 
 class Node<Id> implements Figure {
   final Id id;
   Offset center;
   final double radius;
-  final double radiusSelected;
-  final double radiusSquared;
-  final Paint style;
-  final Paint styleSelected;
+  final double _radiusFocussed;
+  final double _radiusSelected;
+  final double _radiusSquared;
+  final Paint _fillStyle;
+  final Paint _strokeStyle;
+  final Paint _selectedStyle;
+  final Paint _focussedStyle;
 
   Node({
     required Item<Id> item,
     required double gap,
     this.radius = 24,
-    required Color color,
-    required Color selectedColor,
+    required ThemeContainer theme,
   }) : id = item.id,
-       radiusSelected = radius + 12,
-       radiusSquared = radius * radius,
-       center = Offset(gap * (item.x + 0.5), gap * (item.y + 0.5)),
-       style = paintStyle(
+       _radiusFocussed = radius + 12,
+       _radiusSelected = radius + 24,
+       _radiusSquared = radius * radius,
+       center = Offset(gap * item.x, gap * item.y),
+       _strokeStyle = paintStyle(
          style: PaintingStyle.stroke,
-         color: color,
+         color: theme.bodyStyle.color,
          strokeWidth: 4,
        ),
-       styleSelected = paintStyle(
+       _fillStyle = paintStyle(
+         style: PaintingStyle.fill,
+         color: theme.backgroundColor.withAlpha(255),
+       ),
+       _focussedStyle = paintStyle(
          style: PaintingStyle.stroke,
-         color: selectedColor,
-         strokeWidth: 1,
+         color: theme.primaryColor,
+         strokeWidth: 2,
+       ),
+       _selectedStyle = paintStyle(
+         style: PaintingStyle.stroke,
+         color: theme.color.withAlpha(64),
+         strokeWidth: 0.5,
        );
 
   void moveBy(Offset offset) {
@@ -38,14 +51,19 @@ class Node<Id> implements Figure {
 
   @override
   void paint(Canvas canvas) {
-    canvas.drawCircle(center, radius, style);
+    canvas.drawCircle(center, radius, _fillStyle);
+    canvas.drawCircle(center, radius, _strokeStyle);
   }
 
   void paintSelection(Canvas canvas) {
-    canvas.drawCircle(center, radiusSelected, styleSelected);
+    canvas.drawCircle(center, _radiusSelected, _selectedStyle);
+  }
+
+  void paintFocus(Canvas canvas) {
+    canvas.drawCircle(center, _radiusFocussed, _focussedStyle);
   }
 
   @override
   bool hitTest(Offset position) =>
-      (position - center).distanceSquared < radiusSquared;
+      (position - center).distanceSquared < _radiusSquared;
 }

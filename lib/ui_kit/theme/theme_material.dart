@@ -10,13 +10,22 @@ class ThemeMaterial implements ThemeContainer {
   }
 
   @override
-  TextStyle? get titleStyle => _themeData.textTheme.headlineLarge;
+  TextStyle get titleStyle => _themeData.textTheme.headlineLarge!;
 
   @override
-  TextStyle? get bodyStyle => _themeData.textTheme.bodyMedium;
+  Color get color => _themeData.colorScheme.onSurface;
 
   @override
-  Color? get backgroundColor => _themeData.scaffoldBackgroundColor;
+  TextStyle get bodyStyle => _themeData.textTheme.bodyMedium!;
+
+  @override
+  Color get backgroundColor => _themeData.colorScheme.surface;
+
+  @override
+  Color get primaryColor => _themeData.colorScheme.primary;
+
+  @override
+  Color get secondaryColor => _themeData.colorScheme.secondary;
 }
 
 ThemeData makeMaterialTheme(

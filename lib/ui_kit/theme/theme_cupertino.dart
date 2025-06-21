@@ -11,13 +11,22 @@ class ThemeCupertino implements ThemeContainer {
   }
 
   @override
-  TextStyle? get titleStyle => _themeData.textTheme.navLargeTitleTextStyle;
+  TextStyle get titleStyle => _themeData.textTheme.navLargeTitleTextStyle;
 
   @override
-  TextStyle? get bodyStyle => _themeData.textTheme.textStyle;
+  Color get color => _themeData.textTheme.textStyle.color!;
 
   @override
-  Color? get backgroundColor => _themeData.barBackgroundColor;
+  TextStyle get bodyStyle => _themeData.textTheme.textStyle;
+
+  @override
+  Color get backgroundColor => _themeData.scaffoldBackgroundColor;
+
+  @override
+  Color get primaryColor => _themeData.primaryColor;
+
+  @override
+  Color get secondaryColor => _themeData.primaryContrastingColor;
 }
 
 CupertinoThemeData makeCupertinoTheme(Color seedColor, Brightness brightness) =>
