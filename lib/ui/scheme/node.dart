@@ -25,25 +25,21 @@ class Node<Id> implements Figure {
        _radiusSelected = radius + 24,
        _radiusSquared = radius * radius,
        center = Offset(gap * item.x, gap * item.y),
-       _strokeStyle = paintStyle(
-         style: PaintingStyle.stroke,
-         color: theme.bodyStyle.color,
-         strokeWidth: 4,
-       ),
-       _fillStyle = paintStyle(
-         style: PaintingStyle.fill,
-         color: theme.backgroundColor.withAlpha(255),
-       ),
-       _focussedStyle = paintStyle(
-         style: PaintingStyle.stroke,
-         color: theme.primaryColor,
-         strokeWidth: 2,
-       ),
-       _selectedStyle = paintStyle(
-         style: PaintingStyle.stroke,
-         color: theme.color.withAlpha(64),
-         strokeWidth: 0.5,
-       );
+       _strokeStyle = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = theme.bodyStyle.color!
+         ..strokeWidth = 4,
+       _fillStyle = Paint()
+         ..style = PaintingStyle.fill
+         ..color = theme.backgroundColor.withAlpha(255),
+       _focussedStyle = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = theme.primaryColor
+         ..strokeWidth = 2,
+       _selectedStyle = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = theme.color.withAlpha(64)
+         ..strokeWidth = 0.5;
 
   void moveBy(Offset offset) {
     center += offset;

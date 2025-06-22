@@ -10,8 +10,8 @@ Future<void> configureMacosWindowUtils() async {
 }
 
 void main() async {
-  if (Platform.isMacOS) {
-    await configureMacosWindowUtils();
-  }
+  // if (Platform.isMacOS) {
+  //   await configureMacosWindowUtils();
+  // }
   runApp(await make());
 }

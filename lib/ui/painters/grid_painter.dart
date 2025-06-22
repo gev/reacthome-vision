@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
-import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/label.dart';
 import 'package:studio/ui_kit/theme/theme.dart';
 
@@ -37,14 +36,13 @@ class GridPainter extends CustomPainter {
   }) : background = theme.backgroundColor,
        labelStyle = theme.bodyStyle.copyWith(color: theme.color.withAlpha(128)),
        axisSize = theme.bodyStyle.fontSize!,
-       axisStyle = paintStyle(
-         style: PaintingStyle.stroke,
-         color: theme.color.withAlpha(128),
-       ),
-       pointStyle = paintStyle(
-         style: PaintingStyle.stroke,
-         color: theme.color.withAlpha(64),
-       ),
+       axisStyle = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = theme.color.withAlpha(128),
+       pointStyle = Paint()
+         ..style = PaintingStyle.stroke
+         ..strokeCap = StrokeCap.round
+         ..color = theme.color.withAlpha(64),
        super(repaint: controller);
 
   @override
@@ -80,7 +78,7 @@ class GridPainter extends CustomPainter {
           }
         }
       }
-      pointStyle.strokeWidth = 0.5 + controller.scale;
+      pointStyle.strokeWidth = 1 + controller.scale;
       canvas.drawPoints(PointMode.points, points, pointStyle);
     }
 

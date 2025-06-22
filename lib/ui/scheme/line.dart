@@ -9,11 +9,10 @@ class Line<Id> implements Figure {
     required this.start,
     required this.end,
     required ThemeContainer theme,
-  }) : style = paintStyle(
-         style: PaintingStyle.stroke,
-         color: theme.bodyStyle.color!,
-         strokeWidth: 1,
-       );
+  }) : style = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = theme.bodyStyle.color!
+         ..strokeWidth = 1;
 
   final Id id;
   final Node start;

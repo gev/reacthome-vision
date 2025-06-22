@@ -8,13 +8,3 @@ abstract interface class Figure {
 abstract interface class Disposable {
   void dispose();
 }
-
-Paint paintStyle({PaintingStyle? style, Color? color, double? strokeWidth}) {
-  final paint = Paint();
-
-  if (style != null) paint.style = style;
-  if (color != null) paint.color = color;
-  if (strokeWidth != null) paint.strokeWidth = strokeWidth;
-
-  return paint;
-}
