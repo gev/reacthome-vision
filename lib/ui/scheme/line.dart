@@ -1,27 +1,17 @@
-import 'package:flutter/widgets.dart' hide Element;
+import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/figure.dart';
-import 'package:studio/ui/scheme/node.dart';
-import 'package:studio/ui_kit/theme/theme.dart';
+import 'package:studio/ui/scheme/vertex.dart';
 
-class Line<Id> implements Figure {
-  Line({
-    required this.id,
-    required this.start,
-    required this.end,
-    required ThemeContainer theme,
-  }) : style = Paint()
-         ..style = PaintingStyle.stroke
-         ..color = theme.bodyStyle.color!
-         ..strokeWidth = 1;
+class Line implements Figure {
+  Line({required this.start, required this.end, required this.style});
 
-  final Id id;
-  final Node start;
-  final Node end;
-  final Paint style;
+  final Vertex start;
+  final Vertex end;
+  final LineStyle style;
 
   @override
   void paint(Canvas canvas) {
-    canvas.drawLine(start.center, end.center, style);
+    canvas.drawLine(start.position, end.position, style.stroke);
   }
 
   @override
@@ -29,4 +19,16 @@ class Line<Id> implements Figure {
     // Implement hit test logic for the line
     return false;
   }
+}
+
+class LineStyle {
+  final Paint _stroke;
+
+  Paint get stroke => _stroke;
+
+  LineStyle({required Color color, double strokeWidth = 1.0})
+    : _stroke = Paint()
+        ..color = color
+        ..strokeWidth = strokeWidth
+        ..style = PaintingStyle.stroke;
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/figure.dart';
 
-class Node implements Figure {
-  Offset center;
+class Node implements RelativeFigure {
   final double radius;
   final double radiusFocussed;
   final double radiusSelected;
@@ -10,46 +9,41 @@ class Node implements Figure {
   final NodeStyle style;
 
   Node({
-    required this.center,
     this.radius = 24,
     this.radiusFocussed = 36,
     this.radiusSelected = 48,
     required this.style,
   }) : _radiusSquared = radius * radius;
 
-  void moveBy(Offset offset) {
-    center += offset;
-  }
-
   @override
-  void paint(Canvas canvas) {
+  void paint(Canvas canvas, Offset center) {
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
   }
 
-  void paintSelection(Canvas canvas) {
+  void paintSelection(Canvas canvas, Offset center) {
     canvas.drawCircle(center, radiusSelected, style.selected);
   }
 
-  void paintFocus(Canvas canvas) {
+  void paintFocus(Canvas canvas, Offset center) {
     canvas.drawCircle(center, radiusFocussed, style.focused);
   }
 
   @override
-  bool hitTest(Offset position) =>
+  bool hitTest(Offset position, Offset center) =>
       (position - center).distanceSquared < _radiusSquared;
 }
 
 class NodeStyle {
-  final Paint _fillStyle;
-  final Paint _strokeStyle;
-  final Paint _selectedStyle;
-  final Paint _focussedStyle;
+  final Paint _fill;
+  final Paint _stroke;
+  final Paint _selected;
+  final Paint _focussed;
 
-  Paint get fill => _fillStyle;
-  Paint get stroke => _strokeStyle;
-  Paint get selected => _selectedStyle;
-  Paint get focused => _focussedStyle;
+  Paint get fill => _fill;
+  Paint get stroke => _stroke;
+  Paint get selected => _selected;
+  Paint get focused => _focussed;
 
   NodeStyle({
     required Color color,
@@ -59,18 +53,18 @@ class NodeStyle {
     double strokeWidth = 4.0,
     double focussedWidth = 2.0,
     double selectedWidth = 0.5,
-  }) : _fillStyle = Paint()
+  }) : _fill = Paint()
          ..style = PaintingStyle.fill
          ..color = backgroundColor,
-       _strokeStyle = Paint()
+       _stroke = Paint()
          ..style = PaintingStyle.stroke
          ..color = color
          ..strokeWidth = strokeWidth,
-       _selectedStyle = Paint()
+       _selected = Paint()
          ..style = PaintingStyle.stroke
          ..color = selectedColor
          ..strokeWidth = selectedWidth,
-       _focussedStyle = Paint()
+       _focussed = Paint()
          ..style = PaintingStyle.stroke
          ..color = focussedColor
          ..strokeWidth = focussedWidth;

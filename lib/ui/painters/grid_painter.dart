@@ -62,10 +62,9 @@ class GridPainter extends CustomPainter {
       final label = Label(
         text: i.toString(),
         maxWidth: scaled - 8,
-        offset: offset,
         style: labelStyle,
       );
-      label.paint(canvas);
+      label.paint(canvas, offset);
       label.dispose();
     }
 

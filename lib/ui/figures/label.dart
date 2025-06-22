@@ -1,15 +1,12 @@
 import 'package:flutter/rendering.dart';
 import 'package:studio/ui/figures/figure.dart';
 
-class Label implements Figure, Disposable {
-  final Offset offset;
-
+class Label implements RelativeFigure, Disposable {
   // late final Paragraph paragraph;
   late final TextPainter _text;
 
   Label({
     required String text,
-    required this.offset,
     double minWidth = 0,
     double maxWidth = double.infinity,
     TextDirection direction = TextDirection.ltr,
@@ -25,10 +22,10 @@ class Label implements Figure, Disposable {
   }
 
   @override
-  void paint(Canvas canvas) => _text.paint(canvas, offset);
+  void paint(Canvas canvas, Offset offset) => _text.paint(canvas, offset);
 
   @override
-  bool hitTest(Offset position) => false;
+  bool hitTest(Offset position, Offset offset) => false;
 
   @override
   void dispose() => _text.dispose();
