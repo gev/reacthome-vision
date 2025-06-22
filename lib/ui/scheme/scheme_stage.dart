@@ -6,18 +6,28 @@ import 'package:studio/ui/scheme/node.dart';
 import 'package:studio/ui_kit/theme/theme.dart';
 
 class SchemeStage<Id> with ChangeNotifier implements Figure {
-  final _nodes = <Id, Node<Id>>{};
-  final _selectedNodes = <Node<Id>>{};
+  final _nodes = <Id, Node>{};
+  final _selectedNodes = <Node>{};
   final _lines = <Line<Id>>[];
-  Node<Id>? _hit;
+  Node? _hit;
 
   SchemeStage({
     required ThemeContainer theme,
     required Scheme<Id> scheme,
     required double gap,
   }) {
+    final nodeStyle = NodeStyle(
+      color: theme.color,
+      backgroundColor: theme.backgroundColor,
+      selectedColor: theme.color.withAlpha(128),
+      focussedColor: theme.primaryColor,
+    );
     for (final it in scheme.items) {
-      _nodes[it.id] = (Node(item: it, gap: gap, theme: theme));
+      _nodes[it.id] = (Node(
+        center: Offset(gap * it.x, gap * it.y),
+        radius: 24,
+        style: nodeStyle,
+      ));
     }
     for (final link in scheme.links) {
       final start = _nodes[link.source];
@@ -65,9 +75,9 @@ class SchemeStage<Id> with ChangeNotifier implements Figure {
   }
 
   void drag(Offset offset) {
-    for (final element in _selectedNodes) {
-      if (element != _hit) {
-        element.moveBy(offset);
+    for (final node in _selectedNodes) {
+      if (node != _hit) {
+        node.moveBy(offset);
       }
     }
     _hit?.moveBy(offset);
