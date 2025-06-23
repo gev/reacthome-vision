@@ -1,7 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:studio/ui/figures/figure.dart';
 
-class Label implements RelativeFigure, Disposable {
+class Label implements PaintableAt, Disposable {
   // late final Paragraph paragraph;
   late final TextPainter _text;
 

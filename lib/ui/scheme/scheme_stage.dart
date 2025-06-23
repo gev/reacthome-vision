@@ -5,7 +5,7 @@ import 'package:studio/ui/scheme/line.dart';
 import 'package:studio/ui/scheme/node.dart';
 import 'package:studio/ui/scheme/vertex.dart';
 
-class SchemeStage<Id> with ChangeNotifier implements Figure {
+class SchemeStage<Id> with ChangeNotifier implements Paintable {
   final _vertices = <Id, Vertex>{};
   final _selected = <Vertex>{};
   final _lines = <Line>[];

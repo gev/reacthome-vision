@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/scheme/vertex.dart';
 
-class Line implements Figure {
+class Line implements Paintable {
   Line({required this.start, required this.end, required this.style});
 
   final Vertex start;

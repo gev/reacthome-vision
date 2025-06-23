@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/figure.dart';
 
-class Node implements RelativeFigure {
+class Node implements PaintableAt {
   final double radius;
   final double radiusFocussed;
   final double radiusSelected;

@@ -2,10 +2,10 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/figure.dart';
 
-class Stage implements Figure, Disposable {
+class Stage implements Paintable, Disposable {
   Stage({required this.figures});
 
-  final List<Figure> figures;
+  final List<Paintable> figures;
 
   @override
   void paint(Canvas canvas) {
