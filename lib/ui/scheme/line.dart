@@ -22,12 +22,10 @@ class Line implements Figure {
 }
 
 class LineStyle {
-  final Paint _stroke;
-
-  Paint get stroke => _stroke;
+  final Paint stroke;
 
   LineStyle({required Color color, double strokeWidth = 1.0})
-    : _stroke = Paint()
+    : stroke = Paint()
         ..color = color
         ..strokeWidth = strokeWidth
         ..style = PaintingStyle.stroke;

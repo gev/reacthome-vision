@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/label.dart';
-import 'package:studio/ui_kit/theme/theme.dart';
 
 class GridController with ChangeNotifier {
   Offset _offset = const Offset(0, 0);
@@ -22,28 +21,11 @@ class GridController with ChangeNotifier {
 
 class GridPainter extends CustomPainter {
   final GridController controller;
-  late final Color background;
-  final TextStyle labelStyle;
-  final double axisSize;
-  final Paint axisStyle;
-  final Paint pointStyle;
+  final GridStyle style;
   final double gap;
 
-  GridPainter({
-    this.gap = 100,
-    required this.controller,
-    required ThemeContainer theme,
-  }) : background = theme.backgroundColor,
-       labelStyle = theme.bodyStyle.copyWith(color: theme.color.withAlpha(128)),
-       axisSize = theme.bodyStyle.fontSize!,
-       axisStyle = Paint()
-         ..style = PaintingStyle.stroke
-         ..color = theme.color.withAlpha(128),
-       pointStyle = Paint()
-         ..style = PaintingStyle.stroke
-         ..strokeCap = StrokeCap.round
-         ..color = theme.color.withAlpha(64),
-       super(repaint: controller);
+  GridPainter({this.gap = 100, required this.controller, required this.style})
+    : super(repaint: controller);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -55,14 +37,14 @@ class GridPainter extends CustomPainter {
     final scaled = preScaled * ration;
 
     void line({required Offset from, required Offset to}) {
-      canvas.drawLine(from, to, axisStyle);
+      canvas.drawLine(from, to, style.axisStyle);
     }
 
     void label({required Offset offset}) {
       final label = Label(
         text: i.toString(),
         maxWidth: scaled - 8,
-        style: labelStyle,
+        style: style.labelStyle,
       );
       label.paint(canvas, offset);
       label.dispose();
@@ -72,26 +54,26 @@ class GridPainter extends CustomPainter {
       final points = <Offset>[];
       for (double x = xmin + preScaled; x < xmax; x += preScaled) {
         for (double y = ymin + preScaled; y < ymax; y += preScaled) {
-          if (x > axisSize + 4 && y > axisSize + 4) {
+          if (x > style.axisLength + 4 && y > style.axisLength + 4) {
             points.add(Offset(x, y));
           }
         }
       }
-      pointStyle.strokeWidth = 1 + controller.scale;
-      canvas.drawPoints(PointMode.points, points, pointStyle);
+      style.pointStyle.strokeWidth = 1 + controller.scale;
+      canvas.drawPoints(PointMode.points, points, style.pointStyle);
     }
 
     void xAxis() {
-      line(from: Offset(x, 0), to: Offset(x, axisSize));
+      line(from: Offset(x, 0), to: Offset(x, style.axisLength));
       label(offset: Offset(x + 4, 4));
     }
 
     void yAxis() {
-      line(from: Offset(0, y), to: Offset(axisSize, y));
+      line(from: Offset(0, y), to: Offset(style.axisLength, y));
       label(offset: Offset(4, y + 4));
     }
 
-    canvas.drawColor(background, BlendMode.src);
+    canvas.drawColor(style.backgroundColor, BlendMode.src);
 
     i = 0;
     x = controller.offset.dx;
@@ -135,8 +117,29 @@ class GridPainter extends CustomPainter {
   @override
   bool shouldRepaint(GridPainter oldDelegate) =>
       controller != oldDelegate.controller ||
-      background != oldDelegate.background ||
-      labelStyle != oldDelegate.labelStyle ||
-      axisStyle != oldDelegate.axisStyle ||
+      style != oldDelegate.style ||
       gap != oldDelegate.gap;
+}
+
+class GridStyle {
+  final Color backgroundColor;
+  final TextStyle labelStyle;
+  final double axisLength;
+  final double axisStrokeWidth;
+
+  final Paint axisStyle;
+  final Paint pointStyle;
+
+  GridStyle({
+    required this.backgroundColor,
+    required this.labelStyle,
+    required this.axisStrokeWidth,
+  }) : axisLength = labelStyle.fontSize!,
+       axisStyle = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = labelStyle.color!.withAlpha(128),
+       pointStyle = Paint()
+         ..style = PaintingStyle.stroke
+         ..strokeCap = StrokeCap.round
+         ..color = labelStyle.color!.withAlpha(64);
 }

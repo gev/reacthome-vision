@@ -35,37 +35,32 @@ class Node implements RelativeFigure {
 }
 
 class NodeStyle {
-  final Paint _fill;
-  final Paint _stroke;
-  final Paint _selected;
-  final Paint _focussed;
-
-  Paint get fill => _fill;
-  Paint get stroke => _stroke;
-  Paint get selected => _selected;
-  Paint get focused => _focussed;
+  final Paint fill;
+  final Paint stroke;
+  final Paint selected;
+  final Paint focused;
 
   NodeStyle({
     required Color color,
     required Color backgroundColor,
     required Color selectedColor,
-    required Color focussedColor,
+    required Color focusedColor,
     double strokeWidth = 4.0,
     double focussedWidth = 2.0,
     double selectedWidth = 0.5,
-  }) : _fill = Paint()
+  }) : fill = Paint()
          ..style = PaintingStyle.fill
          ..color = backgroundColor,
-       _stroke = Paint()
+       stroke = Paint()
          ..style = PaintingStyle.stroke
          ..color = color
          ..strokeWidth = strokeWidth,
-       _selected = Paint()
+       selected = Paint()
          ..style = PaintingStyle.stroke
          ..color = selectedColor
          ..strokeWidth = selectedWidth,
-       _focussed = Paint()
+       focused = Paint()
          ..style = PaintingStyle.stroke
-         ..color = focussedColor
+         ..color = focusedColor
          ..strokeWidth = focussedWidth;
 }

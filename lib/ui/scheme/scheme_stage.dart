@@ -4,7 +4,6 @@ import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/scheme/line.dart';
 import 'package:studio/ui/scheme/node.dart';
 import 'package:studio/ui/scheme/vertex.dart';
-import 'package:studio/ui_kit/theme/theme.dart';
 
 class SchemeStage<Id> with ChangeNotifier implements Figure {
   final _vertices = <Id, Vertex>{};
@@ -14,30 +13,18 @@ class SchemeStage<Id> with ChangeNotifier implements Figure {
   Vertex? _hit;
 
   SchemeStage({
-    required ThemeContainer theme,
     required Scheme<Id> scheme,
+    required SchemeStyle style,
     required double gap,
-  }) : _node = Node(
-         radius: 24,
-         style: NodeStyle(
-           color: theme.color,
-           backgroundColor: theme.backgroundColor,
-           selectedColor: theme.color.withAlpha(128),
-           focussedColor: theme.primaryColor,
-         ),
-       ) {
+  }) : _node = Node(radius: 24, style: style.nodeStyle) {
     for (final it in scheme.items) {
       _vertices[it.id] = Vertex(Offset(gap * it.x, gap * it.y));
     }
-    final lineStyle = LineStyle(
-      color: theme.color.withAlpha(192),
-      strokeWidth: 1.0,
-    );
     for (final link in scheme.links) {
       final start = _vertices[link.source];
       final end = _vertices[link.sink];
       if (start != null && end != null) {
-        _lines.add(Line(start: start, end: end, style: lineStyle));
+        _lines.add(Line(start: start, end: end, style: style.lineStyle));
       }
     }
   }
@@ -99,4 +86,11 @@ class SchemeStage<Id> with ChangeNotifier implements Figure {
   //     }
   //   }
   // }
+}
+
+class SchemeStyle {
+  final NodeStyle nodeStyle;
+  final LineStyle lineStyle;
+
+  SchemeStyle({required this.nodeStyle, required this.lineStyle});
 }
