@@ -25,8 +25,5 @@ class Label implements PaintableAt, Disposable {
   void paint(Canvas canvas, Offset offset) => _text.paint(canvas, offset);
 
   @override
-  bool hitTest(Offset position, Offset offset) => false;
-
-  @override
   void dispose() => _text.dispose();
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/figure.dart';
 
-class Node implements PaintableAt {
+class Node implements PaintableAt, HittableAt {
   final double radius;
   final double radiusFocussed;
   final double radiusSelected;

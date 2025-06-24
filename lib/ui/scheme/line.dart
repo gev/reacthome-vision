@@ -13,12 +13,6 @@ class Line implements Paintable {
   void paint(Canvas canvas) {
     canvas.drawLine(start.position, end.position, style.stroke);
   }
-
-  @override
-  bool hitTest(Offset position) {
-    // Implement hit test logic for the line
-    return false;
-  }
 }
 
 class LineStyle {
