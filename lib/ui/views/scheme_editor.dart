@@ -111,6 +111,7 @@ class _SchemeEditorState extends State<_SchemeEditor> {
           transformationController: transformationController,
           onSelect: stage.hitTest,
           onDrag: stage.drag,
+          onDragged: stage.dragged,
           child: SchemePaint(painter: SchemePainter(scheme: stage)),
         ),
       ],

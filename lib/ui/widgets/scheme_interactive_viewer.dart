@@ -6,12 +6,14 @@ class SchemeInteractiveViewer extends StatefulWidget {
   final TransformationController transformationController;
   final bool Function(Offset) onSelect;
   final void Function(Offset) onDrag;
+  final void Function() onDragged;
 
   const SchemeInteractiveViewer({
     required this.child,
     required this.transformationController,
     required this.onSelect,
     required this.onDrag,
+    required this.onDragged,
     super.key,
   });
 
@@ -24,7 +26,7 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
   var trackpadScrollCausesScale = false;
   var previousPoint = const Offset(0, 0);
 
-  void enablePan(_) {
+  void enablePan() {
     setState(() {
       panEnabled = true;
     });
@@ -48,7 +50,7 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
     });
   }
 
-  void onSelect(ScaleStartDetails details) {
+  void onInteractionStart(ScaleStartDetails details) {
     if (details.pointerCount == 1) {
       previousPoint = widget.transformationController.toScene(
         details.localFocalPoint,
@@ -59,7 +61,7 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
     }
   }
 
-  void onInteract(ScaleUpdateDetails details) {
+  void onInteractionUpdate(ScaleUpdateDetails details) {
     if (panEnabled) {
       if (HardwareKeyboard.instance.isAltPressed ||
           HardwareKeyboard.instance.isControlPressed) {
@@ -76,6 +78,13 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
     }
   }
 
+  void onInteractionEnd(ScaleEndDetails details) {
+    if (!panEnabled) {
+      enablePan();
+      widget.onDragged();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return InteractiveViewer(
@@ -86,9 +95,9 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
       panEnabled: panEnabled,
       scaleEnabled: true,
       transformationController: widget.transformationController,
-      onInteractionStart: onSelect,
-      onInteractionUpdate: onInteract,
-      onInteractionEnd: enablePan,
+      onInteractionStart: onInteractionStart,
+      onInteractionUpdate: onInteractionUpdate,
+      onInteractionEnd: onInteractionEnd,
       child: widget.child,
     );
   }

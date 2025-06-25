@@ -10,4 +10,8 @@ class Position {
   void moveBy(Offset offset) {
     _position += offset;
   }
+
+  void moveTo(Offset offset) {
+    _position = offset;
+  }
 }

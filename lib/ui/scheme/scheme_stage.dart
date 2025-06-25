@@ -4,16 +4,19 @@ import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/scheme/line.dart';
 import 'package:studio/ui/scheme/node.dart';
 import 'package:studio/ui/scheme/position.dart';
+import 'package:studio/util/extensions.dart';
 
 class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
+  final double gap;
   final _nodes = <Id, Node>{};
   final _selected = <Node>{};
   final _lines = <Line>[];
   Node? _hit;
+
   SchemeStage({
     required Scheme<Id> scheme,
     required SchemeStyle style,
-    required double gap,
+    required this.gap,
   }) {
     for (final it in scheme.items) {
       final position = Position(Offset(gap * it.x, gap * it.y));
@@ -77,6 +80,24 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
       }
     }
     _hit?.center.moveBy(offset);
+    notifyListeners();
+  }
+
+  double round(double a) => (a / gap).roundToDouble() * gap;
+
+  void snapPosition(Node node) {
+    node.center.moveTo(
+      Offset(round(node.center.position.dx), round(node.center.position.dy)),
+    );
+  }
+
+  void dragged() {
+    for (final it in _selected) {
+      if (it != _hit) {
+        snapPosition(it);
+      }
+    }
+    _hit?.let(snapPosition);
     notifyListeners();
   }
 
