@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
+import 'package:studio/ui/figures/iconics/minus.dart';
 import 'package:studio/ui/figures/iconics/plus.dart';
 import 'package:studio/ui/scheme/position.dart';
 
@@ -23,10 +24,16 @@ class Node implements Paintable, Hittable {
     required this.style,
     required ItemType type,
   }) : _radiusSquared = radius * radius,
-       _iconic = PlusIconic(
-         size: 32,
-         iconicStyle: IconicStyle(width: 0.1, color: Colors.red[800]!),
-       );
+       _iconic = switch (type) {
+         ItemType.plus => PlusIconic(
+           size: 24,
+           iconicStyle: IconicStyle(width: 0.1, color: Colors.red[800]!),
+         ),
+         ItemType.minus => MinusIconic(
+           size: 24,
+           iconicStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
+         ),
+       };
 
   @override
   void paint(Canvas canvas) {
