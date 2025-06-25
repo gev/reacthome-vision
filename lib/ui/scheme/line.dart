@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/figure.dart';
-import 'package:studio/ui/scheme/vertex.dart';
+import 'package:studio/ui/scheme/position.dart';
 
 class Line implements Paintable {
   Line({required this.start, required this.end, required this.style});
 
-  final Vertex start;
-  final Vertex end;
+  final Position start;
+  final Position end;
   final LineStyle style;
 
   @override

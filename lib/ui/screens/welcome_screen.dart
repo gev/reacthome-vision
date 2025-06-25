@@ -43,10 +43,10 @@ class WelcomeScreen extends StatelessWidget {
         scheme: Scheme(
           id: 0,
           items: [
-            Item(id: 0, x: 2, y: 3),
-            Item(id: 1, x: 4, y: 3),
-            Item(id: 2, x: 5, y: 5),
-            Item(id: 3, x: 3, y: 5),
+            Item(id: 0, x: 2, y: 3, type: ItemType.minus),
+            Item(id: 1, x: 4, y: 3, type: ItemType.plus),
+            Item(id: 2, x: 5, y: 5, type: ItemType.minus),
+            Item(id: 3, x: 3, y: 5, type: ItemType.plus),
           ],
           links: [
             Link(id: 0, source: 0, sink: 1),

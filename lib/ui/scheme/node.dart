@@ -1,41 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
+import 'package:studio/ui/figures/iconics/plus.dart';
+import 'package:studio/ui/scheme/position.dart';
 
-class Node implements PaintableAt, HittableAt {
+class Node implements Paintable, Hittable {
   final double radius;
   final double radiusFocussed;
   final double radiusSelected;
   final double _radiusSquared;
   final NodeStyle style;
-  final Iconic icon;
+  final Position center;
+
+  final Iconic _iconic;
 
   Node({
     this.radius = 24,
     this.radiusFocussed = 36,
     this.radiusSelected = 48,
+    required this.center,
     required this.style,
-    required this.icon,
-  }) : _radiusSquared = radius * radius;
+    required ItemType type,
+  }) : _radiusSquared = radius * radius,
+       _iconic = PlusIconic(
+         size: 32,
+         iconicStyle: IconicStyle(width: 0.1, color: Colors.red[800]!),
+       );
 
   @override
-  void paint(Canvas canvas, Offset center) {
-    canvas.drawCircle(center, radius, style.fill);
-    canvas.drawCircle(center, radius, style.stroke);
-    icon.paint(canvas, center);
+  void paint(Canvas canvas) {
+    canvas.drawCircle(center.position, radius, style.fill);
+    canvas.drawCircle(center.position, radius, style.stroke);
+    _iconic.paint(canvas, center.position);
   }
 
-  void paintSelection(Canvas canvas, Offset center) {
-    canvas.drawCircle(center, radiusSelected, style.selected);
+  void paintSelection(Canvas canvas) {
+    canvas.drawCircle(center.position, radiusSelected, style.selected);
   }
 
-  void paintFocus(Canvas canvas, Offset center) {
-    canvas.drawCircle(center, radiusFocussed, style.focused);
+  void paintFocus(Canvas canvas) {
+    canvas.drawCircle(center.position, radiusFocussed, style.focused);
   }
 
   @override
-  bool hitTest(Offset position, Offset center) =>
-      (position - center).distanceSquared < _radiusSquared;
+  bool hitTest(Offset position) =>
+      (position - center.position).distanceSquared < _radiusSquared;
 }
 
 class NodeStyle {

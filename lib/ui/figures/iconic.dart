@@ -6,13 +6,13 @@ abstract class Iconic implements PaintableAt {
   final double size;
   final Paint strokeStyle;
 
-  Iconic({required this.size, required IconicStyle strokeStyle})
+  Iconic({required this.size, required IconicStyle iconicStyle})
     : strokeStyle = Paint()
         ..style = PaintingStyle.stroke
-        ..strokeCap = strokeStyle.cap
-        ..strokeJoin = strokeStyle.join
-        ..strokeWidth = size * strokeStyle.width
-        ..color = strokeStyle.color;
+        ..strokeCap = iconicStyle.cap
+        ..strokeJoin = iconicStyle.join
+        ..strokeWidth = size * iconicStyle.width
+        ..color = iconicStyle.color;
 }
 
 class IconicStyle {

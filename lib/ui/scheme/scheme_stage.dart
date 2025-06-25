@@ -1,38 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/figures/figure.dart';
-import 'package:studio/ui/figures/iconic.dart';
-import 'package:studio/ui/figures/iconics/plus.dart';
 import 'package:studio/ui/scheme/line.dart';
 import 'package:studio/ui/scheme/node.dart';
-import 'package:studio/ui/scheme/vertex.dart';
+import 'package:studio/ui/scheme/position.dart';
 
 class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
-  final _vertices = <Id, Vertex>{};
-  final _selected = <Vertex>{};
+  final _nodes = <Id, Node>{};
+  final _selected = <Node>{};
   final _lines = <Line>[];
-  final Node _node;
-  Vertex? _hit;
+  Node? _hit;
   SchemeStage({
     required Scheme<Id> scheme,
     required SchemeStyle style,
     required double gap,
-  }) : _node = Node(
-         radius: 24,
-         style: style.nodeStyle,
-         icon: PlusIcon(
-           size: 32,
-           strokeStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
-         ),
-       ) {
+  }) {
     for (final it in scheme.items) {
-      _vertices[it.id] = Vertex(Offset(gap * it.x, gap * it.y));
+      final position = Position(Offset(gap * it.x, gap * it.y));
+      _nodes[it.id] = (Node(
+        center: position,
+        type: it.type,
+        style: style.nodeStyle,
+      ));
     }
     for (final link in scheme.links) {
-      final start = _vertices[link.source];
-      final end = _vertices[link.sink];
+      final start = _nodes[link.source];
+      final end = _nodes[link.sink];
       if (start != null && end != null) {
-        _lines.add(Line(start: start, end: end, style: style.lineStyle));
+        _lines.add(
+          Line(start: start.center, end: end.center, style: style.lineStyle),
+        );
       }
     }
   }
@@ -42,21 +39,19 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     for (final it in _lines) {
       it.paint(canvas);
     }
-    for (final it in _vertices.values) {
-      _node.paint(canvas, it.position);
+    for (final it in _nodes.values) {
+      it.paint(canvas);
     }
-    for (final it in _selected) {
-      _node.paintSelection(canvas, it.position);
+    for (final it in _nodes.values) {
+      it.paintSelection(canvas);
     }
-    if (_hit != null) {
-      _node.paintFocus(canvas, _hit!.position);
-    }
+    _hit?.paintFocus(canvas);
   }
 
   @override
   bool hitTest(Offset position) {
-    for (final it in _vertices.values) {
-      if (_node.hitTest(position, it.position)) {
+    for (final it in _nodes.values) {
+      if (it.hitTest(position)) {
         if (_selected.contains(it)) {
           if (it == _hit) {
             _selected.remove(it);
@@ -78,10 +73,10 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   void drag(Offset offset) {
     for (final it in _selected) {
       if (it != _hit) {
-        it.moveBy(offset);
+        it.center.moveBy(offset);
       }
     }
-    _hit?.moveBy(offset);
+    _hit?.center.moveBy(offset);
     notifyListeners();
   }
 
