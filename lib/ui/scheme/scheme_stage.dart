@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/figures/figure.dart';
+import 'package:studio/ui/figures/iconic.dart';
+import 'package:studio/ui/figures/iconics/plus.dart';
 import 'package:studio/ui/scheme/line.dart';
 import 'package:studio/ui/scheme/node.dart';
 import 'package:studio/ui/scheme/vertex.dart';
@@ -11,12 +13,18 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   final _lines = <Line>[];
   final Node _node;
   Vertex? _hit;
-
   SchemeStage({
     required Scheme<Id> scheme,
     required SchemeStyle style,
     required double gap,
-  }) : _node = Node(radius: 24, style: style.nodeStyle) {
+  }) : _node = Node(
+         radius: 24,
+         style: style.nodeStyle,
+         icon: PlusIcon(
+           size: 32,
+           strokeStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
+         ),
+       ) {
     for (final it in scheme.items) {
       _vertices[it.id] = Vertex(Offset(gap * it.x, gap * it.y));
     }

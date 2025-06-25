@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/figure.dart';
+import 'package:studio/ui/figures/iconic.dart';
 
 class Node implements PaintableAt, HittableAt {
   final double radius;
@@ -7,18 +8,21 @@ class Node implements PaintableAt, HittableAt {
   final double radiusSelected;
   final double _radiusSquared;
   final NodeStyle style;
+  final Iconic icon;
 
   Node({
     this.radius = 24,
     this.radiusFocussed = 36,
     this.radiusSelected = 48,
     required this.style,
+    required this.icon,
   }) : _radiusSquared = radius * radius;
 
   @override
   void paint(Canvas canvas, Offset center) {
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
+    icon.paint(canvas, center);
   }
 
   void paintSelection(Canvas canvas, Offset center) {
