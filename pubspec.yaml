@@ -40,7 +40,6 @@ dependencies:
   fluent_ui: ^4.11.4
   yaru_window: ^0.2.1+1
   yaru: ^8.0.0
-  fast_immutable_collections: ^11.0.4
 
 dev_dependencies:
   flutter_test:
