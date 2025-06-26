@@ -191,10 +191,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_svg
-      sha256: d44bf546b13025ec7353091516f6881f1d4c633993cb109c3916c3a0159dadf1
+      sha256: cd57f7969b4679317c17af6fd16ee233c1e60a82ed209d8a475c54fd6fd6f845
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -305,18 +305,18 @@ packages:
     dependency: "direct main"
     description:
       name: macos_ui
-      sha256: "204a52eed576e38099037401c092cb3d7ab41193e3ed0ba5ac2c585b3cf755a5"
+      sha256: "0a4ed386fdf7ef3269330cd869c9ed1d97deb73c1930f21d54a300e65e5f0508"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.10"
+    version: "2.2.0"
   macos_window_utils:
     dependency: transitive
     description:
       name: macos_window_utils
-      sha256: "4e683da162825018580c7341d9e926a6fa39a869a3504c2e5471618553bd55cd"
+      sha256: "18745e56b4c0444d802dadbafca98797828b813ee2488e367dd8f84f1ec4c217"
       url: "https://pub.dev"
     source: hosted
-    version: "1.8.2"
+    version: "1.8.4"
   matcher:
     dependency: transitive
     description:
