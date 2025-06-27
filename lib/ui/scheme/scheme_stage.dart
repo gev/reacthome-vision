@@ -53,7 +53,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
 
   @override
   bool hitTest(Offset position) {
-    for (final it in _nodes.values) {
+    for (final it in _nodes.values.toList().reversed) {
       if (it.hitTest(position)) {
         if (_selected.contains(it)) {
           if (it == _hit) {
