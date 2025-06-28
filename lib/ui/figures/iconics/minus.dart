@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/iconic.dart';
 
 class MinusIconic extends Iconic {

@@ -90,7 +90,7 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
     return InteractiveViewer(
       boundaryMargin: const EdgeInsets.all(double.infinity),
       minScale: 0.2,
-      maxScale: 2.0,
+      maxScale: 5.0,
       trackpadScrollCausesScale: trackpadScrollCausesScale,
       panEnabled: panEnabled,
       scaleEnabled: true,

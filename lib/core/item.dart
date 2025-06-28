@@ -1,6 +1,38 @@
 enum Direction { column, row }
 
-enum ItemType { minus, plus }
+enum ItemType {
+  minus,
+  plus,
+  arrow,
+  bar,
+  verticalBar,
+  mixer,
+  shutter,
+  horizontalShutter,
+  qf,
+  button,
+  rightTriangle,
+  leftTriangle,
+  topTriangle,
+  bottomTriangle,
+  sp,
+  verticalSp,
+  device,
+  screen,
+  curtains,
+  blinds,
+  // tp,
+  // filter,
+  // sHeater,
+  // chandelier,
+  // bra,
+  // spot,
+  // led,
+  // track,
+  // temperatureSensor,
+  // airConditioner,
+  // projector,
+}
 
 class Item<Id> {
   Item({
