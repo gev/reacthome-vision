@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/iconic.dart';
 
 const k2 = 0.5;
