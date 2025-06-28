@@ -24,7 +24,10 @@ class BlindsIconic extends Iconic {
         offset.dx - _size_2 * k_blinds_width,
         offset.dy - _size_2 * k_blinds_gap,
       ),
-      Offset(offset.dx + _size_2 * k_blinds_width, offset.dy - _size_gap),
+      Offset(
+        offset.dx + _size_2 * k_blinds_width,
+        offset.dy - _size_2 * k_blinds_gap,
+      ),
       strokeStyle,
     );
     canvas.drawLine(
