@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
-import 'package:studio/ui/figures/iconics/air_conditioner.dart';
+import 'package:studio/ui/figures/iconics/blinds.dart';
 import 'package:studio/ui/figures/iconics/arrow.dart';
 import 'package:studio/ui/figures/iconics/bar.dart';
 import 'package:studio/ui/figures/iconics/button.dart';
