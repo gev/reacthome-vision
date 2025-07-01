@@ -5,12 +5,16 @@ import 'package:studio/ui/figures/iconic.dart';
 const k_sp_width = 0.5;
 const k_sp_side = 0.35;
 
-class SPIconic extends Iconic {
+abstract class SPIconic extends Iconic {
   final double spWidth;
   final double spSide;
   SPIconic({required super.size, required super.iconicStyle})
     : spWidth = size * k_sp_width,
       spSide = size * k_sp_side;
+}
+
+class HorizontalSPIconic extends SPIconic {
+  HorizontalSPIconic({required super.size, required super.iconicStyle});
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
@@ -36,12 +40,8 @@ class SPIconic extends Iconic {
   }
 }
 
-class VerticalSPIconic extends Iconic {
-  final double spWidth;
-  final double spSide;
-  VerticalSPIconic({required super.size, required super.iconicStyle})
-    : spWidth = size * k_sp_width,
-      spSide = size * k_sp_side;
+class VerticalSPIconic extends SPIconic {
+  VerticalSPIconic({required super.size, required super.iconicStyle});
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(

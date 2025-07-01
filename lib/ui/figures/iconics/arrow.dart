@@ -4,10 +4,14 @@ import 'package:studio/ui/figures/iconic.dart';
 
 const k_arrow_length = 0.5;
 
-class ArrowIconic extends Iconic {
+abstract class ArrowIconic extends Iconic {
   final double arrowLength;
   ArrowIconic({required super.size, required super.iconicStyle})
     : arrowLength = size * k_arrow_length;
+}
+
+class RightArrowIconic extends ArrowIconic {
+  RightArrowIconic({required super.size, required super.iconicStyle});
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(

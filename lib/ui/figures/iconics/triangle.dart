@@ -6,14 +6,18 @@ const k_side_position = 0.35;
 const k_side_length = 0.5;
 const k_apex_position = 0.5;
 
-class RightTriangleIconic extends Iconic {
+abstract class TriangleIconic extends Iconic {
   final double sidePosition;
   final double sideLength;
   final double apexPosition;
-  RightTriangleIconic({required super.size, required super.iconicStyle})
+  TriangleIconic({required super.size, required super.iconicStyle})
     : sidePosition = size * k_side_position,
       sideLength = size * k_side_length,
       apexPosition = size * k_apex_position;
+}
+
+class RightTriangleIconic extends TriangleIconic {
+  RightTriangleIconic({required super.size, required super.iconicStyle});
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
@@ -34,14 +38,8 @@ class RightTriangleIconic extends Iconic {
   }
 }
 
-class LeftTriangleIconic extends Iconic {
-  final double sidePosition;
-  final double sideLength;
-  final double apexPosition;
-  LeftTriangleIconic({required super.size, required super.iconicStyle})
-    : sidePosition = size * k_side_position,
-      sideLength = size * k_side_length,
-      apexPosition = size * k_apex_position;
+class LeftTriangleIconic extends TriangleIconic {
+  LeftTriangleIconic({required super.size, required super.iconicStyle});
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
@@ -62,14 +60,8 @@ class LeftTriangleIconic extends Iconic {
   }
 }
 
-class TopTriangleIconic extends Iconic {
-  final double sidePosition;
-  final double sideLength;
-  final double apexPosition;
-  TopTriangleIconic({required super.size, required super.iconicStyle})
-    : sidePosition = size * k_side_position,
-      sideLength = size * k_side_length,
-      apexPosition = size * k_apex_position;
+class TopTriangleIconic extends TriangleIconic {
+  TopTriangleIconic({required super.size, required super.iconicStyle});
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
@@ -90,14 +82,8 @@ class TopTriangleIconic extends Iconic {
   }
 }
 
-class BottomTriangleIconic extends Iconic {
-  final double sidePosition;
-  final double sideLength;
-  final double apexPosition;
-  BottomTriangleIconic({required super.size, required super.iconicStyle})
-    : sidePosition = size * k_side_position,
-      sideLength = size * k_side_length,
-      apexPosition = size * k_apex_position;
+class BottomTriangleIconic extends TriangleIconic {
+  BottomTriangleIconic({required super.size, required super.iconicStyle});
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(

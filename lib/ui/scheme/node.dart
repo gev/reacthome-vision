@@ -45,7 +45,7 @@ class Node implements Paintable, Hittable {
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
          ),
-         ItemType.arrow => ArrowIconic(
+         ItemType.rightArrow => RightArrowIconic(
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
@@ -61,7 +61,7 @@ class Node implements Paintable, Hittable {
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
-         ItemType.shutter => ShutterIconic(
+         ItemType.verticalShutter => VerticalShutterIconic(
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
@@ -93,11 +93,11 @@ class Node implements Paintable, Hittable {
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
-         ItemType.sp => SPIconic(
+         ItemType.horizontalSP => HorizontalSPIconic(
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
-         ItemType.verticalSp => VerticalSPIconic(
+         ItemType.verticalSP => VerticalSPIconic(
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
