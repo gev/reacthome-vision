@@ -27,11 +27,15 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
       ));
     }
     for (final link in scheme.links) {
-      final start = _nodes[link.source];
-      final end = _nodes[link.sink];
+      final start = _nodes[link.source.id];
+      final end = _nodes[link.sink.id];
       if (start != null && end != null) {
         _lines.add(
-          Line(start: start.center, end: end.center, style: style.lineStyle),
+          Line(
+            start: (direction: DirectionType.any, point: start.center),
+            end: (direction: DirectionType.any, point: end.center),
+            style: style.lineStyle,
+          ),
         );
       }
     }

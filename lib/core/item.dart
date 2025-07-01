@@ -1,3 +1,5 @@
+import 'package:studio/core/connector.dart';
+
 enum Direction { column, row }
 
 enum ItemType { minus, plus }
@@ -8,13 +10,16 @@ class Item<Id> {
     required this.x,
     required this.y,
     required this.type,
+    required this.connectors,
   });
   final Id id;
   final int x;
   final int y;
   final ItemType type;
+  final List<ConnectorType> connectors;
 
-  void move(int x, int y) => Item(id: id, x: x, y: y, type: type);
+  void move(int x, int y) =>
+      Item(id: id, x: x, y: y, type: type, connectors: connectors);
 }
 
 // class Group<Id> extends Item<Id> {
