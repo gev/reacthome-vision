@@ -2,62 +2,66 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k2 = 0.5;
-const k4 = 0.75;
+const k_sp_width = 0.5;
+const k_sp_side = 0.35;
 
 class SPIconic extends Iconic {
-  final double _size_2;
+  final double spWidth;
+  final double spSide;
   SPIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size * k2;
+    : spWidth = size * k_sp_width,
+      spSide = size * k_sp_side;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy + _size_2 * k4),
-      Offset(offset.dx + _size_2, offset.dy - _size_2 * k4),
+      Offset(offset.dx - spWidth, offset.dy - spSide),
+      Offset(offset.dx - spWidth, offset.dy + spSide),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy - _size_2 * k4),
-      Offset(offset.dx + _size_2, offset.dy + _size_2 * k4),
+      Offset(offset.dx - spWidth, offset.dy - spSide),
+      Offset(offset.dx + spWidth, offset.dy + spSide),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy - _size_2 * k4),
-      Offset(offset.dx - _size_2, offset.dy + _size_2 * k4),
+      Offset(offset.dx - spWidth, offset.dy + spSide),
+      Offset(offset.dx + spWidth, offset.dy - spSide),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx + _size_2, offset.dy - _size_2 * k4),
-      Offset(offset.dx + _size_2, offset.dy + _size_2 * k4),
+      Offset(offset.dx + spWidth, offset.dy - spSide),
+      Offset(offset.dx + spWidth, offset.dy + spSide),
       strokeStyle,
     );
   }
 }
 
 class VerticalSPIconic extends Iconic {
-  final double _size_2;
+  final double spWidth;
+  final double spSide;
   VerticalSPIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size * k2;
+    : spWidth = size * k_sp_width,
+      spSide = size * k_sp_side;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
-      Offset(offset.dx - _size_2 * k4, offset.dy - _size_2),
-      Offset(offset.dx + _size_2 * k4, offset.dy - _size_2),
+      Offset(offset.dx - spSide, offset.dy - spWidth),
+      Offset(offset.dx + spSide, offset.dy - spWidth),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx - _size_2 * k4, offset.dy + _size_2),
-      Offset(offset.dx + _size_2 * k4, offset.dy + _size_2),
+      Offset(offset.dx - spSide, offset.dy + spWidth),
+      Offset(offset.dx + spSide, offset.dy + spWidth),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx + _size_2 * k4, offset.dy - _size_2),
-      Offset(offset.dx - _size_2 * k4, offset.dy + _size_2),
+      Offset(offset.dx + spSide, offset.dy - spWidth),
+      Offset(offset.dx - spSide, offset.dy + spWidth),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx - _size_2 * k4, offset.dy - _size_2),
-      Offset(offset.dx + _size_2 * k4, offset.dy + _size_2),
+      Offset(offset.dx - spSide, offset.dy - spWidth),
+      Offset(offset.dx + spSide, offset.dy + spWidth),
       strokeStyle,
     );
   }

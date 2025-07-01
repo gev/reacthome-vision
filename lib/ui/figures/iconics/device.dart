@@ -2,26 +2,24 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k2 = 0.5;
-const k_device = 0.7;
+const k_device_size = 0.5;
+const k_circle_size = 0.35;
 
 class DeviceIconic extends Iconic {
-  final double _size_2;
+  final double device_size;
+  final double circle_size;
   DeviceIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size * k2;
+    : device_size = size * k_device_size,
+      circle_size = size * k_circle_size;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawRect(
       Rect.fromPoints(
-        Offset(offset.dx - _size_2, offset.dy + _size_2),
-        Offset(offset.dx + _size_2, offset.dy - _size_2),
+        Offset(offset.dx - device_size, offset.dy + device_size),
+        Offset(offset.dx + device_size, offset.dy - device_size),
       ),
       strokeStyle,
     );
-    canvas.drawCircle(
-      Offset(offset.dx, offset.dy),
-      _size_2 * k_device,
-      strokeStyle,
-    );
+    canvas.drawCircle(Offset(offset.dx, offset.dy), circle_size, strokeStyle);
   }
 }

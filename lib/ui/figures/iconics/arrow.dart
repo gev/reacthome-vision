@@ -2,25 +2,27 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
+const k_arrow_length = 0.5;
+
 class ArrowIconic extends Iconic {
-  final double _size_2;
+  final double arrowLength;
   ArrowIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size / 2;
+    : arrowLength = size * k_arrow_length;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy),
-      Offset(offset.dx + _size_2, offset.dy),
+      Offset(offset.dx - arrowLength, offset.dy),
+      Offset(offset.dx + arrowLength, offset.dy),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx + _size_2, offset.dy),
-      Offset(offset.dx, offset.dy + _size_2),
+      Offset(offset.dx + arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy + arrowLength),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx + _size_2, offset.dy),
-      Offset(offset.dx, offset.dy - _size_2),
+      Offset(offset.dx + arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy - arrowLength),
       strokeStyle,
     );
   }

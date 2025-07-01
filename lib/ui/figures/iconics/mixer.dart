@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
+const k2 = 0.5;
+
 class MixerIconic extends Iconic {
   final double _size_2;
   MixerIconic({required super.size, required super.iconicStyle})

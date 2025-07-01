@@ -2,32 +2,38 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k2 = 0.5;
-const k_curtains = 0.6;
+const k_curtains_width = 0.6;
+const k_curtains_sides = 0.4;
+const k_curtains_height = 0.6;
 
 class CurtainsIconic extends Iconic {
-  final double _size_2;
+  final double curtainsSides;
+  final double curtainsHeight;
+  final double curtainsWidth;
   CurtainsIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size * k2;
+    : curtainsSides = size * k_curtains_sides,
+      curtainsHeight = size * k_curtains_height,
+      curtainsWidth = size * k_curtains_width;
+
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawRect(
       Rect.fromPoints(
-        Offset(offset.dx + _size_2 * k_curtains, offset.dy - _size_2),
-        Offset(offset.dx + _size_2, offset.dy + _size_2),
+        Offset(offset.dx + curtainsSides, offset.dy - curtainsHeight),
+        Offset(offset.dx + curtainsWidth, offset.dy + curtainsHeight),
       ),
       strokeStyle,
     );
     canvas.drawRect(
       Rect.fromPoints(
-        Offset(offset.dx - _size_2, offset.dy + _size_2),
-        Offset(offset.dx - _size_2 * k_curtains, offset.dy - _size_2),
+        Offset(offset.dx - curtainsWidth, offset.dy + curtainsHeight),
+        Offset(offset.dx - curtainsSides, offset.dy - curtainsHeight),
       ),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy - _size_2),
-      Offset(offset.dx + _size_2, offset.dy - _size_2),
+      Offset(offset.dx - curtainsWidth, offset.dy - curtainsHeight),
+      Offset(offset.dx + curtainsWidth, offset.dy - curtainsHeight),
       strokeStyle,
     );
   }

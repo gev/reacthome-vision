@@ -2,35 +2,39 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k2 = 0.5;
-const k4 = 0.25;
+const k_shutter_length = 0.5;
+const k_shutter_circle = 0.15;
 
 class ShutterIconic extends Iconic {
-  final double _size_2;
+  final double shutterLength;
+  final double shutterCircle;
   ShutterIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size * k2;
+    : shutterLength = size * k_shutter_length,
+      shutterCircle = size * k_shutter_circle;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy - _size_2),
-      Offset(offset.dx + _size_2, offset.dy + _size_2),
+      Offset(offset.dx - shutterLength, offset.dy - shutterLength),
+      Offset(offset.dx + shutterLength, offset.dy + shutterLength),
       strokeStyle,
     );
-    canvas.drawCircle(Offset(offset.dx, offset.dy), _size_2 * k4, strokeStyle);
+    canvas.drawCircle(Offset(offset.dx, offset.dy), shutterCircle, strokeStyle);
   }
 }
 
 class HorizontalShutterIconic extends Iconic {
-  final double _size_2;
+  final double shutterLength;
+  final double shutterCircle;
   HorizontalShutterIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size * k2;
+    : shutterLength = size * k_shutter_length,
+      shutterCircle = size * k_shutter_circle;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy),
-      Offset(offset.dx + _size_2, offset.dy),
+      Offset(offset.dx - shutterLength, offset.dy),
+      Offset(offset.dx + shutterLength, offset.dy),
       strokeStyle,
     );
-    canvas.drawCircle(Offset(offset.dx, offset.dy), _size_2 * k4, strokeStyle);
+    canvas.drawCircle(Offset(offset.dx, offset.dy), shutterCircle, strokeStyle);
   }
 }
