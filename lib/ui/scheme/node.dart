@@ -49,7 +49,7 @@ class Node implements Paintable, Hittable {
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
-         ItemType.bar => BarIconic(
+         ItemType.horizontalBar => HorizontalBarIconic(
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),

@@ -4,7 +4,7 @@ enum ItemType {
   minus,
   plus,
   arrow,
-  bar,
+  horizontalBar,
   verticalBar,
   mixer,
   shutter,
