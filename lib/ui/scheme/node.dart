@@ -4,7 +4,17 @@ import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
 import 'package:studio/ui/figures/iconics/minus.dart';
 import 'package:studio/ui/figures/iconics/plus.dart';
-import 'package:studio/ui/scheme/position.dart';
+
+Iconic selectIconic(ItemType type) => switch (type) {
+  ItemType.plus => PlusIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.red[800]!),
+  ),
+  ItemType.minus => MinusIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
+  ),
+};
 
 class Node implements Paintable, Hittable {
   final double radius;
@@ -12,9 +22,9 @@ class Node implements Paintable, Hittable {
   final double radiusSelected;
   final double _radiusSquared;
   final NodeStyle style;
-  final Position center;
+  final Offset center;
 
-  final Iconic _iconic;
+  final Iconic iconic;
 
   Node({
     this.radius = 24,
@@ -22,37 +32,38 @@ class Node implements Paintable, Hittable {
     this.radiusSelected = 48,
     required this.center,
     required this.style,
-    required ItemType type,
-  }) : _radiusSquared = radius * radius,
-       _iconic = switch (type) {
-         ItemType.plus => PlusIconic(
-           size: 24,
-           iconicStyle: IconicStyle(width: 0.1, color: Colors.red[800]!),
-         ),
-         ItemType.minus => MinusIconic(
-           size: 24,
-           iconicStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
-         ),
-       };
+    required this.iconic,
+  }) : _radiusSquared = radius * radius;
+
+  Node moveTo(Offset offset) => Node(
+    center: offset,
+    radius: radius,
+    radiusFocussed: radiusFocussed,
+    radiusSelected: radiusSelected,
+    style: style,
+    iconic: iconic,
+  );
+
+  Node moveBy(Offset offset) => moveTo(center + offset);
 
   @override
   void paint(Canvas canvas) {
-    canvas.drawCircle(center.position, radius, style.fill);
-    canvas.drawCircle(center.position, radius, style.stroke);
-    _iconic.paint(canvas, center.position);
+    canvas.drawCircle(center, radius, style.fill);
+    canvas.drawCircle(center, radius, style.stroke);
+    iconic.paint(canvas, center);
   }
 
   void paintSelection(Canvas canvas) {
-    canvas.drawCircle(center.position, radiusSelected, style.selected);
+    canvas.drawCircle(center, radiusSelected, style.selected);
   }
 
   void paintFocus(Canvas canvas) {
-    canvas.drawCircle(center.position, radiusFocussed, style.focused);
+    canvas.drawCircle(center, radiusFocussed, style.focused);
   }
 
   @override
   bool hitTest(Offset position) =>
-      (position - center.position).distanceSquared < _radiusSquared;
+      (position - center).distanceSquared < _radiusSquared;
 }
 
 class NodeStyle {
