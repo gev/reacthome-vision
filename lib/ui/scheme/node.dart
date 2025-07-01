@@ -49,6 +49,18 @@ class Node implements Paintable, Hittable {
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
+         ItemType.leftArrow => LeftArrowIconic(
+           size: 24,
+           iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+         ),
+         ItemType.topArrow => TopArrowIconic(
+           size: 24,
+           iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+         ),
+         ItemType.bottomArrow => BottomArrowIconic(
+           size: 24,
+           iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+         ),
          ItemType.horizontalBar => HorizontalBarIconic(
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),

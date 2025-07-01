@@ -31,3 +31,69 @@ class RightArrowIconic extends ArrowIconic {
     );
   }
 }
+
+class LeftArrowIconic extends ArrowIconic {
+  LeftArrowIconic({required super.size, required super.iconicStyle});
+  @override
+  void paint(Canvas canvas, Offset offset) {
+    canvas.drawLine(
+      Offset(offset.dx - arrowLength, offset.dy),
+      Offset(offset.dx + arrowLength, offset.dy),
+      strokeStyle,
+    );
+    canvas.drawLine(
+      Offset(offset.dx - arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy + arrowLength),
+      strokeStyle,
+    );
+    canvas.drawLine(
+      Offset(offset.dx - arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy - arrowLength),
+      strokeStyle,
+    );
+  }
+}
+
+class TopArrowIconic extends ArrowIconic {
+  TopArrowIconic({required super.size, required super.iconicStyle});
+  @override
+  void paint(Canvas canvas, Offset offset) {
+    canvas.drawLine(
+      Offset(offset.dx, offset.dy - arrowLength),
+      Offset(offset.dx, offset.dy + arrowLength),
+      strokeStyle,
+    );
+    canvas.drawLine(
+      Offset(offset.dx - arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy - arrowLength),
+      strokeStyle,
+    );
+    canvas.drawLine(
+      Offset(offset.dx + arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy - arrowLength),
+      strokeStyle,
+    );
+  }
+}
+
+class BottomArrowIconic extends ArrowIconic {
+  BottomArrowIconic({required super.size, required super.iconicStyle});
+  @override
+  void paint(Canvas canvas, Offset offset) {
+    canvas.drawLine(
+      Offset(offset.dx, offset.dy - arrowLength),
+      Offset(offset.dx, offset.dy + arrowLength),
+      strokeStyle,
+    );
+    canvas.drawLine(
+      Offset(offset.dx + arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy + arrowLength),
+      strokeStyle,
+    );
+    canvas.drawLine(
+      Offset(offset.dx - arrowLength, offset.dy),
+      Offset(offset.dx, offset.dy + arrowLength),
+      strokeStyle,
+    );
+  }
+}
