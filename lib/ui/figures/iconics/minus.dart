@@ -10,11 +10,11 @@ class MinusIconic extends Iconic {
   MinusIconic({required super.size, required super.iconicStyle})
     : minusLength = size * k_minus_length;
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - minusLength, offset.dy),
-      Offset(offset.dx + minusLength, offset.dy),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - minusLength, offset.dy),
+    //   Offset(offset.dx + minusLength, offset.dy),
+    //   strokeStyle,
+    // );
   }
 }

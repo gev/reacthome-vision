@@ -19,87 +19,87 @@ abstract class TriangleIconic extends Iconic {
 class RightTriangleIconic extends TriangleIconic {
   RightTriangleIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - sidePosition, offset.dy - sideLength),
-      Offset(offset.dx - sidePosition, offset.dy + sideLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - sidePosition, offset.dy - sideLength),
-      Offset(offset.dx + apexPosition, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - sidePosition, offset.dy + sideLength),
-      Offset(offset.dx + apexPosition, offset.dy),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - sidePosition, offset.dy - sideLength),
+    //   Offset(offset.dx - sidePosition, offset.dy + sideLength),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - sidePosition, offset.dy - sideLength),
+    //   Offset(offset.dx + apexPosition, offset.dy),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - sidePosition, offset.dy + sideLength),
+    //   Offset(offset.dx + apexPosition, offset.dy),
+    //   strokeStyle,
+    // );
   }
 }
 
 class LeftTriangleIconic extends TriangleIconic {
   LeftTriangleIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx + sidePosition, offset.dy - sideLength),
-      Offset(offset.dx + sidePosition, offset.dy + sideLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + sidePosition, offset.dy - sideLength),
-      Offset(offset.dx - apexPosition, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + sidePosition, offset.dy + sideLength),
-      Offset(offset.dx - apexPosition, offset.dy),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    //   canvas.drawLine(
+    //     Offset(offset.dx + sidePosition, offset.dy - sideLength),
+    //     Offset(offset.dx + sidePosition, offset.dy + sideLength),
+    //     strokeStyle,
+    //   );
+    //   canvas.drawLine(
+    //     Offset(offset.dx + sidePosition, offset.dy - sideLength),
+    //     Offset(offset.dx - apexPosition, offset.dy),
+    //     strokeStyle,
+    //   );
+    //   canvas.drawLine(
+    //     Offset(offset.dx + sidePosition, offset.dy + sideLength),
+    //     Offset(offset.dx - apexPosition, offset.dy),
+    //     strokeStyle,
+    //   );
   }
 }
 
 class TopTriangleIconic extends TriangleIconic {
   TopTriangleIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - sideLength, offset.dy + sidePosition),
-      Offset(offset.dx + sideLength, offset.dy + sidePosition),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - sideLength, offset.dy + sidePosition),
-      Offset(offset.dx, offset.dy - apexPosition),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + sideLength, offset.dy + sidePosition),
-      Offset(offset.dx, offset.dy - apexPosition),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - sideLength, offset.dy + sidePosition),
+    //   Offset(offset.dx + sideLength, offset.dy + sidePosition),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - sideLength, offset.dy + sidePosition),
+    //   Offset(offset.dx, offset.dy - apexPosition),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx + sideLength, offset.dy + sidePosition),
+    //   Offset(offset.dx, offset.dy - apexPosition),
+    //   strokeStyle,
+    // );
   }
 }
 
 class BottomTriangleIconic extends TriangleIconic {
   BottomTriangleIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - sideLength, offset.dy - sidePosition),
-      Offset(offset.dx + sideLength, offset.dy - sidePosition),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - sideLength, offset.dy - sidePosition),
-      Offset(offset.dx, offset.dy + apexPosition),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + sideLength, offset.dy - sidePosition),
-      Offset(offset.dx, offset.dy + apexPosition),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - sideLength, offset.dy - sidePosition),
+    //   Offset(offset.dx + sideLength, offset.dy - sidePosition),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - sideLength, offset.dy - sidePosition),
+    //   Offset(offset.dx, offset.dy + apexPosition),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx + sideLength, offset.dy - sidePosition),
+    //   Offset(offset.dx, offset.dy + apexPosition),
+    //   strokeStyle,
+    // );
   }
 }

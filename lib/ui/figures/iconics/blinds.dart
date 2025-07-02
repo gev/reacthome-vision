@@ -14,31 +14,31 @@ class BlindsIconic extends Iconic {
       blindsWidth = size * k_blinds_width;
 
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - blindsWidth, offset.dy),
-      Offset(offset.dx + blindsWidth, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - blindsWidth, offset.dy - blindsGap),
-      Offset(offset.dx + blindsWidth, offset.dy - blindsGap),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - blindsWidth, offset.dy - blindsGap * 2),
-      Offset(offset.dx + blindsWidth, offset.dy - blindsGap * 2),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - blindsWidth, offset.dy + blindsGap),
-      Offset(offset.dx + blindsWidth, offset.dy + blindsGap),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - blindsWidth, offset.dy + blindsGap * 2),
-      Offset(offset.dx + blindsWidth, offset.dy + blindsGap * 2),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - blindsWidth, offset.dy),
+    //   Offset(offset.dx + blindsWidth, offset.dy),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - blindsWidth, offset.dy - blindsGap),
+    //   Offset(offset.dx + blindsWidth, offset.dy - blindsGap),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - blindsWidth, offset.dy - blindsGap * 2),
+    //   Offset(offset.dx + blindsWidth, offset.dy - blindsGap * 2),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - blindsWidth, offset.dy + blindsGap),
+    //   Offset(offset.dx + blindsWidth, offset.dy + blindsGap),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - blindsWidth, offset.dy + blindsGap * 2),
+    //   Offset(offset.dx + blindsWidth, offset.dy + blindsGap * 2),
+    //   strokeStyle,
+    // );
   }
 }

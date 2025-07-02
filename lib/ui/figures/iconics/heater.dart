@@ -26,22 +26,22 @@ class HeaterIconic extends Iconic {
       heaterBottom = size * k_heater_bottom;
 
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - heaterTop, offset.dy),
-      Offset(offset.dx + heaterTop, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawArc(Rect.fromPoints(a, b), 0, pi / 2, false, strokeStyle);
-    canvas.drawLine(
-      Offset(offset.dx - heaterTop, offset.dy - heaterGap),
-      Offset(offset.dx + heaterTop, offset.dy - heaterGap),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - heaterTop, offset.dy + heaterGap),
-      Offset(offset.dx + heaterTop, offset.dy + heaterGap),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - heaterTop, offset.dy),
+    //   Offset(offset.dx + heaterTop, offset.dy),
+    //   strokeStyle,
+    // );
+    // canvas.drawArc(Rect.fromPoints(a, b), 0, pi / 2, false, strokeStyle);
+    // canvas.drawLine(
+    //   Offset(offset.dx - heaterTop, offset.dy - heaterGap),
+    //   Offset(offset.dx + heaterTop, offset.dy - heaterGap),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - heaterTop, offset.dy + heaterGap),
+    //   Offset(offset.dx + heaterTop, offset.dy + heaterGap),
+    //   strokeStyle,
+    // );
   }
 }

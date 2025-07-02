@@ -16,25 +16,25 @@ abstract class ShutterIconic extends Iconic {
 class VerticalShutterIconic extends ShutterIconic {
   VerticalShutterIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - shutterLength, offset.dy - shutterLength),
-      Offset(offset.dx + shutterLength, offset.dy + shutterLength),
-      strokeStyle,
-    );
-    canvas.drawCircle(Offset(offset.dx, offset.dy), shutterCircle, strokeStyle);
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - shutterLength, offset.dy - shutterLength),
+    //   Offset(offset.dx + shutterLength, offset.dy + shutterLength),
+    //   strokeStyle,
+    // );
+    // canvas.drawCircle(Offset(offset.dx, offset.dy), shutterCircle, strokeStyle);
   }
 }
 
 class HorizontalShutterIconic extends ShutterIconic {
   HorizontalShutterIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - shutterLength, offset.dy),
-      Offset(offset.dx + shutterLength, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawCircle(Offset(offset.dx, offset.dy), shutterCircle, strokeStyle);
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - shutterLength, offset.dy),
+    //   Offset(offset.dx + shutterLength, offset.dy),
+    //   strokeStyle,
+    // );
+    // canvas.drawCircle(Offset(offset.dx, offset.dy), shutterCircle, strokeStyle);
   }
 }

@@ -9,21 +9,21 @@ class MixerIconic extends Iconic {
   MixerIconic({required super.size, required super.iconicStyle})
     : _size_2 = size / 2;
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx, offset.dy),
-      Offset(offset.dx, offset.dy + _size_2),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy - _size_2),
-      Offset(offset.dx, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + _size_2, offset.dy - _size_2),
-      Offset(offset.dx, offset.dy),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx, offset.dy),
+    //   Offset(offset.dx, offset.dy + _size_2),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - _size_2, offset.dy - _size_2),
+    //   Offset(offset.dx, offset.dy),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx + _size_2, offset.dy - _size_2),
+    //   Offset(offset.dx, offset.dy),
+    //   strokeStyle,
+    // );
   }
 }

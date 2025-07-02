@@ -16,53 +16,53 @@ abstract class SPIconic extends Iconic {
 class HorizontalSPIconic extends SPIconic {
   HorizontalSPIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - spWidth, offset.dy - spSide),
-      Offset(offset.dx - spWidth, offset.dy + spSide),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - spWidth, offset.dy - spSide),
-      Offset(offset.dx + spWidth, offset.dy + spSide),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - spWidth, offset.dy + spSide),
-      Offset(offset.dx + spWidth, offset.dy - spSide),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + spWidth, offset.dy - spSide),
-      Offset(offset.dx + spWidth, offset.dy + spSide),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - spWidth, offset.dy - spSide),
+    //   Offset(offset.dx - spWidth, offset.dy + spSide),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - spWidth, offset.dy - spSide),
+    //   Offset(offset.dx + spWidth, offset.dy + spSide),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - spWidth, offset.dy + spSide),
+    //   Offset(offset.dx + spWidth, offset.dy - spSide),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx + spWidth, offset.dy - spSide),
+    //   Offset(offset.dx + spWidth, offset.dy + spSide),
+    //   strokeStyle,
+    // );
   }
 }
 
 class VerticalSPIconic extends SPIconic {
   VerticalSPIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - spSide, offset.dy - spWidth),
-      Offset(offset.dx + spSide, offset.dy - spWidth),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - spSide, offset.dy + spWidth),
-      Offset(offset.dx + spSide, offset.dy + spWidth),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + spSide, offset.dy - spWidth),
-      Offset(offset.dx - spSide, offset.dy + spWidth),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - spSide, offset.dy - spWidth),
-      Offset(offset.dx + spSide, offset.dy + spWidth),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - spSide, offset.dy - spWidth),
+    //   Offset(offset.dx + spSide, offset.dy - spWidth),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - spSide, offset.dy + spWidth),
+    //   Offset(offset.dx + spSide, offset.dy + spWidth),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx + spSide, offset.dy - spWidth),
+    //   Offset(offset.dx - spSide, offset.dy + spWidth),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - spSide, offset.dy - spWidth),
+    //   Offset(offset.dx + spSide, offset.dy + spWidth),
+    //   strokeStyle,
+    // );
   }
 }

@@ -18,7 +18,7 @@ import 'package:studio/ui/figures/iconics/shutter.dart';
 import 'package:studio/ui/figures/iconics/sp.dart';
 import 'package:studio/ui/figures/iconics/triangle.dart';
 
-Iconic selectIconic(ItemType type) => switch (type) {
+Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.plus => PlusIconic(
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.red[800]!),
@@ -28,18 +28,22 @@ Iconic selectIconic(ItemType type) => switch (type) {
     iconicStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
   ),
   ItemType.rightArrow => RightArrowIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.leftArrow => LeftArrowIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.topArrow => TopArrowIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.bottomArrow => BottomArrowIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),

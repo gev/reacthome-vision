@@ -16,25 +16,25 @@ class CurtainsIconic extends Iconic {
       curtainsWidth = size * k_curtains_width;
 
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawRect(
-      Rect.fromPoints(
-        Offset(offset.dx + curtainsSides, offset.dy - curtainsHeight),
-        Offset(offset.dx + curtainsWidth, offset.dy + curtainsHeight),
-      ),
-      strokeStyle,
-    );
-    canvas.drawRect(
-      Rect.fromPoints(
-        Offset(offset.dx - curtainsWidth, offset.dy + curtainsHeight),
-        Offset(offset.dx - curtainsSides, offset.dy - curtainsHeight),
-      ),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - curtainsWidth, offset.dy - curtainsHeight),
-      Offset(offset.dx + curtainsWidth, offset.dy - curtainsHeight),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawRect(
+    //   Rect.fromPoints(
+    //     Offset(offset.dx + curtainsSides, offset.dy - curtainsHeight),
+    //     Offset(offset.dx + curtainsWidth, offset.dy + curtainsHeight),
+    //   ),
+    //   strokeStyle,
+    // );
+    // canvas.drawRect(
+    //   Rect.fromPoints(
+    //     Offset(offset.dx - curtainsWidth, offset.dy + curtainsHeight),
+    //     Offset(offset.dx - curtainsSides, offset.dy - curtainsHeight),
+    //   ),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - curtainsWidth, offset.dy - curtainsHeight),
+    //   Offset(offset.dx + curtainsWidth, offset.dy - curtainsHeight),
+    //   strokeStyle,
+    // );
   }
 }

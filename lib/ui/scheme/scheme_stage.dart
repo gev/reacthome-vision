@@ -30,7 +30,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
         Node(
           center: position,
           style: style.nodeStyle,
-          iconic: selectIconic(it.type),
+          iconic: selectIconic(it.type, position),
         ),
       ));
       _nodes[it.id] = node;

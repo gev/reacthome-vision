@@ -9,16 +9,16 @@ class PlusIconic extends Iconic {
   PlusIconic({required super.size, required super.iconicStyle})
     : plusSize = size * k_plus_size;
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - plusSize, offset.dy),
-      Offset(offset.dx + plusSize, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx, offset.dy - plusSize),
-      Offset(offset.dx, offset.dy + plusSize),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawLine(
+    //   Offset(offset.dx - plusSize, offset.dy),
+    //   Offset(offset.dx + plusSize, offset.dy),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx, offset.dy - plusSize),
+    //   Offset(offset.dx, offset.dy + plusSize),
+    //   strokeStyle,
+    // );
   }
 }

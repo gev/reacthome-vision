@@ -15,18 +15,18 @@ class ScreenIconic extends Iconic {
       screenHeight = size * k_screen_height,
       screenTop = size * k_screen_top;
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawRect(
-      Rect.fromPoints(
-        Offset(offset.dx - screenWidth, offset.dy + screenHeight),
-        Offset(offset.dx + screenWidth, offset.dy - screenHeight),
-      ),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - screenWidth, offset.dy - screenTop),
-      Offset(offset.dx + screenWidth, offset.dy - screenTop),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    // canvas.drawRect(
+    //   Rect.fromPoints(
+    //     Offset(offset.dx - screenWidth, offset.dy + screenHeight),
+    //     Offset(offset.dx + screenWidth, offset.dy - screenHeight),
+    //   ),
+    //   strokeStyle,
+    // );
+    // canvas.drawLine(
+    //   Offset(offset.dx - screenWidth, offset.dy - screenTop),
+    //   Offset(offset.dx + screenWidth, offset.dy - screenTop),
+    //   strokeStyle,
+    // );
   }
 }

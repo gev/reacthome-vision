@@ -12,14 +12,14 @@ class DeviceIconic extends Iconic {
     : device_size = size * k_device_size,
       circle_size = size * k_circle_size;
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawRect(
-      Rect.fromPoints(
-        Offset(offset.dx - device_size, offset.dy + device_size),
-        Offset(offset.dx + device_size, offset.dy - device_size),
-      ),
-      strokeStyle,
-    );
-    canvas.drawCircle(Offset(offset.dx, offset.dy), circle_size, strokeStyle);
+  void paint(Canvas canvas) {
+    // canvas.drawRect(
+    //   Rect.fromPoints(
+    //     Offset(offset.dx - device_size, offset.dy + device_size),
+    //     Offset(offset.dx + device_size, offset.dy - device_size),
+    //   ),
+    //   strokeStyle,
+    // );
+    // canvas.drawCircle(Offset(offset.dx, offset.dy), circle_size, strokeStyle);
   }
 }
