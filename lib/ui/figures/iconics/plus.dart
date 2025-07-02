@@ -2,20 +2,22 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
+const k_plus_size = 0.5;
+
 class PlusIconic extends Iconic {
-  final double _size_2;
+  final double plusSize;
   PlusIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size / 2;
+    : plusSize = size * k_plus_size;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy),
-      Offset(offset.dx + _size_2, offset.dy),
+      Offset(offset.dx - plusSize, offset.dy),
+      Offset(offset.dx + plusSize, offset.dy),
       strokeStyle,
     );
     canvas.drawLine(
-      Offset(offset.dx, offset.dy - _size_2),
-      Offset(offset.dx, offset.dy + _size_2),
+      Offset(offset.dx, offset.dy - plusSize),
+      Offset(offset.dx, offset.dy + plusSize),
       strokeStyle,
     );
   }

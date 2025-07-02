@@ -2,8 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
+import 'package:studio/ui/figures/iconics/arrow.dart';
+import 'package:studio/ui/figures/iconics/bar.dart';
+import 'package:studio/ui/figures/iconics/blinds.dart';
+import 'package:studio/ui/figures/iconics/button.dart';
+import 'package:studio/ui/figures/iconics/curtains.dart';
+import 'package:studio/ui/figures/iconics/device.dart';
+import 'package:studio/ui/figures/iconics/heater.dart';
 import 'package:studio/ui/figures/iconics/minus.dart';
+import 'package:studio/ui/figures/iconics/mixer.dart';
 import 'package:studio/ui/figures/iconics/plus.dart';
+import 'package:studio/ui/figures/iconics/qf.dart';
+import 'package:studio/ui/figures/iconics/screen.dart';
+import 'package:studio/ui/figures/iconics/shutter.dart';
+import 'package:studio/ui/figures/iconics/sp.dart';
+import 'package:studio/ui/figures/iconics/triangle.dart';
 
 Iconic selectIconic(ItemType type) => switch (type) {
   ItemType.plus => PlusIconic(
@@ -13,6 +26,94 @@ Iconic selectIconic(ItemType type) => switch (type) {
   ItemType.minus => MinusIconic(
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
+  ),
+  ItemType.rightArrow => RightArrowIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.leftArrow => LeftArrowIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.topArrow => TopArrowIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.bottomArrow => BottomArrowIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.horizontalBar => HorizontalBarIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.verticalBar => VerticalBarIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.mixer => MixerIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.verticalShutter => VerticalShutterIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.horizontalShutter => HorizontalShutterIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.qf => QFIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.button => ButtonIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.rightTriangle => RightTriangleIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.leftTriangle => LeftTriangleIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.topTriangle => TopTriangleIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.bottomTriangle => BottomTriangleIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.horizontalSP => HorizontalSPIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.verticalSP => VerticalSPIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.device => DeviceIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.screen => ScreenIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.curtains => CurtainsIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.blinds => BlindsIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+  ),
+  ItemType.heater => HeaterIconic(
+    size: 24,
+    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
 };
 
@@ -50,7 +151,7 @@ class Node implements Paintable, Hittable {
   void paint(Canvas canvas) {
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
-    iconic.paint(canvas, center);
+    iconic.paint(canvas);
   }
 
   void paintSelection(Canvas canvas) {

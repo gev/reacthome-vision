@@ -2,7 +2,42 @@ import 'package:studio/core/connector.dart';
 
 enum Direction { column, row }
 
-enum ItemType { minus, plus }
+enum ItemType {
+  minus,
+  plus,
+  rightArrow,
+  leftArrow,
+  topArrow,
+  bottomArrow,
+  horizontalBar,
+  verticalBar,
+  mixer,
+  verticalShutter,
+  horizontalShutter,
+  qf,
+  button,
+  rightTriangle,
+  leftTriangle,
+  topTriangle,
+  bottomTriangle,
+  horizontalSP,
+  verticalSP,
+  device,
+  screen,
+  curtains,
+  blinds,
+  // tp,
+  // filter,
+  heater,
+  // chandelier,
+  // bra,
+  // spot,
+  // led,
+  // track,
+  // temperatureSensor,
+  // airConditioner,
+  // projector,
+}
 
 class Item<Id> {
   Item({

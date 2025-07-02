@@ -1,16 +1,19 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/iconic.dart';
 
+const k_minus_length = 0.5;
+
 class MinusIconic extends Iconic {
-  final double _size_2;
+  final double minusLength;
   MinusIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size / 2;
+    : minusLength = size * k_minus_length;
   @override
   void paint(Canvas canvas, Offset offset) {
     canvas.drawLine(
-      Offset(offset.dx - _size_2, offset.dy),
-      Offset(offset.dx + _size_2, offset.dy),
+      Offset(offset.dx - minusLength, offset.dy),
+      Offset(offset.dx + minusLength, offset.dy),
       strokeStyle,
     );
   }
