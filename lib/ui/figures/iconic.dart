@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/figure.dart';
 
-abstract class Iconic implements PaintableAt {
+abstract class Iconic implements Paintable {
   final double size;
   final Paint strokeStyle;
 

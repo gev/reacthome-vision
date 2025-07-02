@@ -151,7 +151,7 @@ class Node implements Paintable, Hittable {
   void paint(Canvas canvas) {
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
-    iconic.paint(canvas, center);
+    iconic.paint(canvas);
   }
 
   void paintSelection(Canvas canvas) {

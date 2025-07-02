@@ -4,96 +4,72 @@ import 'package:studio/ui/figures/iconic.dart';
 
 const k_arrow_length = 0.5;
 
-abstract class ArrowIconic extends Iconic {
-  final double arrowLength;
-  ArrowIconic({required super.size, required super.iconicStyle})
-    : arrowLength = size * k_arrow_length;
-}
+abstract class _ArrowIconic extends Iconic {
+  final Offset offset;
+  final double _arrowLength;
+  late final Offset _a, _b, _c, _d;
+  _ArrowIconic({
+    required this.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : _arrowLength = size * k_arrow_length;
 
-class RightArrowIconic extends ArrowIconic {
-  RightArrowIconic({required super.size, required super.iconicStyle});
   @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - arrowLength, offset.dy),
-      Offset(offset.dx + arrowLength, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy + arrowLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy - arrowLength),
-      strokeStyle,
-    );
+  void paint(Canvas canvas) {
+    canvas.drawLine(_a, _b, strokeStyle);
+    canvas.drawLine(_c, _b, strokeStyle);
+    canvas.drawLine(_d, _b, strokeStyle);
   }
 }
 
-class LeftArrowIconic extends ArrowIconic {
-  LeftArrowIconic({required super.size, required super.iconicStyle});
-  @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx - arrowLength, offset.dy),
-      Offset(offset.dx + arrowLength, offset.dy),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy + arrowLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy - arrowLength),
-      strokeStyle,
-    );
+class RightArrowIconic extends _ArrowIconic {
+  RightArrowIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
+    _a = Offset(offset.dx - _arrowLength, offset.dy);
+    _b = Offset(offset.dx + _arrowLength, offset.dy);
+    _c = Offset(offset.dx, offset.dy - _arrowLength);
+    _d = Offset(offset.dx, offset.dy + _arrowLength);
   }
 }
 
-class TopArrowIconic extends ArrowIconic {
-  TopArrowIconic({required super.size, required super.iconicStyle});
-  @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx, offset.dy - arrowLength),
-      Offset(offset.dx, offset.dy + arrowLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy - arrowLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy - arrowLength),
-      strokeStyle,
-    );
+class LeftArrowIconic extends _ArrowIconic {
+  LeftArrowIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
+    _a = Offset(offset.dx - _arrowLength, offset.dy);
+    _b = Offset(offset.dx + _arrowLength, offset.dy);
+    _c = Offset(offset.dx, offset.dy - _arrowLength);
+    _d = Offset(offset.dx, offset.dy + _arrowLength);
   }
 }
 
-class BottomArrowIconic extends ArrowIconic {
-  BottomArrowIconic({required super.size, required super.iconicStyle});
-  @override
-  void paint(Canvas canvas, Offset offset) {
-    canvas.drawLine(
-      Offset(offset.dx, offset.dy - arrowLength),
-      Offset(offset.dx, offset.dy + arrowLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx + arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy + arrowLength),
-      strokeStyle,
-    );
-    canvas.drawLine(
-      Offset(offset.dx - arrowLength, offset.dy),
-      Offset(offset.dx, offset.dy + arrowLength),
-      strokeStyle,
-    );
+class TopArrowIconic extends _ArrowIconic {
+  TopArrowIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
+    _a = Offset(offset.dx - _arrowLength, offset.dy);
+    _b = Offset(offset.dx + _arrowLength, offset.dy);
+    _c = Offset(offset.dx, offset.dy - _arrowLength);
+    _d = Offset(offset.dx, offset.dy + _arrowLength);
+  }
+}
+
+class BottomArrowIconic extends _ArrowIconic {
+  BottomArrowIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
+    _a = Offset(offset.dx - _arrowLength, offset.dy);
+    _b = Offset(offset.dx + _arrowLength, offset.dy);
+    _c = Offset(offset.dx, offset.dy - _arrowLength);
+    _d = Offset(offset.dx, offset.dy + _arrowLength);
   }
 }
