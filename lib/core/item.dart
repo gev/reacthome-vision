@@ -26,7 +26,7 @@ enum ItemType {
   blinds,
   // tp,
   // filter,
-  // sHeater,
+  heater,
   // chandelier,
   // bra,
   // spot,

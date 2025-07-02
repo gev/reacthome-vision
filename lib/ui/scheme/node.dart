@@ -8,6 +8,7 @@ import 'package:studio/ui/figures/iconics/bar.dart';
 import 'package:studio/ui/figures/iconics/button.dart';
 import 'package:studio/ui/figures/iconics/curtains.dart';
 import 'package:studio/ui/figures/iconics/device.dart';
+import 'package:studio/ui/figures/iconics/heater.dart';
 import 'package:studio/ui/figures/iconics/minus.dart';
 import 'package:studio/ui/figures/iconics/mixer.dart';
 import 'package:studio/ui/figures/iconics/plus.dart';
@@ -126,6 +127,10 @@ class Node implements Paintable, Hittable {
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),
          ItemType.blinds => BlindsIconic(
+           size: 24,
+           iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
+         ),
+         ItemType.heater => HeaterIconic(
            size: 24,
            iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
          ),

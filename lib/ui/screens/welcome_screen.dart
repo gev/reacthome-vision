@@ -66,6 +66,7 @@ class WelcomeScreen extends StatelessWidget {
             Item(id: 20, x: 0, y: 4, type: ItemType.leftArrow),
             Item(id: 21, x: 1, y: 4, type: ItemType.topArrow),
             Item(id: 22, x: 2, y: 4, type: ItemType.bottomArrow),
+            Item(id: 23, x: 3, y: 4, type: ItemType.heater),
           ],
           links: [
             // Link(id: 0, source: 0, sink: 1),
