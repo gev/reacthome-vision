@@ -50,15 +50,11 @@ class Line implements Paintable {
   void _lt() {
     final rx = min(radius, start.offset.dx - end.offset.dx);
     final ry = min(radius, end.offset.dy - start.offset.dy);
-    final ox = end.offset.dx + rx;
-    final oy = start.offset.dy + ry;
     _path.moveTo(end.offset.dx, end.offset.dy);
-    _path.lineTo(end.offset.dx, oy);
-    _path.arcTo(
-      Rect.fromCenter(center: Offset(ox, oy), width: 2 * rx, height: 2 * ry),
-      pi,
-      pi / 2,
-      false,
+    _path.lineTo(end.offset.dx, start.offset.dy + ry);
+    _path.arcToPoint(
+      Offset(end.offset.dx + rx, start.offset.dy),
+      radius: Radius.elliptical(rx, ry),
     );
     _path.lineTo(start.offset.dx, start.offset.dy);
   }
@@ -66,15 +62,11 @@ class Line implements Paintable {
   void _tr() {
     final rx = min(radius, end.offset.dx - start.offset.dx);
     final ry = min(radius, end.offset.dy - start.offset.dy);
-    final ox = end.offset.dx - rx;
-    final oy = start.offset.dy + ry;
     _path.moveTo(start.offset.dx, start.offset.dy);
-    _path.lineTo(ox, start.offset.dy);
-    _path.arcTo(
-      Rect.fromCenter(center: Offset(ox, oy), width: 2 * rx, height: 2 * ry),
-      -pi / 2,
-      pi / 2,
-      false,
+    _path.lineTo(end.offset.dx - rx, start.offset.dy);
+    _path.arcToPoint(
+      Offset(end.offset.dx, start.offset.dy + ry),
+      radius: Radius.elliptical(rx, ry),
     );
     _path.lineTo(end.offset.dx, end.offset.dy);
   }
@@ -82,15 +74,11 @@ class Line implements Paintable {
   void _rb() {
     final rx = min(radius, end.offset.dx - start.offset.dx);
     final ry = min(radius, start.offset.dy - end.offset.dy);
-    final ox = end.offset.dx - rx;
-    final oy = start.offset.dy - ry;
     _path.moveTo(end.offset.dx, end.offset.dy);
-    _path.lineTo(end.offset.dx, oy);
-    _path.arcTo(
-      Rect.fromCenter(center: Offset(ox, oy), width: 2 * rx, height: 2 * ry),
-      0,
-      pi / 2,
-      false,
+    _path.lineTo(end.offset.dx, start.offset.dy - ry);
+    _path.arcToPoint(
+      Offset(end.offset.dx - rx, start.offset.dy),
+      radius: Radius.elliptical(rx, ry),
     );
     _path.lineTo(start.offset.dx, start.offset.dy);
   }
@@ -98,15 +86,11 @@ class Line implements Paintable {
   void _bl() {
     final rx = min(radius, start.offset.dx - end.offset.dx);
     final ry = min(radius, start.offset.dy - end.offset.dy);
-    final ox = end.offset.dx + rx;
-    final oy = start.offset.dy - ry;
     _path.moveTo(start.offset.dx, start.offset.dy);
-    _path.lineTo(ox, start.offset.dy);
-    _path.arcTo(
-      Rect.fromCenter(center: Offset(ox, oy), width: 2 * rx, height: 2 * ry),
-      pi / 2,
-      pi / 2,
-      false,
+    _path.lineTo(end.offset.dx + rx, start.offset.dy);
+    _path.arcToPoint(
+      Offset(end.offset.dx, start.offset.dy - ry),
+      radius: Radius.elliptical(rx, ry),
     );
     _path.lineTo(end.offset.dx, end.offset.dy);
   }
