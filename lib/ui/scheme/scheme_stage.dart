@@ -27,11 +27,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     for (final it in scheme.items) {
       final position = Offset(gap * it.x, gap * it.y);
       final node = (Ref(
-        Node(
-          center: position,
-          style: style.nodeStyle,
-          iconic: selectIconic(it.type, position),
-        ),
+        Node(type: it.type, center: position, style: style.nodeStyle),
       ));
       _nodes[it.id] = node;
       _lineIndex[node] = {};
