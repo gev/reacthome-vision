@@ -18,7 +18,7 @@ import 'package:studio/ui/figures/iconics/shutter.dart';
 import 'package:studio/ui/figures/iconics/sp.dart';
 import 'package:studio/ui/figures/iconics/triangle.dart';
 
-final iconicStyle = IconicStyle(width: 0.1, color: Colors.green[800]!);
+final iconicStyle = IconicStyle(width: 0.05, color: Colors.amber[800]!);
 
 Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.plus => PlusIconic.new,
