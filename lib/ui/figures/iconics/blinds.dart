@@ -6,14 +6,13 @@ const k_blinds_gap = 0.2;
 const k_blinds_width = 0.5;
 
 class BlindsIconic extends Iconic {
-  final Offset offset;
   final double blindsGap;
   final double blindsWidth;
 
   final Path _path = Path();
 
   BlindsIconic({
-    required this.offset,
+    required super.offset,
     required super.size,
     required super.iconicStyle,
   }) : blindsGap = size * k_blinds_gap,

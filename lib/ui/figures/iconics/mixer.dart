@@ -6,8 +6,12 @@ const k2 = 0.5;
 
 class MixerIconic extends Iconic {
   final double _size_2;
-  MixerIconic({required super.size, required super.iconicStyle})
-    : _size_2 = size / 2;
+
+  MixerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : _size_2 = size / 2;
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(

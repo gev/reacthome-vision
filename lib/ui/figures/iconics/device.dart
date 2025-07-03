@@ -6,12 +6,12 @@ const k_device_size = 0.5;
 const k_circle_size = 0.6;
 
 class DeviceIconic extends Iconic {
-  final Offset offset;
   final double device_size;
   final double circle_size;
   final Path _path = Path();
+
   DeviceIconic({
-    required this.offset,
+    required super.offset,
     required super.size,
     required super.iconicStyle,
   }) : device_size = size * k_device_size,

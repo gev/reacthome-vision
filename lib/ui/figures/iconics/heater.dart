@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
@@ -19,11 +18,14 @@ class HeaterIconic extends Iconic {
   final Offset a = Offset(0, 0);
   final Offset b = Offset(0, 0);
 
-  HeaterIconic({required super.size, required super.iconicStyle})
-    : heaterGap = size * k_heater_gap,
-      heaterTop = size * k_heater_top,
-      heaterMiddle = size * k_heater_middle,
-      heaterBottom = size * k_heater_bottom;
+  HeaterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : heaterGap = size * k_heater_gap,
+       heaterTop = size * k_heater_top,
+       heaterMiddle = size * k_heater_middle,
+       heaterBottom = size * k_heater_bottom;
 
   @override
   void paint(Canvas canvas) {

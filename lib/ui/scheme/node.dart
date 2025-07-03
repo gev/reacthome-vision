@@ -18,113 +18,34 @@ import 'package:studio/ui/figures/iconics/shutter.dart';
 import 'package:studio/ui/figures/iconics/sp.dart';
 import 'package:studio/ui/figures/iconics/triangle.dart';
 
+final iconicStyle = IconicStyle(width: 0.1, color: Colors.green[800]!);
+
 Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
-  ItemType.plus => PlusIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.red[800]!),
-  ),
-  ItemType.minus => MinusIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.blue[800]!),
-  ),
-  ItemType.rightArrow => RightArrowIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.leftArrow => LeftArrowIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.topArrow => TopArrowIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.bottomArrow => BottomArrowIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.horizontalBar => HorizontalBarIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.verticalBar => VerticalBarIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.mixer => MixerIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.verticalShutter => VerticalShutterIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.horizontalShutter => HorizontalShutterIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.qf => QFIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.button => ButtonIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.rightTriangle => RightTriangleIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.leftTriangle => LeftTriangleIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.topTriangle => TopTriangleIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.bottomTriangle => BottomTriangleIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.horizontalSP => HorizontalSPIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.verticalSP => VerticalSPIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.device => DeviceIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.screen => ScreenIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.curtains => CurtainsIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.blinds => BlindsIconic(
-    offset: offset,
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-  ItemType.heater => HeaterIconic(
-    size: 24,
-    iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
-  ),
-};
+  ItemType.plus => PlusIconic.new,
+  ItemType.minus => MinusIconic.new,
+  ItemType.rightArrow => RightArrowIconic.new,
+  ItemType.leftArrow => LeftArrowIconic.new,
+  ItemType.topArrow => TopArrowIconic.new,
+  ItemType.bottomArrow => BottomArrowIconic.new,
+  ItemType.horizontalBar => HorizontalBarIconic.new,
+  ItemType.verticalBar => VerticalBarIconic.new,
+  ItemType.mixer => MixerIconic.new,
+  ItemType.verticalShutter => VerticalShutterIconic.new,
+  ItemType.horizontalShutter => HorizontalShutterIconic.new,
+  ItemType.qf => QFIconic.new,
+  ItemType.button => ButtonIconic.new,
+  ItemType.rightTriangle => RightTriangleIconic.new,
+  ItemType.leftTriangle => LeftTriangleIconic.new,
+  ItemType.topTriangle => TopTriangleIconic.new,
+  ItemType.bottomTriangle => BottomTriangleIconic.new,
+  ItemType.horizontalSP => HorizontalSPIconic.new,
+  ItemType.verticalSP => VerticalSPIconic.new,
+  ItemType.device => DeviceIconic.new,
+  ItemType.screen => ScreenIconic.new,
+  ItemType.curtains => CurtainsIconic.new,
+  ItemType.blinds => BlindsIconic.new,
+  ItemType.heater => HeaterIconic.new,
+}(offset: offset, size: 24, iconicStyle: iconicStyle);
 
 class Node implements Paintable, Hittable {
   final ItemType type;

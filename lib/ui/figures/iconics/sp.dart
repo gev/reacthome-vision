@@ -8,13 +8,20 @@ const k_sp_side = 0.35;
 abstract class SPIconic extends Iconic {
   final double spWidth;
   final double spSide;
-  SPIconic({required super.size, required super.iconicStyle})
-    : spWidth = size * k_sp_width,
-      spSide = size * k_sp_side;
+  SPIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : spWidth = size * k_sp_width,
+       spSide = size * k_sp_side;
 }
 
 class HorizontalSPIconic extends SPIconic {
-  HorizontalSPIconic({required super.size, required super.iconicStyle});
+  HorizontalSPIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(
@@ -41,7 +48,11 @@ class HorizontalSPIconic extends SPIconic {
 }
 
 class VerticalSPIconic extends SPIconic {
-  VerticalSPIconic({required super.size, required super.iconicStyle});
+  VerticalSPIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(

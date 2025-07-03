@@ -10,10 +10,14 @@ class CurtainsIconic extends Iconic {
   final double curtainsSides;
   final double curtainsHeight;
   final double curtainsWidth;
-  CurtainsIconic({required super.size, required super.iconicStyle})
-    : curtainsSides = size * k_curtains_sides,
-      curtainsHeight = size * k_curtains_height,
-      curtainsWidth = size * k_curtains_width;
+
+  CurtainsIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : curtainsSides = size * k_curtains_sides,
+       curtainsHeight = size * k_curtains_height,
+       curtainsWidth = size * k_curtains_width;
 
   @override
   void paint(Canvas canvas) {

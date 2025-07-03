@@ -10,14 +10,23 @@ abstract class TriangleIconic extends Iconic {
   final double sidePosition;
   final double sideLength;
   final double apexPosition;
-  TriangleIconic({required super.size, required super.iconicStyle})
-    : sidePosition = size * k_side_position,
-      sideLength = size * k_side_length,
-      apexPosition = size * k_apex_position;
+
+  TriangleIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : sidePosition = size * k_side_position,
+       sideLength = size * k_side_length,
+       apexPosition = size * k_apex_position;
 }
 
 class RightTriangleIconic extends TriangleIconic {
-  RightTriangleIconic({required super.size, required super.iconicStyle});
+  RightTriangleIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
+
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(
@@ -39,7 +48,12 @@ class RightTriangleIconic extends TriangleIconic {
 }
 
 class LeftTriangleIconic extends TriangleIconic {
-  LeftTriangleIconic({required super.size, required super.iconicStyle});
+  LeftTriangleIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
+
   @override
   void paint(Canvas canvas) {
     //   canvas.drawLine(
@@ -61,7 +75,12 @@ class LeftTriangleIconic extends TriangleIconic {
 }
 
 class TopTriangleIconic extends TriangleIconic {
-  TopTriangleIconic({required super.size, required super.iconicStyle});
+  TopTriangleIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
+
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(
@@ -83,7 +102,12 @@ class TopTriangleIconic extends TriangleIconic {
 }
 
 class BottomTriangleIconic extends TriangleIconic {
-  BottomTriangleIconic({required super.size, required super.iconicStyle});
+  BottomTriangleIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
+
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(

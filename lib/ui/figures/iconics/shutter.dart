@@ -8,13 +8,21 @@ const k_shutter_circle = 0.15;
 abstract class ShutterIconic extends Iconic {
   final double shutterLength;
   final double shutterCircle;
-  ShutterIconic({required super.size, required super.iconicStyle})
-    : shutterLength = size * k_shutter_length,
-      shutterCircle = size * k_shutter_circle;
+
+  ShutterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : shutterLength = size * k_shutter_length,
+       shutterCircle = size * k_shutter_circle;
 }
 
 class VerticalShutterIconic extends ShutterIconic {
-  VerticalShutterIconic({required super.size, required super.iconicStyle});
+  VerticalShutterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(
@@ -27,7 +35,11 @@ class VerticalShutterIconic extends ShutterIconic {
 }
 
 class HorizontalShutterIconic extends ShutterIconic {
-  HorizontalShutterIconic({required super.size, required super.iconicStyle});
+  HorizontalShutterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(

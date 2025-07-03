@@ -10,10 +10,13 @@ class ScreenIconic extends Iconic {
   final double screenWidth;
   final double screenHeight;
   final double screenTop;
-  ScreenIconic({required super.size, required super.iconicStyle})
-    : screenWidth = size * k_screen_width,
-      screenHeight = size * k_screen_height,
-      screenTop = size * k_screen_top;
+  ScreenIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : screenWidth = size * k_screen_width,
+       screenHeight = size * k_screen_height,
+       screenTop = size * k_screen_top;
   @override
   void paint(Canvas canvas) {
     // canvas.drawRect(

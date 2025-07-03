@@ -5,14 +5,13 @@ import 'package:studio/ui/figures/iconic.dart';
 const k_bar_length = 0.5;
 const k_bar_gap = 0.35;
 
-abstract class BarIconic extends Iconic {
-  final Offset offset;
+abstract class _BarIconic extends Iconic {
   final double barGap;
   final double barLength;
   final Path _path = Path();
 
-  BarIconic({
-    required this.offset,
+  _BarIconic({
+    required super.offset,
     required super.size,
     required super.iconicStyle,
   }) : barGap = size * k_bar_gap,
@@ -24,7 +23,7 @@ abstract class BarIconic extends Iconic {
   }
 }
 
-class HorizontalBarIconic extends BarIconic {
+class HorizontalBarIconic extends _BarIconic {
   HorizontalBarIconic({
     required super.offset,
     required super.size,
@@ -40,7 +39,7 @@ class HorizontalBarIconic extends BarIconic {
   }
 }
 
-class VerticalBarIconic extends BarIconic {
+class VerticalBarIconic extends _BarIconic {
   VerticalBarIconic({
     required super.offset,
     required super.size,

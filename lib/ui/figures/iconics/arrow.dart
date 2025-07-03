@@ -5,13 +5,12 @@ import 'package:studio/ui/figures/iconic.dart';
 const kArrowLength = 0.5;
 
 abstract class _ArrowIconic extends Iconic {
-  final Offset offset;
   final double _arrowLength;
 
   final Path _path = Path();
 
   _ArrowIconic({
-    required this.offset,
+    required super.offset,
     required super.size,
     required super.iconicStyle,
   }) : _arrowLength = size * kArrowLength;

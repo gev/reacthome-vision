@@ -6,8 +6,11 @@ const k_plus_size = 0.5;
 
 class PlusIconic extends Iconic {
   final double plusSize;
-  PlusIconic({required super.size, required super.iconicStyle})
-    : plusSize = size * k_plus_size;
+  PlusIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : plusSize = size * k_plus_size;
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(

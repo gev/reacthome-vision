@@ -7,8 +7,11 @@ const k_minus_length = 0.5;
 
 class MinusIconic extends Iconic {
   final double minusLength;
-  MinusIconic({required super.size, required super.iconicStyle})
-    : minusLength = size * k_minus_length;
+  MinusIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : minusLength = size * k_minus_length;
   @override
   void paint(Canvas canvas) {
     // canvas.drawLine(
