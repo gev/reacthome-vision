@@ -62,26 +62,24 @@ class Line implements Paintable {
   }
 
   void _rb() {
-    final rx = min(radius, end.offset.dx - start.offset.dx);
-    final ry = min(radius, start.offset.dy - end.offset.dy);
+    final dx = end.offset.dx - start.offset.dx;
+    final dy = start.offset.dy - end.offset.dy;
+    final rx = min(radius, dx);
+    final ry = min(radius, dy);
     _path.moveTo(end.offset.dx, end.offset.dy);
-    _path.lineTo(end.offset.dx, start.offset.dy - ry);
-    _path.arcToPoint(
-      Offset(end.offset.dx - rx, start.offset.dy),
-      radius: Radius.elliptical(rx, ry),
-    );
+    _path.relativeLineTo(0, dy - ry);
+    _path.relativeArcToPoint(Offset(-rx, ry), radius: Radius.elliptical(rx, ry));
     _path.lineTo(start.offset.dx, start.offset.dy);
   }
 
   void _bl() {
-    final rx = min(radius, start.offset.dx - end.offset.dx);
-    final ry = min(radius, start.offset.dy - end.offset.dy);
+    final dx = start.offset.dx - end.offset.dx;
+    final dy = start.offset.dy - end.offset.dy;
+    final rx = min(radius, dx);
+    final ry = min(radius, dy);
     _path.moveTo(start.offset.dx, start.offset.dy);
-    _path.lineTo(end.offset.dx + rx, start.offset.dy);
-    _path.arcToPoint(
-      Offset(end.offset.dx, start.offset.dy - ry),
-      radius: Radius.elliptical(rx, ry),
-    );
+    _path.relativeLineTo(rx - dx, 0);
+    _path.relativeArcToPoint(Offset(-rx, -ry), radius: Radius.elliptical(rx, ry));
     _path.lineTo(end.offset.dx, end.offset.dy);
   }
 }
