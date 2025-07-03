@@ -2,43 +2,37 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_blinds_gap = 0.25;
-const k_blinds_width = 0.6;
+const k_blinds_gap = 0.2;
+const k_blinds_width = 0.5;
 
 class BlindsIconic extends Iconic {
+  final Offset offset;
   final double blindsGap;
   final double blindsWidth;
 
-  BlindsIconic({required super.size, required super.iconicStyle})
-    : blindsGap = size * k_blinds_gap,
-      blindsWidth = size * k_blinds_width;
+  final Path _path = Path();
+
+  BlindsIconic({
+    required this.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : blindsGap = size * k_blinds_gap,
+       blindsWidth = size * k_blinds_width {
+    _path
+      ..moveTo(offset.dx - blindsWidth, offset.dy - blindsGap * 2)
+      ..relativeLineTo(size, 0)
+      ..relativeMoveTo(-size, blindsGap)
+      ..relativeLineTo(size, 0)
+      ..relativeMoveTo(-size, blindsGap)
+      ..relativeLineTo(size, 0)
+      ..relativeMoveTo(-size, blindsGap)
+      ..relativeLineTo(size, 0)
+      ..relativeMoveTo(-size, blindsGap)
+      ..relativeLineTo(size, 0);
+  }
 
   @override
   void paint(Canvas canvas) {
-    // canvas.drawLine(
-    //   Offset(offset.dx - blindsWidth, offset.dy),
-    //   Offset(offset.dx + blindsWidth, offset.dy),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - blindsWidth, offset.dy - blindsGap),
-    //   Offset(offset.dx + blindsWidth, offset.dy - blindsGap),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - blindsWidth, offset.dy - blindsGap * 2),
-    //   Offset(offset.dx + blindsWidth, offset.dy - blindsGap * 2),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - blindsWidth, offset.dy + blindsGap),
-    //   Offset(offset.dx + blindsWidth, offset.dy + blindsGap),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - blindsWidth, offset.dy + blindsGap * 2),
-    //   Offset(offset.dx + blindsWidth, offset.dy + blindsGap * 2),
-    //   strokeStyle,
-    // );
+    canvas.drawPath(_path, strokeStyle);
   }
 }
