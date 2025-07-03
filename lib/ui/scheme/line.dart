@@ -8,22 +8,14 @@ enum DirectionType { left, up, right, down, any }
 typedef Anchor = ({DirectionType direction, Offset offset});
 
 class Line implements Paintable {
-  Line({
-    this.radius = 24,
-    required this.start,
-    required this.end,
-    required this.style,
-  }) {
+  Line({this.radius = 24, required this.start, required this.end, required this.style}) {
     if (end.offset.dx < start.offset.dx && end.offset.dy > start.offset.dy) {
       _lt();
-    } else if (end.offset.dx > start.offset.dx &&
-        end.offset.dy > start.offset.dy) {
+    } else if (end.offset.dx > start.offset.dx && end.offset.dy > start.offset.dy) {
       _tr();
-    } else if (end.offset.dx > start.offset.dx &&
-        end.offset.dy < start.offset.dy) {
+    } else if (end.offset.dx > start.offset.dx && end.offset.dy < start.offset.dy) {
       _rb();
-    } else if (end.offset.dy < start.offset.dy &&
-        end.offset.dx < start.offset.dx) {
+    } else if (end.offset.dy < start.offset.dy && end.offset.dx < start.offset.dx) {
       _bl();
     } else {
       _l();
@@ -48,26 +40,24 @@ class Line implements Paintable {
   }
 
   void _lt() {
-    final rx = min(radius, start.offset.dx - end.offset.dx);
-    final ry = min(radius, end.offset.dy - start.offset.dy);
+    final dx = start.offset.dx - end.offset.dx;
+    final dy = end.offset.dy - start.offset.dy;
+    final rx = min(radius, dx);
+    final ry = min(radius, dy);
     _path.moveTo(end.offset.dx, end.offset.dy);
-    _path.lineTo(end.offset.dx, start.offset.dy + ry);
-    _path.arcToPoint(
-      Offset(end.offset.dx + rx, start.offset.dy),
-      radius: Radius.elliptical(rx, ry),
-    );
+    _path.relativeLineTo(0, ry - dy);
+    _path.relativeArcToPoint(Offset(rx, -ry), radius: Radius.elliptical(rx, ry));
     _path.lineTo(start.offset.dx, start.offset.dy);
   }
 
   void _tr() {
-    final rx = min(radius, end.offset.dx - start.offset.dx);
-    final ry = min(radius, end.offset.dy - start.offset.dy);
+    final dx = end.offset.dx - start.offset.dx;
+    final dy = end.offset.dy - start.offset.dy;
+    final rx = min(radius, dx);
+    final ry = min(radius, dy);
     _path.moveTo(start.offset.dx, start.offset.dy);
-    _path.lineTo(end.offset.dx - rx, start.offset.dy);
-    _path.arcToPoint(
-      Offset(end.offset.dx, start.offset.dy + ry),
-      radius: Radius.elliptical(rx, ry),
-    );
+    _path.relativeLineTo(dx - rx, 0);
+    _path.relativeArcToPoint(Offset(rx, ry), radius: Radius.elliptical(rx, ry));
     _path.lineTo(end.offset.dx, end.offset.dy);
   }
 
