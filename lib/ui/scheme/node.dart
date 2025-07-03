@@ -48,10 +48,12 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.horizontalBar => HorizontalBarIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.verticalBar => VerticalBarIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
@@ -72,6 +74,7 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.button => ButtonIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
@@ -100,6 +103,7 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.device => DeviceIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
@@ -112,6 +116,7 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
   ItemType.blinds => BlindsIconic(
+    offset: offset,
     size: 24,
     iconicStyle: IconicStyle(width: 0.1, color: Colors.green[800]!),
   ),
