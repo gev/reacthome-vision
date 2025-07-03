@@ -34,7 +34,7 @@ class GridPainter extends CustomPainter {
     final ration = (1 / controller.scale).round();
     final step = ration > 1 ? ration : 1;
     final preScaled = gap * controller.scale;
-    final scaled = preScaled * ration;
+    final scaled = preScaled * step;
 
     void line({required Offset from, required Offset to}) {
       canvas.drawLine(from, to, style.axisStyle);
