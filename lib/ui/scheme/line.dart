@@ -1,7 +1,6 @@
 import 'dart:math';
+import 'dart:ui';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/figure.dart';
 
 enum DirectionType { left, up, right, down, any }
@@ -77,13 +76,18 @@ class LineStyle {
   final Paint stroke;
   final Paint back;
 
-  LineStyle({required Color color, required Color backgroundColor, double strokeWidth = 1.0})
-    : stroke = Paint()
-        ..color = color
-        ..strokeWidth = strokeWidth
-        ..style = PaintingStyle.stroke,
-      back = Paint()
-        ..color = backgroundColor
-        ..strokeWidth = strokeWidth * 15
-        ..style = PaintingStyle.stroke;
+  LineStyle({
+    required Color color,
+    required Color backgroundColor,
+    double strokeWidth = 1.0,
+    double sigma = 8,
+  }) : stroke = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = color
+         ..strokeWidth = strokeWidth,
+       back = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = backgroundColor
+         ..strokeWidth = 2 * sigma
+         ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma);
 }

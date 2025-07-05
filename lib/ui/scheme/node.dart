@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'dart:ui';
+
 import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
@@ -37,6 +38,7 @@ class Node implements Paintable, Hittable {
 
   @override
   void paint(Canvas canvas) {
+    canvas.drawCircle(center, radius + style.sigma, style.background);
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
     _iconic.paint(canvas);
@@ -51,25 +53,31 @@ class Node implements Paintable, Hittable {
   }
 
   @override
-  bool hitTest(Offset position) =>
-      (position - center).distanceSquared < _radiusSquared;
+  bool hitTest(Offset position) => (position - center).distanceSquared < _radiusSquared;
 }
 
 class NodeStyle {
+  final Paint background;
   final Paint fill;
   final Paint stroke;
   final Paint selected;
   final Paint focused;
+  double sigma;
 
   NodeStyle({
     required Color color,
     required Color backgroundColor,
     required Color selectedColor,
     required Color focusedColor,
-    double strokeWidth = 4.0,
-    double focussedWidth = 2.0,
+    double strokeWidth = 2.0,
+    double focussedWidth = 1.0,
     double selectedWidth = 0.5,
-  }) : fill = Paint()
+    this.sigma = 8.0,
+  }) : background = Paint()
+         ..style = PaintingStyle.fill
+         ..color = backgroundColor
+         ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+       fill = Paint()
          ..style = PaintingStyle.fill
          ..color = backgroundColor,
        stroke = Paint()
