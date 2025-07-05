@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/figure.dart';
 
@@ -31,6 +32,7 @@ class Line implements Paintable {
 
   @override
   void paint(Canvas canvas) {
+    canvas.drawPath(_path, style.back);
     canvas.drawPath(_path, style.stroke);
   }
 
@@ -86,10 +88,15 @@ class Line implements Paintable {
 
 class LineStyle {
   final Paint stroke;
+  final Paint back;
 
-  LineStyle({required Color color, double strokeWidth = 1.0})
+  LineStyle({required Color color, required Color backgroundColor, double strokeWidth = 1.0})
     : stroke = Paint()
         ..color = color
         ..strokeWidth = strokeWidth
+        ..style = PaintingStyle.stroke,
+      back = Paint()
+        ..color = backgroundColor
+        ..strokeWidth = strokeWidth * 15
         ..style = PaintingStyle.stroke;
 }
