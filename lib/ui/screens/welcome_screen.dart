@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:studio/core/connector.dart';
+import 'package:studio/core/port.dart';
 import 'package:studio/core/item.dart';
 import 'package:studio/core/link.dart';
 import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/views/scheme_editor.dart';
 import 'package:studio/ui_kit/layouts/default_layout.dart';
 
-final connectors = [ConnectorType.sensor, ConnectorType.actuator, ConnectorType.dummy];
+final connectors = [PortType.sensor, PortType.actuator, PortType.dummy];
 
 final scheme = Scheme(
   id: 0,
   items: [
-    Item(id: 0, x: 0, y: 0, type: ItemType.device, connectors: connectors),
-    Item(id: 1, x: 1, y: 0, type: ItemType.rightArrow, connectors: connectors),
+    Item(id: 0, x: 5, y: 6, type: ItemType.device, connectors: connectors),
+    Item(id: 1, x: 7, y: 6, type: ItemType.rightArrow, connectors: connectors),
     // Item(id: 2, x: 2, y: 0, type: ItemType.rightArrow, connectors: connectors),
     // Item(id: 3, x: 3, y: 0, type: ItemType.horizontalBar, connectors: connectors),
     // Item(id: 4, x: 4, y: 0, type: ItemType.verticalBar, connectors: connectors),
@@ -37,7 +37,7 @@ final scheme = Scheme(
     // Item(id: 23, x: 3, y: 4, type: ItemType.heater, connectors: connectors),
   ],
   links: [
-    Link(id: 0, source: Vertex(id: 0, idx: 0), sink: Vertex(id: 1, idx: 0)),
+    Link(id: 0, source: Connector(id: 0, idx: 0), sink: Connector(id: 1, idx: 0)),
     // Link(id: 1, source: Vertex(id: 1, idx: 0), sink: Vertex(id: 2, idx: 0)),
     // Link(id: 2, source: Vertex(id: 1, idx: 0), sink: Vertex(id: 3, idx: 0)),
   ],
