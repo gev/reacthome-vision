@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:studio/core/item.dart';
-import 'package:studio/core/link.dart';
 import 'package:studio/core/port.dart';
 import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/views/scheme_editor.dart';
@@ -15,8 +14,10 @@ final scheme = Scheme(
     Item(id: 1, x: 1, y: 0, type: ItemType.plus, connectors: connectors),
     Item(id: 2, x: 2, y: 0, type: ItemType.rightArrow, connectors: connectors),
     Item(id: 3, x: 3, y: 0, type: ItemType.horizontalBar, connectors: connectors),
-    Item(id: 4, x: 4, y: 0, type: ItemType.mixer, connectors: connectors),
-    Item(id: 5, x: 0, y: 1, type: ItemType.verticalBar, connectors: connectors),
+
+    Item(id: 4, x: 4, y: 0, type: ItemType.verticalBar, connectors: connectors),
+    Item(id: 5, x: 0, y: 1, type: ItemType.mixer, connectors: connectors),
+
     Item(id: 6, x: 1, y: 1, type: ItemType.verticalShutter, connectors: connectors),
     Item(id: 7, x: 2, y: 1, type: ItemType.horizontalShutter, connectors: connectors),
     Item(id: 8, x: 3, y: 1, type: ItemType.qf, connectors: connectors),
