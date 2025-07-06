@@ -1,6 +1,6 @@
 import 'dart:math';
+import 'dart:ui';
 
-import 'package:flutter/widgets.dart';
 import 'package:studio/ui/figures/figure.dart';
 
 enum DirectionType { left, up, right, down, any }
@@ -9,6 +9,7 @@ typedef Anchor = ({DirectionType direction, Offset offset});
 
 class Line implements Paintable {
   Line({this.radius = 24, required this.start, required this.end, required this.style}) {
+    _path.moveTo(start.offset.dx, start.offset.dy);
     if (end.offset.dx < start.offset.dx && end.offset.dy > start.offset.dy) {
       _lt();
     } else if (end.offset.dx > start.offset.dx && end.offset.dy > start.offset.dy) {
@@ -17,9 +18,8 @@ class Line implements Paintable {
       _rb();
     } else if (end.offset.dy < start.offset.dy && end.offset.dx < start.offset.dx) {
       _bl();
-    } else {
-      _l();
     }
+    _path.lineTo(end.offset.dx, end.offset.dy);
   }
 
   final Path _path = Path();
@@ -31,12 +31,8 @@ class Line implements Paintable {
 
   @override
   void paint(Canvas canvas) {
+    canvas.drawPath(_path, style.back);
     canvas.drawPath(_path, style.stroke);
-  }
-
-  void _l() {
-    _path.moveTo(start.offset.dx, start.offset.dy);
-    _path.lineTo(end.offset.dx, end.offset.dy);
   }
 
   void _lt() {
@@ -44,10 +40,8 @@ class Line implements Paintable {
     final dy = end.offset.dy - start.offset.dy;
     final rx = min(radius, dx);
     final ry = min(radius, dy);
-    _path.moveTo(end.offset.dx, end.offset.dy);
-    _path.relativeLineTo(0, ry - dy);
-    _path.relativeArcToPoint(Offset(rx, -ry), radius: Radius.elliptical(rx, ry));
-    _path.lineTo(start.offset.dx, start.offset.dy);
+    _path.relativeLineTo(rx - dx, 0);
+    _path.relativeArcToPoint(Offset(-rx, ry), radius: Radius.elliptical(rx, ry), clockwise: false);
   }
 
   void _tr() {
@@ -55,10 +49,8 @@ class Line implements Paintable {
     final dy = end.offset.dy - start.offset.dy;
     final rx = min(radius, dx);
     final ry = min(radius, dy);
-    _path.moveTo(start.offset.dx, start.offset.dy);
     _path.relativeLineTo(dx - rx, 0);
     _path.relativeArcToPoint(Offset(rx, ry), radius: Radius.elliptical(rx, ry));
-    _path.lineTo(end.offset.dx, end.offset.dy);
   }
 
   void _rb() {
@@ -66,10 +58,8 @@ class Line implements Paintable {
     final dy = start.offset.dy - end.offset.dy;
     final rx = min(radius, dx);
     final ry = min(radius, dy);
-    _path.moveTo(end.offset.dx, end.offset.dy);
-    _path.relativeLineTo(0, dy - ry);
-    _path.relativeArcToPoint(Offset(-rx, ry), radius: Radius.elliptical(rx, ry));
-    _path.lineTo(start.offset.dx, start.offset.dy);
+    _path.relativeLineTo(dx - rx, 0);
+    _path.relativeArcToPoint(Offset(rx, -ry), radius: Radius.elliptical(rx, ry), clockwise: false);
   }
 
   void _bl() {
@@ -77,19 +67,27 @@ class Line implements Paintable {
     final dy = start.offset.dy - end.offset.dy;
     final rx = min(radius, dx);
     final ry = min(radius, dy);
-    _path.moveTo(start.offset.dx, start.offset.dy);
     _path.relativeLineTo(rx - dx, 0);
     _path.relativeArcToPoint(Offset(-rx, -ry), radius: Radius.elliptical(rx, ry));
-    _path.lineTo(end.offset.dx, end.offset.dy);
   }
 }
 
 class LineStyle {
   final Paint stroke;
+  final Paint back;
 
-  LineStyle({required Color color, double strokeWidth = 1.0})
-    : stroke = Paint()
-        ..color = color
-        ..strokeWidth = strokeWidth
-        ..style = PaintingStyle.stroke;
+  LineStyle({
+    required Color color,
+    required Color backgroundColor,
+    double strokeWidth = 1.0,
+    double sigma = 8,
+  }) : stroke = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = color
+         ..strokeWidth = strokeWidth,
+       back = Paint()
+         ..style = PaintingStyle.stroke
+         ..color = backgroundColor
+         ..strokeWidth = 2 * sigma
+         ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma);
 }

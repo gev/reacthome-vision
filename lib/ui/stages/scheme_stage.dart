@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:studio/core/link.dart';
 import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/figures/figure.dart';
-import 'package:studio/ui/scheme/line.dart';
-import 'package:studio/ui/scheme/node.dart';
+import 'package:studio/ui/stages/line.dart';
+import 'package:studio/ui/stages/node.dart';
 
 class Ref<T> {
   Ref(this.ref);
@@ -19,16 +19,10 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   final _lines = <Id, Line>{};
   Ref<Node>? _hit;
 
-  SchemeStage({
-    required Scheme<Id> scheme,
-    required this.style,
-    required this.gap,
-  }) {
+  SchemeStage({required Scheme<Id> scheme, required this.style, required this.gap}) {
     for (final it in scheme.items) {
       final position = Offset(gap * it.x, gap * it.y);
-      final node = (Ref(
-        Node(type: it.type, center: position, style: style.nodeStyle),
-      ));
+      final node = (Ref(Node(type: it.type, center: position, style: style.nodeStyle)));
       _nodes[it.id] = node;
       _lineIndex[node] = {};
     }

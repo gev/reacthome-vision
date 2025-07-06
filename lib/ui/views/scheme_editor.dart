@@ -2,9 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/painters/grid_painter.dart';
 import 'package:studio/ui/painters/scheme_painter.dart';
-import 'package:studio/ui/scheme/line.dart';
-import 'package:studio/ui/scheme/node.dart';
-import 'package:studio/ui/scheme/scheme_stage.dart';
+import 'package:studio/ui/stages/line.dart';
+import 'package:studio/ui/stages/node.dart';
+import 'package:studio/ui/stages/scheme_stage.dart';
 import 'package:studio/ui/widgets/scheme_interactive_viewer.dart';
 import 'package:studio/ui/widgets/scheme_paint.dart';
 import 'package:studio/ui_kit/theme.dart';
@@ -35,6 +35,7 @@ class SchemeEditor extends StatelessWidget {
         ),
         lineStyle: LineStyle(
           color: theme.color.withAlpha(192),
+          backgroundColor: theme.backgroundColor,
           strokeWidth: 1.0,
         ),
       ),
@@ -47,11 +48,7 @@ class _SchemeEditor extends StatefulWidget {
   final GridStyle gridStyle;
   final SchemeStyle schemeStyle;
 
-  const _SchemeEditor({
-    required this.items,
-    required this.gridStyle,
-    required this.schemeStyle,
-  });
+  const _SchemeEditor({required this.items, required this.gridStyle, required this.schemeStyle});
 
   @override
   State<_SchemeEditor> createState() => _SchemeEditorState();
@@ -65,11 +62,7 @@ class _SchemeEditorState extends State<_SchemeEditor> {
   @override
   void initState() {
     super.initState();
-    stage = SchemeStage(
-      scheme: widget.items,
-      gap: gap,
-      style: widget.schemeStyle,
-    );
+    stage = SchemeStage(scheme: widget.items, gap: gap, style: widget.schemeStyle);
     gridController = GridController();
     transformationController = TransformationController();
     transformationController.addListener(() {
@@ -87,11 +80,7 @@ class _SchemeEditorState extends State<_SchemeEditor> {
         widget.gridStyle != oldWidget.gridStyle ||
         widget.schemeStyle != oldWidget.schemeStyle) {
       stage.dispose();
-      stage = SchemeStage(
-        scheme: widget.items,
-        gap: gap,
-        style: widget.schemeStyle,
-      );
+      stage = SchemeStage(scheme: widget.items, gap: gap, style: widget.schemeStyle);
     }
   }
 
@@ -100,11 +89,7 @@ class _SchemeEditorState extends State<_SchemeEditor> {
     return Stack(
       children: [
         SchemePaint(
-          painter: GridPainter(
-            gap: gap,
-            style: widget.gridStyle,
-            controller: gridController,
-          ),
+          painter: GridPainter(gap: gap, style: widget.gridStyle, controller: gridController),
         ),
 
         SchemeInteractiveViewer(
