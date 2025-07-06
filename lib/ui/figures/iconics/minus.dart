@@ -7,17 +7,15 @@ const k_minus_length = 0.5;
 
 class MinusIconic extends Iconic {
   final double minusLength;
-  MinusIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) : minusLength = size * k_minus_length;
+  final Path _path = Path();
+  MinusIconic({required super.offset, required super.size, required super.iconicStyle})
+    : minusLength = size * k_minus_length {
+    _path
+      ..moveTo(offset.dx - minusLength, offset.dy)
+      ..lineTo(offset.dx + minusLength, offset.dy);
+  }
   @override
   void paint(Canvas canvas) {
-    // canvas.drawLine(
-    //   Offset(offset.dx - minusLength, offset.dy),
-    //   Offset(offset.dx + minusLength, offset.dy),
-    //   strokeStyle,
-    // );
+    canvas.drawPath(_path, strokeStyle);
   }
 }
