@@ -2,32 +2,25 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k2 = 0.5;
+const kMixerGap = 0.4;
 
 class MixerIconic extends Iconic {
-  final double _size_2;
+  final double mixerGap;
+  final double halfSize;
+  final Path _path = Path();
 
-  MixerIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) : _size_2 = size / 2;
+  MixerIconic({required super.offset, required super.size, required super.iconicStyle})
+    : mixerGap = size * kMixerGap,
+      halfSize = size * 0.5 {
+    _path
+      ..moveTo(offset.dx - mixerGap, offset.dy - halfSize)
+      ..relativeLineTo(mixerGap, halfSize)
+      ..relativeLineTo(0, halfSize)
+      ..moveTo(offset.dx, offset.dy)
+      ..relativeLineTo(mixerGap, -halfSize);
+  }
   @override
   void paint(Canvas canvas) {
-    // canvas.drawLine(
-    //   Offset(offset.dx, offset.dy),
-    //   Offset(offset.dx, offset.dy + _size_2),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - _size_2, offset.dy - _size_2),
-    //   Offset(offset.dx, offset.dy),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx + _size_2, offset.dy - _size_2),
-    //   Offset(offset.dx, offset.dy),
-    //   strokeStyle,
-    // );
+    canvas.drawPath(_path, strokeStyle);
   }
 }
