@@ -2,31 +2,25 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_qf = 0.33;
+const kQF = 0.3;
 
 class QFIconic extends Iconic {
-  final double qfProportion;
-  QFIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) : qfProportion = size * k_qf;
+  final double qf;
+  final double halfSize;
+  final Path _path = Path();
+
+  QFIconic({required super.offset, required super.size, required super.iconicStyle})
+    : qf = size * kQF,
+      halfSize = size * 0.5 {
+    _path
+      ..moveTo(offset.dx, offset.dy - halfSize)
+      ..relativeLineTo(0, qf)
+      ..relativeLineTo(qf, qf)
+      ..moveTo(offset.dx, offset.dy + qf)
+      ..relativeLineTo(0, qf);
+  }
   @override
   void paint(Canvas canvas) {
-    // canvas.drawLine(
-    //   Offset(offset.dx, offset.dy - qfProportion * 2),
-    //   Offset(offset.dx, offset.dy - qfProportion),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx, offset.dy - qfProportion),
-    //   Offset(offset.dx + qfProportion, offset.dy + qfProportion * 0.5),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx, offset.dy + qfProportion * 2),
-    //   Offset(offset.dx, offset.dy + qfProportion),
-    //   strokeStyle,
-    // );
+    canvas.drawPath(_path, strokeStyle);
   }
 }
