@@ -45,15 +45,16 @@ class Item<Id> {
     required this.x,
     required this.y,
     required this.type,
-    required this.connectors,
+    this.connectors = const [],
   });
   final Id id;
   final int x;
   final int y;
   final ItemType type;
-  final List<PortType> connectors;
+  final Iterable<PortType> connectors;
 
-  void move(int x, int y) => Item(id: id, x: x, y: y, type: type, connectors: connectors);
+  void move(int x, int y) =>
+      Item(id: id, x: x, y: y, type: type, connectors: connectors);
 }
 
 // class Group<Id> extends Item<Id> {
