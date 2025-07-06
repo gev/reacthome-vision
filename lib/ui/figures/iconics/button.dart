@@ -8,11 +8,8 @@ class ButtonIconic extends Iconic {
   final double _buttonSize;
   final Path _path = Path();
 
-  ButtonIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) : _buttonSize = size * k_button_size {
+  ButtonIconic({required super.offset, required super.size, required super.iconicStyle})
+    : _buttonSize = size * k_button_size {
     _path
       ..moveTo(offset.dx - _buttonSize, offset.dy)
       ..relativeLineTo(size, 0)
