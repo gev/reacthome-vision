@@ -8,72 +8,35 @@ const k_sp_side = 0.35;
 abstract class SPIconic extends Iconic {
   final double spWidth;
   final double spSide;
-  SPIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) : spWidth = size * k_sp_width,
-       spSide = size * k_sp_side;
+  final Path _path = Path();
+  SPIconic({required super.offset, required super.size, required super.iconicStyle})
+    : spWidth = size * k_sp_width,
+      spSide = size * k_sp_side;
+
+  @override
+  void paint(Canvas canvas) {
+    canvas.drawPath(_path, strokeStyle);
+  }
 }
 
 class HorizontalSPIconic extends SPIconic {
-  HorizontalSPIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  });
-  @override
-  void paint(Canvas canvas) {
-    // canvas.drawLine(
-    //   Offset(offset.dx - spWidth, offset.dy - spSide),
-    //   Offset(offset.dx - spWidth, offset.dy + spSide),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - spWidth, offset.dy - spSide),
-    //   Offset(offset.dx + spWidth, offset.dy + spSide),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - spWidth, offset.dy + spSide),
-    //   Offset(offset.dx + spWidth, offset.dy - spSide),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx + spWidth, offset.dy - spSide),
-    //   Offset(offset.dx + spWidth, offset.dy + spSide),
-    //   strokeStyle,
-    // );
+  HorizontalSPIconic({required super.offset, required super.size, required super.iconicStyle}) {
+    _path
+      ..moveTo(offset.dx - spWidth, offset.dy - spSide)
+      ..relativeLineTo(0, spSide * 2)
+      ..relativeLineTo(spWidth * 2, -spSide * 2)
+      ..relativeLineTo(0, spSide * 2)
+      ..relativeLineTo(-spWidth * 2, -spSide * 2);
   }
 }
 
 class VerticalSPIconic extends SPIconic {
-  VerticalSPIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  });
-  @override
-  void paint(Canvas canvas) {
-    // canvas.drawLine(
-    //   Offset(offset.dx - spSide, offset.dy - spWidth),
-    //   Offset(offset.dx + spSide, offset.dy - spWidth),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - spSide, offset.dy + spWidth),
-    //   Offset(offset.dx + spSide, offset.dy + spWidth),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx + spSide, offset.dy - spWidth),
-    //   Offset(offset.dx - spSide, offset.dy + spWidth),
-    //   strokeStyle,
-    // );
-    // canvas.drawLine(
-    //   Offset(offset.dx - spSide, offset.dy - spWidth),
-    //   Offset(offset.dx + spSide, offset.dy + spWidth),
-    //   strokeStyle,
-    // );
+  VerticalSPIconic({required super.offset, required super.size, required super.iconicStyle}) {
+    _path
+      ..moveTo(offset.dx - spSide, offset.dy - spWidth)
+      ..relativeLineTo(spSide * 2, 0)
+      ..relativeLineTo(-spSide * 2, spWidth * 2)
+      ..relativeLineTo(spSide * 2, 0)
+      ..relativeLineTo(-spSide * 2, -spWidth * 2);
   }
 }
