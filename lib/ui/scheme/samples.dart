@@ -23,7 +23,7 @@ final nodeScheme = Scheme(
 );
 
 final iconicScheme = Scheme(
-  id: 0,
+  id: 1,
   items: [
     Item(id: 0, x: 0, y: 0, type: ItemType.minus, connectors: connectors),
     Item(id: 1, x: 1, y: 0, type: ItemType.plus, connectors: connectors),
