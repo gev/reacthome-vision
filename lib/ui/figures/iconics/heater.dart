@@ -2,52 +2,28 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const kLine = 0.5;
-const kLineToArc = 0.9;
-const kMiddleLineToArc = 0.7;
-const kHeaterGap = 0.4;
-const kArc = 0.2;
+const kHeaterHeight = 0.4;
+const kArcRadius = kHeaterHeight / 2;
 
 class HeaterIconic extends Iconic {
-  final double heaterLine;
-  final double lineToArc;
-  final double middleLineToArc;
-  final double heaterGap;
+  final double heaterHeight;
+  final double arcRadius;
   final Path _path = Path();
 
-  final Offset a = Offset(0, 0);
-  final Offset b = Offset(0, 0);
-
   HeaterIconic({required super.offset, required super.size, required super.iconicStyle})
-    : heaterGap = size * kHeaterGap,
-      heaterLine = size * kLine,
-      lineToArc = size * kLineToArc,
-      middleLineToArc = size * kMiddleLineToArc {
+    : heaterHeight = size * kHeaterHeight,
+      arcRadius = size * kArcRadius {
     _path
-      ..moveTo(offset.dx + heaterLine, offset.dy - heaterGap)
-      ..relativeLineTo(-lineToArc, 0)
+      ..moveTo(offset.dx + size / 2, offset.dy - heaterHeight)
+      ..relativeLineTo(-(size - arcRadius), 0)
       ..relativeArcToPoint(
-        Offset(-size * kArc, size * kArc),
-        radius: Radius.elliptical(size * kArc, size * kArc),
+        Offset(0, heaterHeight),
+        radius: Radius.circular(arcRadius),
         clockwise: false,
       )
-      ..relativeArcToPoint(
-        Offset(size * kArc, size * kArc),
-        radius: Radius.elliptical(size * kArc, size * kArc),
-        clockwise: false,
-      )
-      ..relativeLineTo(middleLineToArc, 0)
-      ..relativeArcToPoint(
-        Offset(size * kArc, size * kArc),
-        radius: Radius.elliptical(size * kArc, size * kArc),
-        clockwise: true,
-      )
-      ..relativeArcToPoint(
-        Offset(-size * kArc, size * kArc),
-        radius: Radius.elliptical(size * kArc, size * kArc),
-        clockwise: true,
-      )
-      ..relativeLineTo(-lineToArc, 0);
+      ..relativeLineTo(size - arcRadius * 2, 0)
+      ..relativeArcToPoint(Offset(0, heaterHeight), radius: Radius.circular(arcRadius))
+      ..relativeLineTo(-(size - arcRadius), 0);
   }
 
   @override
