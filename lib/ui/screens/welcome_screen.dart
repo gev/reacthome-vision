@@ -17,7 +17,6 @@ final scheme = Scheme(
 
     Item(id: 4, x: 4, y: 0, type: ItemType.verticalBar, connectors: connectors),
     Item(id: 5, x: 0, y: 1, type: ItemType.mixer, connectors: connectors),
-
     Item(id: 6, x: 1, y: 1, type: ItemType.verticalShutter, connectors: connectors),
     Item(id: 7, x: 2, y: 1, type: ItemType.horizontalShutter, connectors: connectors),
     Item(id: 8, x: 3, y: 1, type: ItemType.qf, connectors: connectors),
