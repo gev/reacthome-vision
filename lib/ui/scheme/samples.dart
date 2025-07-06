@@ -1,9 +1,6 @@
 import 'package:studio/core/item.dart';
 import 'package:studio/core/link.dart';
-import 'package:studio/core/port.dart';
 import 'package:studio/core/scheme.dart';
-
-final cs = [PortType.sensor, PortType.actuator, PortType.dummy];
 
 final nodeScheme = Scheme(
   id: 0,
