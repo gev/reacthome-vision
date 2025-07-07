@@ -29,7 +29,8 @@ class RightTriangleIconic extends TriangleIconic {
       ..moveTo(offset.dx - sidePosition, offset.dy - sideLength)
       ..relativeLineTo(0, sideLength * 2)
       ..relativeLineTo(apexPosition * 2, -sideLength)
-      ..relativeLineTo(-apexPosition * 2, -sideLength);
+      ..relativeLineTo(-apexPosition * 2, -sideLength)
+      ..close();
   }
 }
 
@@ -39,7 +40,8 @@ class LeftTriangleIconic extends TriangleIconic {
       ..moveTo(offset.dx + sidePosition, offset.dy - sideLength)
       ..relativeLineTo(0, sideLength * 2)
       ..relativeLineTo(-apexPosition * 2, -sideLength)
-      ..relativeLineTo(apexPosition * 2, -sideLength);
+      ..relativeLineTo(apexPosition * 2, -sideLength)
+      ..close();
   }
 }
 
@@ -49,7 +51,8 @@ class TopTriangleIconic extends TriangleIconic {
       ..moveTo(offset.dx - sideLength, offset.dy + sidePosition)
       ..relativeLineTo(sideLength * 2, 0)
       ..relativeLineTo(-sideLength, -apexPosition * 2)
-      ..relativeLineTo(-sideLength, apexPosition * 2);
+      ..relativeLineTo(-sideLength, apexPosition * 2)
+      ..close();
   }
 }
 
@@ -59,6 +62,7 @@ class BottomTriangleIconic extends TriangleIconic {
       ..moveTo(offset.dx - sideLength, offset.dy - sidePosition)
       ..relativeLineTo(sideLength * 2, 0)
       ..relativeLineTo(-sideLength, apexPosition * 2)
-      ..relativeLineTo(-sideLength, -apexPosition * 2);
+      ..relativeLineTo(-sideLength, -apexPosition * 2)
+      ..close();
   }
 }
