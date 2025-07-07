@@ -14,7 +14,6 @@ final scheme = Scheme(
     Item(id: 1, x: 1, y: 0, type: ItemType.plus, connectors: connectors),
     Item(id: 2, x: 2, y: 0, type: ItemType.rightArrow, connectors: connectors),
     Item(id: 3, x: 3, y: 0, type: ItemType.horizontalBar, connectors: connectors),
-
     Item(id: 4, x: 4, y: 0, type: ItemType.verticalBar, connectors: connectors),
     Item(id: 5, x: 0, y: 1, type: ItemType.mixer, connectors: connectors),
     Item(id: 6, x: 1, y: 1, type: ItemType.verticalShutter, connectors: connectors),
@@ -41,6 +40,11 @@ final scheme = Scheme(
     Item(id: 27, x: 2, y: 5, type: ItemType.leftFilter, connectors: connectors),
     Item(id: 28, x: 3, y: 5, type: ItemType.downFilter, connectors: connectors),
     Item(id: 29, x: 4, y: 5, type: ItemType.upFilter, connectors: connectors),
+    Item(id: 30, x: 0, y: 6, type: ItemType.chandelier, connectors: connectors),
+    Item(id: 31, x: 1, y: 6, type: ItemType.bra, connectors: connectors),
+    Item(id: 32, x: 2, y: 6, type: ItemType.track, connectors: connectors),
+    Item(id: 33, x: 3, y: 6, type: ItemType.led, connectors: connectors),
+    Item(id: 34, x: 4, y: 6, type: ItemType.spot, connectors: connectors),
   ],
   links: [
     // Link(id: 0, source: Connector(id: 0, idx: 0), sink: Connector(id: 1, idx: 0)),

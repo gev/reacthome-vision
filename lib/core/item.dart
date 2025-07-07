@@ -33,12 +33,11 @@ enum ItemType {
   leftFilter,
   downFilter,
   upFilter,
-  // tp,
-  // chandelier,
-  // bra,
-  // spot,
-  // led,
-  // track,
+  chandelier,
+  bra,
+  track,
+  led,
+  spot,
   // temperatureSensor,
 }
 

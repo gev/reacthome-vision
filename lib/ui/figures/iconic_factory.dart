@@ -5,11 +5,14 @@ import 'package:studio/ui/figures/iconics/air_conditioner.dart';
 import 'package:studio/ui/figures/iconics/arrow.dart';
 import 'package:studio/ui/figures/iconics/bar.dart';
 import 'package:studio/ui/figures/iconics/blinds.dart';
+import 'package:studio/ui/figures/iconics/bra.dart';
 import 'package:studio/ui/figures/iconics/button.dart';
+import 'package:studio/ui/figures/iconics/chandelier.dart';
 import 'package:studio/ui/figures/iconics/curtains.dart';
 import 'package:studio/ui/figures/iconics/device.dart';
 import 'package:studio/ui/figures/iconics/filter.dart';
 import 'package:studio/ui/figures/iconics/heater.dart';
+import 'package:studio/ui/figures/iconics/led.dart';
 import 'package:studio/ui/figures/iconics/minus.dart';
 import 'package:studio/ui/figures/iconics/mixer.dart';
 import 'package:studio/ui/figures/iconics/plus.dart';
@@ -18,6 +21,8 @@ import 'package:studio/ui/figures/iconics/qf.dart';
 import 'package:studio/ui/figures/iconics/screen.dart';
 import 'package:studio/ui/figures/iconics/shutter.dart';
 import 'package:studio/ui/figures/iconics/sp.dart';
+import 'package:studio/ui/figures/iconics/spot.dart';
+import 'package:studio/ui/figures/iconics/track.dart';
 import 'package:studio/ui/figures/iconics/triangle.dart';
 
 final iconicStyle = IconicStyle(width: 0.05, color: Colors.amber[800]!);
@@ -53,4 +58,9 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.leftFilter => LeftFilterIconic.new,
   ItemType.downFilter => DownFilterIconic.new,
   ItemType.upFilter => UpFilterIconic.new,
+  ItemType.chandelier => ChandelierIconic.new,
+  ItemType.bra => BraIconic.new,
+  ItemType.track => TrackIconic.new,
+  ItemType.led => LedIconic.new,
+  ItemType.spot => SpotIconic.new,
 }(offset: offset, size: 24, iconicStyle: iconicStyle);
