@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/iconic.dart';
+import 'package:studio/ui/figures/iconics/air_conditioner.dart';
 import 'package:studio/ui/figures/iconics/arrow.dart';
 import 'package:studio/ui/figures/iconics/bar.dart';
 import 'package:studio/ui/figures/iconics/blinds.dart';
 import 'package:studio/ui/figures/iconics/button.dart';
 import 'package:studio/ui/figures/iconics/curtains.dart';
 import 'package:studio/ui/figures/iconics/device.dart';
+import 'package:studio/ui/figures/iconics/filter.dart';
 import 'package:studio/ui/figures/iconics/heater.dart';
 import 'package:studio/ui/figures/iconics/minus.dart';
 import 'package:studio/ui/figures/iconics/mixer.dart';
 import 'package:studio/ui/figures/iconics/plus.dart';
+import 'package:studio/ui/figures/iconics/projector.dart';
 import 'package:studio/ui/figures/iconics/qf.dart';
 import 'package:studio/ui/figures/iconics/screen.dart';
 import 'package:studio/ui/figures/iconics/shutter.dart';
@@ -44,4 +47,10 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.curtains => CurtainsIconic.new,
   ItemType.blinds => BlindsIconic.new,
   ItemType.heater => HeaterIconic.new,
+  ItemType.airConditioner => AirConditionerIconic.new,
+  ItemType.projector => ProjectorIconic.new,
+  ItemType.rightFilter => RightFilterIconic.new,
+  ItemType.leftFilter => LeftFilterIconic.new,
+  ItemType.downFilter => DownFilterIconic.new,
+  ItemType.upFilter => UpFilterIconic.new,
 }(offset: offset, size: 24, iconicStyle: iconicStyle);

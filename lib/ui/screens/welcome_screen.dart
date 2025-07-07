@@ -35,6 +35,12 @@ final scheme = Scheme(
     Item(id: 21, x: 1, y: 4, type: ItemType.topArrow, connectors: connectors),
     Item(id: 22, x: 2, y: 4, type: ItemType.bottomArrow, connectors: connectors),
     Item(id: 23, x: 3, y: 4, type: ItemType.heater, connectors: connectors),
+    Item(id: 24, x: 4, y: 4, type: ItemType.airConditioner, connectors: connectors),
+    Item(id: 25, x: 0, y: 5, type: ItemType.projector, connectors: connectors),
+    Item(id: 26, x: 1, y: 5, type: ItemType.rightFilter, connectors: connectors),
+    Item(id: 27, x: 2, y: 5, type: ItemType.leftFilter, connectors: connectors),
+    Item(id: 28, x: 3, y: 5, type: ItemType.downFilter, connectors: connectors),
+    Item(id: 29, x: 4, y: 5, type: ItemType.upFilter, connectors: connectors),
   ],
   links: [
     // Link(id: 0, source: Connector(id: 0, idx: 0), sink: Connector(id: 1, idx: 0)),
