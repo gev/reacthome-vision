@@ -26,7 +26,8 @@ class HorizontalSPIconic extends SPIconic {
       ..relativeLineTo(0, spSide * 2)
       ..relativeLineTo(spWidth * 2, -spSide * 2)
       ..relativeLineTo(0, spSide * 2)
-      ..relativeLineTo(-spWidth * 2, -spSide * 2);
+      ..relativeLineTo(-spWidth * 2, -spSide * 2)
+      ..close();
   }
 }
 
@@ -37,6 +38,7 @@ class VerticalSPIconic extends SPIconic {
       ..relativeLineTo(spSide * 2, 0)
       ..relativeLineTo(-spSide * 2, spWidth * 2)
       ..relativeLineTo(spSide * 2, 0)
-      ..relativeLineTo(-spSide * 2, -spWidth * 2);
+      ..relativeLineTo(-spSide * 2, -spWidth * 2)
+      ..close();
   }
 }
