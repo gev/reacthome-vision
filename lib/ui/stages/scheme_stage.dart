@@ -19,10 +19,16 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   final _lines = <Id, Line>{};
   Ref<Node>? _hit;
 
-  SchemeStage({required Scheme<Id> scheme, required this.style, required this.gap}) {
+  SchemeStage({
+    required Scheme<Id> scheme,
+    required this.style,
+    required this.gap,
+  }) {
     for (final it in scheme.items) {
       final position = Offset(gap * it.x, gap * it.y);
-      final node = (Ref(Node(type: it.type, center: position, style: style.nodeStyle)));
+      final node = (Ref(
+        Node(type: it.type, center: position, style: style.nodeStyle),
+      ));
       _nodes[it.id] = node;
       _lineIndex[node] = {};
     }
@@ -127,8 +133,8 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     final end = _nodes[link.sink.id];
     if (start != null && end != null) {
       _lines[link.id] = Line(
-        start: (direction: DirectionType.any, offset: start.ref.center),
-        end: (direction: DirectionType.any, offset: end.ref.center),
+        start: (direction: DirectionType.left, offset: start.ref.center),
+        end: (direction: DirectionType.left, offset: end.ref.center),
         style: style.lineStyle,
       );
     }
