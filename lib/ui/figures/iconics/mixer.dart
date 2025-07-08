@@ -9,9 +9,12 @@ abstract class MixerIconic extends Iconic {
   final double halfSize;
   final Path _path = Path();
 
-  MixerIconic({required super.offset, required super.size, required super.iconicStyle})
-    : mixerGap = size * kMixerGap,
-      halfSize = size * 0.5;
+  MixerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : mixerGap = size * kMixerGap,
+       halfSize = size * 0.5;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
@@ -19,13 +22,11 @@ abstract class MixerIconic extends Iconic {
 }
 
 class DownMixerIconic extends MixerIconic {
-  final double mixerGap;
-  final double halfSize;
-  final Path _path = Path();
-
-  DownMixerIconic({required super.offset, required super.size, required super.iconicStyle})
-    : mixerGap = size * kMixerGap,
-      halfSize = size * 0.5 {
+  DownMixerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - mixerGap, offset.dy + halfSize)
       ..relativeLineTo(mixerGap, -halfSize)
@@ -36,13 +37,11 @@ class DownMixerIconic extends MixerIconic {
 }
 
 class UpMixerIconic extends MixerIconic {
-  final double mixerGap;
-  final double halfSize;
-  final Path _path = Path();
-
-  UpMixerIconic({required super.offset, required super.size, required super.iconicStyle})
-    : mixerGap = size * kMixerGap,
-      halfSize = size * 0.5 {
+  UpMixerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - mixerGap, offset.dy + halfSize)
       ..relativeLineTo(mixerGap, -halfSize)
@@ -53,13 +52,11 @@ class UpMixerIconic extends MixerIconic {
 }
 
 class RightMixerIconic extends MixerIconic {
-  final double mixerGap;
-  final double halfSize;
-  final Path _path = Path();
-
-  RightMixerIconic({required super.offset, required super.size, required super.iconicStyle})
-    : mixerGap = size * kMixerGap,
-      halfSize = size * 0.5 {
+  RightMixerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - halfSize, offset.dy + mixerGap)
       ..relativeLineTo(halfSize, -mixerGap)
@@ -70,13 +67,11 @@ class RightMixerIconic extends MixerIconic {
 }
 
 class LeftMixerIconic extends MixerIconic {
-  final double mixerGap;
-  final double halfSize;
-  final Path _path = Path();
-
-  LeftMixerIconic({required super.offset, required super.size, required super.iconicStyle})
-    : mixerGap = size * kMixerGap,
-      halfSize = size * 0.5 {
+  LeftMixerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx + halfSize, offset.dy + mixerGap)
       ..relativeLineTo(-halfSize, -mixerGap)
