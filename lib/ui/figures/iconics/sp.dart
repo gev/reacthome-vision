@@ -2,16 +2,16 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_sp_width = 0.5;
-const k_sp_side = 0.35;
+const kSPWidth = 0.5;
+const kSPSide = 0.35;
 
 abstract class SPIconic extends Iconic {
   final double spWidth;
   final double spSide;
   final Path _path = Path();
   SPIconic({required super.offset, required super.size, required super.iconicStyle})
-    : spWidth = size * k_sp_width,
-      spSide = size * k_sp_side;
+    : spWidth = size * kSPWidth,
+      spSide = size * kSPSide;
 
   @override
   void paint(Canvas canvas) {

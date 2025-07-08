@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_blinds_gap = 0.2;
-const k_blinds_width = 0.5;
+const kBlindsGap = 0.2;
+const kBlindsWidth = 0.5;
 
 class BlindsIconic extends Iconic {
   final double blindsGap;
@@ -11,12 +11,9 @@ class BlindsIconic extends Iconic {
 
   final Path _path = Path();
 
-  BlindsIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) : blindsGap = size * k_blinds_gap,
-       blindsWidth = size * k_blinds_width {
+  BlindsIconic({required super.offset, required super.size, required super.iconicStyle})
+    : blindsGap = size * kBlindsGap,
+      blindsWidth = size * kBlindsWidth {
     _path
       ..moveTo(offset.dx - blindsWidth, offset.dy - blindsGap * 2)
       ..relativeLineTo(size, 0)

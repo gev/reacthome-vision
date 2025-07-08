@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_side_position = 0.35;
-const k_side_length = 0.5;
-const k_apex_position = 0.45;
+const kSidePosition = 0.35;
+const kSideLength = 0.5;
+const kApexPosition = 0.45;
 
 abstract class TriangleIconic extends Iconic {
   final double sidePosition;
@@ -13,9 +13,9 @@ abstract class TriangleIconic extends Iconic {
   final Path _path = Path();
 
   TriangleIconic({required super.offset, required super.size, required super.iconicStyle})
-    : sidePosition = size * k_side_position,
-      sideLength = size * k_side_length,
-      apexPosition = size * k_apex_position;
+    : sidePosition = size * kSidePosition,
+      sideLength = size * kSideLength,
+      apexPosition = size * kApexPosition;
 
   @override
   void paint(Canvas canvas) {

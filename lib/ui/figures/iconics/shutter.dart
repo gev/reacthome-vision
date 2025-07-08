@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_shutter_length = 0.4;
+const kShutterLength = 0.4;
 const k_shutter_circle = 0.15;
 
 abstract class ShutterIconic extends Iconic {
@@ -11,7 +11,7 @@ abstract class ShutterIconic extends Iconic {
   final Path _path = Path();
 
   ShutterIconic({required super.offset, required super.size, required super.iconicStyle})
-    : shutterLength = size * k_shutter_length,
+    : shutterLength = size * kShutterLength,
       shutterCircle = size * k_shutter_circle;
 
   @override

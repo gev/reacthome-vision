@@ -2,20 +2,17 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_bar_length = 0.5;
-const k_bar_gap = 0.35;
+const kBarLength = 0.5;
+const kBarGap = 0.35;
 
 abstract class _BarIconic extends Iconic {
   final double barGap;
   final double barLength;
   final Path _path = Path();
 
-  _BarIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) : barGap = size * k_bar_gap,
-       barLength = size * k_bar_length;
+  _BarIconic({required super.offset, required super.size, required super.iconicStyle})
+    : barGap = size * kBarGap,
+      barLength = size * kBarLength;
 
   @override
   void paint(Canvas canvas) {
@@ -24,11 +21,7 @@ abstract class _BarIconic extends Iconic {
 }
 
 class HorizontalBarIconic extends _BarIconic {
-  HorizontalBarIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) {
+  HorizontalBarIconic({required super.offset, required super.size, required super.iconicStyle}) {
     _path
       ..moveTo(offset.dx - barLength, offset.dy - barGap)
       ..relativeLineTo(size, 0)
@@ -40,11 +33,7 @@ class HorizontalBarIconic extends _BarIconic {
 }
 
 class VerticalBarIconic extends _BarIconic {
-  VerticalBarIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) {
+  VerticalBarIconic({required super.offset, required super.size, required super.iconicStyle}) {
     _path
       ..moveTo(offset.dx - barGap, offset.dy - barLength)
       ..relativeLineTo(0, size)

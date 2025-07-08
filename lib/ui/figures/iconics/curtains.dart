@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_curtains_width = 0.5;
-const k_curtains_sides = 0.3;
-const k_curtains_height = 0.5;
+const kCurtainsWidth = 0.5;
+const kCurtainsSides = 0.3;
+const kCurtainsHeight = 0.5;
 
 class CurtainsIconic extends Iconic {
   final double curtainsSides;
@@ -13,9 +13,9 @@ class CurtainsIconic extends Iconic {
   final Path _path = Path();
 
   CurtainsIconic({required super.offset, required super.size, required super.iconicStyle})
-    : curtainsSides = size * k_curtains_sides,
-      curtainsHeight = size * k_curtains_height,
-      curtainsWidth = size * k_curtains_width {
+    : curtainsSides = size * kCurtainsSides,
+      curtainsHeight = size * kCurtainsHeight,
+      curtainsWidth = size * kCurtainsWidth {
     _path
       ..moveTo(offset.dx - curtainsWidth, offset.dy - curtainsHeight)
       ..relativeLineTo(size, 0)

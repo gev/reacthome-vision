@@ -2,14 +2,14 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const k_button_size = 0.5;
+const kButtonSize = 0.5;
 
 class ButtonIconic extends Iconic {
   final double _buttonSize;
   final Path _path = Path();
 
   ButtonIconic({required super.offset, required super.size, required super.iconicStyle})
-    : _buttonSize = size * k_button_size {
+    : _buttonSize = size * kButtonSize {
     _path
       ..moveTo(offset.dx - _buttonSize, offset.dy)
       ..relativeLineTo(size, 0)
