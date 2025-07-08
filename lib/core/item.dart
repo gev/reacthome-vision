@@ -11,7 +11,7 @@ enum ItemType {
   bottomArrow,
   horizontalBar,
   verticalBar,
-  mixer,
+  downMixer,
   verticalShutter,
   horizontalShutter,
   qf,
@@ -38,7 +38,11 @@ enum ItemType {
   track,
   led,
   spot,
-  // temperatureSensor,
+  upMixer,
+  rightMixer,
+  leftMixer,
+  delay,
+  temperatureSensor,
 }
 
 class Item<Id> {

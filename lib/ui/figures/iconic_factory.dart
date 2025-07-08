@@ -9,6 +9,7 @@ import 'package:studio/ui/figures/iconics/bra.dart';
 import 'package:studio/ui/figures/iconics/button.dart';
 import 'package:studio/ui/figures/iconics/chandelier.dart';
 import 'package:studio/ui/figures/iconics/curtains.dart';
+import 'package:studio/ui/figures/iconics/delay.dart';
 import 'package:studio/ui/figures/iconics/device.dart';
 import 'package:studio/ui/figures/iconics/filter.dart';
 import 'package:studio/ui/figures/iconics/heater.dart';
@@ -22,6 +23,7 @@ import 'package:studio/ui/figures/iconics/screen.dart';
 import 'package:studio/ui/figures/iconics/shutter.dart';
 import 'package:studio/ui/figures/iconics/sp.dart';
 import 'package:studio/ui/figures/iconics/spot.dart';
+import 'package:studio/ui/figures/iconics/temperature_sensor.dart';
 import 'package:studio/ui/figures/iconics/track.dart';
 import 'package:studio/ui/figures/iconics/triangle.dart';
 
@@ -36,7 +38,7 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.bottomArrow => BottomArrowIconic.new,
   ItemType.horizontalBar => HorizontalBarIconic.new,
   ItemType.verticalBar => VerticalBarIconic.new,
-  ItemType.mixer => MixerIconic.new,
+  ItemType.downMixer => DownMixerIconic.new,
   ItemType.verticalShutter => VerticalShutterIconic.new,
   ItemType.horizontalShutter => HorizontalShutterIconic.new,
   ItemType.qf => QFIconic.new,
@@ -63,4 +65,9 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.track => TrackIconic.new,
   ItemType.led => LedIconic.new,
   ItemType.spot => SpotIconic.new,
+  ItemType.upMixer => UpMixerIconic.new,
+  ItemType.rightMixer => RightMixerIconic.new,
+  ItemType.leftMixer => LeftMixerIconic.new,
+  ItemType.delay => DelayIconic.new,
+  ItemType.temperatureSensor => TemperatureSensorIconic.new,
 }(offset: offset, size: 24, iconicStyle: iconicStyle);
