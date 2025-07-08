@@ -133,8 +133,8 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     final end = _nodes[link.sink.id];
     if (start != null && end != null) {
       _lines[link.id] = Line(
-        start: (direction: DirectionType.left, offset: start.ref.center),
-        end: (direction: DirectionType.left, offset: end.ref.center),
+        start: (direction: Direction.left, offset: start.ref.center),
+        end: (direction: Direction.left, offset: end.ref.center),
         style: style.lineStyle,
       );
     }
