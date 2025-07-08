@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const kBraWidth = 0.2;
+const kBraWidth = 0.12;
 const kBraHeight = 0.5;
-const kRectHeight = 0.2;
+const kRectTop = 0.1;
 
 class BraIconic extends Iconic {
   final Path _path = Path();
@@ -14,7 +14,7 @@ class BraIconic extends Iconic {
   BraIconic({required super.offset, required super.size, required super.iconicStyle})
     : braWidth = size * kBraWidth,
       braHeight = size * kBraHeight,
-      rectHeight = size * kRectHeight {
+      rectHeight = size * kRectTop {
     _path
       ..moveTo(offset.dx, offset.dy - braHeight)
       ..relativeLineTo(0, braHeight - rectHeight)
