@@ -26,23 +26,27 @@ abstract class LinePath {
   }
 
   void toRightDown(double dx, double dy) {
-    lineToRight(dx);
-    lineToDown(dy);
+    lineToRight(dx - radius);
+    arcToRightDown();
+    lineToDown(dy - radius);
   }
 
   void toRightUp(double dx, double dy) {
-    lineToRight(dx);
-    lineToUp(dy);
+    lineToRight(dx - radius);
+    arcToRightUp();
+    lineToUp(dy - radius);
   }
 
   void toLeftDown(double dx, double dy) {
-    lineToLeft(dx);
-    lineToDown(dy);
+    lineToLeft(dx - radius);
+    arcToLeftDown();
+    lineToDown(dy - radius);
   }
 
   void toLeftUp(double dx, double dy) {
-    lineToLeft(dx);
-    lineToUp(dy);
+    lineToLeft(dx - radius);
+    arcToLeftUp();
+    lineToUp(dy - radius);
   }
 
   void lineToLeft(double dx) {
