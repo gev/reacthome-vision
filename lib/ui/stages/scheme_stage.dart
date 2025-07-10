@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:studio/core/link.dart';
 import 'package:studio/core/scheme.dart';
 import 'package:studio/ui/figures/figure.dart';
+import 'package:studio/ui/stages/anchor_line.dart';
 import 'package:studio/ui/stages/line.dart';
 import 'package:studio/ui/stages/node.dart';
 
@@ -16,7 +17,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   final _nodes = <Id, Ref<Node>>{};
   final _selected = <Ref<Node>>{};
   final _lineIndex = <Ref<Node>, Set<Link<Id>>>{};
-  final _lines = <Id, Line>{};
+  final _lines = <Id, AnchorLine>{};
   Ref<Node>? _hit;
 
   SchemeStage({
@@ -43,9 +44,9 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
 
   @override
   void paint(Canvas canvas) {
-    for (final it in _lines.values) {
-      it.paint(canvas);
-    }
+    // for (final it in _lines.values) {
+    //   it.paint(canvas);
+    // }
     for (final it in _nodes.values) {
       it.ref.paint(canvas);
     }
@@ -53,6 +54,9 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
       it.ref.paintSelection(canvas);
     }
     _hit?.ref.paintFocus(canvas);
+    for (final it in _lines.values) {
+      it.paint(canvas);
+    }
   }
 
   @override
@@ -132,7 +136,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     final start = _nodes[link.source.id];
     final end = _nodes[link.sink.id];
     if (start != null && end != null) {
-      _lines[link.id] = Line(
+      _lines[link.id] = AnchorLine(
         start: (direction: Direction.left, offset: start.ref.center),
         end: (direction: Direction.left, offset: end.ref.center),
         style: style.lineStyle,

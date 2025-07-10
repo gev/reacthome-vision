@@ -1,7 +1,12 @@
-import 'package:studio/ui/stages/line_path.dart';
+import 'package:studio/ui/stages/line.dart';
 
-class LeftUp extends LinePath {
-  LeftUp({required super.start, required super.end, required super.radius});
+class LeftUp extends Line {
+  LeftUp({
+    required super.start,
+    required super.end,
+    required super.radius,
+    required super.style,
+  });
 
   @override
   void toRightDown(double dx, double dy) {

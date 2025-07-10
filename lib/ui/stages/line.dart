@@ -1,90 +1,124 @@
 import 'dart:ui';
 
 import 'package:studio/ui/figures/figure.dart';
-import 'package:studio/ui/stages/line_path.dart';
-import 'package:studio/ui/stages/line_paths/any_any.dart';
-import 'package:studio/ui/stages/line_paths/any_down.dart';
-import 'package:studio/ui/stages/line_paths/any_left.dart';
-import 'package:studio/ui/stages/line_paths/any_right.dart';
-import 'package:studio/ui/stages/line_paths/any_up.dart';
-import 'package:studio/ui/stages/line_paths/down_any.dart';
-import 'package:studio/ui/stages/line_paths/down_down.dart';
-import 'package:studio/ui/stages/line_paths/down_left.dart';
-import 'package:studio/ui/stages/line_paths/down_right.dart';
-import 'package:studio/ui/stages/line_paths/down_up.dart';
-import 'package:studio/ui/stages/line_paths/left_any.dart';
-import 'package:studio/ui/stages/line_paths/left_down.dart';
-import 'package:studio/ui/stages/line_paths/left_left.dart';
-import 'package:studio/ui/stages/line_paths/left_right.dart';
-import 'package:studio/ui/stages/line_paths/left_up.dart';
-import 'package:studio/ui/stages/line_paths/right_any.dart';
-import 'package:studio/ui/stages/line_paths/right_down.dart';
-import 'package:studio/ui/stages/line_paths/right_left.dart';
-import 'package:studio/ui/stages/line_paths/right_right.dart';
-import 'package:studio/ui/stages/line_paths/right_up.dart';
-import 'package:studio/ui/stages/line_paths/up_any.dart';
-import 'package:studio/ui/stages/line_paths/up_down.dart';
-import 'package:studio/ui/stages/line_paths/up_left.dart';
-import 'package:studio/ui/stages/line_paths/up_right.dart';
-import 'package:studio/ui/stages/line_paths/up_up.dart';
 
-enum Direction { left, up, right, down, any }
-
-typedef Anchor = ({Direction direction, Offset offset});
-
-class Line implements Paintable {
+abstract class Line implements Paintable {
+  final Offset start;
+  final Offset end;
+  final double radius;
   final LineStyle style;
-  late final LinePath _line;
+
+  final Path _path = Path();
 
   Line({
-    required Anchor start,
-    required Anchor end,
-    double radius = 24,
+    required this.start,
+    required this.end,
+    required this.radius,
     required this.style,
   }) {
-    _line = switch (start.direction) {
-      Direction.left => switch (end.direction) {
-        Direction.left => LeftLeft.new,
-        Direction.up => LeftUp.new,
-        Direction.right => LeftRight.new,
-        Direction.down => LeftDown.new,
-        Direction.any => LeftAny.new,
-      },
-      Direction.up => switch (end.direction) {
-        Direction.left => UpLeft.new,
-        Direction.up => UpUp.new,
-        Direction.right => UpRight.new,
-        Direction.down => UpDown.new,
-        Direction.any => UpAny.new,
-      },
-      Direction.right => switch (end.direction) {
-        Direction.left => RightLeft.new,
-        Direction.up => RightUp.new,
-        Direction.right => RightRight.new,
-        Direction.down => RightDown.new,
-        Direction.any => RightAny.new,
-      },
-      Direction.down => switch (end.direction) {
-        Direction.left => DownLeft.new,
-        Direction.up => DownUp.new,
-        Direction.right => DownRight.new,
-        Direction.down => DownDown.new,
-        Direction.any => DownAny.new,
-      },
-      Direction.any => switch (end.direction) {
-        Direction.left => AnyLeft.new,
-        Direction.up => AnyUp.new,
-        Direction.right => AnyRight.new,
-        Direction.down => AnyDown.new,
-        Direction.any => AnyAny.new,
-      },
-    }(start: start.offset, end: end.offset, radius: radius);
+    if (end.dx > start.dx) {
+      if (end.dy > start.dy) {
+        toRightDown(end.dx - start.dx, end.dy - start.dy);
+      } else {
+        toRightUp(end.dx - start.dx, start.dy - end.dy);
+      }
+    } else {
+      if (end.dy > start.dy) {
+        toLeftDown(start.dx - end.dx, end.dy - start.dy);
+      } else {
+        toLeftUp(start.dx - end.dx, start.dy - end.dy);
+      }
+    }
   }
 
   @override
   void paint(Canvas canvas) {
-    canvas.drawPath(_line.path, style.back);
-    canvas.drawPath(_line.path, style.stroke);
+    canvas.drawPath(_path, style.back);
+    canvas.drawPath(_path, style.stroke);
+  }
+
+  void toRightDown(double dx, double dy) {
+    lineToRight(dx - radius);
+    arcToRightDown();
+    lineToDown(dy - radius);
+  }
+
+  void toRightUp(double dx, double dy) {
+    lineToRight(dx - radius);
+    arcToRightUp();
+    lineToUp(dy - radius);
+  }
+
+  void toLeftDown(double dx, double dy) {
+    lineToLeft(dx - radius);
+    arcToLeftDown();
+    lineToDown(dy - radius);
+  }
+
+  void toLeftUp(double dx, double dy) {
+    lineToLeft(dx - radius);
+    arcToLeftUp();
+    lineToUp(dy - radius);
+  }
+
+  void moveTo(double dx, double dy) {
+    _path.moveTo(dx, dy);
+  }
+
+  void lineToLeft(double dx) {
+    _path.relativeLineTo(-dx, 0);
+  }
+
+  void lineToUp(double dy) {
+    _path.relativeLineTo(0, -dy);
+  }
+
+  void lineToRight(double dx) {
+    _path.relativeLineTo(dx, 0);
+  }
+
+  void lineToDown(double dy) {
+    _path.relativeLineTo(0, dy);
+  }
+
+  void arcToLeftUp() {
+    _arc(-radius, -radius, true);
+  }
+
+  void arcToLeftDown() {
+    _arc(-radius, radius, false);
+  }
+
+  void arcToUpLeft() {
+    _arc(-radius, -radius, false);
+  }
+
+  void arcToUpRight() {
+    _arc(radius, -radius, true);
+  }
+
+  void arcToRightUp() {
+    _arc(radius, -radius, false);
+  }
+
+  void arcToRightDown() {
+    _arc(radius, radius, true);
+  }
+
+  void arcToDownLeft() {
+    _arc(-radius, radius, true);
+  }
+
+  void arcToDownRight() {
+    _arc(radius, radius, false);
+  }
+
+  void _arc(double dx, double dy, bool clockwise) {
+    _path.relativeArcToPoint(
+      Offset(dx, dy),
+      radius: Radius.circular(radius),
+      clockwise: clockwise,
+    );
   }
 }
 
