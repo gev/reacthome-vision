@@ -10,22 +10,26 @@ class LeftUp extends Line {
 
   @override
   void toRightDown(double dx, double dy) {
-    lineToLeft(radius);
+    moveTo(start.dx - radius, start.dy);
     if (dy > 4 * radius) {
       arcToLeftDown();
       lineToDown(dy / 2 - 2 * radius);
       arcToDownRight();
+      lineToRight(dx);
+      arcToRightDown();
+      lineToDown(dy / 2 - 2 * radius);
     } else {
       arcToLeftUp();
       arcToUpRight();
+      lineToRight(dx);
+      arcToRightDown();
+      lineToDown(dy);
     }
-    lineToRight(dx);
-    arcToRightDown();
   }
 
   @override
   void toRightUp(double dx, double dy) {
-    lineToLeft(radius);
+    moveTo(start.dx - radius, start.dy);
     arcToLeftUp();
     lineToUp(dy);
     arcToUpRight();
@@ -35,44 +39,47 @@ class LeftUp extends Line {
 
   @override
   void toLeftDown(double dx, double dy) {
+    moveTo(start.dx - radius, start.dy);
     if (dx > 2 * radius && dy > 2 * radius) {
-      lineToLeft(dx - radius);
+      lineToLeft(dx - 2 * radius);
       arcToLeftDown();
+      lineToDown(dy - 2 * radius);
     } else {
       if (dx > 4 * radius) {
         lineToLeft(dx / 2 - 2 * radius);
-        lineToLeft(radius);
         arcToLeftUp();
         arcToUpLeft();
         lineToLeft(dx / 2 - 2 * radius);
         arcToLeftDown();
+        lineToDown(dy);
       } else if (dy > 4 * radius) {
-        lineToLeft(dx + radius);
+        lineToLeft(dx);
         arcToLeftDown();
         lineToDown(dy / 2 - 2 * radius);
         arcToDownRight();
         arcToRightDown();
+        lineToDown(dy / 2 - 2 * radius);
       } else {
-        lineToLeft(dx + radius);
+        lineToLeft(dx);
         arcToLeftUp();
         arcToUpRight();
         arcToRightDown();
+        lineToDown(dy);
       }
     }
   }
 
   @override
   void toLeftUp(double dx, double dy) {
+    moveTo(start.dx - radius, start.dy);
     if (dx > 4 * radius) {
       lineToLeft(dx / 2 - 2 * radius);
-      lineToLeft(radius);
       arcToLeftUp();
       lineToUp(dy);
       arcToUpLeft();
       lineToLeft(dx / 2 - 2 * radius);
       arcToLeftDown();
     } else {
-      lineToLeft(radius);
       lineToLeft(dx);
       arcToLeftUp();
       lineToUp(dy);
