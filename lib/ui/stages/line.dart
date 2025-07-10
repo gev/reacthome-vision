@@ -1,41 +1,35 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:studio/ui/figures/figure.dart';
 
-enum DirectionType { left, up, right, down, any }
-
-typedef Anchor = ({DirectionType direction, Offset offset});
-
-class Line implements Paintable {
-  Line({
-    this.radius = 24,
-    required this.start,
-    required this.end,
-    required this.style,
-  }) {
-    _path.moveTo(start.offset.dx, start.offset.dy);
-    if (end.offset.dx < start.offset.dx && end.offset.dy > start.offset.dy) {
-      _lt();
-    } else if (end.offset.dx > start.offset.dx &&
-        end.offset.dy > start.offset.dy) {
-      _tr();
-    } else if (end.offset.dx > start.offset.dx &&
-        end.offset.dy < start.offset.dy) {
-      _rb();
-    } else if (end.offset.dy < start.offset.dy &&
-        end.offset.dx < start.offset.dx) {
-      _bl();
-    }
-    _path.lineTo(end.offset.dx, end.offset.dy);
-  }
+abstract class Line implements Paintable {
+  final Offset start;
+  final Offset end;
+  final double radius;
+  final LineStyle style;
 
   final Path _path = Path();
 
-  final Anchor start;
-  final Anchor end;
-  final double radius;
-  final LineStyle style;
+  Line({
+    required this.start,
+    required this.end,
+    required this.radius,
+    required this.style,
+  }) {
+    if (end.dx > start.dx) {
+      if (end.dy > start.dy) {
+        toRightDown(end.dx - start.dx, end.dy - start.dy);
+      } else {
+        toRightUp(end.dx - start.dx, start.dy - end.dy);
+      }
+    } else {
+      if (end.dy > start.dy) {
+        toLeftDown(start.dx - end.dx, end.dy - start.dy);
+      } else {
+        toLeftUp(start.dx - end.dx, start.dy - end.dy);
+      }
+    }
+  }
 
   @override
   void paint(Canvas canvas) {
@@ -43,50 +37,87 @@ class Line implements Paintable {
     canvas.drawPath(_path, style.stroke);
   }
 
-  void _lt() {
-    final dx = start.offset.dx - end.offset.dx;
-    final dy = end.offset.dy - start.offset.dy;
-    final rx = min(radius, dx);
-    final ry = min(radius, dy);
-    _path.relativeLineTo(rx - dx, 0);
-    _path.relativeArcToPoint(
-      Offset(-rx, ry),
-      radius: Radius.elliptical(rx, ry),
-      clockwise: false,
-    );
+  void toRightDown(double dx, double dy) {
+    moveTo(start.dx, start.dy);
+    lineToRight(dx);
+    lineToDown(dy);
   }
 
-  void _tr() {
-    final dx = end.offset.dx - start.offset.dx;
-    final dy = end.offset.dy - start.offset.dy;
-    final rx = min(radius, dx);
-    final ry = min(radius, dy);
-    _path.relativeLineTo(dx - rx, 0);
-    _path.relativeArcToPoint(Offset(rx, ry), radius: Radius.elliptical(rx, ry));
+  void toRightUp(double dx, double dy) {
+    moveTo(start.dx, start.dy);
+    lineToRight(dx);
+    lineToUp(dy);
   }
 
-  void _rb() {
-    final dx = end.offset.dx - start.offset.dx;
-    final dy = start.offset.dy - end.offset.dy;
-    final rx = min(radius, dx);
-    final ry = min(radius, dy);
-    _path.relativeLineTo(dx - rx, 0);
-    _path.relativeArcToPoint(
-      Offset(rx, -ry),
-      radius: Radius.elliptical(rx, ry),
-      clockwise: false,
-    );
+  void toLeftDown(double dx, double dy) {
+    moveTo(start.dx, start.dy);
+    lineToLeft(dx);
+    lineToDown(dy);
   }
 
-  void _bl() {
-    final dx = start.offset.dx - end.offset.dx;
-    final dy = start.offset.dy - end.offset.dy;
-    final rx = min(radius, dx);
-    final ry = min(radius, dy);
-    _path.relativeLineTo(rx - dx, 0);
+  void toLeftUp(double dx, double dy) {
+    moveTo(start.dx, start.dy);
+    lineToLeft(dx);
+    lineToUp(dy);
+  }
+
+  void moveTo(double dx, double dy) {
+    _path.moveTo(dx, dy);
+  }
+
+  void lineToLeft(double dx) {
+    _path.relativeLineTo(-dx, 0);
+  }
+
+  void lineToUp(double dy) {
+    _path.relativeLineTo(0, -dy);
+  }
+
+  void lineToRight(double dx) {
+    _path.relativeLineTo(dx, 0);
+  }
+
+  void lineToDown(double dy) {
+    _path.relativeLineTo(0, dy);
+  }
+
+  void arcToLeftUp() {
+    _arc(-radius, -radius, true);
+  }
+
+  void arcToLeftDown() {
+    _arc(-radius, radius, false);
+  }
+
+  void arcToUpLeft() {
+    _arc(-radius, -radius, false);
+  }
+
+  void arcToUpRight() {
+    _arc(radius, -radius, true);
+  }
+
+  void arcToRightUp() {
+    _arc(radius, -radius, false);
+  }
+
+  void arcToRightDown() {
+    _arc(radius, radius, true);
+  }
+
+  void arcToDownLeft() {
+    _arc(-radius, radius, true);
+  }
+
+  void arcToDownRight() {
+    _arc(radius, radius, false);
+  }
+
+  void _arc(double dx, double dy, bool clockwise) {
     _path.relativeArcToPoint(
-      Offset(-rx, -ry),
-      radius: Radius.elliptical(rx, ry),
+      Offset(dx, dy),
+      radius: Radius.circular(radius),
+      clockwise: clockwise,
     );
   }
 }
