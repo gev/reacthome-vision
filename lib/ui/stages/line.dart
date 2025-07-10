@@ -38,27 +38,27 @@ abstract class Line implements Paintable {
   }
 
   void toRightDown(double dx, double dy) {
-    lineToRight(dx - radius);
-    arcToRightDown();
-    lineToDown(dy - radius);
+    moveTo(start.dx, start.dy);
+    lineToRight(dx);
+    lineToDown(dy);
   }
 
   void toRightUp(double dx, double dy) {
-    lineToRight(dx - radius);
-    arcToRightUp();
-    lineToUp(dy - radius);
+    moveTo(start.dx, start.dy);
+    lineToRight(dx);
+    lineToUp(dy);
   }
 
   void toLeftDown(double dx, double dy) {
-    lineToLeft(dx - radius);
-    arcToLeftDown();
-    lineToDown(dy - radius);
+    moveTo(start.dx, start.dy);
+    lineToLeft(dx);
+    lineToDown(dy);
   }
 
   void toLeftUp(double dx, double dy) {
-    lineToLeft(dx - radius);
-    arcToLeftUp();
-    lineToUp(dy - radius);
+    moveTo(start.dx, start.dy);
+    lineToLeft(dx);
+    lineToUp(dy);
   }
 
   void moveTo(double dx, double dy) {
