@@ -8,13 +8,11 @@ const kScreenTop = 0.35;
 
 class ScreenIconic extends Iconic {
   final Path _path = Path();
-  final double screenWidth;
-  final double screenHeight;
-  final double screenTop;
-  ScreenIconic({required super.offset, required super.size, required super.iconicStyle})
-    : screenWidth = size * kScreenWidth,
-      screenHeight = size * kScreenHeight,
-      screenTop = size * kScreenTop {
+  ScreenIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - screenWidth, offset.dy - screenTop)
       ..relativeLineTo(2 * screenWidth, 0)
@@ -25,6 +23,11 @@ class ScreenIconic extends Iconic {
         ),
       );
   }
+
+  double get screenWidth => realSize * kScreenWidth;
+  double get screenHeight => realSize * kScreenHeight;
+  double get screenTop => realSize * kScreenTop;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

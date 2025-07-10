@@ -6,12 +6,15 @@ const kSPWidth = 0.5;
 const kSPSide = 0.35;
 
 abstract class SPIconic extends Iconic {
-  final double spWidth;
-  final double spSide;
   final Path _path = Path();
-  SPIconic({required super.offset, required super.size, required super.iconicStyle})
-    : spWidth = size * kSPWidth,
-      spSide = size * kSPSide;
+  SPIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
+
+  double get spWidth => realSize * kSPWidth;
+  double get spSide => realSize * kSPSide;
 
   @override
   void paint(Canvas canvas) {
@@ -20,7 +23,11 @@ abstract class SPIconic extends Iconic {
 }
 
 class HorizontalSPIconic extends SPIconic {
-  HorizontalSPIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  HorizontalSPIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - spWidth, offset.dy - spSide)
       ..relativeLineTo(0, spSide * 2)
@@ -32,7 +39,11 @@ class HorizontalSPIconic extends SPIconic {
 }
 
 class VerticalSPIconic extends SPIconic {
-  VerticalSPIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  VerticalSPIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - spSide, offset.dy - spWidth)
       ..relativeLineTo(spSide * 2, 0)

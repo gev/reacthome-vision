@@ -5,18 +5,23 @@ import 'package:studio/ui/figures/iconic.dart';
 const kButtonSize = 0.5;
 
 class ButtonIconic extends Iconic {
-  final double _buttonSize;
   final Path _path = Path();
 
-  ButtonIconic({required super.offset, required super.size, required super.iconicStyle})
-    : _buttonSize = size * kButtonSize {
+  ButtonIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - _buttonSize, offset.dy)
-      ..relativeLineTo(size, 0)
+      ..relativeLineTo(realSize, 0)
       ..moveTo(offset.dx, offset.dy - _buttonSize)
-      ..relativeLineTo(0, size)
-      ..addRect(Rect.fromCenter(center: offset, width: size, height: size));
+      ..relativeLineTo(0, realSize)
+      ..addRect(
+        Rect.fromCenter(center: offset, width: realSize, height: realSize),
+      );
   }
+  double get _buttonSize => realSize * kButtonSize;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

@@ -8,13 +8,12 @@ const kRectTop = 0.1;
 
 class BraIconic extends Iconic {
   final Path _path = Path();
-  final double braWidth;
-  final double braHeight;
-  final double rectHeight;
-  BraIconic({required super.offset, required super.size, required super.iconicStyle})
-    : braWidth = size * kBraWidth,
-      braHeight = size * kBraHeight,
-      rectHeight = size * kRectTop {
+
+  BraIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx, offset.dy - braHeight)
       ..relativeLineTo(0, braHeight - rectHeight)
@@ -25,6 +24,9 @@ class BraIconic extends Iconic {
         ),
       );
   }
+  double get braWidth => realSize * kBraWidth;
+  double get braHeight => realSize * kBraHeight;
+  double get rectHeight => realSize * kRectTop;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

@@ -70,4 +70,4 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.leftMixer => LeftMixerIconic.new,
   ItemType.delay => DelayIconic.new,
   ItemType.temperatureSensor => TemperatureSensorIconic.new,
-}(offset: offset, size: 24, iconicStyle: iconicStyle);
+}(offset: offset, size: 30, iconicStyle: iconicStyle);

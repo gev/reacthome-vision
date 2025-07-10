@@ -7,18 +7,12 @@ const kRectWidth = 0.2;
 const kArcRadius = 0.1;
 
 class SpotIconic extends Iconic {
-  final double halfSize;
-  final double rectTop;
-  final double rectWidth;
-  final double arcRadius;
-
   final Path _path = Path();
-
-  SpotIconic({required super.offset, required super.size, required super.iconicStyle})
-    : halfSize = size / 2,
-      rectTop = size * kRectTop,
-      rectWidth = size * kRectWidth,
-      arcRadius = size * kArcRadius {
+  SpotIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : halfSize = size / 2 {
     _path
       ..moveTo(offset.dx + (halfSize - rectWidth), offset.dy - halfSize)
       ..lineTo(offset.dx - (halfSize - rectWidth), offset.dy - halfSize)
@@ -49,6 +43,11 @@ class SpotIconic extends Iconic {
       )
       ..close();
   }
+
+  double get rectTop => realSize * kRectTop;
+  double get rectWidth => realSize * kRectWidth;
+  double get arcRadius => realSize * kArcRadius;
+  final double halfSize;
 
   @override
   void paint(Canvas canvas) {

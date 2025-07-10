@@ -5,16 +5,16 @@ import 'package:studio/ui/figures/iconic.dart';
 const kMixerGap = 0.4;
 
 abstract class MixerIconic extends Iconic {
-  final double mixerGap;
-  final double halfSize;
   final Path _path = Path();
 
   MixerIconic({
     required super.offset,
     required super.size,
     required super.iconicStyle,
-  }) : mixerGap = size * kMixerGap,
-       halfSize = size * 0.5;
+  });
+
+  double get mixerGap => realSize * kMixerGap;
+  double get halfSize => realSize * 0.5;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

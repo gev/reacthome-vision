@@ -7,19 +7,17 @@ const kCurtainsSides = 0.3;
 const kCurtainsHeight = 0.5;
 
 class CurtainsIconic extends Iconic {
-  final double curtainsSides;
-  final double curtainsHeight;
-  final double curtainsWidth;
   final Path _path = Path();
 
-  CurtainsIconic({required super.offset, required super.size, required super.iconicStyle})
-    : curtainsSides = size * kCurtainsSides,
-      curtainsHeight = size * kCurtainsHeight,
-      curtainsWidth = size * kCurtainsWidth {
+  CurtainsIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - curtainsWidth, offset.dy - curtainsHeight)
-      ..relativeLineTo(size, 0)
-      ..relativeMoveTo(-size, 0)
+      ..relativeLineTo(curtainsWidth * 2, 0)
+      ..relativeMoveTo(-curtainsWidth * 2, 0)
       ..addRect(
         Rect.fromPoints(
           Offset(offset.dx - curtainsWidth, offset.dy - curtainsHeight),
@@ -33,6 +31,10 @@ class CurtainsIconic extends Iconic {
         ),
       );
   }
+
+  double get curtainsSides => realSize * kCurtainsSides;
+  double get curtainsHeight => realSize * kCurtainsHeight;
+  double get curtainsWidth => realSize * kCurtainsWidth;
 
   @override
   void paint(Canvas canvas) {

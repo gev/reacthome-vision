@@ -5,13 +5,12 @@ import 'package:studio/ui/figures/iconic.dart';
 const kQF = 0.3;
 
 class QFIconic extends Iconic {
-  final double qf;
-  final double halfSize;
   final Path _path = Path();
-
-  QFIconic({required super.offset, required super.size, required super.iconicStyle})
-    : qf = size * kQF,
-      halfSize = size * 0.5 {
+  QFIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx, offset.dy - halfSize)
       ..relativeLineTo(0, qf)
@@ -19,6 +18,10 @@ class QFIconic extends Iconic {
       ..moveTo(offset.dx, offset.dy + qf)
       ..relativeLineTo(0, qf);
   }
+
+  double get qf => realSize * kQF;
+  double get halfSize => realSize * 0.5;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

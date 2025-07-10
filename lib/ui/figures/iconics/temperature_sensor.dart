@@ -6,14 +6,12 @@ const kCircleRadius = 0.15;
 const kLinesGap = 0.19;
 
 class TemperatureSensorIconic extends Iconic {
-  final double halfSize;
-  final double radius;
-  final double linesGap;
   final Path _path = Path();
-  TemperatureSensorIconic({required super.offset, required super.size, required super.iconicStyle})
-    : halfSize = size / 2,
-      radius = size * kCircleRadius,
-      linesGap = size * kLinesGap {
+  TemperatureSensorIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) : halfSize = size / 2 {
     _path
       ..moveTo(offset.dx, offset.dy - halfSize)
       ..lineTo(offset.dx, offset.dy + (halfSize - radius * 2))
@@ -25,6 +23,11 @@ class TemperatureSensorIconic extends Iconic {
       ..relativeLineTo(radius, 0)
       ..addOval(Rect.fromCircle(center: offset, radius: radius));
   }
+
+  double get radius => realSize * kCircleRadius;
+  double get linesGap => realSize * kLinesGap;
+  final double halfSize;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

@@ -10,38 +10,43 @@ const kBigCircleSize = 0.25;
 
 class ProjectorIconic extends Iconic {
   final Path _path = Path();
-  final double conditionerWidth;
-  final double conditionerHeight;
-  final double conditionerGap;
-  final double smallCircleSize;
-  final double bigCircleSize;
-  ProjectorIconic({required super.offset, required super.size, required super.iconicStyle})
-    : conditionerWidth = size * kProjectorWidth,
-      conditionerHeight = size * kProjectorHeight,
-      conditionerGap = size * kProjectorGap,
-      smallCircleSize = size * kSmallCircleSize,
-      bigCircleSize = size * kBigCircleSize {
+
+  ProjectorIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
-      ..moveTo(offset.dx - conditionerWidth, offset.dy + (conditionerHeight - conditionerGap))
-      ..relativeLineTo(2 * conditionerWidth, 0)
+      ..moveTo(
+        offset.dx - projectorWidth,
+        offset.dy + (projectorHeight - projectorGap),
+      )
+      ..relativeLineTo(2 * projectorWidth, 0)
       ..addRect(
         Rect.fromPoints(
-          Offset(offset.dx - conditionerWidth, offset.dy + conditionerHeight),
-          Offset(offset.dx + conditionerWidth, offset.dy - conditionerHeight),
+          Offset(offset.dx - projectorWidth, offset.dy + projectorHeight),
+          Offset(offset.dx + projectorWidth, offset.dy - projectorHeight),
         ),
       )
       ..moveTo(
-        offset.dx + (conditionerWidth - conditionerGap),
-        offset.dy + (conditionerHeight - 2.5 * conditionerGap),
+        offset.dx + (projectorWidth - projectorGap),
+        offset.dy + (projectorHeight - 2.5 * projectorGap),
       )
       ..addOval(Rect.fromCircle(center: offset, radius: smallCircleSize))
       ..moveTo(
-        offset.dx + (conditionerWidth - conditionerGap),
-        offset.dy + (conditionerHeight - 2.5 * conditionerGap),
+        offset.dx + (projectorWidth - projectorGap),
+        offset.dy + (projectorHeight - 2.5 * projectorGap),
       )
-      ..relativeLineTo(-conditionerGap, 0)
+      ..relativeLineTo(-projectorGap, 0)
       ..addOval(Rect.fromCircle(center: offset, radius: bigCircleSize));
   }
+
+  double get projectorWidth => realSize * kProjectorWidth;
+  double get projectorHeight => realSize * kProjectorHeight;
+  double get projectorGap => realSize * kProjectorGap;
+  double get smallCircleSize => realSize * kSmallCircleSize;
+  double get bigCircleSize => realSize * kBigCircleSize;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

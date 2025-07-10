@@ -7,15 +7,17 @@ const kLines = 0.8;
 const kArcRadius = kSideLine / 6;
 
 abstract class FilterIconic extends Iconic {
-  final double sideLine;
-  final double lines;
-  final double arcRadius;
-  final Path _path = Path();
+  FilterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
 
-  FilterIconic({required super.offset, required super.size, required super.iconicStyle})
-    : sideLine = size * kSideLine,
-      lines = size * kLines,
-      arcRadius = size * kArcRadius;
+  double get sideLine => realSize * kSideLine;
+  double get lines => realSize * kLines;
+  double get arcRadius => realSize * kArcRadius;
+
+  final Path _path = Path();
 
   @override
   void paint(Canvas canvas) {
@@ -24,7 +26,11 @@ abstract class FilterIconic extends Iconic {
 }
 
 class RightFilterIconic extends FilterIconic {
-  RightFilterIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  RightFilterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - lines / 2, offset.dy - sideLine / 2)
       ..relativeLineTo(0, sideLine)
@@ -48,7 +54,11 @@ class RightFilterIconic extends FilterIconic {
 }
 
 class LeftFilterIconic extends FilterIconic {
-  LeftFilterIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  LeftFilterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx + lines / 2, offset.dy - sideLine / 2)
       ..relativeLineTo(0, sideLine)
@@ -72,7 +82,11 @@ class LeftFilterIconic extends FilterIconic {
 }
 
 class DownFilterIconic extends FilterIconic {
-  DownFilterIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  DownFilterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - sideLine / 2, offset.dy - lines / 2)
       ..relativeLineTo(sideLine, 0)
@@ -96,7 +110,11 @@ class DownFilterIconic extends FilterIconic {
 }
 
 class UpFilterIconic extends FilterIconic {
-  UpFilterIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  UpFilterIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - sideLine / 2, offset.dy + lines / 2)
       ..relativeLineTo(sideLine, 0)

@@ -6,13 +6,16 @@ const kBarLength = 0.5;
 const kBarGap = 0.35;
 
 abstract class _BarIconic extends Iconic {
-  final double barGap;
-  final double barLength;
   final Path _path = Path();
 
-  _BarIconic({required super.offset, required super.size, required super.iconicStyle})
-    : barGap = size * kBarGap,
-      barLength = size * kBarLength;
+  _BarIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  });
+
+  double get barGap => realSize * kBarGap;
+  double get barLength => realSize * kBarLength;
 
   @override
   void paint(Canvas canvas) {
@@ -21,25 +24,33 @@ abstract class _BarIconic extends Iconic {
 }
 
 class HorizontalBarIconic extends _BarIconic {
-  HorizontalBarIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  HorizontalBarIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - barLength, offset.dy - barGap)
-      ..relativeLineTo(size, 0)
-      ..relativeMoveTo(-size, barGap)
-      ..relativeLineTo(size, 0)
-      ..relativeMoveTo(-size, barGap)
-      ..relativeLineTo(size, 0);
+      ..relativeLineTo(realSize, 0)
+      ..relativeMoveTo(-realSize, barGap)
+      ..relativeLineTo(realSize, 0)
+      ..relativeMoveTo(-realSize, barGap)
+      ..relativeLineTo(realSize, 0);
   }
 }
 
 class VerticalBarIconic extends _BarIconic {
-  VerticalBarIconic({required super.offset, required super.size, required super.iconicStyle}) {
+  VerticalBarIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - barGap, offset.dy - barLength)
-      ..relativeLineTo(0, size)
-      ..relativeMoveTo(barGap, -size)
-      ..relativeLineTo(0, size)
-      ..relativeMoveTo(barGap, -size)
-      ..relativeLineTo(0, size);
+      ..relativeLineTo(0, realSize)
+      ..relativeMoveTo(barGap, -realSize)
+      ..relativeLineTo(0, realSize)
+      ..relativeMoveTo(barGap, -realSize)
+      ..relativeLineTo(0, realSize);
   }
 }

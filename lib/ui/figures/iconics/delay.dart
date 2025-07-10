@@ -7,19 +7,20 @@ const kDelayPosition = 0.2;
 const kDelayHeight = 0.2;
 
 class DelayIconic extends Iconic {
-  final double halfSize;
-  final double delayPosition;
-  final double delayHeight;
   final Path _path = Path();
-  DelayIconic({required super.offset, required super.size, required super.iconicStyle})
-    : halfSize = size / 2,
-      delayPosition = size * kDelayPosition,
-      delayHeight = size * kDelayHeight {
+  DelayIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx - halfSize, offset.dy + delayPosition)
-      ..relativeLineTo(size, 0)
+      ..relativeLineTo(realSize, 0)
       ..relativeLineTo(0, -delayHeight);
   }
+  double get halfSize => realSize / 2;
+  double get delayPosition => realSize * kDelayPosition;
+  double get delayHeight => realSize * kDelayHeight;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

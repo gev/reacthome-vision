@@ -36,6 +36,6 @@ class WelcomeScreen extends StatelessWidget {
     //     ),
     //   ),
     // );
-    return DefaultLayout(body: SchemeEditor(scheme: nodeScheme));
+    return DefaultLayout(body: SchemeEditor(scheme: iconicScheme));
   }
 }

@@ -5,15 +5,14 @@ import 'package:studio/ui/figures/iconic.dart';
 const kArrowLength = 0.5;
 
 abstract class _ArrowIconic extends Iconic {
-  final double _arrowLength;
-
   final Path _path = Path();
 
   _ArrowIconic({
     required super.offset,
     required super.size,
     required super.iconicStyle,
-  }) : _arrowLength = size * kArrowLength;
+  });
+  double get _arrowLength => realSize * kArrowLength;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

@@ -9,17 +9,20 @@ const kCircleSize = 0.08;
 
 class AirConditionerIconic extends Iconic {
   final Path _path = Path();
-  final double conditionerWidth;
-  final double conditionerHeight;
-  final double conditionerGap;
-  final double circleSize;
-  AirConditionerIconic({required super.offset, required super.size, required super.iconicStyle})
-    : conditionerWidth = size * kConditionerWidth,
-      conditionerHeight = size * kConditionerHeight,
-      conditionerGap = size * kConditionerGap,
-      circleSize = size * kCircleSize {
+  double get conditionerWidth => realSize * kConditionerWidth;
+  double get conditionerHeight => realSize * kConditionerHeight;
+  double get conditionerGap => realSize * kConditionerGap;
+  double get circleSize => realSize * kCircleSize;
+  AirConditionerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
-      ..moveTo(offset.dx - conditionerWidth, offset.dy + (conditionerHeight - conditionerGap))
+      ..moveTo(
+        offset.dx - conditionerWidth,
+        offset.dy + (conditionerHeight - conditionerGap),
+      )
       ..relativeLineTo(2 * conditionerWidth, 0)
       ..relativeMoveTo(0, -conditionerGap)
       ..relativeLineTo(-2 * conditionerWidth, 0)
@@ -30,10 +33,17 @@ class AirConditionerIconic extends Iconic {
         ),
       )
       ..moveTo(offset.dx + (conditionerWidth - conditionerGap), offset.dy)
-      ..addOval(Rect.fromCircle(center: offset, radius: circleSize))
-      ..moveTo(offset.dx + (conditionerWidth - conditionerGap), offset.dy)
-      ..relativeLineTo(-conditionerGap, 0);
+      ..addOval(
+        Rect.fromCircle(
+          center: Offset(
+            offset.dx + (conditionerWidth - conditionerGap * 2),
+            offset.dy,
+          ),
+          radius: circleSize,
+        ),
+      );
   }
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

@@ -7,18 +7,13 @@ const kRectWidth = 0.2;
 const kArcRadius = 0.1;
 
 class ChandelierIconic extends Iconic {
-  final double halfSize;
-  final double rectTop;
-  final double rectWidth;
-  final double arcRadius;
-
   final Path _path = Path();
 
-  ChandelierIconic({required super.offset, required super.size, required super.iconicStyle})
-    : halfSize = size / 2,
-      rectTop = size * kRectTop,
-      rectWidth = size * kRectWidth,
-      arcRadius = size * kArcRadius {
+  ChandelierIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
     _path
       ..moveTo(offset.dx + (halfSize - rectWidth), offset.dy - halfSize)
       ..lineTo(offset.dx - (halfSize - rectWidth), offset.dy - halfSize)
@@ -57,7 +52,10 @@ class ChandelierIconic extends Iconic {
       )
       ..close();
   }
-
+  double get halfSize => realSize / 2;
+  double get rectTop => realSize * kRectTop;
+  double get rectWidth => realSize * kRectWidth;
+  double get arcRadius => realSize * kArcRadius;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

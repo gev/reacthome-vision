@@ -4,14 +4,19 @@ import 'package:studio/ui/figures/figure.dart';
 
 abstract class Iconic implements Paintable {
   final Offset offset;
-  final double size;
+  final double _size;
   final Paint strokeStyle;
+
+  double get realSize => _size * weight;
+
+  double get weight => 1;
 
   Iconic({
     required this.offset,
-    required this.size,
+    required double size,
     required IconicStyle iconicStyle,
-  }) : strokeStyle = Paint()
+  }) : _size = size,
+       strokeStyle = Paint()
          ..style = PaintingStyle.stroke
          ..strokeCap = iconicStyle.cap
          ..strokeJoin = iconicStyle.join
