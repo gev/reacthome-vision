@@ -30,24 +30,25 @@ class LeftUp extends LinePath {
 
   @override
   void toLeftDown(double dx, double dy) {
-    lineToLeft(radius);
     if (dx > 2 * radius && dy > 2 * radius) {
-      lineToLeft(dx - 2 * radius);
+      lineToLeft(dx - radius);
       arcToLeftDown();
     } else {
       if (dx > 4 * radius) {
+        lineToLeft(dx / 2 - 2 * radius);
+        lineToLeft(radius);
         arcToLeftUp();
         arcToUpLeft();
-        lineToLeft(dx - 4 * radius);
+        lineToLeft(dx / 2 - 2 * radius);
         arcToLeftDown();
       } else if (dy > 4 * radius) {
-        lineToLeft(dx);
+        lineToLeft(dx + radius);
         arcToLeftDown();
         lineToDown(dy / 2 - 2 * radius);
         arcToDownRight();
         arcToRightDown();
       } else {
-        lineToLeft(dx);
+        lineToLeft(dx + radius);
         arcToLeftUp();
         arcToUpRight();
         arcToRightDown();

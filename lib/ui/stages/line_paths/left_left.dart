@@ -11,9 +11,9 @@ class LeftLeft extends LinePath {
       lineToDown(dy - 2 * radius);
     } else {
       arcToLeftUp();
-      if (dx > 3 * radius) {
+      if (dx > 2 * radius) {
         arcToUpRight();
-        lineToRight(dx / 2 - radius);
+        lineToRight(dx / 2);
         arcToRightDown();
       } else {
         arcToUpLeft();
@@ -32,9 +32,9 @@ class LeftLeft extends LinePath {
       lineToUp(dy - 2 * radius);
     } else {
       arcToLeftDown();
-      if (dx > 3 * radius) {
+      if (dx > 2 * radius) {
         arcToDownRight();
-        lineToRight(dx / 2 - radius);
+        lineToRight(dx / 2);
         arcToRightUp();
       } else {
         arcToDownLeft();
@@ -47,9 +47,8 @@ class LeftLeft extends LinePath {
 
   @override
   void toLeftDown(double dx, double dy) {
-    lineToLeft(radius);
     if (dy > 2 * radius) {
-      lineToLeft(dx);
+      lineToLeft(dx + radius);
       arcToLeftDown();
       lineToDown(dy - 2 * radius);
     } else {
@@ -57,8 +56,9 @@ class LeftLeft extends LinePath {
         lineToLeft(dx / 2 - radius);
         arcToLeftUp();
         arcToUpLeft();
-        lineToLeft(dx / 2 - radius);
+        lineToLeft(dx / 2);
       } else {
+        lineToLeft(radius);
         arcToLeftUp();
         arcToUpLeft();
       }
@@ -70,9 +70,8 @@ class LeftLeft extends LinePath {
 
   @override
   void toLeftUp(double dx, double dy) {
-    lineToLeft(radius);
     if (dy > 2 * radius) {
-      lineToLeft(dx);
+      lineToLeft(dx + radius);
       arcToLeftUp();
       lineToUp(dy - 2 * radius);
     } else {
@@ -80,8 +79,9 @@ class LeftLeft extends LinePath {
         lineToLeft(dx / 2 - radius);
         arcToLeftDown();
         arcToDownLeft();
-        lineToLeft(dx / 2 - radius);
+        lineToLeft(dx / 2);
       } else {
+        lineToLeft(radius);
         arcToLeftDown();
         arcToDownLeft();
       }
