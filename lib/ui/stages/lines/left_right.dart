@@ -61,13 +61,14 @@ class LeftRight extends Line {
       arcToDownLeft();
       lineToLeft(dx / 2 - 2 * radius);
     } else if (dx > 6 * radius) {
-      lineToLeft(dx / 2 - 3 * radius);
+      lineToLeft(dx / 3 - 2 * radius);
       arcToLeftDown();
       lineToDown(dy);
       arcToDownLeft();
-      lineToLeft(dx / 2 - 3 * radius);
+      lineToLeft(dx / 3 - 2 * radius);
       arcToLeftUp();
       arcToUpLeft();
+      lineToLeft(dx / 3 - 2 * radius);
     } else if (dy > 4 * radius) {
       arcToLeftDown();
       lineToDown(dy / 2 - 2 * radius);
@@ -100,13 +101,14 @@ class LeftRight extends Line {
       arcToUpLeft();
       lineToLeft(dx / 2 - 2 * radius);
     } else if (dx > 6 * radius) {
-      lineToLeft(dx / 2 - 3 * radius);
+      lineToLeft(dx / 3 - 2 * radius);
       arcToLeftUp();
       lineToUp(dy);
       arcToUpLeft();
-      lineToLeft(dx / 2 - 3 * radius);
+      lineToLeft(dx / 3 - 2 * radius);
       arcToLeftDown();
       arcToDownLeft();
+      lineToLeft(dx / 3 - 2 * radius);
     } else if (dy > 4 * radius) {
       arcToLeftUp();
       lineToUp(dy / 2 - 2 * radius);
