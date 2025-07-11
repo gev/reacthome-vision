@@ -1,7 +1,5 @@
 import 'package:studio/core/port.dart';
 
-enum Direction { column, row }
-
 enum ItemType {
   minus,
   plus,
