@@ -44,28 +44,26 @@ class LeftUp extends Line {
       lineToLeft(dx - 2 * radius);
       arcToLeftDown();
       lineToDown(dy - 2 * radius);
+    } else if (dx > 4 * radius) {
+      lineToLeft(dx / 2 - 2 * radius);
+      arcToLeftUp();
+      arcToUpLeft();
+      lineToLeft(dx / 2 - 2 * radius);
+      arcToLeftDown();
+      lineToDown(dy);
+    } else if (dy > 4 * radius) {
+      lineToLeft(dx);
+      arcToLeftDown();
+      lineToDown(dy / 2 - 2 * radius);
+      arcToDownRight();
+      arcToRightDown();
+      lineToDown(dy / 2 - 2 * radius);
     } else {
-      if (dx > 4 * radius) {
-        lineToLeft(dx / 2 - 2 * radius);
-        arcToLeftUp();
-        arcToUpLeft();
-        lineToLeft(dx / 2 - 2 * radius);
-        arcToLeftDown();
-        lineToDown(dy);
-      } else if (dy > 4 * radius) {
-        lineToLeft(dx);
-        arcToLeftDown();
-        lineToDown(dy / 2 - 2 * radius);
-        arcToDownRight();
-        arcToRightDown();
-        lineToDown(dy / 2 - 2 * radius);
-      } else {
-        lineToLeft(dx);
-        arcToLeftUp();
-        arcToUpRight();
-        arcToRightDown();
-        lineToDown(dy);
-      }
+      lineToLeft(dx);
+      arcToLeftUp();
+      arcToUpRight();
+      arcToRightDown();
+      lineToDown(dy);
     }
   }
 
