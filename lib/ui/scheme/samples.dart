@@ -1,25 +1,34 @@
 import 'package:studio/core/item.dart';
 import 'package:studio/core/link.dart';
 import 'package:studio/core/scheme.dart';
+import 'package:studio/ui/stages/anchor_line.dart';
 
 final nodeScheme = Scheme(
   id: 0,
   items: [
-    // Item(id: 0, x: 3, y: 3, type: ItemType.plus),
-    // Item(id: 1, x: 7, y: 3, type: ItemType.device),
+    Item(id: 0, x: 3, y: 3, type: ItemType.plus),
+    Item(id: 1, x: 5, y: 3, type: ItemType.device),
     Item(id: 2, x: 3, y: 5, type: ItemType.plus),
-    Item(id: 3, x: 7, y: 5, type: ItemType.device),
-    // Item(id: 4, x: 3, y: 7, type: ItemType.plus),
-    // Item(id: 5, x: 7, y: 7, type: ItemType.device),
+    Item(id: 3, x: 5, y: 5, type: ItemType.device),
+    Item(id: 4, x: 3, y: 7, type: ItemType.plus),
+    Item(id: 5, x: 5, y: 7, type: ItemType.device),
   ],
   links: [
-    // Link(id: 0, source: Connector(id: 0, idx: 0), sink: Connector(id: 1, idx: 0)),
+    Link(
+      id: 0,
+      source: Connector(id: 0, direction: Direction.left),
+      sink: Connector(id: 1, direction: Direction.left),
+    ),
     Link(
       id: 1,
-      source: Connector(id: 2, idx: 0),
-      sink: Connector(id: 3, idx: 0),
+      source: Connector(id: 2, direction: Direction.left),
+      sink: Connector(id: 3, direction: Direction.up),
     ),
-    // Link(id: 2, source: Connector(id: 4, idx: 0), sink: Connector(id: 5, idx: 0)),
+    Link(
+      id: 2,
+      source: Connector(id: 4, direction: Direction.left),
+      sink: Connector(id: 5, direction: Direction.right),
+    ),
   ],
 );
 
