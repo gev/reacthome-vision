@@ -12,6 +12,8 @@ final nodeScheme = Scheme(
     Item(id: 3, x: 5, y: 5, type: ItemType.device),
     Item(id: 4, x: 3, y: 7, type: ItemType.plus),
     Item(id: 5, x: 5, y: 7, type: ItemType.device),
+    Item(id: 6, x: 3, y: 9, type: ItemType.plus),
+    Item(id: 7, x: 5, y: 9, type: ItemType.device),
   ],
   links: [
     Link(
@@ -28,6 +30,11 @@ final nodeScheme = Scheme(
       id: 2,
       source: Connector(id: 4, direction: Direction.left),
       sink: Connector(id: 5, direction: Direction.right),
+    ),
+    Link(
+      id: 3,
+      source: Connector(id: 6, direction: Direction.left),
+      sink: Connector(id: 7, direction: Direction.down),
     ),
   ],
 );
