@@ -4,7 +4,7 @@ import 'package:studio/ui/figures/iconic.dart';
 
 const kLedLength = 0.8;
 const kLedHeight = 0.2;
-const kCircleRadius = 0.1;
+const kCircleRadius = 0.08;
 
 class LedIconic extends Iconic {
   final Path _path = Path();
@@ -28,12 +28,24 @@ class LedIconic extends Iconic {
         radius: Radius.circular(ledHeight),
         clockwise: true,
       )
-      ..moveTo(offset.dx - ledLength / 2.5, offset.dy - ledHeight)
-      ..addOval(Rect.fromCircle(center: offset, radius: circleRadius))
-      ..moveTo(offset.dx + ledLength / 2.5, offset.dy - ledHeight)
-      ..addOval(Rect.fromCircle(center: offset, radius: circleRadius))
-      ..moveTo(offset.dx, offset.dy - circleRadius)
-      ..addOval(Rect.fromCircle(center: offset, radius: circleRadius));
+      ..addOval(
+        Rect.fromCircle(
+          center: Offset(offset.dx - ledLength / 2.3, offset.dy),
+          radius: circleRadius,
+        ),
+      )
+      ..addOval(
+        Rect.fromCircle(
+          center: Offset(offset.dx, offset.dy),
+          radius: circleRadius,
+        ),
+      )
+      ..addOval(
+        Rect.fromCircle(
+          center: Offset(offset.dx + ledLength / 2.3, offset.dy),
+          radius: circleRadius,
+        ),
+      );
   }
 
   double get ledLength => realSize * kLedLength;
