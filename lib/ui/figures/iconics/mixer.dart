@@ -2,7 +2,10 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const kMixerGap = 0.4;
+const kMixerGap = 0.35;
+const kkYSize = 0.4;
+const kStemSize = 0.45;
+const kCenter = 0;
 
 abstract class MixerIconic extends Iconic {
   final Path _path = Path();
@@ -14,7 +17,9 @@ abstract class MixerIconic extends Iconic {
   });
 
   double get mixerGap => realSize * kMixerGap;
-  double get halfSize => realSize * 0.5;
+  double get ySize => realSize * kkYSize;
+  double get stemSize => realSize * kStemSize;
+  double get center => realSize * kCenter;
 
   @override
   double get weight => 0.8;
@@ -32,11 +37,12 @@ class DownMixerIconic extends MixerIconic {
     required super.iconicStyle,
   }) {
     _path
-      ..moveTo(offset.dx - mixerGap, offset.dy + halfSize)
-      ..relativeLineTo(mixerGap, -halfSize)
-      ..relativeLineTo(0, -halfSize)
-      ..moveTo(offset.dx, offset.dy)
-      ..relativeLineTo(mixerGap, halfSize);
+      ..moveTo(offset.dx, offset.dy + center)
+      ..relativeLineTo(-mixerGap, -ySize)
+      ..relativeMoveTo(mixerGap, ySize)
+      ..relativeLineTo(0, stemSize)
+      ..relativeMoveTo(0, -stemSize)
+      ..relativeLineTo(mixerGap, -ySize);
   }
 }
 
@@ -47,26 +53,12 @@ class UpMixerIconic extends MixerIconic {
     required super.iconicStyle,
   }) {
     _path
-      ..moveTo(offset.dx - mixerGap, offset.dy + halfSize)
-      ..relativeLineTo(mixerGap, -halfSize)
-      ..relativeLineTo(0, -halfSize)
-      ..moveTo(offset.dx, offset.dy)
-      ..relativeLineTo(mixerGap, halfSize);
-  }
-}
-
-class RightMixerIconic extends MixerIconic {
-  RightMixerIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  }) {
-    _path
-      ..moveTo(offset.dx - halfSize, offset.dy + mixerGap)
-      ..relativeLineTo(halfSize, -mixerGap)
-      ..relativeLineTo(halfSize, 0)
-      ..moveTo(offset.dx, offset.dy)
-      ..relativeLineTo(-halfSize, -mixerGap);
+      ..moveTo(offset.dx, offset.dy - center)
+      ..relativeLineTo(-mixerGap, ySize)
+      ..relativeMoveTo(mixerGap, -ySize)
+      ..relativeLineTo(0, -stemSize)
+      ..relativeMoveTo(0, stemSize)
+      ..relativeLineTo(mixerGap, ySize);
   }
 }
 
@@ -77,10 +69,27 @@ class LeftMixerIconic extends MixerIconic {
     required super.iconicStyle,
   }) {
     _path
-      ..moveTo(offset.dx + halfSize, offset.dy + mixerGap)
-      ..relativeLineTo(-halfSize, -mixerGap)
-      ..relativeLineTo(-halfSize, 0)
-      ..moveTo(offset.dx, offset.dy)
-      ..relativeLineTo(halfSize, -mixerGap);
+      ..moveTo(offset.dx - center, offset.dy)
+      ..relativeLineTo(-stemSize, 0)
+      ..relativeMoveTo(stemSize, 0)
+      ..relativeLineTo(ySize, -mixerGap)
+      ..relativeMoveTo(-ySize, mixerGap)
+      ..relativeLineTo(ySize, mixerGap);
+  }
+}
+
+class RightMixerIconic extends MixerIconic {
+  RightMixerIconic({
+    required super.offset,
+    required super.size,
+    required super.iconicStyle,
+  }) {
+    _path
+      ..moveTo(offset.dx + center, offset.dy)
+      ..relativeLineTo(stemSize, 0)
+      ..relativeMoveTo(-stemSize, 0)
+      ..relativeLineTo(-ySize, -mixerGap)
+      ..relativeMoveTo(ySize, mixerGap)
+      ..relativeLineTo(-ySize, mixerGap);
   }
 }
