@@ -46,7 +46,7 @@ final iconicScheme = Scheme(
     Item(id: 37, x: 2, y: 7, type: ItemType.rightMixer),
     Item(id: 38, x: 3, y: 7, type: ItemType.delay),
     Item(id: 39, x: 4, y: 7, type: ItemType.temperatureSensor),
-    Item(id: 40, x: 0, y: 7, type: ItemType.diagonalShutterIconic),
-    Item(id: 41, x: 1, y: 7, type: ItemType.backDiagonalShutterIconic),
+    Item(id: 40, x: 0, y: 8, type: ItemType.diagonalShutterIconic),
+    Item(id: 41, x: 1, y: 8, type: ItemType.backDiagonalShutterIconic),
   ],
 );
