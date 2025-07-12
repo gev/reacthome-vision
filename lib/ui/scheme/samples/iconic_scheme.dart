@@ -39,5 +39,7 @@ final iconicScheme = Scheme(
     Item(id: 32, x: 2, y: 6, type: ItemType.track),
     Item(id: 33, x: 3, y: 6, type: ItemType.led),
     Item(id: 34, x: 4, y: 6, type: ItemType.spot),
+    Item(id: 35, x: 0, y: 7, type: ItemType.diagonalShutterIconic),
+    Item(id: 36, x: 1, y: 7, type: ItemType.backDiagonalShutterIconic),
   ],
 );

@@ -12,6 +12,8 @@ enum ItemType {
   downMixer,
   verticalShutter,
   horizontalShutter,
+  diagonalShutterIconic,
+  backDiagonalShutterIconic,
   qf,
   button,
   rightTriangle,
