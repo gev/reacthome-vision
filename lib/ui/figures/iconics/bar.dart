@@ -18,6 +18,9 @@ abstract class _BarIconic extends Iconic {
   double get barLength => realSize * kBarLength;
 
   @override
+  double get weight => 0.8;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

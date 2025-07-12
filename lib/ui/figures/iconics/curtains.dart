@@ -37,6 +37,9 @@ class CurtainsIconic extends Iconic {
   double get curtainsWidth => realSize * kCurtainsWidth;
 
   @override
+  double get weight => 0.8;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

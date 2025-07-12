@@ -21,6 +21,10 @@ class DelayIconic extends Iconic {
   double get halfSize => realSize / 2;
   double get delayPosition => realSize * kDelayPosition;
   double get delayHeight => realSize * kDelayHeight;
+
+  @override
+  double get weight => 0.8;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

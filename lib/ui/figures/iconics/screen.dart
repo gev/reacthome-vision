@@ -29,6 +29,9 @@ class ScreenIconic extends Iconic {
   double get screenTop => realSize * kScreenTop;
 
   @override
+  double get weight => 0.8;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

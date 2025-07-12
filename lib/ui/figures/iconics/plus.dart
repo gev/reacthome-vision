@@ -21,6 +21,9 @@ class PlusIconic extends Iconic {
   double get plusSize => realSize * kPlusSize;
 
   @override
+  double get weight => 0.9;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

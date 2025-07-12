@@ -37,6 +37,9 @@ class TrackIconic extends Iconic {
   double get trackHeight => realSize * kTrackHeight;
 
   @override
+  double get weight => 0.7;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

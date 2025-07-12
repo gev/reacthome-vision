@@ -20,6 +20,9 @@ abstract class FilterIconic extends Iconic {
   final Path _path = Path();
 
   @override
+  double get weight => 0.75;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

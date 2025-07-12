@@ -8,9 +8,6 @@ const kArcRadius = kHeaterHeight / 2;
 class HeaterIconic extends Iconic {
   final Path _path = Path();
 
-  @override
-  double get weight => 0.5;
-
   HeaterIconic({
     required super.offset,
     required super.size,
@@ -33,6 +30,10 @@ class HeaterIconic extends Iconic {
   }
   double get heaterHeight => realSize * kHeaterHeight;
   double get arcRadius => realSize * kArcRadius;
+
+  @override
+  double get weight => 0.8;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

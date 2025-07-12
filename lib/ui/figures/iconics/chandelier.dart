@@ -56,6 +56,10 @@ class ChandelierIconic extends Iconic {
   double get rectTop => realSize * kRectTop;
   double get rectWidth => realSize * kRectWidth;
   double get arcRadius => realSize * kArcRadius;
+
+  @override
+  double get weight => 0.75;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

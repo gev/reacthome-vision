@@ -23,6 +23,9 @@ class QFIconic extends Iconic {
   double get halfSize => realSize * 0.5;
 
   @override
+  double get weight => 0.8;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

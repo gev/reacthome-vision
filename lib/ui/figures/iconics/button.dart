@@ -22,6 +22,10 @@ class ButtonIconic extends Iconic {
       );
   }
   double get _buttonSize => realSize * kButtonSize;
+
+  @override
+  double get weight => 0.8;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

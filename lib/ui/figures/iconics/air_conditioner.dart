@@ -5,7 +5,7 @@ import 'package:studio/ui/figures/iconic.dart';
 const kConditionerWidth = 0.5;
 const kConditionerHeight = 0.3;
 const kConditionerGap = 0.08;
-const kCircleSize = 0.08;
+const kCircleSize = 0.06;
 
 class AirConditionerIconic extends Iconic {
   final Path _path = Path();
@@ -43,6 +43,9 @@ class AirConditionerIconic extends Iconic {
         ),
       );
   }
+
+  @override
+  double get weight => 0.9;
 
   @override
   void paint(Canvas canvas) {

@@ -15,6 +15,10 @@ abstract class MixerIconic extends Iconic {
 
   double get mixerGap => realSize * kMixerGap;
   double get halfSize => realSize * 0.5;
+
+  @override
+  double get weight => 0.8;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

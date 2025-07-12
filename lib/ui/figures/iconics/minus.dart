@@ -20,6 +20,9 @@ class MinusIconic extends Iconic {
   double get minusSize => realSize * kMinusSize;
 
   @override
+  double get weight => 0.9;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

@@ -2,8 +2,7 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const kDeviceSize = 0.5;
-const kCircleSize = 0.6;
+const kCircleSize = 0.7;
 
 class DeviceIconic extends Iconic {
   final Path _path = Path();
@@ -14,14 +13,18 @@ class DeviceIconic extends Iconic {
     required super.iconicStyle,
   }) {
     _path
-      ..addRect(Rect.fromCenter(center: offset, width: deviceSize, height: deviceSize))
+      ..addRect(
+        Rect.fromCenter(center: offset, width: realSize, height: realSize),
+      )
       ..addOval(
         Rect.fromCenter(center: offset, width: circleSize, height: circleSize),
       );
   }
 
-  double get deviceSize => realSize * kDeviceSize;
   double get circleSize => realSize * kCircleSize;
+
+  @override
+  double get weight => 0.8;
 
   @override
   void paint(Canvas canvas) {

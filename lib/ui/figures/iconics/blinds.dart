@@ -27,6 +27,10 @@ class BlindsIconic extends Iconic {
   }
   double get blindsGap => realSize * kBlindsGap;
   double get blindsWidth => realSize * kBlindsWidth;
+
+  @override
+  double get weight => 0.8;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

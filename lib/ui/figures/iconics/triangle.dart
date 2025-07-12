@@ -20,6 +20,9 @@ abstract class TriangleIconic extends Iconic {
   double get apexPosition => realSize * kApexPosition;
 
   @override
+  double get weight => 0.8;
+
+  @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
   }

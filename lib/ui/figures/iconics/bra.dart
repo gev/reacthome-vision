@@ -27,6 +27,10 @@ class BraIconic extends Iconic {
   double get braWidth => realSize * kBraWidth;
   double get braHeight => realSize * kBraHeight;
   double get rectHeight => realSize * kRectTop;
+
+  @override
+  double get weight => 0.75;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);

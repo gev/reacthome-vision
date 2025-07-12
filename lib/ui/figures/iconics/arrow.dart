@@ -13,6 +13,10 @@ abstract class _ArrowIconic extends Iconic {
     required super.iconicStyle,
   });
   double get _arrowLength => realSize * kArrowLength;
+
+  @override
+  double get weight => 0.8;
+
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
