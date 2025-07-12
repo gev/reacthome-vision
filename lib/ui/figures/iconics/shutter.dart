@@ -3,7 +3,7 @@ import 'dart:ui';
 
 import 'package:studio/ui/figures/iconic.dart';
 
-const kShutterCircle = 0.15;
+const kShutterCircle = 0.1;
 
 abstract class ShutterIconic extends Iconic {
   final Path _path = Path();
