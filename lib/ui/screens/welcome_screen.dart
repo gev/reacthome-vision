@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:studio/ui/scheme/samples/iconic_scheme.dart';
-import 'package:studio/ui/scheme/samples/node_scheme.dart';
 import 'package:studio/ui/views/scheme_editor.dart';
 import 'package:studio/ui_kit/layouts/default_layout.dart';
 
