@@ -51,6 +51,9 @@ class LedIconic extends Iconic {
   double get ledLength => realSize * kLedLength;
   double get ledHeight => realSize * kLedHeight;
   double get circleRadius => realSize * kCircleRadius;
+
+  @override
+  double get weight => 0.8;
   @override
   void paint(Canvas canvas) {
     canvas.drawPath(_path, strokeStyle);
