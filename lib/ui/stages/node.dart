@@ -42,6 +42,35 @@ class Node implements Paintable, Hittable {
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
     _iconic.paint(canvas);
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = style.stroke.color.withAlpha(64)
+      ..strokeWidth = 0.2;
+    canvas.drawCircle(center, _iconic.size / 2, paint);
+    canvas.drawRect(
+      Rect.fromCenter(
+        center: center,
+        width: 0.9 * _iconic.size,
+        height: 0.6 * _iconic.size,
+      ),
+      paint,
+    );
+    canvas.drawRect(
+      Rect.fromCenter(
+        center: center,
+        width: 0.6 * _iconic.size,
+        height: 0.9 * _iconic.size,
+      ),
+      paint,
+    );
+    canvas.drawRect(
+      Rect.fromCenter(
+        center: center,
+        width: 0.8 * _iconic.size,
+        height: 0.8 * _iconic.size,
+      ),
+      paint,
+    );
   }
 
   void paintSelection(Canvas canvas) {
@@ -53,7 +82,8 @@ class Node implements Paintable, Hittable {
   }
 
   @override
-  bool hitTest(Offset position) => (position - center).distanceSquared < _radiusSquared;
+  bool hitTest(Offset position) =>
+      (position - center).distanceSquared < _radiusSquared;
 }
 
 class NodeStyle {

@@ -7,6 +7,8 @@ abstract class Iconic implements Paintable {
   final double _size;
   final Paint strokeStyle;
 
+  double get size => _size;
+
   double get realSize => _size * weight;
 
   double get weight => 1;
