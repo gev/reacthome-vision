@@ -16,30 +16,28 @@ class LeftLeft extends Line {
       lineToDown(dy - 2 * radius);
       arcToDownRight();
       lineToRight(dx);
+    } else if (dx > 4 * radius) {
+      arcToLeftUp();
+      arcToUpRight();
+      lineToRight(dx / 2);
+      arcToRightDown();
+      lineToDown(dy);
+      arcToDownRight();
+      lineToRight(dx / 2 - 2 * radius);
+    } else if (dx > 2 * radius) {
+      arcToLeftUp();
+      arcToUpRight();
+      lineToRight(dx - 2 * radius);
+      arcToRightDown();
+      lineToDown(dy);
+      arcToDownRight();
     } else {
-      if (dx > 4 * radius) {
-        arcToLeftUp();
-        arcToUpRight();
-        lineToRight(dx / 2);
-        arcToRightDown();
-        lineToDown(dy);
-        arcToDownRight();
-        lineToRight(dx / 2 - 2 * radius);
-      } else if (dx > 2 * radius) {
-        arcToLeftUp();
-        arcToUpRight();
-        lineToRight(dx - 2 * radius);
-        arcToRightDown();
-        lineToDown(dy);
-        arcToDownRight();
-      } else {
-        arcToLeftUp();
-        arcToUpLeft();
-        arcToLeftDown();
-        lineToDown(dy);
-        arcToDownRight();
-        lineToRight(dx + 2 * radius);
-      }
+      arcToLeftUp();
+      arcToUpLeft();
+      arcToLeftDown();
+      lineToDown(dy);
+      arcToDownRight();
+      lineToRight(dx + 2 * radius);
     }
   }
 
@@ -51,30 +49,28 @@ class LeftLeft extends Line {
       lineToUp(dy - 2 * radius);
       arcToUpRight();
       lineToRight(dx);
+    } else if (dx > 4 * radius) {
+      arcToLeftDown();
+      arcToDownRight();
+      lineToRight(dx / 2);
+      arcToRightUp();
+      lineToUp(dy);
+      arcToUpRight();
+      lineToRight(dx / 2 - 2 * radius);
+    } else if (dx > 2 * radius) {
+      arcToLeftDown();
+      arcToDownRight();
+      lineToRight(dx - 2 * radius);
+      arcToRightUp();
+      lineToUp(dy);
+      arcToUpRight();
     } else {
-      if (dx > 4 * radius) {
-        arcToLeftDown();
-        arcToDownRight();
-        lineToRight(dx / 2);
-        arcToRightUp();
-        lineToUp(dy);
-        arcToUpRight();
-        lineToRight(dx / 2 - 2 * radius);
-      } else if (dx > 2 * radius) {
-        arcToLeftDown();
-        arcToDownRight();
-        lineToRight(dx - 2 * radius);
-        arcToRightUp();
-        lineToUp(dy);
-        arcToUpRight();
-      } else {
-        arcToLeftDown();
-        arcToDownLeft();
-        arcToLeftUp();
-        lineToUp(dy);
-        arcToUpRight();
-        lineToRight(dx + 2 * radius);
-      }
+      arcToLeftDown();
+      arcToDownLeft();
+      arcToLeftUp();
+      lineToUp(dy);
+      arcToUpRight();
+      lineToRight(dx + 2 * radius);
     }
   }
 
@@ -86,30 +82,28 @@ class LeftLeft extends Line {
       arcToLeftDown();
       lineToDown(dy - 2 * radius);
       arcToDownRight();
+    } else if (dx > 4 * radius) {
+      lineToLeft(dx / 2 - 2 * radius);
+      arcToLeftUp();
+      arcToUpLeft();
+      lineToLeft(dx / 2);
+      arcToLeftDown();
+      lineToDown(dy);
+      arcToDownRight();
+    } else if (dx > 2 * radius) {
+      arcToLeftUp();
+      arcToUpLeft();
+      lineToLeft(dx - 2 * radius);
+      arcToLeftDown();
+      lineToDown(dy);
+      arcToDownRight();
     } else {
-      if (dx > 4 * radius) {
-        lineToLeft(dx / 2 - 2 * radius);
-        arcToLeftUp();
-        arcToUpLeft();
-        lineToLeft(dx / 2);
-        arcToLeftDown();
-        lineToDown(dy);
-        arcToDownRight();
-      } else if (dx > 2 * radius) {
-        arcToLeftUp();
-        arcToUpLeft();
-        lineToLeft(dx - 2 * radius);
-        arcToLeftDown();
-        lineToDown(dy);
-        arcToDownRight();
-      } else {
-        arcToLeftUp();
-        arcToUpLeft();
-        arcToLeftDown();
-        lineToDown(dy);
-        arcToDownRight();
-        lineToRight(2 * radius - dx);
-      }
+      arcToLeftUp();
+      arcToUpLeft();
+      arcToLeftDown();
+      lineToDown(dy);
+      arcToDownRight();
+      lineToRight(2 * radius - dx);
     }
   }
 
@@ -121,30 +115,28 @@ class LeftLeft extends Line {
       arcToLeftUp();
       lineToUp(dy - 2 * radius);
       arcToUpRight();
+    } else if (dx > 4 * radius) {
+      lineToLeft(dx / 2 - 2 * radius);
+      arcToLeftDown();
+      arcToDownLeft();
+      lineToLeft(dx / 2);
+      arcToLeftUp();
+      lineToUp(dy);
+      arcToUpRight();
+    } else if (dx > 2 * radius) {
+      arcToLeftDown();
+      arcToDownLeft();
+      lineToLeft(dx - 2 * radius);
+      arcToLeftUp();
+      lineToUp(dy);
+      arcToUpRight();
     } else {
-      if (dx > 4 * radius) {
-        lineToLeft(dx / 2 - 2 * radius);
-        arcToLeftDown();
-        arcToDownLeft();
-        lineToLeft(dx / 2);
-        arcToLeftUp();
-        lineToUp(dy);
-        arcToUpRight();
-      } else if (dx > 2 * radius) {
-        arcToLeftDown();
-        arcToDownLeft();
-        lineToLeft(dx - 2 * radius);
-        arcToLeftUp();
-        lineToUp(dy);
-        arcToUpRight();
-      } else {
-        arcToLeftDown();
-        arcToDownLeft();
-        arcToLeftUp();
-        lineToUp(dy);
-        arcToUpRight();
-        lineToRight(2 * radius - dx);
-      }
+      arcToLeftDown();
+      arcToDownLeft();
+      arcToLeftUp();
+      lineToUp(dy);
+      arcToUpRight();
+      lineToRight(2 * radius - dx);
     }
   }
 }

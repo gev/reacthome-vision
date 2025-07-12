@@ -134,10 +134,14 @@ class LineStyle {
   }) : stroke = Paint()
          ..style = PaintingStyle.stroke
          ..color = color
-         ..strokeWidth = strokeWidth,
+         ..strokeWidth = strokeWidth
+         ..strokeCap = StrokeCap.round
+         ..strokeJoin = StrokeJoin.round,
        back = Paint()
          ..style = PaintingStyle.stroke
          ..color = backgroundColor
          ..strokeWidth = 2 * sigma
+         ..strokeCap = StrokeCap.round
+         ..strokeJoin = StrokeJoin.round
          ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma);
 }
