@@ -21,7 +21,12 @@ class TemperatureSensorIconic extends Iconic {
       ..relativeLineTo(radius, 0)
       ..relativeMoveTo(-radius, -linesGap)
       ..relativeLineTo(radius, 0)
-      ..addOval(Rect.fromCircle(center: offset, radius: radius));
+      ..addOval(
+        Rect.fromCircle(
+          center: Offset(offset.dx, offset.dy + halfSize - radius),
+          radius: radius,
+        ),
+      );
   }
 
   double get radius => realSize * kCircleRadius;
