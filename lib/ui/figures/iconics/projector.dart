@@ -5,7 +5,7 @@ import 'package:studio/ui/figures/iconic.dart';
 const kProjectorWidth = 0.5;
 const kProjectorHeight = 0.4;
 const kProjectorGap = 0.08;
-const kSmallCircleSize = 0.08;
+const kSmallCircleSize = 0.06;
 const kBigCircleSize = 0.25;
 
 class ProjectorIconic extends Iconic {
@@ -32,13 +32,24 @@ class ProjectorIconic extends Iconic {
         offset.dx + (projectorWidth - projectorGap),
         offset.dy + (projectorHeight - 2.5 * projectorGap),
       )
-      ..addOval(Rect.fromCircle(center: offset, radius: smallCircleSize))
-      ..moveTo(
-        offset.dx + (projectorWidth - projectorGap),
-        offset.dy + (projectorHeight - 2.5 * projectorGap),
+      ..addOval(
+        Rect.fromCircle(
+          center: Offset(
+            offset.dx + (projectorWidth - projectorGap * 2),
+            offset.dy + (projectorHeight - 3 * projectorGap),
+          ),
+          radius: smallCircleSize,
+        ),
       )
-      ..relativeLineTo(-projectorGap, 0)
-      ..addOval(Rect.fromCircle(center: offset, radius: bigCircleSize));
+      ..addOval(
+        Rect.fromCircle(
+          center: Offset(
+            offset.dx - projectorWidth / 5,
+            offset.dy - projectorGap / 3,
+          ),
+          radius: bigCircleSize,
+        ),
+      );
   }
 
   double get projectorWidth => realSize * kProjectorWidth;
@@ -46,6 +57,9 @@ class ProjectorIconic extends Iconic {
   double get projectorGap => realSize * kProjectorGap;
   double get smallCircleSize => realSize * kSmallCircleSize;
   double get bigCircleSize => realSize * kBigCircleSize;
+
+  @override
+  double get weight => 0.85;
 
   @override
   void paint(Canvas canvas) {
