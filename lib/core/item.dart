@@ -43,6 +43,7 @@ enum ItemType {
   leftMixer,
   delay,
   temperatureSensor,
+  drop,
 }
 
 class Item<Id> {
