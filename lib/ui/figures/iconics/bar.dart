@@ -18,7 +18,7 @@ abstract class _BarIconic extends Iconic {
   double get barLength => realSize * kBarLength;
 
   @override
-  double get weight => 0.8;
+  double get weight => 0.75;
 
   @override
   void paint(Canvas canvas) {
