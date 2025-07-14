@@ -11,7 +11,7 @@ class TemperatureSensorIconic extends Iconic {
     required super.offset,
     required super.size,
     required super.iconicStyle,
-  }) : halfSize = size / 2 {
+  }) {
     _path
       ..moveTo(offset.dx, offset.dy - halfSize)
       ..lineTo(offset.dx, offset.dy + (halfSize - radius * 2))
@@ -31,7 +31,10 @@ class TemperatureSensorIconic extends Iconic {
 
   double get radius => realSize * kCircleRadius;
   double get linesGap => realSize * kLinesGap;
-  final double halfSize;
+  double get halfSize => realSize / 2;
+
+  @override
+  double get weight => 0.85;
 
   @override
   void paint(Canvas canvas) {
