@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:studio/ui/figures/iconic.dart';
 
-const kDelayPosition = 0.2;
+const kDelayPosition = 0.1;
 const kDelayHeight = 0.2;
 
 class DelayIconic extends Iconic {
@@ -23,7 +23,7 @@ class DelayIconic extends Iconic {
   double get delayHeight => realSize * kDelayHeight;
 
   @override
-  double get weight => 0.8;
+  double get weight => 0.75;
 
   @override
   void paint(Canvas canvas) {
