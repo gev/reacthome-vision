@@ -11,6 +11,7 @@ import 'package:studio/ui/figures/iconics/chandelier.dart';
 import 'package:studio/ui/figures/iconics/curtains.dart';
 import 'package:studio/ui/figures/iconics/delay.dart';
 import 'package:studio/ui/figures/iconics/device.dart';
+import 'package:studio/ui/figures/iconics/drop.dart';
 import 'package:studio/ui/figures/iconics/filter.dart';
 import 'package:studio/ui/figures/iconics/heater.dart';
 import 'package:studio/ui/figures/iconics/led.dart';
@@ -72,4 +73,5 @@ Iconic selectIconic(ItemType type, Offset offset) => switch (type) {
   ItemType.leftMixer => LeftMixerIconic.new,
   ItemType.delay => DelayIconic.new,
   ItemType.temperatureSensor => TemperatureSensorIconic.new,
+  ItemType.drop => DropIconic.new,
 }(offset: offset, size: 30, iconicStyle: iconicStyle);
