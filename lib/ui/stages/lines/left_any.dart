@@ -45,7 +45,7 @@ class LeftAny extends Line {
   @override
   void toLeftDown(double dx, double dy) {
     moveTo(start.dx - radius, start.dy);
-    if (dy == 0) {
+    if (dx > 2 * radius && dy == 0) {
       lineToLeft(dx - 2 * radius);
     } else if (dx > 2 * radius && dy > 2 * radius) {
       lineToLeft(dx - 2 * radius);
@@ -75,7 +75,7 @@ class LeftAny extends Line {
   @override
   void toLeftUp(double dx, double dy) {
     moveTo(start.dx - radius, start.dy);
-    if (dy == 0) {
+    if (dx > 2 * radius && dy == 0) {
       lineToLeft(dx - 2 * radius);
     } else if (dx > 2 * radius && dy > 2 * radius) {
       lineToLeft(dx - 2 * radius);
