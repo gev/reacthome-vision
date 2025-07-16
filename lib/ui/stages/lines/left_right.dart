@@ -7,6 +7,7 @@ class LeftRight extends Line {
     required super.radius,
     required super.style,
   });
+
   @override
   void toRightDown(double dx, double dy) {
     moveTo(start.dx - radius, start.dy);
