@@ -1,7 +1,7 @@
 import 'package:studio/ui/stages/line.dart';
 
-class RightAny extends Line {
-  RightAny({
+class RightAuto extends Line {
+  RightAuto({
     required super.start,
     required super.end,
     required super.radius,

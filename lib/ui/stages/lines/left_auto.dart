@@ -1,7 +1,7 @@
 import 'package:studio/ui/stages/line.dart';
 
-class LeftAny extends Line {
-  LeftAny({
+class LeftAuto extends Line {
+  LeftAuto({
     required super.start,
     required super.end,
     required super.radius,

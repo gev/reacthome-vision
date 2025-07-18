@@ -85,7 +85,7 @@ final nodeScheme = Scheme(
     Link(
       id: 4,
       source: Connector(id: 8, direction: Direction.left),
-      sink: Connector(id: 9, direction: Direction.any),
+      sink: Connector(id: 9, direction: Direction.auto),
     ),
 
     Link(
@@ -111,7 +111,7 @@ final nodeScheme = Scheme(
     Link(
       id: 9,
       source: Connector(id: 18, direction: Direction.up),
-      sink: Connector(id: 19, direction: Direction.any),
+      sink: Connector(id: 19, direction: Direction.auto),
     ),
 
     Link(
@@ -137,7 +137,7 @@ final nodeScheme = Scheme(
     Link(
       id: 14,
       source: Connector(id: 28, direction: Direction.right),
-      sink: Connector(id: 29, direction: Direction.any),
+      sink: Connector(id: 29, direction: Direction.auto),
     ),
 
     Link(
@@ -163,33 +163,33 @@ final nodeScheme = Scheme(
     Link(
       id: 19,
       source: Connector(id: 38, direction: Direction.down),
-      sink: Connector(id: 39, direction: Direction.any),
+      sink: Connector(id: 39, direction: Direction.auto),
     ),
 
     Link(
       id: 20,
-      source: Connector(id: 40, direction: Direction.any),
+      source: Connector(id: 40, direction: Direction.auto),
       sink: Connector(id: 41, direction: Direction.left),
     ),
     Link(
       id: 21,
-      source: Connector(id: 42, direction: Direction.any),
+      source: Connector(id: 42, direction: Direction.auto),
       sink: Connector(id: 43, direction: Direction.up),
     ),
     Link(
       id: 22,
-      source: Connector(id: 44, direction: Direction.any),
+      source: Connector(id: 44, direction: Direction.auto),
       sink: Connector(id: 45, direction: Direction.right),
     ),
     Link(
       id: 23,
-      source: Connector(id: 46, direction: Direction.any),
+      source: Connector(id: 46, direction: Direction.auto),
       sink: Connector(id: 47, direction: Direction.down),
     ),
     Link(
       id: 24,
-      source: Connector(id: 48, direction: Direction.any),
-      sink: Connector(id: 49, direction: Direction.any),
+      source: Connector(id: 48, direction: Direction.auto),
+      sink: Connector(id: 49, direction: Direction.auto),
     ),
   ],
 );

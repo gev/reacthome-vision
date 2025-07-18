@@ -1,7 +1,7 @@
 import 'package:studio/ui/stages/line.dart';
 
-class AnyDown extends Line {
-  AnyDown({
+class AutoDown extends Line {
+  AutoDown({
     required super.start,
     required super.end,
     required super.radius,
