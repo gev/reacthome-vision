@@ -11,6 +11,7 @@ class AnyUp extends Line {
   @override
   void toRightDown(double dx, double dy) {
     if (dx == 0 && dy > 2 * radius) {
+      moveTo(start.dx, start.dy - radius);
       lineToDown(dy - 2 * radius);
     } else if (dx > 2 * radius && dy > 2 * radius) {
       moveTo(start.dx + radius, start.dy);
@@ -52,9 +53,9 @@ class AnyUp extends Line {
       lineToUp(dy);
       arcToUpRight();
       lineToRight(dx - 2 * radius);
+      arcToRightDown();
     } else {
-      moveTo(start.dx, start.dy + radius);
-      arcToDownLeft();
+      moveTo(start.dx - radius, start.dy);
       arcToLeftUp();
       lineToUp(dy);
       arcToUpRight();
@@ -66,9 +67,10 @@ class AnyUp extends Line {
   @override
   void toLeftDown(double dx, double dy) {
     if (dx == 0 && dy > 2 * radius) {
+      moveTo(start.dx, start.dy + radius);
       lineToDown(dy - 2 * radius);
     } else if (dx > 2 * radius && dy > 2 * radius) {
-      moveTo(start.dx + radius, start.dy);
+      moveTo(start.dx - radius, start.dy);
       lineToLeft(dx - 2 * radius);
       arcToLeftDown();
       lineToDown(dy - 2 * radius);
@@ -83,7 +85,7 @@ class AnyUp extends Line {
       arcToLeftDown();
       lineToDown(dy / 3 - 2 * radius);
     } else if (dy > 4 * radius) {
-      moveTo(start.dx - radius, start.dy);
+      moveTo(start.dx + radius, start.dy);
       arcToRightDown();
       lineToDown(dy / 2 - 2 * radius);
       arcToDownLeft();
@@ -91,7 +93,7 @@ class AnyUp extends Line {
       arcToLeftDown();
       lineToDown(dy / 2 - 2 * radius);
     } else {
-      moveTo(start.dx - radius, start.dy);
+      moveTo(start.dx + radius, start.dy);
       arcToRightUp();
       arcToUpLeft();
       lineToLeft(dx);
@@ -107,9 +109,9 @@ class AnyUp extends Line {
       lineToUp(dy);
       arcToUpLeft();
       lineToLeft(dx - 2 * radius);
+      arcToLeftDown();
     } else {
-      moveTo(start.dx, start.dy + radius);
-      arcToDownRight();
+      moveTo(start.dx + radius, start.dy);
       arcToRightUp();
       lineToUp(dy);
       arcToUpLeft();
