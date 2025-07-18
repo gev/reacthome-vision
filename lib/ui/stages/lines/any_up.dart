@@ -18,6 +18,12 @@ class AnyUp extends Line {
       lineToRight(dx - 2 * radius);
       arcToRightDown();
       lineToDown(dy - 2 * radius);
+    } else if (dx > 2 * radius) {
+      moveTo(start.dx, start.dy - radius);
+      arcToUpRight();
+      lineToRight(dx - 2 * radius);
+      arcToRightDown();
+      lineToDown(dy);
     } else if (dy > 6 * radius) {
       moveTo(start.dx, start.dy + radius);
       lineToDown(dy / 3 - 2 * radius);
@@ -74,6 +80,12 @@ class AnyUp extends Line {
       lineToLeft(dx - 2 * radius);
       arcToLeftDown();
       lineToDown(dy - 2 * radius);
+    } else if (dx > 2 * radius) {
+      moveTo(start.dx, start.dy - radius);
+      arcToUpLeft();
+      lineToLeft(dx - 2 * radius);
+      arcToLeftDown();
+      lineToDown(dy);
     } else if (dy > 6 * radius) {
       moveTo(start.dx, start.dy + radius);
       lineToDown(dy / 3 - 2 * radius);
