@@ -41,6 +41,7 @@ class AnyDown extends Line {
       arcToDownRight();
       lineToRight(dx - 2 * radius);
       arcToRightUp();
+      lineToUp(dy);
     } else if (dy > 6 * radius) {
       moveTo(start.dx, start.dy - radius);
       lineToUp(dy / 3 - 2 * radius);
@@ -102,6 +103,7 @@ class AnyDown extends Line {
       arcToDownLeft();
       lineToLeft(dx - 2 * radius);
       arcToLeftUp();
+      lineToUp(dy);
     } else if (dy > 6 * radius) {
       moveTo(start.dx, start.dy - radius);
       lineToUp(dy / 3 - 2 * radius);

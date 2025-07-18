@@ -60,6 +60,16 @@ class AnyRight extends Line {
       lineToDown(dy - 2 * radius);
       arcToDownLeft();
       lineToLeft(dx - 2 * radius);
+    } else if (dx > 6 * radius) {
+      moveTo(start.dx - radius, start.dy);
+      lineToLeft(dx / 3 - 2 * radius);
+      arcToLeftUp();
+      arcToUpLeft();
+      lineToLeft(dx / 3 - 2 * radius);
+      arcToLeftDown();
+      lineToDown(dy);
+      arcToDownLeft();
+      lineToLeft(dx / 3 - 2 * radius);
     } else if (dx > 4 * radius) {
       moveTo(start.dx, start.dy - radius);
       arcToUpLeft();
@@ -94,6 +104,16 @@ class AnyRight extends Line {
       lineToUp(dy - 2 * radius);
       arcToUpLeft();
       lineToLeft(dx - 2 * radius);
+    } else if (dx > 6 * radius) {
+      moveTo(start.dx - radius, start.dy);
+      lineToLeft(dx / 3 - 2 * radius);
+      arcToLeftDown();
+      arcToDownLeft();
+      lineToLeft(dx / 3 - 2 * radius);
+      arcToLeftUp();
+      lineToUp(dy);
+      arcToUpLeft();
+      lineToLeft(dx / 3 - 2 * radius);
     } else if (dx > 4 * radius) {
       moveTo(start.dx, start.dy + radius);
       arcToDownLeft();
