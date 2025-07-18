@@ -9,6 +9,24 @@ class AnyDown extends Line {
   });
 
   @override
+  void toRightDown(double dx, double dy) {
+    if (dx > 2 * radius) {
+      moveTo(start.dx, start.dy + radius);
+      lineToDown(dy);
+      arcToDownRight();
+      lineToRight(dx - 2 * radius);
+      arcToRightUp();
+    } else {
+      moveTo(start.dx - radius, start.dy);
+      arcToLeftDown();
+      lineToDown(dy);
+      arcToDownRight();
+      lineToRight(dx);
+      arcToRightUp();
+    }
+  }
+
+  @override
   void toRightUp(double dx, double dy) {
     if (dx == 0 && dy > 2 * radius) {
       moveTo(start.dx, start.dy + radius);
@@ -47,20 +65,20 @@ class AnyDown extends Line {
   }
 
   @override
-  void toRightDown(double dx, double dy) {
+  void toLeftDown(double dx, double dy) {
     if (dx > 2 * radius) {
       moveTo(start.dx, start.dy + radius);
       lineToDown(dy);
-      arcToDownRight();
-      lineToRight(dx - 2 * radius);
-      arcToRightUp();
+      arcToDownLeft();
+      lineToLeft(dx - 2 * radius);
+      arcToLeftUp();
     } else {
-      moveTo(start.dx - radius, start.dy);
-      arcToLeftDown();
+      moveTo(start.dx + radius, start.dy);
+      arcToRightDown();
       lineToDown(dy);
-      arcToDownRight();
-      lineToRight(dx);
-      arcToRightUp();
+      arcToDownLeft();
+      lineToLeft(dx);
+      arcToLeftUp();
     }
   }
 
@@ -99,24 +117,6 @@ class AnyDown extends Line {
       lineToLeft(dx);
       arcToLeftUp();
       lineToUp(dy);
-    }
-  }
-
-  @override
-  void toLeftDown(double dx, double dy) {
-    if (dx > 2 * radius) {
-      moveTo(start.dx, start.dy + radius);
-      lineToDown(dy);
-      arcToDownLeft();
-      lineToLeft(dx - 2 * radius);
-      arcToLeftUp();
-    } else {
-      moveTo(start.dx + radius, start.dy);
-      arcToRightDown();
-      lineToDown(dy);
-      arcToDownLeft();
-      lineToLeft(dx);
-      arcToLeftUp();
     }
   }
 }
