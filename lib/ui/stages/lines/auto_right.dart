@@ -10,10 +10,7 @@ class AutoRight extends Line {
 
   @override
   void toRightDown(double dx, double dy) {
-    if (dx > 2 * radius && dy == 0) {
-      moveTo(start.dx + radius, start.dy);
-      lineToRight(dx - 2 * radius);
-    } else if (dy > 2 * radius) {
+    if (dy > 2 * radius) {
       moveTo(start.dx + radius, start.dy);
       lineToRight(dx);
       arcToRightDown();
@@ -31,10 +28,7 @@ class AutoRight extends Line {
 
   @override
   void toRightUp(double dx, double dy) {
-    if (dx > 2 * radius && dy == 0) {
-      moveTo(start.dx + radius, start.dy);
-      lineToRight(dx - 2 * radius);
-    } else if (dy > 2 * radius) {
+    if (dy > 2 * radius) {
       moveTo(start.dx + radius, start.dy);
       lineToRight(dx);
       arcToRightUp();

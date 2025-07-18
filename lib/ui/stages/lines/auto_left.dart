@@ -98,10 +98,7 @@ class AutoLeft extends Line {
 
   @override
   void toLeftDown(double dx, double dy) {
-    if (dx > 2 * radius && dy == 0) {
-      moveTo(start.dx - radius, start.dy);
-      lineToLeft(dx - 2 * radius);
-    } else if (dy > 2 * radius) {
+    if (dy > 2 * radius) {
       moveTo(start.dx - radius, start.dy);
       lineToLeft(dx);
       arcToLeftDown();
@@ -119,10 +116,7 @@ class AutoLeft extends Line {
 
   @override
   void toLeftUp(double dx, double dy) {
-    if (dx > 2 * radius && dy == 0) {
-      moveTo(start.dx - radius, start.dy);
-      lineToLeft(dx - 2 * radius);
-    } else if (dy > 2 * radius) {
+    if (dy > 2 * radius) {
       moveTo(start.dx - radius, start.dy);
       lineToLeft(dx);
       arcToLeftUp();
