@@ -15,7 +15,6 @@ class Node implements Paintable, Hittable {
   final NodeStyle style;
   final Offset center;
   final Iconic _iconic;
-  final IconicGrid _grid;
 
   Node({
     required this.type,
@@ -25,12 +24,7 @@ class Node implements Paintable, Hittable {
     required this.center,
     required this.style,
   }) : _radiusSquared = radius * radius,
-       _iconic = selectIconic(type, center, 30),
-       _grid = IconicGrid(
-         offset: center,
-         size: 30,
-         style: IconicGridStyle(color: style.stroke.color.withAlpha(64)),
-       );
+       _iconic = selectIconic(type, center, 30);
 
   Node moveTo(Offset offset) => Node(
     type: type,
@@ -48,7 +42,6 @@ class Node implements Paintable, Hittable {
     canvas.drawCircle(center, radius + style.sigma, style.background);
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
-    _grid.paint(canvas);
     _iconic.paint(canvas);
   }
 
