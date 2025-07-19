@@ -7,9 +7,8 @@ abstract class Iconic implements Paintable {
   final double size;
   final Paint strokeStyle;
 
-  double get realSize => size * weight;
-
   double get weight => 1;
+  double get realSize => size * weight;
 
   Iconic({
     required this.offset,
