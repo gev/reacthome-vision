@@ -4,6 +4,7 @@ import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
 import 'package:studio/ui/figures/iconic_factory.dart';
+import 'package:studio/ui/figures/iconic_grid.dart';
 
 class Node implements Paintable, Hittable {
   final ItemType type;
@@ -14,6 +15,7 @@ class Node implements Paintable, Hittable {
   final NodeStyle style;
   final Offset center;
   final Iconic _iconic;
+  final IconicGrid _grid;
 
   Node({
     required this.type,
@@ -23,7 +25,12 @@ class Node implements Paintable, Hittable {
     required this.center,
     required this.style,
   }) : _radiusSquared = radius * radius,
-       _iconic = selectIconic(type, center);
+       _iconic = selectIconic(type, center, 30),
+       _grid = IconicGrid(
+         offset: center,
+         size: 30,
+         style: IconicGridStyle(color: style.stroke.color.withAlpha(64)),
+       );
 
   Node moveTo(Offset offset) => Node(
     type: type,
@@ -41,36 +48,8 @@ class Node implements Paintable, Hittable {
     canvas.drawCircle(center, radius + style.sigma, style.background);
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
+    _grid.paint(canvas);
     _iconic.paint(canvas);
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = style.stroke.color.withAlpha(64)
-      ..strokeWidth = 0.2;
-    canvas.drawCircle(center, _iconic.size / 2, paint);
-    canvas.drawRect(
-      Rect.fromCenter(
-        center: center,
-        width: 0.9 * _iconic.size,
-        height: 0.6 * _iconic.size,
-      ),
-      paint,
-    );
-    canvas.drawRect(
-      Rect.fromCenter(
-        center: center,
-        width: 0.6 * _iconic.size,
-        height: 0.9 * _iconic.size,
-      ),
-      paint,
-    );
-    canvas.drawRect(
-      Rect.fromCenter(
-        center: center,
-        width: 0.8 * _iconic.size,
-        height: 0.8 * _iconic.size,
-      ),
-      paint,
-    );
   }
 
   void paintSelection(Canvas canvas) {
