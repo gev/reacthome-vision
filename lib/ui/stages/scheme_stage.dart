@@ -44,9 +44,9 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
 
   @override
   void paint(Canvas canvas) {
-    // for (final it in _lines.values) {
-    //   it.paint(canvas);
-    // }
+    for (final it in _lines.values) {
+      it.paint(canvas);
+    }
     for (final it in _nodes.values) {
       it.ref.paint(canvas);
     }
@@ -54,9 +54,6 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
       it.ref.paintSelection(canvas);
     }
     _hit?.ref.paintFocus(canvas);
-    for (final it in _lines.values) {
-      it.paint(canvas);
-    }
   }
 
   @override
