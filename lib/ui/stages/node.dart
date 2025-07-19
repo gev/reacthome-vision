@@ -4,7 +4,6 @@ import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
 import 'package:studio/ui/figures/iconic_factory.dart';
-import 'package:studio/ui/figures/iconic_grid.dart';
 
 class Node implements Paintable, Hittable {
   final ItemType type;
