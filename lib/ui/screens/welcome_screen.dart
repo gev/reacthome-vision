@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:studio/core/item.dart';
+import 'package:studio/ui/figures/iconic_factory.dart';
 import 'package:studio/ui/scheme/samples/node_scheme.dart';
 import 'package:studio/ui/views/scheme_editor.dart';
+import 'package:studio/ui/widgets/icon.dart' as W;
 import 'package:studio/ui_kit/layouts/default_layout.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -36,6 +39,40 @@ class WelcomeScreen extends StatelessWidget {
     //     ),
     //   ),
     // );
-    return DefaultLayout(body: SchemeEditor(scheme: nodeScheme));
+    return DefaultLayout(
+      body: Row(
+        children: [
+          Expanded(child: SchemeEditor(scheme: nodeScheme)),
+          SizedBox(
+            width: 288,
+            child: Column(
+              children: [
+                Wrap(
+                  children: [
+                    for (final it in ItemType.values)
+                      Draggable(
+                        data: it,
+                        dragAnchorStrategy: childDragAnchorStrategy,
+                        feedback: Padding(
+                          padding: const EdgeInsetsGeometry.all(16),
+                          child: W.Icon(
+                            iconic: selectIconic(it, const Offset(20, 20), 40),
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsetsGeometry.all(16),
+                          child: W.Icon(
+                            iconic: selectIconic(it, const Offset(20, 20), 40),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
