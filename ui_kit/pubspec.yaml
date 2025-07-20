@@ -1,5 +1,7 @@
 name: ui_kit
-publish_to: none
+description: "An Reacthome UI Kit."
+version: 0.0.1
+
 
 environment:
   sdk: ^3.8.1
