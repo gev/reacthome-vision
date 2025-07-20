@@ -1,37 +1,33 @@
 import 'dart:ui';
 
-import 'package:studio/core/item.dart';
 import 'package:studio/ui/figures/figure.dart';
 import 'package:studio/ui/figures/iconic.dart';
-import 'package:studio/ui/figures/iconic_factory.dart';
 
 class Node implements Paintable, Hittable {
-  final ItemType type;
   final double radius;
   final double radiusFocussed;
   final double radiusSelected;
   final double _radiusSquared;
   final NodeStyle style;
   final Offset center;
-  final Iconic _iconic;
+  final Iconic iconic;
 
   Node({
-    required this.type,
     this.radius = 24,
     this.radiusFocussed = 36,
     this.radiusSelected = 48,
     required this.center,
     required this.style,
-  }) : _radiusSquared = radius * radius,
-       _iconic = selectIconic(type, center, 30);
+    required this.iconic,
+  }) : _radiusSquared = radius * radius;
 
   Node moveTo(Offset offset) => Node(
-    type: type,
     center: offset,
     radius: radius,
     radiusFocussed: radiusFocussed,
     radiusSelected: radiusSelected,
     style: style,
+    iconic: iconic,
   );
 
   Node moveBy(Offset offset) => moveTo(center + offset);
@@ -41,7 +37,7 @@ class Node implements Paintable, Hittable {
     canvas.drawCircle(center, radius + style.sigma, style.background);
     canvas.drawCircle(center, radius, style.fill);
     canvas.drawCircle(center, radius, style.stroke);
-    _iconic.paint(canvas);
+    iconic.paint(canvas);
   }
 
   void paintSelection(Canvas canvas) {
