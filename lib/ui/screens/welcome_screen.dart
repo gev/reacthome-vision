@@ -52,11 +52,11 @@ class WelcomeScreen extends StatelessWidget {
                     for (final it in ItemType.values)
                       Draggable(
                         data: it,
-                        dragAnchorStrategy: childDragAnchorStrategy,
+                        dragAnchorStrategy: (_, _, _) => const Offset(60, 60),
                         feedback: Padding(
                           padding: const EdgeInsetsGeometry.all(16),
                           child: W.Icon(
-                            iconic: selectIconic(it, const Offset(20, 20), 40),
+                            iconic: selectIconic(it, const Offset(40, 40), 80),
                           ),
                         ),
                         child: Padding(
