@@ -1,5 +1,5 @@
-import 'package:studio/core/item.dart';
-import 'package:studio/core/scheme.dart';
+import 'package:scheme/core/item.dart';
+import 'package:scheme/core/scheme.dart';
 
 final iconicScheme = Scheme(
   id: 1,

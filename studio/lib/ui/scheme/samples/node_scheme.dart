@@ -1,7 +1,7 @@
-import 'package:studio/core/item.dart';
-import 'package:studio/core/link.dart';
-import 'package:studio/core/scheme.dart';
-import 'package:studio/ui/stages/anchor_line.dart';
+import 'package:scheme/core/item.dart';
+import 'package:scheme/core/link.dart';
+import 'package:scheme/core/scheme.dart';
+import 'package:scheme/stages/anchor_line.dart';
 
 final nodeScheme = Scheme(
   id: 0,

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:studio/core/item.dart';
-import 'package:studio/ui/figures/iconic_factory.dart';
+import 'package:scheme/core/item.dart';
+import 'package:scheme/stages/iconic_factory.dart';
 import 'package:studio/ui/scheme/samples/node_scheme.dart';
 import 'package:studio/ui/views/scheme_editor.dart';
 import 'package:studio/ui/widgets/icon.dart' as W;

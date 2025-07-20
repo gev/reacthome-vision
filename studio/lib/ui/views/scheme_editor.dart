@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
-import 'package:studio/core/scheme.dart';
-import 'package:studio/ui/painters/grid_painter.dart';
-import 'package:studio/ui/painters/scheme_painter.dart';
-import 'package:studio/ui/stages/line.dart';
-import 'package:studio/ui/stages/node.dart';
-import 'package:studio/ui/stages/scheme_stage.dart';
+import 'package:scheme/core/scheme.dart';
+import 'package:scheme/painters/grid_painter.dart';
+import 'package:scheme/painters/scheme_painter.dart';
+import 'package:scheme/stages/line.dart';
+import 'package:scheme/stages/node.dart';
+import 'package:scheme/stages/scheme_stage.dart';
 import 'package:studio/ui/widgets/scheme_interactive_viewer.dart';
 import 'package:studio/ui/widgets/scheme_paint.dart';
 import 'package:studio/ui_kit/theme.dart';

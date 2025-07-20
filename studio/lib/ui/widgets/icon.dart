@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studio/ui/figures/iconic.dart';
+import 'package:ui_kit/figures/iconic.dart';
 
 class Icon extends StatelessWidget {
   final Iconic iconic;
