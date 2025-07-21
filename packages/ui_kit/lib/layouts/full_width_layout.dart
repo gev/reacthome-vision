@@ -9,11 +9,11 @@ class FullWidthLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return scaffold(
+    return Kit.scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-          app.bar.sliver(context, title: title),
+          Kit.app.bar.sliver(context, title: title),
           SliverFillRemaining(
             hasScrollBody: false,
             fillOverscroll: true,

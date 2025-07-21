@@ -7,5 +7,5 @@ class DefaultLayout extends StatelessWidget {
   const DefaultLayout({required this.body, super.key});
 
   @override
-  Widget build(BuildContext context) => scaffold(body: body);
+  Widget build(BuildContext context) => Kit.scaffold(body: body);
 }

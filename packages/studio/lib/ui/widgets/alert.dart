@@ -6,11 +6,11 @@ Widget alert(
   Widget? title,
   Widget? content,
   required String actionLabel,
-}) => dialog.alert(
+}) => Kit.dialog.alert(
   title: title,
   content: content,
   actions: [
-    dialog.action(
+    Kit.dialog.action(
       label: actionLabel,
       onPressed: () => Navigator.of(context).pop(false),
     ),

@@ -386,6 +386,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  ui_kit_material:
+    dependency: "direct main"
+    description:
+      path: "../../../packages/ui_kit_material"
+      relative: true
+    source: path
+    version: "0.0.1"
   vector_graphics:
     dependency: transitive
     description:

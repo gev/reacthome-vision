@@ -18,7 +18,7 @@ class FixedWidthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    return scaffold(
+    return Kit.scaffold(
       body: Center(
         child: SizedBox(
           width: min(width, size.width),
@@ -26,7 +26,7 @@ class FixedWidthLayout extends StatelessWidget {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             slivers: [
-              app.bar.sliver(context, title: title),
+              Kit.app.bar.sliver(context, title: title),
               SliverFillRemaining(
                 hasScrollBody: false,
                 fillOverscroll: true,
