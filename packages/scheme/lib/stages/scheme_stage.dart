@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:scheme/core/link.dart';
 import 'package:scheme/core/scheme.dart';
 import 'package:scheme/stages/anchor_line.dart';
-import 'package:scheme/stages/iconic_factory.dart';
 import 'package:scheme/stages/line.dart';
 import 'package:scheme/stages/node.dart';
 import 'package:ui_kit/figures/figure.dart';
@@ -29,11 +28,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     for (final it in scheme.items) {
       final position = Offset(gap * it.x, gap * it.y);
       final node = (Ref(
-        Node(
-          center: position,
-          style: style.nodeStyle,
-          iconic: selectIconic(it.type, position, 32),
-        ),
+        Node(type: it.type, center: position, style: style.nodeStyle),
       ));
       _nodes[it.id] = node;
       _lineIndex[node] = {};
