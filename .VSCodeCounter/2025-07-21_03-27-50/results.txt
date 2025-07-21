@@ -1,0 +1,322 @@
+Date : 2025-07-21 03:27:50
+Directory : /Users/evgenygazdovsky/workspace/reacthome-studio
+Total : 199 files,  8674 codes, 405 comments, 1164 blanks, all 10243 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Dart     |        148 |      6,751 |        115 |        787 |      7,653 |
+| C++      |         15 |        561 |        131 |        188 |        880 |
+| CMake    |          8 |        467 |          0 |         92 |        559 |
+| XML      |          1 |        343 |          0 |          1 |        344 |
+| SVG      |          6 |        312 |          6 |         12 |        330 |
+| YAML     |          7 |         86 |        147 |         49 |        282 |
+| JSON     |          1 |         68 |          0 |          0 |         68 |
+| Swift    |          4 |         44 |          5 |         15 |         64 |
+| Ruby     |          1 |         32 |          1 |         10 |         43 |
+| Markdown |          8 |         10 |          0 |         10 |         20 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                  | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                     |        199 |      8,674 |        405 |      1,164 |     10,243 |
+| . (Files)                                                                                                                             |          1 |          1 |          0 |          1 |          2 |
+| apps                                                                                                                                  |        117 |      3,313 |        310 |        624 |      4,247 |
+| apps (Files)                                                                                                                          |          1 |          1 |          0 |          1 |          2 |
+| apps/studio                                                                                                                           |        116 |      3,312 |        310 |        623 |      4,245 |
+| apps/studio (Files)                                                                                                                   |          4 |         55 |         79 |         27 |        161 |
+| apps/studio/lib                                                                                                                       |         82 |      1,742 |         94 |        290 |      2,126 |
+| apps/studio/lib (Files)                                                                                                               |          1 |         10 |          3 |          3 |         16 |
+| apps/studio/lib/make                                                                                                                  |          6 |         74 |          0 |         18 |         92 |
+| apps/studio/lib/make (Files)                                                                                                          |          3 |         56 |          0 |          9 |         65 |
+| apps/studio/lib/make/config                                                                                                           |          1 |          6 |          0 |          3 |          9 |
+| apps/studio/lib/make/screens                                                                                                          |          2 |         12 |          0 |          6 |         18 |
+| apps/studio/lib/ui                                                                                                                    |         14 |        628 |         30 |         75 |        733 |
+| apps/studio/lib/ui (Files)                                                                                                            |          2 |         23 |          0 |          7 |         30 |
+| apps/studio/lib/ui/scheme                                                                                                             |          2 |        238 |          0 |         12 |        250 |
+| apps/studio/lib/ui/scheme/samples                                                                                                     |          2 |        238 |          0 |         12 |        250 |
+| apps/studio/lib/ui/screens                                                                                                            |          2 |         65 |         28 |          7 |        100 |
+| apps/studio/lib/ui/views                                                                                                              |          2 |        139 |          2 |         18 |        159 |
+| apps/studio/lib/ui/widgets                                                                                                            |          6 |        163 |          0 |         31 |        194 |
+| apps/studio/lib/ui_kit                                                                                                                |         57 |        967 |          0 |        180 |      1,147 |
+| apps/studio/lib/ui_kit (Files)                                                                                                        |          5 |        184 |          0 |         13 |        197 |
+| apps/studio/lib/ui_kit/layout                                                                                                         |          3 |         39 |          0 |         14 |         53 |
+| apps/studio/lib/ui_kit/layouts                                                                                                        |          4 |         78 |          0 |         17 |         95 |
+| apps/studio/lib/ui_kit/theme                                                                                                          |          3 |         78 |          0 |         22 |        100 |
+| apps/studio/lib/ui_kit/widgets                                                                                                        |         42 |        588 |          0 |        114 |        702 |
+| apps/studio/lib/ui_kit/widgets (Files)                                                                                                |          1 |         22 |          0 |          4 |         26 |
+| apps/studio/lib/ui_kit/widgets/app                                                                                                    |          7 |        117 |          0 |         19 |        136 |
+| apps/studio/lib/ui_kit/widgets/app (Files)                                                                                            |          1 |         23 |          0 |          7 |         30 |
+| apps/studio/lib/ui_kit/widgets/app/bar                                                                                                |          4 |         57 |          0 |          8 |         65 |
+| apps/studio/lib/ui_kit/widgets/app/bar/fixed                                                                                          |          2 |         22 |          0 |          4 |         26 |
+| apps/studio/lib/ui_kit/widgets/app/bar/sliver                                                                                         |          2 |         35 |          0 |          4 |         39 |
+| apps/studio/lib/ui_kit/widgets/app/root                                                                                               |          2 |         37 |          0 |          4 |         41 |
+| apps/studio/lib/ui_kit/widgets/button                                                                                                 |          5 |         76 |          0 |         14 |         90 |
+| apps/studio/lib/ui_kit/widgets/button (Files)                                                                                         |          1 |         21 |          0 |          6 |         27 |
+| apps/studio/lib/ui_kit/widgets/button/filled                                                                                          |          2 |         22 |          0 |          4 |         26 |
+| apps/studio/lib/ui_kit/widgets/button/icon                                                                                            |          2 |         33 |          0 |          4 |         37 |
+| apps/studio/lib/ui_kit/widgets/button/icon/filled                                                                                     |          2 |         33 |          0 |          4 |         37 |
+| apps/studio/lib/ui_kit/widgets/dialog                                                                                                 |          7 |         99 |          0 |         18 |        117 |
+| apps/studio/lib/ui_kit/widgets/dialog (Files)                                                                                         |          1 |         26 |          0 |          6 |         32 |
+| apps/studio/lib/ui_kit/widgets/dialog/action                                                                                          |          2 |         28 |          0 |          4 |         32 |
+| apps/studio/lib/ui_kit/widgets/dialog/alert                                                                                           |          2 |         26 |          0 |          4 |         30 |
+| apps/studio/lib/ui_kit/widgets/dialog/show                                                                                            |          2 |         19 |          0 |          4 |         23 |
+| apps/studio/lib/ui_kit/widgets/divider                                                                                                |          3 |         10 |          0 |          6 |         16 |
+| apps/studio/lib/ui_kit/widgets/indicator                                                                                              |          3 |         14 |          0 |          8 |         22 |
+| apps/studio/lib/ui_kit/widgets/indicator (Files)                                                                                      |          1 |          6 |          0 |          4 |         10 |
+| apps/studio/lib/ui_kit/widgets/indicator/activity                                                                                     |          2 |          8 |          0 |          4 |         12 |
+| apps/studio/lib/ui_kit/widgets/list                                                                                                   |          7 |        156 |          0 |         25 |        181 |
+| apps/studio/lib/ui_kit/widgets/list (Files)                                                                                           |          1 |         25 |          0 |          6 |         31 |
+| apps/studio/lib/ui_kit/widgets/list/chevron                                                                                           |          2 |          8 |          0 |          4 |         12 |
+| apps/studio/lib/ui_kit/widgets/list/section                                                                                           |          2 |         88 |          0 |         11 |         99 |
+| apps/studio/lib/ui_kit/widgets/list/tile                                                                                              |          2 |         35 |          0 |          4 |         39 |
+| apps/studio/lib/ui_kit/widgets/scaffold                                                                                               |          3 |         27 |          0 |          6 |         33 |
+| apps/studio/lib/ui_kit/widgets/switcher                                                                                               |          3 |         27 |          0 |          6 |         33 |
+| apps/studio/lib/ui_kit/widgets/text                                                                                                   |          3 |         40 |          0 |          8 |         48 |
+| apps/studio/lib/ui_kit/widgets/text (Files)                                                                                           |          1 |         10 |          0 |          4 |         14 |
+| apps/studio/lib/ui_kit/widgets/text/field                                                                                             |          2 |         30 |          0 |          4 |         34 |
+| apps/studio/lib/util                                                                                                                  |          4 |         63 |         61 |         14 |        138 |
+| apps/studio/linux                                                                                                                     |          9 |        345 |         37 |         92 |        474 |
+| apps/studio/linux (Files)                                                                                                             |          1 |        104 |          0 |         25 |        129 |
+| apps/studio/linux/flutter                                                                                                             |          4 |        125 |          9 |         27 |        161 |
+| apps/studio/linux/runner                                                                                                              |          4 |        116 |         28 |         40 |        184 |
+| apps/studio/macos                                                                                                                     |          7 |        487 |          6 |         26 |        519 |
+| apps/studio/macos (Files)                                                                                                             |          1 |         32 |          1 |         10 |         43 |
+| apps/studio/macos/Flutter                                                                                                             |          1 |         14 |          3 |          4 |         21 |
+| apps/studio/macos/Runner                                                                                                              |          4 |        434 |          0 |          8 |        442 |
+| apps/studio/macos/Runner (Files)                                                                                                      |          2 |         23 |          0 |          7 |         30 |
+| apps/studio/macos/Runner/Assets.xcassets                                                                                              |          1 |         68 |          0 |          0 |         68 |
+| apps/studio/macos/Runner/Assets.xcassets/AppIcon.appiconset                                                                           |          1 |         68 |          0 |          0 |         68 |
+| apps/studio/macos/Runner/Base.lproj                                                                                                   |          1 |        343 |          0 |          1 |        344 |
+| apps/studio/macos/RunnerTests                                                                                                         |          1 |          7 |          2 |          4 |         13 |
+| apps/studio/windows                                                                                                                   |         14 |        683 |         94 |        188 |        965 |
+| apps/studio/windows (Files)                                                                                                           |          1 |         89 |          0 |         20 |        109 |
+| apps/studio/windows/flutter                                                                                                           |          4 |        132 |          9 |         29 |        170 |
+| apps/studio/windows/runner                                                                                                            |          9 |        462 |         85 |        139 |        686 |
+| assets                                                                                                                                |          6 |        312 |          6 |         12 |        330 |
+| packages                                                                                                                              |         75 |      5,048 |         89 |        527 |      5,664 |
+| packages (Files)                                                                                                                      |          1 |          1 |          0 |          1 |          2 |
+| packages/scheme                                                                                                                       |         40 |      3,686 |         54 |        275 |      4,015 |
+| packages/scheme (Files)                                                                                                               |          4 |         21 |         34 |         15 |         70 |
+| packages/scheme/lib                                                                                                                   |         36 |      3,665 |         20 |        260 |      3,945 |
+| packages/scheme/lib/core                                                                                                              |          4 |         97 |         11 |         16 |        124 |
+| packages/scheme/lib/painters                                                                                                          |          2 |        135 |          0 |         28 |        163 |
+| packages/scheme/lib/stages                                                                                                            |         30 |      3,433 |          9 |        216 |      3,658 |
+| packages/scheme/lib/stages (Files)                                                                                                    |          5 |        501 |          9 |         66 |        576 |
+| packages/scheme/lib/stages/lines                                                                                                      |         25 |      2,932 |          0 |        150 |      3,082 |
+| packages/ui_kit                                                                                                                       |         34 |      1,361 |         35 |        251 |      1,647 |
+| packages/ui_kit (Files)                                                                                                               |          4 |         17 |         34 |         14 |         65 |
+| packages/ui_kit/lib                                                                                                                   |         30 |      1,344 |          1 |        237 |      1,582 |
+| packages/ui_kit/lib/figures                                                                                                           |         30 |      1,344 |          1 |        237 |      1,582 |
+| packages/ui_kit/lib/figures (Files)                                                                                                   |          4 |        103 |          1 |         25 |        129 |
+| packages/ui_kit/lib/figures/iconics                                                                                                   |         26 |      1,241 |          0 |        212 |      1,453 |
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                                              | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /Users/evgenygazdovsky/workspace/reacthome-studio/README.md                                                                           | Markdown |          1 |          0 |          1 |          2 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/README.md                                                                      | Markdown |          1 |          0 |          1 |          2 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/README.md                                                               | Markdown |          1 |          0 |          1 |          2 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/analysis_options.yaml                                                   | YAML     |          9 |         21 |          5 |         35 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/flutter_launcher_icons.yaml                                             | YAML     |         11 |          1 |          5 |         17 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/main.dart                                                           | Dart     |         10 |          3 |          3 |         16 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/make/app.dart                                                       | Dart     |         25 |          0 |          4 |         29 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/make/config.dart                                                    | Dart     |         16 |          0 |          3 |         19 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/make/config/theme_config.dart                                       | Dart     |          6 |          0 |          3 |          9 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/make/make.dart                                                      | Dart     |         15 |          0 |          2 |         17 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/make/screens/splash_screen_factory.dart                             | Dart     |          6 |          0 |          3 |          9 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/make/screens/welcome_screen_factory.dart                            | Dart     |          6 |          0 |          3 |          9 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/assets.dart                                                      | Dart     |          8 |          0 |          1 |          9 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/navigation.dart                                                  | Dart     |         15 |          0 |          6 |         21 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/scheme/samples/iconic_scheme.dart                                | Dart     |         52 |          0 |          2 |         54 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/scheme/samples/node_scheme.dart                                  | Dart     |        186 |          0 |         10 |        196 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/screens/splash_screen.dart                                       | Dart     |         17 |          0 |          4 |         21 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/screens/welcome_screen.dart                                      | Dart     |         48 |         28 |          3 |         79 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/views/app.dart                                                   | Dart     |         23 |          2 |          4 |         29 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/views/scheme_editor.dart                                         | Dart     |        116 |          0 |         14 |        130 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/widgets/alert.dart                                               | Dart     |         17 |          0 |          2 |         19 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/widgets/confirm.dart                                             | Dart     |         24 |          0 |          2 |         26 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/widgets/icon.dart                                                | Dart     |         21 |          0 |          8 |         29 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/widgets/logo.dart                                                | Dart     |          5 |          0 |          2 |          7 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/widgets/scheme_interactive_viewer.dart                           | Dart     |         87 |          0 |         13 |        100 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui/widgets/scheme_paint.dart                                        | Dart     |          9 |          0 |          4 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/kit.dart                                                     | Dart     |         15 |          0 |          3 |         18 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/kit_container.dart                                           | Dart     |         37 |          0 |          3 |         40 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/kit_cupertino.dart                                           | Dart     |         60 |          0 |          2 |         62 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/kit_material.dart                                            | Dart     |         60 |          0 |          2 |         62 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/layout/layout.dart                                           | Dart     |         31 |          0 |         10 |         41 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/layout/layout_cupertino.dart                                 | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/layout/layout_material.dart                                  | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/layouts/center_layout.dart                                   | Dart     |         10 |          0 |          4 |         14 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/layouts/default_layout.dart                                  | Dart     |          8 |          0 |          4 |         12 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/layouts/fixed_width_layout.dart                              | Dart     |         37 |          0 |          5 |         42 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/layouts/full_width_layout.dart                               | Dart     |         23 |          0 |          4 |         27 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/theme.dart                                                   | Dart     |         12 |          0 |          3 |         15 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/theme/theme.dart                                             | Dart     |          9 |          0 |          2 |         11 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/theme/theme_cupertino.dart                                   | Dart     |         36 |          0 |         10 |         46 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/theme/theme_material.dart                                    | Dart     |         33 |          0 |         10 |         43 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/app/app.dart                                         | Dart     |         23 |          0 |          7 |         30 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/app/bar/fixed/app_bar_fixed_cupertino.dart           | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/app/bar/fixed/app_bar_fixed_material.dart            | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/app/bar/sliver/app_bar_sliver_cupertino.dart         | Dart     |         13 |          0 |          2 |         15 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/app/bar/sliver/app_bar_sliver_material.dart          | Dart     |         22 |          0 |          2 |         24 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/app/root/app_root_cupertino.dart                     | Dart     |         19 |          0 |          2 |         21 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/app/root/app_root_material.dart                      | Dart     |         18 |          0 |          2 |         20 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/button/button.dart                                   | Dart     |         21 |          0 |          6 |         27 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/button/filled/button_filled_cupertino.dart           | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/button/filled/button_filled_material.dart            | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/button/icon/filled/button_icon_filled_cupertino.dart | Dart     |         20 |          0 |          2 |         22 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/button/icon/filled/button_icon_filled_material.dart  | Dart     |         13 |          0 |          2 |         15 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/dialog/action/dialog_action_cupertino.dart           | Dart     |         15 |          0 |          2 |         17 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/dialog/action/dialog_action_material.dart            | Dart     |         13 |          0 |          2 |         15 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/dialog/alert/dialog_alert_cupertino.dart             | Dart     |         13 |          0 |          2 |         15 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/dialog/alert/dialog_alert_material.dart              | Dart     |         13 |          0 |          2 |         15 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/dialog/dialog.dart                                   | Dart     |         26 |          0 |          6 |         32 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/dialog/show/show_dialog_cupertino.dart               | Dart     |         10 |          0 |          2 |         12 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/dialog/show/show_dialog_material.dart                | Dart     |          9 |          0 |          2 |         11 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/divider/divider.dart                                 | Dart     |          2 |          0 |          2 |          4 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/divider/divider_cupertino.dart                       | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/divider/divider_material.dart                        | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/icon.dart                                            | Dart     |         22 |          0 |          4 |         26 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/indicator/activity/indicator_activity_cupertino.dart | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/indicator/activity/indicator_activity_material.dart  | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/indicator/indicator.dart                             | Dart     |          6 |          0 |          4 |         10 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/list/chevron/list_chevron_cupertino.dart             | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/list/chevron/list_chevron_material.dart              | Dart     |          4 |          0 |          2 |          6 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/list/list.dart                                       | Dart     |         25 |          0 |          6 |         31 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/list/section/list_section_cupertino.dart             | Dart     |         19 |          0 |          2 |         21 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/list/section/list_section_material.dart              | Dart     |         69 |          0 |          9 |         78 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/list/tile/list_tile_cupertino.dart                   | Dart     |         17 |          0 |          2 |         19 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/list/tile/list_tile_material.dart                    | Dart     |         18 |          0 |          2 |         20 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/scaffold/scaffold.dart                               | Dart     |          5 |          0 |          2 |          7 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/scaffold/scaffold_cupertino.dart                     | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/scaffold/scaffold_material.dart                      | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/switcher/switcher.dart                               | Dart     |          5 |          0 |          2 |          7 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/switcher/switcher_cupertino.dart                     | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/switcher/switcher_material.dart                      | Dart     |         11 |          0 |          2 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/text/field/text_field_cupertino.dart                 | Dart     |         13 |          0 |          2 |         15 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/text/field/text_field_material.dart                  | Dart     |         17 |          0 |          2 |         19 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/ui_kit/widgets/text/text.dart                                       | Dart     |         10 |          0 |          4 |         14 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/util/extensions.dart                                                | Dart     |          3 |         19 |          1 |         23 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/util/navigator_extension.dart                                       | Dart     |         37 |         24 |          6 |         67 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/util/platform.dart                                                  | Dart     |          6 |          4 |          2 |         12 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/lib/util/timeout.dart                                                   | Dart     |         17 |         14 |          5 |         36 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/CMakeLists.txt                                                    | CMake    |        104 |          0 |         25 |        129 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/flutter/CMakeLists.txt                                            | CMake    |         79 |          0 |         10 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/flutter/generated_plugin_registrant.cc                            | C++      |         19 |          4 |          5 |         28 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/flutter/generated_plugin_registrant.h                             | C++      |          5 |          5 |          6 |         16 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/flutter/generated_plugins.cmake                                   | CMake    |         22 |          0 |          6 |         28 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/runner/CMakeLists.txt                                             | CMake    |         21 |          0 |          6 |         27 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/runner/main.cc                                                    | C++      |          5 |          0 |          2 |          7 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/runner/my_application.cc                                          | C++      |         83 |         21 |         27 |        131 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/linux/runner/my_application.h                                           | C++      |          7 |          7 |          5 |         19 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/macos/Flutter/GeneratedPluginRegistrant.swift                           | Swift    |         14 |          3 |          4 |         21 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/macos/Podfile                                                           | Ruby     |         32 |          1 |         10 |         43 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/macos/Runner/AppDelegate.swift                                          | Swift    |         11 |          0 |          3 |         14 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json           | JSON     |         68 |          0 |          0 |         68 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/macos/Runner/Base.lproj/MainMenu.xib                                    | XML      |        343 |          0 |          1 |        344 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/macos/Runner/MainFlutterWindow.swift                                    | Swift    |         12 |          0 |          4 |         16 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/macos/RunnerTests/RunnerTests.swift                                     | Swift    |          7 |          2 |          4 |         13 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/pubspec.yaml                                                            | YAML     |         34 |         57 |         16 |        107 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/CMakeLists.txt                                                  | CMake    |         89 |          0 |         20 |        109 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/flutter/CMakeLists.txt                                          | CMake    |         98 |          0 |         12 |        110 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/flutter/generated_plugin_registrant.cc                          | C++      |          9 |          4 |          5 |         18 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/flutter/generated_plugin_registrant.h                           | C++      |          5 |          5 |          6 |         16 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/flutter/generated_plugins.cmake                                 | CMake    |         20 |          0 |          6 |         26 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/CMakeLists.txt                                           | CMake    |         34 |          0 |          7 |         41 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/flutter_window.cpp                                       | C++      |         49 |          7 |         16 |         72 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/flutter_window.h                                         | C++      |         20 |          5 |          9 |         34 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/main.cpp                                                 | C++      |         30 |          4 |         10 |         44 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/resource.h                                               | C++      |          9 |          6 |          2 |         17 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/utils.cpp                                                | C++      |         54 |          2 |         10 |         66 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/utils.h                                                  | C++      |          8 |          6 |          6 |         20 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/win32_window.cpp                                         | C++      |        210 |         24 |         55 |        289 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/apps/studio/windows/runner/win32_window.h                                           | C++      |         48 |         31 |         24 |        103 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/assets/logo_round.svg                                                               | SVG      |         68 |          1 |          2 |         71 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/assets/logo_round_dark.svg                                                          | SVG      |         44 |          1 |          2 |         47 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/assets/logo_round_light.svg                                                         | SVG      |         44 |          1 |          2 |         47 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/assets/logo_sharp.svg                                                               | SVG      |         68 |          1 |          2 |         71 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/assets/logo_sharp_dark.svg                                                          | SVG      |         44 |          1 |          2 |         47 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/assets/logo_sharp_light.svg                                                         | SVG      |         44 |          1 |          2 |         47 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/README.md                                                                  | Markdown |          1 |          0 |          1 |          2 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/CHANGELOG.md                                                        | Markdown |          2 |          0 |          2 |          4 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/README.md                                                           | Markdown |          1 |          0 |          1 |          2 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/analysis_options.yaml                                               | YAML     |          1 |          2 |          2 |          5 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/core/item.dart                                                  | Dart     |         62 |         11 |          5 |         78 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/core/link.dart                                                  | Dart     |         12 |          0 |          5 |         17 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/core/port.dart                                                  | Dart     |          5 |          0 |          2 |          7 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/core/scheme.dart                                                | Dart     |         18 |          0 |          4 |         22 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/painters/grid_painter.dart                                      | Dart     |        123 |          0 |         23 |        146 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/painters/scheme_painter.dart                                    | Dart     |         12 |          0 |          5 |         17 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/anchor_line.dart                                         | Dart     |         82 |          0 |          8 |         90 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/iconic_factory.dart                                      | Dart     |         76 |          0 |          3 |         79 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/line.dart                                                | Dart     |        122 |          0 |         26 |        148 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/auto_auto.dart                                     | Dart     |        292 |          0 |          6 |        298 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/auto_down.dart                                     | Dart     |        129 |          0 |          6 |        135 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/auto_left.dart                                     | Dart     |        129 |          0 |          6 |        135 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/auto_right.dart                                    | Dart     |        129 |          0 |          6 |        135 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/auto_up.dart                                       | Dart     |        129 |          0 |          6 |        135 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/down_auto.dart                                     | Dart     |        103 |          0 |          6 |        109 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/down_down.dart                                     | Dart     |        127 |          0 |          6 |        133 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/down_left.dart                                     | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/down_right.dart                                    | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/down_up.dart                                       | Dart     |        137 |          0 |          6 |        143 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/left_auto.dart                                     | Dart     |         99 |          0 |          6 |        105 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/left_down.dart                                     | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/left_left.dart                                     | Dart     |        137 |          0 |          6 |        143 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/left_right.dart                                    | Dart     |        127 |          0 |          6 |        133 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/left_up.dart                                       | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/right_auto.dart                                    | Dart     |         99 |          0 |          6 |        105 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/right_down.dart                                    | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/right_left.dart                                    | Dart     |        127 |          0 |          6 |        133 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/right_right.dart                                   | Dart     |        137 |          0 |          6 |        143 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/right_up.dart                                      | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/up_auto.dart                                       | Dart     |        103 |          0 |          6 |        109 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/up_down.dart                                       | Dart     |        127 |          0 |          6 |        133 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/up_left.dart                                       | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/up_right.dart                                      | Dart     |         83 |          0 |          6 |         89 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/lines/up_up.dart                                         | Dart     |        137 |          0 |          6 |        143 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/node.dart                                                | Dart     |         81 |          0 |         12 |         93 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/lib/stages/scheme_stage.dart                                        | Dart     |        140 |          9 |         17 |        166 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/scheme/pubspec.yaml                                                        | YAML     |         17 |         32 |         10 |         59 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/CHANGELOG.md                                                        | Markdown |          2 |          0 |          2 |          4 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/README.md                                                           | Markdown |          1 |          0 |          1 |          2 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/analysis_options.yaml                                               | YAML     |          1 |          2 |          2 |          5 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/figure.dart                                             | Dart     |         16 |          0 |          6 |         22 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconic.dart                                             | Dart     |         31 |          0 |          7 |         38 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconic_grid.dart                                        | Dart     |         32 |          0 |          7 |         39 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/air_conditioner.dart                            | Dart     |         49 |          0 |          6 |         55 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/arrow.dart                                      | Dart     |         74 |          0 |         11 |         85 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/bar.dart                                        | Dart     |         50 |          0 |         10 |         60 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/blinds.dart                                     | Dart     |         32 |          0 |          7 |         39 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/bra.dart                                        | Dart     |         32 |          0 |          7 |         39 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/button.dart                                     | Dart     |         27 |          0 |          7 |         34 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/chandelier.dart                                 | Dart     |         61 |          0 |          7 |         68 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/curtains.dart                                   | Dart     |         39 |          0 |          8 |         47 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/delay.dart                                      | Dart     |         27 |          0 |          6 |         33 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/device.dart                                     | Dart     |         26 |          0 |          8 |         34 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/drop.dart                                       | Dart     |         43 |          0 |          8 |         51 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/filter.dart                                     | Dart     |        130 |          0 |         12 |        142 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/heater.dart                                     | Dart     |         35 |          0 |          7 |         42 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/led.dart                                        | Dart     |         55 |          0 |          7 |         62 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/minus.dart                                      | Dart     |         23 |          0 |          7 |         30 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/mixer.dart                                      | Dart     |         84 |          0 |         12 |         96 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/plus.dart                                       | Dart     |         24 |          0 |          7 |         31 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/projector.dart                                  | Dart     |         61 |          0 |          8 |         69 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/qf.dart                                         | Dart     |         26 |          0 |          7 |         33 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/screen.dart                                     | Dart     |         32 |          0 |          7 |         39 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/shutter.dart                                    | Dart     |         54 |          0 |         10 |         64 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/sp.dart                                         | Dart     |         50 |          0 |          9 |         59 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/spot.dart                                       | Dart     |         53 |          0 |          7 |         60 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/temperature_sensor.dart                         | Dart     |         37 |          0 |          7 |         44 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/track.dart                                      | Dart     |         39 |          0 |          8 |         47 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/iconics/triangle.dart                                   | Dart     |         78 |          0 |         12 |         90 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/lib/figures/label.dart                                              | Dart     |         24 |          1 |          5 |         30 |
+| /Users/evgenygazdovsky/workspace/reacthome-studio/packages/ui_kit/pubspec.yaml                                                        | YAML     |         13 |         32 |          9 |         54 |
+| Total                                                                                                                                 |          |      8,674 |        405 |      1,164 |     10,243 |
++---------------------------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
