@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:studio/ui/navigation.dart';
+import 'package:ui_kit/navigation.dart';
 
 typedef AppRootFactory =
     Widget Function(
