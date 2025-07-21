@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 class NavigationRouteNames {
-  static const splash = 'splash';
-  static const welcome = '/';
+  static const splash = '/';
+  static const welcome = 'welcome';
 }
 
 class Navigation {
@@ -11,7 +11,7 @@ class Navigation {
 
   const Navigation({required this.splash, required this.welcome});
 
-  String get initialRoute => NavigationRouteNames.welcome;
+  String get initialRoute => NavigationRouteNames.splash;
 
   Map<String, WidgetBuilder> get routes => ({
     NavigationRouteNames.splash: splash,
