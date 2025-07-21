@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:studio/ui/navigation.dart';
-import 'package:studio/ui_kit/theme/theme_material.dart';
+import 'package:ui_kit/navigation.dart';
+import 'package:ui_kit/theme/theme_material.dart';
 
 class AppRootMaterial {
   static Widget make(

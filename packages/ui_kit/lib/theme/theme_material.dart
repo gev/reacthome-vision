@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:studio/ui_kit/theme/theme.dart';
+import 'package:ui_kit/theme/theme.dart';
 
 class ThemeMaterial implements ThemeContainer {
   late final ThemeData _themeData;

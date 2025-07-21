@@ -1,6 +1,6 @@
-import 'package:studio/ui_kit/kit_cupertino.dart';
-import 'package:studio/ui_kit/kit_material.dart';
-import 'package:studio/util/platform.dart';
+import 'package:ui_kit/kit_cupertino.dart';
+import 'package:ui_kit/kit_material.dart';
+import 'package:ui_kit/platform.dart';
 
 final _kit = selectPlatform(cupertino: cupertino, material: material);
 

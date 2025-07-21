@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studio/ui_kit/layout/layout_material.dart';
+import 'package:ui_kit/layout/layout_material.dart';
 
 class AppBarSliverMaterial {
   static Widget make(

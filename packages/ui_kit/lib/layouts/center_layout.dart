@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:studio/ui_kit/kit.dart';
+import 'package:ui_kit/kit.dart';
 
 class CenterLayout extends StatelessWidget {
   final Widget body;

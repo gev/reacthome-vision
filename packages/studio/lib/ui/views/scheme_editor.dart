@@ -7,7 +7,7 @@ import 'package:scheme/stages/node.dart';
 import 'package:scheme/stages/scheme_stage.dart';
 import 'package:studio/ui/widgets/scheme_interactive_viewer.dart';
 import 'package:studio/ui/widgets/scheme_paint.dart';
-import 'package:studio/ui_kit/theme.dart';
+import 'package:ui_kit/theme.dart';
 
 const double gap = 100;
 

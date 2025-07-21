@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studio/ui_kit/layout/layout_material.dart';
+import 'package:ui_kit/layout/layout_material.dart';
 
 class ListSectionMaterial {
   static Widget make(
@@ -7,28 +7,26 @@ class ListSectionMaterial {
     String? title,
     required List<Widget> children,
     bool hasLeading = false,
-  }) =>
-      (title != null)
-          ? Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ListSectionTitleMaterial(title),
-              ListSectionCardMaterial.withTitle(children),
-            ],
-          )
-          : layout.padding.fullWidth(
-            child: Card(
-              shape: const ContinuousRectangleBorder(),
-              margin: EdgeInsets.zero,
-              child: Column(
-                children:
-                    ListTile.divideTiles(
-                      context: context,
-                      tiles: children,
-                    ).toList(),
-              ),
+  }) => (title != null)
+      ? Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListSectionTitleMaterial(title),
+            ListSectionCardMaterial.withTitle(children),
+          ],
+        )
+      : layout.padding.fullWidth(
+          child: Card(
+            shape: const ContinuousRectangleBorder(),
+            margin: EdgeInsets.zero,
+            child: Column(
+              children: ListTile.divideTiles(
+                context: context,
+                tiles: children,
+              ).toList(),
             ),
-          );
+          ),
+        );
 }
 
 class ListSectionCardMaterial extends StatelessWidget {
@@ -52,8 +50,10 @@ class ListSectionCardMaterial extends StatelessWidget {
     child: Card(
       margin: EdgeInsets.zero,
       child: Column(
-        children:
-            ListTile.divideTiles(context: context, tiles: children).toList(),
+        children: ListTile.divideTiles(
+          context: context,
+          tiles: children,
+        ).toList(),
       ),
     ),
   );

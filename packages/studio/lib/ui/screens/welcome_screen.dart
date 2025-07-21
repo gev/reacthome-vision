@@ -4,7 +4,7 @@ import 'package:scheme/stages/iconic_factory.dart';
 import 'package:studio/ui/scheme/samples/node_scheme.dart';
 import 'package:studio/ui/views/scheme_editor.dart';
 import 'package:studio/ui/widgets/icon.dart' as W;
-import 'package:studio/ui_kit/layouts/default_layout.dart';
+import 'package:ui_kit/layouts/default_layout.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});

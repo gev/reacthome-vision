@@ -1,14 +1,14 @@
-import 'package:studio/ui_kit/layout/layout.dart';
-import 'package:studio/ui_kit/widgets/app/app.dart';
-import 'package:studio/ui_kit/widgets/button/button.dart';
-import 'package:studio/ui_kit/widgets/dialog/dialog.dart';
-import 'package:studio/ui_kit/widgets/divider/divider.dart';
-import 'package:studio/ui_kit/widgets/icon.dart';
-import 'package:studio/ui_kit/widgets/indicator/indicator.dart';
-import 'package:studio/ui_kit/widgets/list/list.dart';
-import 'package:studio/ui_kit/widgets/scaffold/scaffold.dart';
-import 'package:studio/ui_kit/widgets/switcher/switcher.dart';
-import 'package:studio/ui_kit/widgets/text/text.dart';
+import 'package:ui_kit/layout/layout.dart';
+import 'package:ui_kit/widgets/app/app.dart';
+import 'package:ui_kit/widgets/button/button.dart';
+import 'package:ui_kit/widgets/dialog/dialog.dart';
+import 'package:ui_kit/widgets/divider/divider.dart';
+import 'package:ui_kit/widgets/icon.dart';
+import 'package:ui_kit/widgets/indicator/indicator.dart';
+import 'package:ui_kit/widgets/list/list.dart';
+import 'package:ui_kit/widgets/scaffold/scaffold.dart';
+import 'package:ui_kit/widgets/switcher/switcher.dart';
+import 'package:ui_kit/widgets/text/text.dart';
 
 class KitContainer {
   final AppContainer app;

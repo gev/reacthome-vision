@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:studio/ui/navigation.dart';
-import 'package:studio/ui_kit/kit.dart';
+import 'package:ui_kit/navigation.dart';
+import 'package:ui_kit/kit.dart';
 
 class App extends StatelessWidget {
   final Color seedColor;

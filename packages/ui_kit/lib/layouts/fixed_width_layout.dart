@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
-import 'package:studio/ui_kit/kit.dart';
+import 'package:ui_kit/kit.dart';
 
 class FixedWidthLayout extends StatelessWidget {
   final String title;
