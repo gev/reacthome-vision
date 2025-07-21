@@ -1,4 +1,4 @@
-name: studio
+name: studio_universal_app
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -33,7 +33,10 @@ dependencies:
 
   scheme:
     path: ../../packages/scheme
-    
+
+  studio:
+    path: ../../packages/studio
+
   ui_kit:
     path: ../../packages/ui_kit
 
@@ -46,7 +49,6 @@ dependencies:
   fluent_ui: ^4.12.0
   yaru_window: ^0.2.1+1
   yaru: ^8.0.0
-  fast_immutable_collections: ^11.0.4
 
 dev_dependencies:
   flutter_test:
