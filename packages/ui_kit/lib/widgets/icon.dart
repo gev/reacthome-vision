@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 
-typedef IconKind = ({
-  IconData filled,
-  IconData outlined,
-});
+typedef IconKind = ({IconData filled, IconData outlined});
 
 class IconContainer {
   final IconData add;

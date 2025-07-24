@@ -7,7 +7,7 @@ import 'package:scheme/stages/node.dart';
 import 'package:scheme/stages/scheme_stage.dart';
 import 'package:studio/ui/widgets/scheme_interactive_viewer.dart';
 import 'package:studio/ui/widgets/scheme_paint.dart';
-import 'package:ui_kit/kit.dart';
+import 'package:ui_kit/theme.dart';
 
 const double gap = 100;
 
@@ -18,7 +18,7 @@ class SchemeEditor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Kit.theme(context);
+    final theme = themeOf(context);
     return _SchemeEditor(
       items: scheme,
       gridStyle: GridStyle(

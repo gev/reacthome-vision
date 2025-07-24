@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:ui_kit/kit.dart';
+import 'package:ui_kit/widgets.dart';
 
 class FullWidthLayout extends StatelessWidget {
   final String title;
@@ -9,11 +9,11 @@ class FullWidthLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Kit.scaffold(
+    return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
-          Kit.app.bar.sliver(context, title: title),
+          AppBarSliver(title: title),
           SliverFillRemaining(
             hasScrollBody: false,
             fillOverscroll: true,

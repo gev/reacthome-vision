@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+typedef ThemeBuilder = Theme Function(BuildContext context);
+
 abstract interface class Theme {
   TextStyle get titleStyle;
   TextStyle get bodyStyle;
@@ -8,3 +10,5 @@ abstract interface class Theme {
   Color get primaryColor;
   Color get secondaryColor;
 }
+
+late final ThemeBuilder themeOf;

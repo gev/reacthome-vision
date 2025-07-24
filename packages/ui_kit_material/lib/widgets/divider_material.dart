@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
-class DividerMaterial {
-  static Widget make() => const Divider();
+class DividerMaterial extends StatelessWidget {
+  const DividerMaterial({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Divider();
+  }
 }

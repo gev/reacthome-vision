@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ListChevronMaterial {
-  static Widget make() => const Icon(Icons.chevron_right);
+class ListChevronMaterial extends StatelessWidget {
+  const ListChevronMaterial({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Icon(Icons.chevron_right);
+  }
 }

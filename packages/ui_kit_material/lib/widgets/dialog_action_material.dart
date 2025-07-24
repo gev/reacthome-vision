@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 
-class DialogActionMaterial {
-  static Widget make({
-    required String label,
-    bool isDefaultAction = false,
-    bool isDestructiveAction = false,
-    void Function()? onPressed,
-  }) =>
-      TextButton(
-        onPressed: onPressed,
-        child: Text(label),
-      );
+class DialogActionMaterial extends StatelessWidget {
+  final String label;
+  final bool isDefaultAction;
+  final bool isDestructiveAction;
+  final void Function()? onPressed;
+
+  const DialogActionMaterial({
+    required this.label,
+    this.isDefaultAction = false,
+    this.isDestructiveAction = false,
+    this.onPressed,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(onPressed: onPressed, child: Text(label));
+  }
 }

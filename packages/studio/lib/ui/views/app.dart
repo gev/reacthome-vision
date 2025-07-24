@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ui_kit/navigation.dart';
-import 'package:ui_kit/kit.dart';
+import 'package:ui_kit/widgets.dart';
 
 class App extends StatelessWidget {
   final Navigation navigation;
@@ -18,11 +18,6 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     // SystemChrome.restoreSystemUIOverlays();
     // return MacosApp(title: title, routes: navigation.routes);
-    return Kit.app.root(
-      context,
-      navigation: navigation,
-      title: title,
-      seedColor: seedColor,
-    );
+    return AppRoot(navigation: navigation, title: title, seedColor: seedColor);
   }
 }

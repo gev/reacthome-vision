@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/widgets.dart';
-import 'package:ui_kit/kit.dart';
+import 'package:ui_kit/widgets.dart';
 
 class FixedWidthLayout extends StatelessWidget {
   final String title;
@@ -18,7 +18,7 @@ class FixedWidthLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
-    return Kit.scaffold(
+    return Scaffold(
       body: Center(
         child: SizedBox(
           width: min(width, size.width),
@@ -26,7 +26,7 @@ class FixedWidthLayout extends StatelessWidget {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             slivers: [
-              Kit.app.bar.sliver(context, title: title),
+              AppBarSliver(title: title),
               SliverFillRemaining(
                 hasScrollBody: false,
                 fillOverscroll: true,

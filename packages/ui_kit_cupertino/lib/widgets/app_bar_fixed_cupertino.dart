@@ -1,12 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class AppBarFixedCupertino {
-  static PreferredSizeWidget make({
-    required String title,
-    Widget? trailing,
-  }) =>
-      CupertinoNavigationBar(
-        middle: Text(title),
-        trailing: trailing,
-      );
+class AppBarFixedCupertino extends CupertinoNavigationBar {
+  AppBarFixedCupertino({required String title, super.trailing, super.key})
+    : super(middle: Text(title));
 }

@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_material/layout_material.dart';
+import 'package:ui_kit/layout_paddings.dart';
 
-class AppBarSliverMaterial {
-  static Widget make(
-    BuildContext context, {
-    required String title,
-    Widget? trailing,
-  }) => SliverAppBar.medium(
-    pinned: true,
-    stretch: true,
-    title: Text(title),
-    flexibleSpace: FlexibleSpaceBar(
-      collapseMode: CollapseMode.pin,
-      background: Container(
-        alignment: AlignmentDirectional.bottomStart,
-        padding: layout.padding.edgeInsets,
-        child: Text(title, style: Theme.of(context).textTheme.headlineLarge),
+class AppBarSliverMaterial extends StatelessWidget {
+  final String title;
+  final Widget? trailing;
+
+  const AppBarSliverMaterial({required this.title, this.trailing, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverAppBar.medium(
+      pinned: true,
+      stretch: true,
+      title: Text(title),
+      flexibleSpace: FlexibleSpaceBar(
+        collapseMode: CollapseMode.pin,
+        background: Container(
+          alignment: AlignmentDirectional.bottomStart,
+          padding: DefaultPadding.edgeInsets,
+          child: Text(title, style: Theme.of(context).textTheme.headlineLarge),
+        ),
       ),
-    ),
-    actions: trailing != null ? [trailing] : [],
-  );
+      actions: trailing != null ? [trailing!] : [],
+    );
+  }
 }

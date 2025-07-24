@@ -1,10 +1,5 @@
 import 'package:flutter/widgets.dart';
 
-class LayoutContainer {
-  final LayoutPadding padding;
-  const LayoutContainer({required this.padding});
-}
-
 class LayoutPadding {
   final double start;
   final double top;
@@ -28,13 +23,8 @@ class LayoutPadding {
   EdgeInsetsDirectional get edgeInsetsFullWidth =>
       EdgeInsetsDirectional.fromSTEB(0, top, 0, bottom);
 
-  Widget all({Widget? child}) => Padding(
-        padding: edgeInsets,
-        child: child,
-      );
+  Widget all({Widget? child}) => Padding(padding: edgeInsets, child: child);
 
-  Widget fullWidth({Widget? child}) => Padding(
-        padding: edgeInsetsFullWidth,
-        child: child,
-      );
+  Widget fullWidth({Widget? child}) =>
+      Padding(padding: edgeInsetsFullWidth, child: child);
 }

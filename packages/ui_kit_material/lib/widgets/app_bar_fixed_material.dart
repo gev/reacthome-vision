@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 
-class AppBarFixedMaterial {
-  static PreferredSizeWidget make({
-    required String title,
-    Widget? trailing,
-  }) =>
-      AppBar(
-        title: Text(title),
-        actions: trailing != null ? [trailing] : [],
-      );
+class AppBarFixedMaterial extends AppBar {
+  AppBarFixedMaterial({required String title, Widget? trailing, super.key})
+    : super(title: Text(title), actions: trailing != null ? [trailing] : []);
 }
