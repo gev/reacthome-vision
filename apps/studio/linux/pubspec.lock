@@ -288,6 +288,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.16.0"
+  navigation:
+    dependency: transitive
+    description:
+      path: "../../../packages/navigation"
+      relative: true
+    source: path
+    version: "0.0.1"
   path:
     dependency: transitive
     description:
@@ -431,7 +438,7 @@ packages:
   studio:
     dependency: "direct main"
     description:
-      path: "../../../packages/studio"
+      path: "../../../packages/apps/studio"
       relative: true
     source: path
     version: "0.0.1"

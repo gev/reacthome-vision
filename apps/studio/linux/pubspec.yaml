@@ -35,7 +35,7 @@ dependencies:
     path: ../../../packages/scheme
 
   studio:
-    path: ../../../packages/studio
+    path: ../../../packages/apps/studio
 
   ui_kit:
     path: ../../../packages/ui_kit

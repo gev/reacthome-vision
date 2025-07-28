@@ -97,6 +97,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  common:
+    dependency: transitive
+    description:
+      path: "../../../packages/common"
+      relative: true
+    source: path
+    version: "0.0.1"
   connectivity_plus:
     dependency: transitive
     description:
@@ -188,7 +195,7 @@ packages:
   flow:
     dependency: "direct main"
     description:
-      path: "../../../packages/flow"
+      path: "../../../packages/apps/flow"
       relative: true
     source: path
     version: "0.0.1"
@@ -388,6 +395,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  navigation:
+    dependency: transitive
+    description:
+      path: "../../../packages/navigation"
+      relative: true
+    source: path
+    version: "0.0.1"
   nm:
     dependency: transitive
     description:
@@ -595,6 +609,13 @@ packages:
     dependency: transitive
     description:
       path: "../../../packages/ui_kit_material"
+      relative: true
+    source: path
+    version: "0.0.1"
+  utils:
+    dependency: transitive
+    description:
+      path: "../../../packages/utils"
       relative: true
     source: path
     version: "0.0.1"
