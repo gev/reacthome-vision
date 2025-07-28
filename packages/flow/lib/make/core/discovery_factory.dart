@@ -1,4 +1,4 @@
-import 'package:flow/common/bus/bus.dart';
+import 'package:common/bus/bus.dart';
 import 'package:flow/core/discovery/discovery.dart';
 import 'package:flow/core/discovery/discovery_api.dart';
 import 'package:flow/core/discovery/discovery_event.dart';

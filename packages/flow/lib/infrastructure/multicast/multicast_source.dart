@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flow/common/handler.dart';
-import 'package:flow/util/extensions.dart';
+import 'package:common/handler.dart';
+import 'package:utils/extensions.dart';
 
 class MulticastSource {
   final RawDatagramSocket _socket;

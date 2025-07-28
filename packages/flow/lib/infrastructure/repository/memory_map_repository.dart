@@ -1,5 +1,5 @@
-import 'package:flow/common/entity.dart';
-import 'package:flow/common/repository/map_repository.dart';
+import 'package:common/entity.dart';
+import 'package:common/repository/map_repository.dart';
 
 class MemoryMapRepository<K, V extends Entity<K>>
     implements MapRepository<K, V> {

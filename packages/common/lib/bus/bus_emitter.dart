@@ -1,4 +1,4 @@
-import 'package:flow/common/emitter.dart';
+import 'package:common/emitter.dart';
 
 class BusEmitter<T> implements Emitter<T> {
   final Sink<T> eventSink;

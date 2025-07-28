@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flow/common/handler.dart';
+import 'package:common/handler.dart';
 import 'package:flow/controllers/discovery/discovery_action_dto.dart';
 import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/meta/meta.dart';

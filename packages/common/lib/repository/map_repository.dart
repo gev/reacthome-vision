@@ -1,4 +1,4 @@
-import 'package:flow/common/entity.dart';
+import 'package:common/entity.dart';
 
 abstract interface class MapRepository<K, V extends Entity<K>> {
   int get length;

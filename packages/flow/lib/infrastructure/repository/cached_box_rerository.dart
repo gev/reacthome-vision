@@ -1,7 +1,7 @@
-import 'package:flow/common/emitter.dart';
-import 'package:flow/common/entity.dart';
-import 'package:flow/common/entity_event.dart';
-import 'package:flow/common/repository/box_repository.dart';
+import 'package:common/emitter.dart';
+import 'package:common/entity.dart';
+import 'package:common/entity_event.dart';
+import 'package:common/repository/box_repository.dart';
 
 class CachedBoxRepository<E extends Entity<String>>
     implements BoxRepository<E> {

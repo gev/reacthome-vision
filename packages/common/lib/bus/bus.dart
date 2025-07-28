@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flow/common/bus/bus_emitter.dart';
-import 'package:flow/common/emitter.dart';
+import 'package:common/bus/bus_emitter.dart';
+import 'package:common/emitter.dart';
 
 class Bus<T> {
   final _controller = StreamController<T>.broadcast();

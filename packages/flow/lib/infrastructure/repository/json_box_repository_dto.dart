@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flow/infrastructure/repository/memory_box_repository.dart';
 import 'package:flow/infrastructure/repository/types.dart';
-import 'package:flow/util/extensions.dart';
+import 'package:utils/extensions.dart';
 
 class JsonBoxRepositoryDto<T> {
   final MemoryBoxRepository<T> _box;

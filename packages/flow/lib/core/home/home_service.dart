@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:flow/common/emitter.dart';
-import 'package:flow/common/repository/map_repository.dart';
+import 'package:common/emitter.dart';
+import 'package:common/repository/map_repository.dart';
 import 'package:flow/core/home/home.dart';
 import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/home/home_entity.dart';

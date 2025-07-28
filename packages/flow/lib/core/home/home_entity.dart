@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flow/core/home/home.dart';
 import 'package:flow/core/home/home_event.dart';
 import 'package:flow/core/meta/meta.dart';
-import 'package:flow/util/extensions.dart';
+import 'package:utils/extensions.dart';
 
 class HomeEntity implements Home {
   final String _id;

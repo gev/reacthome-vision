@@ -1,5 +1,5 @@
-import 'package:flow/common/emitter.dart';
-import 'package:flow/common/repository/map_repository.dart';
+import 'package:common/emitter.dart';
+import 'package:common/repository/map_repository.dart';
 import 'package:flow/core/connection/connection_api.dart';
 import 'package:flow/core/connection/connection_event.dart';
 import 'package:flow/core/connection/connection_state.dart';
@@ -7,7 +7,7 @@ import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/home_connection/home_connection.dart';
 import 'package:flow/core/home_connection/home_connection_api.dart';
 import 'package:flow/core/home_connection/home_connection_entity.dart';
-import 'package:flow/util/extensions.dart';
+import 'package:utils/extensions.dart';
 
 class HomeConnectionService<S> implements HomeConnectionApi {
   final Emitter<ConnectionEvent> eventSink;

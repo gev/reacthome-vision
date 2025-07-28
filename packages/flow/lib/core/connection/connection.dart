@@ -1,4 +1,4 @@
-import 'package:flow/common/entity.dart';
+import 'package:common/entity.dart';
 import 'package:flow/core/connection/connection_state.dart';
 
 import 'connection_type.dart';

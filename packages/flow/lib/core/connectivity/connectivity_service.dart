@@ -1,4 +1,4 @@
-import 'package:flow/common/emitter.dart';
+import 'package:common/emitter.dart';
 import 'package:flow/core/connectivity/connectivity.dart';
 import 'package:flow/core/connectivity/connectivity_api.dart';
 import 'package:flow/core/connectivity/connectivity_event.dart';

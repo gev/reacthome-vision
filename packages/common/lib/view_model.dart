@@ -1,4 +1,4 @@
-import 'package:flow/common/bus/bus_listener.dart';
+import 'package:common/bus/bus_listener.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class ViewModel<E> extends BusListener<E> with ChangeNotifier {

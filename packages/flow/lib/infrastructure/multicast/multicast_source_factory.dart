@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flow/common/handler.dart';
+import 'package:common/handler.dart';
 import 'package:flow/infrastructure/multicast/multicast_source.dart';
 
 class MulticastSourceFactory {

@@ -1,4 +1,4 @@
-import 'package:flow/common/view_model.dart';
+import 'package:common/view_model.dart';
 import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/home/home_event.dart';
 

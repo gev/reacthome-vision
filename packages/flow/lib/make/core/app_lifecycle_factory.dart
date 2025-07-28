@@ -1,4 +1,4 @@
-import 'package:flow/common/bus/bus.dart';
+import 'package:common/bus/bus.dart';
 import 'package:flow/core/app_lifecycle/app_lifecycle_api.dart';
 import 'package:flow/core/app_lifecycle/app_lifecycle_event.dart';
 import 'package:flow/core/app_lifecycle/app_lifecycle_service.dart';

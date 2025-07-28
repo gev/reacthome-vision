@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:flow/common/emitter.dart';
-import 'package:flow/common/repository/map_repository.dart';
+import 'package:common/emitter.dart';
+import 'package:common/repository/map_repository.dart';
 import 'package:flow/core/connection/connection.dart';
 import 'package:flow/core/connection/connection_api.dart';
 import 'package:flow/core/connection/connection_entity.dart';
 import 'package:flow/core/connection/connection_event.dart';
-import 'package:flow/util/extensions.dart';
+import 'package:utils/extensions.dart';
 
 abstract class ConnectionService<C extends ConnectionEntity<S>, S>
     implements ConnectionApi<S> {

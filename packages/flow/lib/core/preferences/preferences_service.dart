@@ -1,5 +1,5 @@
-import 'package:flow/common/emitter.dart';
-import 'package:flow/common/repository/box_repository.dart';
+import 'package:common/emitter.dart';
+import 'package:common/repository/box_repository.dart';
 import 'package:flow/core/preferences/preferences.dart';
 import 'package:flow/core/preferences/preferences_api.dart';
 import 'package:flow/core/preferences/preferences_event.dart';

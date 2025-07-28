@@ -1,4 +1,4 @@
-import 'package:flow/common/emitter.dart';
+import 'package:common/emitter.dart';
 import 'package:flow/core/app_lifecycle/app_lifecycle_api.dart';
 import 'package:flow/core/app_lifecycle/app_lifecycle_event.dart';
 

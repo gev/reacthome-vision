@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flow/common/bus/bus_listener.dart';
+import 'package:common/bus/bus_listener.dart';
 import 'package:flow/core/connection/connection_event.dart';
 import 'package:flow/core/connection/connection_type.dart';
 import 'package:flow/core/home_connection/home_connection_api.dart';

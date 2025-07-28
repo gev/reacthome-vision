@@ -1,4 +1,4 @@
-import 'package:flow/common/entity.dart';
+import 'package:common/entity.dart';
 import 'package:flow/core/connection/connection.dart';
 
 abstract interface class HomeConnection<S> implements Entity<String> {

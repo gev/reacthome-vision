@@ -1,4 +1,4 @@
-import 'package:flow/common/bus/bus_listener.dart';
+import 'package:common/bus/bus_listener.dart';
 import 'package:flow/core/connection/connection_api.dart';
 import 'package:flow/core/connection/connection_event.dart';
 import 'package:flow/infrastructure/websocket/websocket.dart';

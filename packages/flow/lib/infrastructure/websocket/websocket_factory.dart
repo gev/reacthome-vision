@@ -1,6 +1,6 @@
 import 'dart:io' as io;
 
-import 'package:flow/common/handler.dart';
+import 'package:common/handler.dart';
 import 'package:flow/infrastructure/websocket/websocket.dart';
 import 'package:flow/make/config/websocket_config.dart';
 

@@ -1,4 +1,4 @@
-import 'package:flow/common/view_model.dart';
+import 'package:common/view_model.dart';
 import 'package:flutter/widgets.dart';
 
 class ViewModelBuilder<L extends ViewModel<E>, E> extends StatefulWidget {

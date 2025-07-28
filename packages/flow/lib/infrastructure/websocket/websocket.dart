@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io' as io;
 
-import 'package:flow/common/handler.dart';
+import 'package:common/handler.dart';
 
 class WebSocket {
   final io.WebSocket _socket;

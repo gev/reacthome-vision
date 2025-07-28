@@ -1,6 +1,6 @@
-import 'package:flow/util/extensions.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ui_kit/widgets.dart';
+import 'package:utils/extensions.dart';
 
 class Connection extends StatelessWidget {
   final bool isConnected;

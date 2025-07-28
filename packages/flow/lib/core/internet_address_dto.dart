@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flow/util/extensions.dart';
+import 'package:utils/extensions.dart';
 
 class InternetAddressDto {
   InternetAddressDto._();

@@ -1,9 +1,9 @@
-import 'package:flow/common/emitter.dart';
+import 'package:common/emitter.dart';
 import 'package:flow/core/discovery/discovery.dart';
 import 'package:flow/core/discovery/discovery_api.dart';
 import 'package:flow/core/discovery/discovery_event.dart';
 import 'package:flow/core/discovery/discovery_state.dart';
-import 'package:flow/util/extensions.dart';
+import 'package:utils/extensions.dart';
 
 class DiscoveryService<S> implements DiscoveryApi<S> {
   final Emitter<DiscoveryEvent> eventSink;

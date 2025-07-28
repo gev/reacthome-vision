@@ -1,4 +1,4 @@
-import 'package:flow/common/repository/box_repository.dart';
+import 'package:common/repository/box_repository.dart';
 
 class MemoryBoxRepository<V> implements BoxRepository<V> {
   V _store;

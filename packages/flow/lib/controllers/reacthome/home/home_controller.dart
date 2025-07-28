@@ -3,7 +3,7 @@ import 'package:flow/controllers/reacthome/home/home_action_dto.dart';
 import 'package:flow/controllers/reacthome/reacthome_action.dart';
 import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/meta/meta.dart';
-import 'package:flow/util/extensions.dart';
+import 'package:utils/extensions.dart';
 
 class HomeController extends EntityController {
   final HomeApi homeApi;

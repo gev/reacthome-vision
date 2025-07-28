@@ -1,4 +1,4 @@
-import 'package:flow/common/view_model.dart';
+import 'package:common/view_model.dart';
 import 'package:flow/core/discovery/discovery_api.dart';
 import 'package:flow/core/discovery/discovery_event.dart';
 import 'package:flow/core/discovery/discovery_state.dart';

@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:flow/common/handler.dart';
+import 'package:common/handler.dart';
 
 abstract class BusListener<E> extends Object implements Handler<E> {
   late StreamSubscription<E> _subscription;

@@ -1,5 +1,5 @@
-import 'package:flow/common/bus/bus_listener.dart';
-import 'package:flow/common/entity_event.dart';
+import 'package:common/bus/bus_listener.dart';
+import 'package:common/entity_event.dart';
 import 'package:flow/controllers/reacthome/reacthome_controller.dart';
 
 abstract class EntityController extends BusListener<EntityEvent>

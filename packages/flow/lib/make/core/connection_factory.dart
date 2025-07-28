@@ -1,4 +1,4 @@
-import 'package:flow/common/bus/bus.dart';
+import 'package:common/bus/bus.dart';
 import 'package:flow/core/connection/connection_api.dart';
 import 'package:flow/core/connection/connection_entity.dart';
 import 'package:flow/core/connection/connection_event.dart';

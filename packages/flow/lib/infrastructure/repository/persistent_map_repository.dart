@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flow/common/entity.dart';
-import 'package:flow/common/repository/map_repository.dart';
+import 'package:common/entity.dart';
+import 'package:common/repository/map_repository.dart';
 import 'package:flow/infrastructure/repository/json_map_repository_dto.dart';
 import 'package:flow/infrastructure/repository/memory_map_repository.dart';
 import 'package:flow/infrastructure/repository/persistent.dart';

@@ -14,11 +14,17 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  common:
+    path: ../common
+
   navigation:
     path: ../navigation
 
   ui_kit:
     path: ../ui_kit
+
+  utils:
+    path: ../utils
 
   flutter_svg: ^2.2.0
   path_provider: ^2.1.5

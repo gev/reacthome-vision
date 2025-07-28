@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flow/common/entity.dart';
+import 'package:common/entity.dart';
 import 'package:flow/infrastructure/repository/memory_map_repository.dart';
 import 'package:flow/infrastructure/repository/types.dart';
 

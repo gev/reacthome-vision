@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flow/common/repository/box_repository.dart';
+import 'package:common/repository/box_repository.dart';
 import 'package:flow/infrastructure/repository/json_box_repository_dto.dart';
 import 'package:flow/infrastructure/repository/memory_box_repository.dart';
 import 'package:flow/infrastructure/repository/persistent.dart';

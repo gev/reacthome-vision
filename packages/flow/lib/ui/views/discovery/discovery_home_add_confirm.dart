@@ -1,4 +1,4 @@
-import 'package:flow/common/view_model_builder.dart';
+import 'package:common/view_model_builder.dart';
 import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/widgets/confirm.dart';

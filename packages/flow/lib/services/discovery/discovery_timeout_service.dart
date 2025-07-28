@@ -1,7 +1,7 @@
-import 'package:flow/common/bus/bus_listener.dart';
+import 'package:common/bus/bus_listener.dart';
 import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/home/home_event.dart';
-import 'package:flow/util/timeout.dart';
+import 'package:utils/timeout.dart';
 
 class DiscoveryTimeoutService extends BusListener<HomeEvent> {
   final HomeApi homeApi;
