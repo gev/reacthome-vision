@@ -16,7 +16,7 @@ class AppRootCupertino extends StatelessWidget {
     this.localizationsDelegates,
     Iterable<Locale>? supportedLocales,
     super.key,
-  }) : supportedLocales = supportedLocales ?? const [];
+  }) : supportedLocales = supportedLocales ?? const [Locale('en', 'US')];
 
   @override
   Widget build(BuildContext context) => CupertinoApp(
