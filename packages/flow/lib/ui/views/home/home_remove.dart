@@ -2,9 +2,10 @@ import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/navigation.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/views/home/home_remove_confirm.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flow/util/navigator_extension.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/icons.dart';
+import 'package:ui_kit/widgets.dart';
 
 class HomeRemove extends StatelessWidget {
   final String id;
@@ -13,7 +14,7 @@ class HomeRemove extends StatelessWidget {
   const HomeRemove(this.id, this.viewModel, {super.key});
 
   void onHomeTileTap(String id, BuildContext context) async {
-    final confirmed = await dialog.show<bool>(
+    final confirmed = await showDialog<bool>(
       context,
       builder: (_) => HomeRemoveConfirm(id, viewModel),
     );
@@ -28,12 +29,11 @@ class HomeRemove extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return list.section(
-      context,
+    return ListSection(
       children: [
-        list.tile(
+        ListTile(
           title: Text(locale.removeThisHome),
-          leading: Icon(icon.delete),
+          leading: Icon(Icons.delete),
           onTap: () => onHomeTileTap(id, context),
         ),
       ],

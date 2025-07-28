@@ -38,7 +38,7 @@ Future<Widget> make() async {
     ],
     supportedLocales: const [Locale('en'), Locale('ru')],
     appLifeCycle: AppLifecycleFactory.makeAppLifecycleApi(),
-    navigation: Navigation(
+    navigation: FlowNavigation(
       home: await HomeScreenFactory.make(),
       splash: await SplashScreenFactory.make(),
       welcome: WelcomeScreenFactory.make,

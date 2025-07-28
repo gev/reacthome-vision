@@ -1,8 +1,9 @@
 import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/navigation.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/icons.dart';
+import 'package:ui_kit/widgets.dart';
 
 class DiscoveryHomeAdd extends StatelessWidget {
   final HomesViewModel viewModel;
@@ -12,10 +13,10 @@ class DiscoveryHomeAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return list.tile(
+    return ListTile(
       title: Text(locale.addTheHomeID),
-      leading: Icon(icon.add),
-      trailing: list.chevron(),
+      leading: Icon(Icons.add),
+      trailing: ListChevron(),
       onTap: () =>
           Navigator.of(context).pushNamed(NavigationRouteNames.addHome),
     );

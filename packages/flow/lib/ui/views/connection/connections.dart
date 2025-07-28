@@ -2,8 +2,8 @@ import 'package:flow/common/view_model_builder.dart';
 import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/view_models/connection_view_model.dart';
 import 'package:flow/ui/views/connection/connection.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/widgets.dart';
 
 class Connections extends StatelessWidget {
   final String id;
@@ -17,8 +17,7 @@ class Connections extends StatelessWidget {
     create: () => viewModel.makeConnectionViewModel(id),
     builder: (context, viewModel, _) {
       final locale = AppLocalizations.of(context)!;
-      return list.section(
-        context,
+      return ListSection(
         children: [
           Connection(
             isConnected: viewModel.isConnected,

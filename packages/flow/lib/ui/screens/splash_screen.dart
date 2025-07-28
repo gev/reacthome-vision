@@ -4,9 +4,9 @@ import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/preferences/preferences_api.dart';
 import 'package:flow/ui/navigation.dart';
 import 'package:flow/ui/widgets/logo.dart';
-import 'package:flow/ui_kit/layouts/center_layout.dart';
 import 'package:flow/util/navigator_extension.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/layouts/center_layout.dart';
 
 class SplashScreen extends StatelessWidget {
   final PreferencesApi preferencesApi;

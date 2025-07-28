@@ -5,9 +5,9 @@ import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/views/discovery/discovery_home_add.dart';
 import 'package:flow/ui/views/discovery/discovery_home_list.dart';
 import 'package:flow/ui/views/discovery/discovery_status.dart';
-import 'package:flow/ui_kit/kit.dart';
-import 'package:flow/ui_kit/layouts/fixed_width_layout.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/layouts/fixed_width_layout.dart';
+import 'package:ui_kit/widgets.dart';
 
 class DiscoveryScreen extends StatelessWidget {
   final DiscoveryViewModel discoveryViewModel;
@@ -28,8 +28,7 @@ class DiscoveryScreen extends StatelessWidget {
       title: locale.addAHome,
       body: Column(
         children: [
-          list.section(
-            context,
+          ListSection(
             children: [
               DiscoveryHomeAdd(homeViewModel),
               DiscoveryStatus(discoveryViewModel),

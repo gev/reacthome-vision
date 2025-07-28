@@ -6,9 +6,9 @@ import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/views/discovery/discovery_home_add_alert.dart';
 import 'package:flow/ui/views/discovery/discovery_home_add_confirm.dart';
 import 'package:flow/ui/views/discovery/discovery_home_tile.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flow/util/navigator_extension.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/widgets.dart';
 
 class DiscoveryHomeList extends StatelessWidget {
   final DiscoveryViewModel discoveryViewModel;
@@ -27,7 +27,7 @@ class DiscoveryHomeList extends StatelessWidget {
     BuildContext context,
     AppLocalizations locale,
   ) async {
-    final confirmed = await dialog.show<bool>(
+    final confirmed = await showDialog<bool>(
       context,
       builder: (_) => DiscoveryHomeAddConfirm(id, homeViewModel),
     );
@@ -40,7 +40,7 @@ class DiscoveryHomeList extends StatelessWidget {
         }
       } else {
         if (context.mounted) {
-          dialog.show(context, builder: (_) => const DiscoveryHomeAddAlert());
+          showDialog(context, builder: (_) => const DiscoveryHomeAddAlert());
         }
       }
     }
@@ -55,8 +55,7 @@ class DiscoveryHomeList extends StatelessWidget {
         final homes = homeListViewModel.homes;
         return homes.isEmpty
             ? const SizedBox()
-            : list.section(
-                context,
+            : ListSection(
                 title: locale.discovered,
                 children: homes
                     .map(

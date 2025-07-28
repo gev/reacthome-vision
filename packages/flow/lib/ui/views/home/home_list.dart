@@ -1,8 +1,8 @@
 import 'package:flow/ui/view_models/home_list_view_model.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/views/home/home_tile.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/widgets.dart';
 
 class HomeList extends StatelessWidget {
   final HomesViewModel homeViewModel;
@@ -18,8 +18,7 @@ class HomeList extends StatelessWidget {
         final homes = homeListViewModel.homes;
         return homes.isEmpty
             ? const SizedBox()
-            : list.section(
-                context,
+            : ListSection(
                 children: homes
                     .map((id) => HomeTile(id, homeViewModel, key: ValueKey(id)))
                     .toList(),

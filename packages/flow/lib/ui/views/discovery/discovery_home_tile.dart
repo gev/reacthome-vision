@@ -2,8 +2,9 @@ import 'package:flow/common/view_model_builder.dart';
 import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/view_models/discovery_view_model.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/icons.dart';
+import 'package:ui_kit/widgets.dart';
 
 class DiscoveryHomeTile extends StatelessWidget {
   final String id;
@@ -26,11 +27,11 @@ class DiscoveryHomeTile extends StatelessWidget {
       create: () => homeViewModel.makeViewModel(id, locale),
       builder: (context, viewModel, _) {
         final home = viewModel.home;
-        return list.tile(
+        return ListTile(
           title: Text(home.meta.title),
           subtitle: Text(id, maxLines: 1, overflow: TextOverflow.ellipsis),
           leading: Icon(
-            home.hasProject ? icon.home.filled : icon.home.outlined,
+            home.hasProject ? Icons.home.filled : Icons.home.outlined,
           ),
           onTap: onTap,
         );

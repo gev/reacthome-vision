@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/navigation.dart';
 
 class NavigationRouteNames {
   static const home = 'home';
@@ -9,7 +10,7 @@ class NavigationRouteNames {
   static const myHomes = 'myHomes';
 }
 
-class Navigation {
+class FlowNavigation implements Navigation {
   final WidgetBuilder home;
   final WidgetBuilder splash;
   final WidgetBuilder welcome;
@@ -17,7 +18,7 @@ class Navigation {
   final WidgetBuilder addHome;
   final WidgetBuilder myHomes;
 
-  const Navigation({
+  const FlowNavigation({
     required this.home,
     required this.splash,
     required this.welcome,
@@ -26,14 +27,16 @@ class Navigation {
     required this.myHomes,
   });
 
+  @override
   String get initialRoute => NavigationRouteNames.splash;
 
+  @override
   Map<String, WidgetBuilder> get routes => ({
-        NavigationRouteNames.home: home,
-        NavigationRouteNames.splash: splash,
-        NavigationRouteNames.welcome: welcome,
-        NavigationRouteNames.discovery: discovery,
-        NavigationRouteNames.addHome: addHome,
-        NavigationRouteNames.myHomes: myHomes,
-      });
+    NavigationRouteNames.home: home,
+    NavigationRouteNames.splash: splash,
+    NavigationRouteNames.welcome: welcome,
+    NavigationRouteNames.discovery: discovery,
+    NavigationRouteNames.addHome: addHome,
+    NavigationRouteNames.myHomes: myHomes,
+  });
 }

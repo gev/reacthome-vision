@@ -1,5 +1,5 @@
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/widgets.dart';
 
 Widget confirm(
   BuildContext context, {
@@ -8,15 +8,15 @@ Widget confirm(
   bool isDestructive = false,
   required String confirmLabel,
   required String cancelLabel,
-}) => dialog.alert(
+}) => AlertDialog(
   title: title,
   content: content,
   actions: [
-    dialog.action(
+    DialogAction(
       label: cancelLabel,
       onPressed: () => Navigator.of(context).pop(false),
     ),
-    dialog.action(
+    DialogAction(
       label: confirmLabel,
       isDestructiveAction: isDestructive,
       onPressed: () => Navigator.of(context).pop(true),

@@ -1,7 +1,7 @@
 import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/dto/meta_ui_dto.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/widgets.dart';
 
 class MetaProps extends StatelessWidget {
   final String id;
@@ -12,12 +12,11 @@ class MetaProps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return list.section(
-      context,
+    return ListSection(
       children: [
-        list.tile(title: Text(id)),
-        list.tile(title: Text(meta.title), trailing: Text(locale.title)),
-        list.tile(title: Text(meta.code), trailing: Text(locale.code)),
+        ListTile(title: Text(id)),
+        ListTile(title: Text(meta.title), trailing: Text(locale.title)),
+        ListTile(title: Text(meta.code), trailing: Text(locale.code)),
       ],
     );
   }

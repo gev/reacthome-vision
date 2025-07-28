@@ -1,6 +1,6 @@
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flow/util/extensions.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/widgets.dart';
 
 class Connection extends StatelessWidget {
   final bool isConnected;
@@ -17,9 +17,9 @@ class Connection extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => list.tile(
+  Widget build(BuildContext context) => ListTile(
     title: Text(title),
     subtitle: subtitle?.let(Text.new),
-    trailing: switcher(value: isConnected, onChanged: onToggle),
+    trailing: Switcher(value: isConnected, onChanged: onToggle),
   );
 }

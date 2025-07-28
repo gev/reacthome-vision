@@ -3,8 +3,8 @@ import 'package:flow/ui/view_models/home_list_view_model.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/views/home/home_go_to_add.dart';
 import 'package:flow/ui/views/home/home_list.dart';
-import 'package:flow/ui_kit/layouts/fixed_width_layout.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/layouts/fixed_width_layout.dart';
 
 class HomeListScreen extends StatelessWidget {
   final HomesViewModel homeViewModel;

@@ -1,10 +1,11 @@
 import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/navigation.dart';
-import 'package:flow/ui_kit/kit.dart';
-import 'package:flow/ui_kit/layouts/center_layout.dart';
-import 'package:flow/ui_kit/theme.dart';
 import 'package:flow/util/navigator_extension.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/layout_paddings.dart';
+import 'package:ui_kit/layouts/center_layout.dart';
+import 'package:ui_kit/theme.dart';
+import 'package:ui_kit/widgets.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -12,7 +13,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    final theme = Theme.of(context);
+    final theme = themeOf(context);
     return CenterLayout(
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -22,11 +23,11 @@ class WelcomeScreen extends StatelessWidget {
             child: Text(
               locale.welcome,
               textAlign: TextAlign.center,
-              style: theme.largeTitle,
+              style: theme.titleStyle,
             ),
           ),
-          SizedBox(height: layout.padding.vertical),
-          button.filled(
+          SizedBox(height: DefaultPadding.vertical),
+          Button(
             label: locale.addAHome,
             onPressed: () => Navigator.of(
               context,

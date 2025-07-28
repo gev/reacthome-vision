@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flow/core/app_lifecycle/app_lifecycle_api.dart';
 import 'package:flow/ui/navigation.dart';
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:ui_kit/widgets.dart';
 
 class App extends StatelessWidget with WidgetsBindingObserver {
   final AppLifecycleApi appLifeCycle;
-  final Navigation navigation;
+  final FlowNavigation navigation;
   final Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates;
   final Iterable<Locale> supportedLocales;
   final Color seedColor;
@@ -30,8 +30,7 @@ class App extends StatelessWidget with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     SystemChrome.restoreSystemUIOverlays();
-    return app.root(
-      context,
+    return AppRoot(
       navigation: navigation,
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,

@@ -1,16 +1,16 @@
-import 'package:flow/ui_kit/kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ui_kit/widgets.dart';
 
 Widget alert(
   BuildContext context, {
   Widget? title,
   Widget? content,
   required String actionLabel,
-}) => dialog.alert(
+}) => AlertDialog(
   title: title,
   content: content,
   actions: [
-    dialog.action(
+    DialogAction(
       label: actionLabel,
       onPressed: () => Navigator.of(context).pop(false),
     ),
