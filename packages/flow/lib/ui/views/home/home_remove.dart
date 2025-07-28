@@ -1,0 +1,42 @@
+import 'package:flow/l10n/app_localizations.dart';
+import 'package:flow/ui/navigation.dart';
+import 'package:flow/ui/view_models/home_view_model.dart';
+import 'package:flow/ui/views/home/home_remove_confirm.dart';
+import 'package:flow/ui_kit/kit.dart';
+import 'package:flow/util/navigator_extension.dart';
+import 'package:flutter/widgets.dart';
+
+class HomeRemove extends StatelessWidget {
+  final String id;
+  final HomeViewModel viewModel;
+
+  const HomeRemove(this.id, this.viewModel, {super.key});
+
+  void onHomeTileTap(String id, BuildContext context) async {
+    final confirmed = await dialog.show<bool>(
+      context,
+      builder: (_) => HomeRemoveConfirm(id, viewModel),
+    );
+    if (confirmed == true) {
+      viewModel.removeHome();
+      if (context.mounted) {
+        Navigator.of(context).clearNamed(NavigationRouteNames.myHomes);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+    return list.section(
+      context,
+      children: [
+        list.tile(
+          title: Text(locale.removeThisHome),
+          leading: Icon(icon.delete),
+          onTap: () => onHomeTileTap(id, context),
+        ),
+      ],
+    );
+  }
+}
