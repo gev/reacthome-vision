@@ -6,13 +6,17 @@ class AppRootCupertino extends StatelessWidget {
   final String title;
   final Color seedColor;
   final Navigation navigation;
+  final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
+  final Iterable<Locale> supportedLocales;
 
   const AppRootCupertino({
     required this.title,
     required this.seedColor,
     required this.navigation,
+    this.localizationsDelegates,
+    Iterable<Locale>? supportedLocales,
     super.key,
-  });
+  }) : supportedLocales = supportedLocales ?? const [];
 
   @override
   Widget build(BuildContext context) => CupertinoApp(
@@ -21,6 +25,8 @@ class AppRootCupertino extends StatelessWidget {
       seedColor,
       MediaQuery.platformBrightnessOf(context),
     ),
+    localizationsDelegates: localizationsDelegates,
+    supportedLocales: supportedLocales,
     initialRoute: navigation.initialRoute,
     routes: navigation.routes,
   );

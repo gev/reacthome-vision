@@ -6,6 +6,8 @@ typedef AppRootFactory =
       required String title,
       required Navigation navigation,
       required Color seedColor,
+      Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates,
+      Iterable<Locale>? supportedLocales,
     });
 
 typedef AppBarFactory =
