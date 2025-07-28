@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:ui_kit/navigation.dart';
+import 'package:navigation/navigation.dart';
 import 'package:ui_kit_cupertino/theme_cupertino.dart';
 
 class AppRootCupertino extends StatelessWidget {

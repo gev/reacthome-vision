@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  navigation:
+    path: ../navigation
+
   ui_kit:
     path: ../ui_kit
 

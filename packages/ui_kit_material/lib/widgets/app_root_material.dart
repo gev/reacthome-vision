@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit/navigation.dart';
+import 'package:navigation/navigation.dart';
 import 'package:ui_kit_material/theme_material.dart';
 
 class AppRootMaterial extends StatelessWidget {

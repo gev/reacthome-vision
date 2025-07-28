@@ -6,8 +6,8 @@ import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/views/discovery/discovery_home_add_alert.dart';
 import 'package:flow/ui/views/discovery/discovery_home_add_confirm.dart';
 import 'package:flow/ui/views/discovery/discovery_home_tile.dart';
-import 'package:flow/util/navigator_extension.dart';
 import 'package:flutter/widgets.dart';
+import 'package:navigation/navigator_extension.dart';
 import 'package:ui_kit/widgets.dart';
 
 class DiscoveryHomeList extends StatelessWidget {

@@ -12,12 +12,7 @@ class NavigatorExtension {
   static Future<T?> clear<T extends Object?>(
     BuildContext context,
     Route<T> newRoute,
-  ) =>
-      Navigator.pushAndRemoveUntil(
-        context,
-        newRoute,
-        (_) => false,
-      );
+  ) => Navigator.pushAndRemoveUntil(context, newRoute, (_) => false);
 
   /// Clears the current navigator stack and pushes a new route.
   ///
@@ -30,13 +25,12 @@ class NavigatorExtension {
     BuildContext context,
     String routeName, {
     Object? arguments,
-  }) =>
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        routeName,
-        arguments: arguments,
-        (_) => false,
-      );
+  }) => Navigator.pushNamedAndRemoveUntil(
+    context,
+    routeName,
+    arguments: arguments,
+    (_) => false,
+  );
 }
 
 extension NavigatorStateExtension on NavigatorState {
@@ -57,10 +51,5 @@ extension NavigatorStateExtension on NavigatorState {
   Future<T?> clearNamed<T extends Object?>(
     String routeName, {
     Object? arguments,
-  }) =>
-      pushNamedAndRemoveUntil(
-        routeName,
-        arguments: arguments,
-        (_) => false,
-      );
+  }) => pushNamedAndRemoveUntil(routeName, arguments: arguments, (_) => false);
 }

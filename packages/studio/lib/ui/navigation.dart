@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:ui_kit/navigation.dart';
+import 'package:navigation/navigation.dart';
 
 class NavigationRouteNames {
   static const splash = '/';
