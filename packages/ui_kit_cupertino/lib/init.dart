@@ -45,7 +45,7 @@ void initCupertinoKit() {
 
   TextField = TextFieldCupertino.new;
 
-  Icons = IconContainer(
+  Icons = const IconContainer(
     add: CupertinoIcons.add,
     delete: CupertinoIcons.delete,
     search: CupertinoIcons.search,
@@ -54,7 +54,7 @@ void initCupertinoKit() {
     home: (filled: CupertinoIcons.house_fill, outlined: CupertinoIcons.house),
   );
 
-  DefaultPadding = LayoutPadding(start: 16, top: 22, end: 16, bottom: 8);
+  DefaultPadding = const LayoutPadding(start: 16, top: 22, end: 16, bottom: 8);
 
   themeOf = ThemeCupertino.new;
 }

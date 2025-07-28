@@ -45,7 +45,7 @@ void initMaterialKit() {
 
   TextField = TextFieldMaterial.new;
 
-  Icons = IconContainer(
+  Icons = const IconContainer(
     add: m.Icons.add,
     delete: m.Icons.delete,
     wifi: m.Icons.wifi,
@@ -54,7 +54,7 @@ void initMaterialKit() {
     home: (filled: m.Icons.home, outlined: m.Icons.home_outlined),
   );
 
-  DefaultPadding = LayoutPadding(start: 20, top: 25, end: 20, bottom: 10);
+  DefaultPadding = const LayoutPadding(start: 20, top: 25, end: 20, bottom: 10);
 
   themeOf = ThemeMaterial.new;
 }
