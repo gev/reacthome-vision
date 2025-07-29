@@ -1,4 +1,3 @@
-import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/make/config.dart';
 import 'package:flow/make/controllers/reacthome_controller_factory.dart';
 import 'package:flow/make/core/app_lifecycle_factory.dart';
@@ -17,6 +16,7 @@ import 'package:flow/ui/navigation.dart';
 import 'package:flow/ui/views/app.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:l10n/app_localizations.dart';
 
 Future<Widget> make() async {
   WidgetsFlutterBinding.ensureInitialized();

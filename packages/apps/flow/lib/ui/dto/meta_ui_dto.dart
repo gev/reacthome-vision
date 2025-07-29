@@ -1,5 +1,5 @@
 import 'package:flow/core/meta/meta.dart';
-import 'package:flow/l10n/app_localizations.dart';
+import 'package:l10n/app_localizations.dart';
 
 class MetaUiDto {
   final String? _code;

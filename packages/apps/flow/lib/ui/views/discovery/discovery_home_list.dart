@@ -1,4 +1,3 @@
-import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/navigation.dart';
 import 'package:flow/ui/view_models/discovery_view_model.dart';
 import 'package:flow/ui/view_models/home_list_view_model.dart';
@@ -7,6 +6,7 @@ import 'package:flow/ui/views/discovery/discovery_home_add_alert.dart';
 import 'package:flow/ui/views/discovery/discovery_home_add_confirm.dart';
 import 'package:flow/ui/views/discovery/discovery_home_tile.dart';
 import 'package:flutter/widgets.dart';
+import 'package:l10n/app_localizations.dart';
 import 'package:navigation/navigator_extension.dart';
 import 'package:ui_kit/widgets.dart';
 

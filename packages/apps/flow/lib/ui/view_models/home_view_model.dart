@@ -3,8 +3,8 @@ import 'package:flow/core/home/home_api.dart';
 import 'package:flow/core/home/home_event.dart';
 import 'package:flow/core/meta/meta.dart';
 import 'package:flow/core/preferences/preferences_api.dart';
-import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/dto/home_ui_dto.dart';
+import 'package:l10n/app_localizations.dart';
 
 class HomesViewModel {
   final Stream<HomeEvent> eventSource;

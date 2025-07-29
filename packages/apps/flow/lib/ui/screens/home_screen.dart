@@ -1,5 +1,4 @@
 import 'package:common/view_model_builder.dart';
-import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/view_models/connection_view_model.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flow/ui/views/connection/connections.dart';
@@ -7,6 +6,7 @@ import 'package:flow/ui/views/home/home_go_to_list.dart';
 import 'package:flow/ui/views/home/home_remove.dart';
 import 'package:flow/ui/views/meta_props.dart';
 import 'package:flutter/widgets.dart';
+import 'package:l10n/app_localizations.dart';
 import 'package:ui_kit/layouts/fixed_width_layout.dart';
 
 class HomeScreen<E> extends StatelessWidget {

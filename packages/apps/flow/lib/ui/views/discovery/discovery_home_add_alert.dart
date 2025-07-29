@@ -1,6 +1,6 @@
-import 'package:flow/l10n/app_localizations.dart';
 import 'package:flow/ui/widgets/alert.dart';
 import 'package:flutter/widgets.dart';
+import 'package:l10n/app_localizations.dart';
 
 class DiscoveryHomeAddAlert extends StatelessWidget {
   const DiscoveryHomeAddAlert({super.key});
