@@ -1,4 +1,4 @@
-import 'package:flow/ui/assets.dart';
+import 'package:assets/assets.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 

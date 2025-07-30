@@ -14,6 +14,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  assets:
+    path: ../../assets
+
   common:
     path: ../../common
 
@@ -46,13 +49,7 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  assets:
-    - ../../../assets/logo_round.svg
-    - ../../../assets/logo_round_dark.svg
-    - ../../../assets/logo_round_light.svg
-    - ../../../assets/logo_sharp.svg
-    - ../../../assets/logo_sharp_dark.svg
-    - ../../../assets/logo_sharp_light.svg
+  # assets:
 
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package

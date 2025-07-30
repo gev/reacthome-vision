@@ -1,7 +1,7 @@
-name: studio
-description: "Reacthome Studio"
+name: assets
+description: "Reacthome assets."
 version: 0.0.1
-publish_to: none
+publish_to: 'none'
 
 environment:
   sdk: ^3.8.1
@@ -9,20 +9,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  assets:
-    path: ../../assets
-
-  navigation:
-    path: ../../navigation
-
-  scheme:
-    path: ../../scheme
-    
-  ui_kit:
-    path: ../../ui_kit
-
-  flutter_svg: ^2.2.0
 
 dev_dependencies:
   flutter_test:
@@ -36,7 +22,13 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  # assets:
+  assets:
+    - ../../assets/logo_round.svg
+    - ../../assets/logo_round_dark.svg
+    - ../../assets/logo_round_light.svg
+    - ../../assets/logo_sharp.svg
+    - ../../assets/logo_sharp_dark.svg
+    - ../../assets/logo_sharp_light.svg
   
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
