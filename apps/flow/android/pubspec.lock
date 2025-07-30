@@ -17,6 +17,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.7.0"
+  assets:
+    dependency: transitive
+    description:
+      path: "../../../packages/assets"
+      relative: true
+    source: path
+    version: "0.0.1"
   async:
     dependency: transitive
     description:
