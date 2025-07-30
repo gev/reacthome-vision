@@ -40,7 +40,9 @@ dependencies:
   ui_kit_material:
     path: ../../../packages/ui_kit_material
 
-  flutter_launcher_icons: ^0.14.4
+  flutter_launcher_icons:
+    git: https://github.com/devmil/flutter_launcher_icons.git
+
   yaru_window: ^0.2.1+1
   yaru: ^8.0.0
 
@@ -67,9 +69,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - ../../../assets/icons/icon.png
-  
+  # assets:
+  #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
