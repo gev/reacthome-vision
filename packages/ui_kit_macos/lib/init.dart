@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 import 'package:ui_kit/icons.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/layout_paddings.dart';
@@ -21,6 +22,11 @@ import 'package:ui_kit_macos/widgets/scaffold_macos.dart';
 import 'package:ui_kit_macos/widgets/show_dialog_macos.dart';
 import 'package:ui_kit_macos/widgets/switcher_macos.dart';
 import 'package:ui_kit_macos/widgets/text_field_macos.dart';
+
+Future<void> configureMacosWindowUtils() async {
+  const config = MacosWindowUtilsConfig();
+  await config.apply();
+}
 
 void initMacOSKit() {
   AppRoot = AppRootMacOS.new;
