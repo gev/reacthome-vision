@@ -298,7 +298,7 @@ packages:
     source: hosted
     version: "6.0.0"
   macos_ui:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: macos_ui
       sha256: "0a4ed386fdf7ef3269330cd869c9ed1d97deb73c1930f21d54a300e65e5f0508"
@@ -516,10 +516,10 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  ui_kit_cupertino:
+  ui_kit_macos:
     dependency: "direct main"
     description:
-      path: "../../../packages/ui_kit_cupertino"
+      path: "../../../packages/ui_kit_macos"
       relative: true
     source: path
     version: "0.0.1"
