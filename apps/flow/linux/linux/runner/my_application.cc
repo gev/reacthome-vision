@@ -47,8 +47,6 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "flow");
   }
 
-  gtk_window_set_icon_from_file(window,"/home/ubuntu/workspace/reacthome-vision/assets/icons/icon.png",NULL);
-
   gtk_window_set_default_size(window, 1280, 720);
   gtk_widget_show(GTK_WIDGET(window));
 

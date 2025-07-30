@@ -175,8 +175,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: HEAD
-      resolved-ref: "10b86b10a5adef1368860aa22c8473d1881c47da"
+      ref: add_linux_support
+      resolved-ref: f23536ec17ac211c06de78fd059a5e0404dadfb4
       url: "https://github.com/devmil/flutter_launcher_icons.git"
     source: git
     version: "0.14.4"
