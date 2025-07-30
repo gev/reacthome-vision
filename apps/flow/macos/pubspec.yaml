@@ -38,7 +38,7 @@ dependencies:
     path: ../../../packages/ui_kit
 
   ui_kit_cupertino:
-    path: ../../../packages/ui_kit_Cupertino
+    path: ../../../packages/ui_kit_cupertino
 
   flutter_launcher_icons: ^0.14.4
   macos_ui: ^2.2.0
