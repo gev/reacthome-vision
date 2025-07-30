@@ -47,8 +47,11 @@ static void my_application_activate(GApplication* application) {
     gtk_window_set_title(window, "flow");
   }
 
-  gtk_window_set_icon_from_file(GTK_WINDOW(window),"assets/icons/icon.png",NULL);
-
+  GdkPixbuf* icon = gdk_pixbuf_new_from_file("../../../../../assets/icons/icon.png", NULL);
+  if (icon != NULL) {
+    gtk_window_set_icon(GTK_WINDOW(window), icon);
+    g_object_unref(icon);
+  }
   gtk_window_set_default_size(window, 1280, 720);
   gtk_widget_show(GTK_WIDGET(window));
 
