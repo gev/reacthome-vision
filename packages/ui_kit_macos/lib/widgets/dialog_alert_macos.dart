@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 class AlertDialogMacOS extends StatelessWidget {
   final Widget? title;
@@ -14,10 +15,12 @@ class AlertDialogMacOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoAlertDialog(
-      title: title,
-      content: content,
-      actions: actions,
+    return MacosAlertDialog(
+      title: title!,
+      message: content!,
+      primaryButton: actions[0] as PushButton,
+      secondaryButton: actions[1] as PushButton,
+      appIcon: Center(),
     );
   }
 }

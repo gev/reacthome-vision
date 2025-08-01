@@ -1,26 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 
-class DialogActionMacOS extends StatelessWidget {
+class DialogActionMacOS extends PushButton {
   final String label;
-  final bool isDefaultAction;
-  final bool isDestructiveAction;
-  final void Function()? onPressed;
 
-  const DialogActionMacOS({
+  DialogActionMacOS({
     required this.label,
-    this.isDefaultAction = false,
-    this.isDestructiveAction = false,
-    this.onPressed,
+    bool isDefaultAction = false,
+    bool isDestructiveAction = false,
+    super.onPressed,
     super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoDialogAction(
-      onPressed: onPressed,
-      isDefaultAction: isDefaultAction,
-      isDestructiveAction: isDestructiveAction,
-      child: Text(label),
-    );
-  }
+  }) : super(
+         child: Text(label),
+         controlSize: ControlSize.large,
+         secondary: !isDestructiveAction,
+       );
 }

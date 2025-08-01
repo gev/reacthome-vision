@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 Future<T?> showDialogMacOS<T>(
   BuildContext context, {
   required WidgetBuilder builder,
-}) => showCupertinoDialog(
+}) => showMacosAlertDialog(
   context: context,
   builder: builder,
   barrierDismissible: true,
