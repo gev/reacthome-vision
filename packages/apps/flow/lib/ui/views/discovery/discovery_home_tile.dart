@@ -30,7 +30,7 @@ class DiscoveryHomeTile extends StatelessWidget {
         return ListTile(
           title: Text(home.meta.title),
           subtitle: Text(id, maxLines: 1, overflow: TextOverflow.ellipsis),
-          leading: Icon(
+          leading: UIcon(
             home.hasProject ? Icons.home.filled : Icons.home.outlined,
           ),
           onTap: onTap,

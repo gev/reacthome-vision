@@ -23,7 +23,7 @@ class HomeTile extends StatelessWidget {
         return ListTile(
           title: Text(home.meta.name),
           subtitle: Text(id, maxLines: 1, overflow: TextOverflow.ellipsis),
-          leading: Icon(
+          leading: UIcon(
             home.hasProject ? Icons.home.filled : Icons.home.outlined,
           ),
           trailing: ListChevron(),

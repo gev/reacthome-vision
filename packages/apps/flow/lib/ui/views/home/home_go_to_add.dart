@@ -14,7 +14,7 @@ class HomeGoToAdd extends StatelessWidget {
       children: [
         ListTile(
           title: Text(locale.addAHome),
-          leading: Icon(Icons.add),
+          leading: UIcon(Icons.add),
           trailing: ListChevron(),
           onTap: () =>
               Navigator.of(context).pushNamed(NavigationRouteNames.discovery),

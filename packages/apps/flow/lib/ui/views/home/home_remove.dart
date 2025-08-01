@@ -33,7 +33,7 @@ class HomeRemove extends StatelessWidget {
       children: [
         ListTile(
           title: Text(locale.removeThisHome),
-          leading: Icon(Icons.delete),
+          leading: UIcon(Icons.delete),
           onTap: () => onHomeTileTap(id, context),
         ),
       ],

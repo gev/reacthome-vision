@@ -14,7 +14,7 @@ class DiscoveryStatus extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
     return ListTile(
       title: Text(locale.discovery),
-      leading: Icon(Icons.search),
+      leading: UIcon(Icons.search),
       trailing: ListenableBuilder(
         listenable: viewModel,
         builder: (context, _) => Switcher(

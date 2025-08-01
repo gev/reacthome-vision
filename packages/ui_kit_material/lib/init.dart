@@ -14,6 +14,7 @@ import 'package:ui_kit_material/widgets/button_icon_filled_material.dart';
 import 'package:ui_kit_material/widgets/dialog_action_material.dart';
 import 'package:ui_kit_material/widgets/dialog_alert_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
+import 'package:ui_kit_material/widgets/indicator_activity_material.dart';
 import 'package:ui_kit_material/widgets/list_chevron_material.dart';
 import 'package:ui_kit_material/widgets/list_section_material.dart';
 import 'package:ui_kit_material/widgets/list_tile_material.dart';
@@ -21,6 +22,7 @@ import 'package:ui_kit_material/widgets/scaffold_material.dart';
 import 'package:ui_kit_material/widgets/show_dialog_material.dart';
 import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
+import 'package:ui_kit_material/widgets/uicon_material.dart';
 
 void initMaterialKit() {
   AppRoot = AppRootMaterial.new;
@@ -36,6 +38,8 @@ void initMaterialKit() {
 
   Divider = DividerMaterial.new;
 
+  IndicatorActivity = IndicatorActivityMaterial.new;
+
   ListSection = ListSectionMaterial.new;
   ListTile = ListTileMaterial.new;
   ListChevron = ListChevronMaterial.new;
@@ -44,6 +48,8 @@ void initMaterialKit() {
   Switcher = SwitcherMaterial.new;
 
   TextField = TextFieldMaterial.new;
+
+  UIcon = UIconMaterial.new;
 
   Icons = const IconContainer(
     add: m.Icons.add,

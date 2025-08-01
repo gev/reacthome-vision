@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 class SwitcherMacOS extends StatelessWidget {
   final bool value;
@@ -8,6 +9,6 @@ class SwitcherMacOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoSwitch(value: value, onChanged: onChanged);
+    return MacosSwitch(value: value, onChanged: onChanged);
   }
 }

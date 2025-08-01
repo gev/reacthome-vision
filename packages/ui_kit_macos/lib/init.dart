@@ -15,6 +15,7 @@ import 'package:ui_kit_macos/widgets/button_icon_filled_macos.dart';
 import 'package:ui_kit_macos/widgets/dialog_action_macos.dart';
 import 'package:ui_kit_macos/widgets/dialog_alert_macos.dart';
 import 'package:ui_kit_macos/widgets/divider_macos.dart';
+import 'package:ui_kit_macos/widgets/indicator_activity_macos.dart';
 import 'package:ui_kit_macos/widgets/list_chevron_macos.dart';
 import 'package:ui_kit_macos/widgets/list_section_macos.dart';
 import 'package:ui_kit_macos/widgets/list_tile_macos.dart';
@@ -22,6 +23,7 @@ import 'package:ui_kit_macos/widgets/scaffold_macos.dart';
 import 'package:ui_kit_macos/widgets/show_dialog_macos.dart';
 import 'package:ui_kit_macos/widgets/switcher_macos.dart';
 import 'package:ui_kit_macos/widgets/text_field_macos.dart';
+import 'package:ui_kit_macos/widgets/uicon_macos.dart';
 
 Future<void> configureMacosWindowUtils() async {
   const config = MacosWindowUtilsConfig();
@@ -42,6 +44,8 @@ void initMacOSKit() {
 
   Divider = DividerMacOS.new;
 
+  IndicatorActivity = IndicatorActivityMacOS.new;
+
   ListSection = ListSectionMacOS.new;
   ListTile = ListTileMacOS.new;
   ListChevron = ListChevronMacOS.new;
@@ -50,6 +54,8 @@ void initMacOSKit() {
   Switcher = SwitcherMacOS.new;
 
   TextField = TextFieldMacOS.new;
+
+  UIcon = UIconMacOS.new;
 
   Icons = const IconContainer(
     add: CupertinoIcons.add,

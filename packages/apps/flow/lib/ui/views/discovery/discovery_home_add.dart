@@ -15,7 +15,7 @@ class DiscoveryHomeAdd extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
     return ListTile(
       title: Text(locale.addTheHomeID),
-      leading: Icon(Icons.add),
+      leading: UIcon(Icons.add),
       trailing: ListChevron(),
       onTap: () =>
           Navigator.of(context).pushNamed(NavigationRouteNames.addHome),

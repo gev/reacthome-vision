@@ -9,6 +9,7 @@ import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
+import 'package:ui_kit/widgets/uicon.dart';
 
 late final AppRootFactory AppRoot;
 late final AppBarFactory AppBar;
@@ -34,3 +35,5 @@ late final ScaffoldFactory Scaffold;
 late final SwitcherFactory Switcher;
 
 late final TextFieldFactory TextField;
+
+late final UIconFactory UIcon;
