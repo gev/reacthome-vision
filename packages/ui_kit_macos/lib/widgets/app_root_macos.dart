@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 import 'package:navigation/navigation.dart';
-import 'package:ui_kit_macos/theme_macos.dart';
 
 class AppRootMacOS extends StatelessWidget {
   final String title;
@@ -19,12 +19,26 @@ class AppRootMacOS extends StatelessWidget {
   }) : supportedLocales = supportedLocales ?? const [Locale('en', 'US')];
 
   @override
-  Widget build(BuildContext context) => CupertinoApp(
-    title: title,
-    theme: makeMacOSTheme(seedColor, MediaQuery.platformBrightnessOf(context)),
-    localizationsDelegates: localizationsDelegates,
-    supportedLocales: supportedLocales,
-    initialRoute: navigation.initialRoute,
-    routes: navigation.routes,
+  Widget build(BuildContext context) => StreamBuilder(
+    stream: AccentColorListener.instance.onChanged,
+    builder: (context, _) {
+      final AccentColor? accentColor =
+          AccentColorListener.instance.currentAccentColor;
+      return MacosApp(
+        title: title,
+        theme: MacosThemeData.light(
+          accentColor: accentColor,
+          isMainWindow: false,
+        ), // makeMacOSTheme(seedColor, accentColor, Brightness.light),
+        darkTheme: MacosThemeData.dark(
+          accentColor: accentColor,
+          isMainWindow: false,
+        ), // makeMacOSTheme(seedColor, accentColor, Brightness.dark),
+        localizationsDelegates: localizationsDelegates,
+        supportedLocales: supportedLocales,
+        initialRoute: navigation.initialRoute,
+        routes: navigation.routes,
+      );
+    },
   );
 }

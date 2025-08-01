@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 class ButtonFilledMacOS extends StatelessWidget {
   final String label;
@@ -8,6 +9,10 @@ class ButtonFilledMacOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoButton.filled(onPressed: onPressed, child: Text(label));
+    return PushButton(
+      controlSize: ControlSize.regular,
+      onPressed: onPressed,
+      child: Text(label),
+    );
   }
 }
