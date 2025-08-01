@@ -21,8 +21,7 @@ class DiscoveryMulticastService extends BusListener<DiscoveryEvent> {
   void handle(DiscoveryEvent event) async {
     switch (event) {
       case DiscoveryStartRequestedEvent _:
-        if (connectivityApi.state.hasWifi ||
-            connectivityApi.state.hasEthernet) {
+        if (connectivityApi.state.hasLocalNetworks) {
           _completeStartProcess();
         } else {
           discoveryApi.stop();

@@ -9,9 +9,9 @@ class ConnectivityState {
   bool get hasAny =>
       hasBluetooth || hasWifi || hasEthernet || hasMobile || hasVpn || hasOther;
 
-  bool get hasNetwork => hasWifi || hasEthernet || hasMobile;
+  bool get hasNetwork => hasWifi || hasEthernet || hasMobile || hasOther;
 
-  bool get hasLocalNetworks => hasWifi || hasEthernet;
+  bool get hasLocalNetworks => hasWifi || hasEthernet || hasOther;
 
   const ConnectivityState({
     this.hasBluetooth = false,
@@ -36,11 +36,11 @@ class ConnectivityState {
 
   @override
   int get hashCode => Object.hash(
-        hasBluetooth,
-        hasWifi,
-        hasEthernet,
-        hasMobile,
-        hasVpn,
-        hasOther,
-      );
+    hasBluetooth,
+    hasWifi,
+    hasEthernet,
+    hasMobile,
+    hasVpn,
+    hasOther,
+  );
 }
