@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:navigation/navigation.dart';
+import 'package:ui_kit_macos/theme_macos.dart';
 
 class AppRootMacOS extends StatelessWidget {
   final String title;
@@ -26,14 +27,8 @@ class AppRootMacOS extends StatelessWidget {
           AccentColorListener.instance.currentAccentColor;
       return MacosApp(
         title: title,
-        theme: MacosThemeData.light(
-          accentColor: accentColor,
-          isMainWindow: false,
-        ), // makeMacOSTheme(seedColor, accentColor, Brightness.light),
-        darkTheme: MacosThemeData.dark(
-          accentColor: accentColor,
-          isMainWindow: false,
-        ), // makeMacOSTheme(seedColor, accentColor, Brightness.dark),
+        theme: makeMacOSTheme(seedColor, accentColor, Brightness.light),
+        darkTheme: makeMacOSTheme(seedColor, accentColor, Brightness.dark),
         localizationsDelegates: localizationsDelegates,
         supportedLocales: supportedLocales,
         initialRoute: navigation.initialRoute,

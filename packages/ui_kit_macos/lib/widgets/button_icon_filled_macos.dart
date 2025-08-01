@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:ui_kit_macos/widgets/uicon_macos.dart';
 
 class ButtonIconFilledMacOS extends StatelessWidget {
   final String label;
@@ -23,7 +22,7 @@ class ButtonIconFilledMacOS extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          UIconMacOS(icon, size: 28),
+          MacosIcon(icon, size: 28),
           const SizedBox(width: 8),
           Text(label),
         ],

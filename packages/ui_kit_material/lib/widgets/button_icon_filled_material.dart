@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit_material/widgets/uicon_material.dart';
 
 class ButtonIconFilledMaterial extends StatelessWidget {
   final String label;
@@ -17,7 +16,7 @@ class ButtonIconFilledMaterial extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton.icon(
       onPressed: onPressed,
-      icon: UIconMaterial(icon),
+      icon: Icon(icon),
       label: Text(label),
     );
   }

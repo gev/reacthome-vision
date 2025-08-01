@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 class ScaffoldMacOS extends StatelessWidget {
   final PreferredSizeWidget? appBar;
@@ -8,9 +9,16 @@ class ScaffoldMacOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: appBar as ObstructingPreferredSizeWidget?,
-      child: body,
+    return MacosWindow(
+      child: MacosScaffold(
+        children: [
+          ContentArea(
+            builder: (BuildContext context, ScrollController scrollController) {
+              return body;
+            },
+          ),
+        ],
+      ),
     );
   }
 }
