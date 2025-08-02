@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
+import 'package:macos_ui/macos_ui.dart';
 
 class TextFieldMacOS extends StatelessWidget {
   final TextEditingController? controller;
@@ -14,7 +15,7 @@ class TextFieldMacOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoTextField(
+    return MacosTextField(
       controller: controller,
       placeholder: placeholder,
       autofocus: autofocus,
