@@ -8,15 +8,15 @@ Widget confirm(
   bool isDestructive = false,
   required String confirmLabel,
   required String cancelLabel,
-}) => AlertDialog(
+}) => UI.AlertDialog(
   title: title,
   content: content,
   actions: [
-    DialogAction(
+    UI.DialogAction(
       label: cancelLabel,
       onPressed: () => Navigator.of(context).pop(false),
     ),
-    DialogAction(
+    UI.DialogAction(
       label: confirmLabel,
       isDestructiveAction: isDestructive,
       onPressed: () => Navigator.of(context).pop(true),

@@ -6,11 +6,11 @@ Widget alert(
   Widget? title,
   Widget? content,
   required String actionLabel,
-}) => AlertDialog(
+}) => UI.AlertDialog(
   title: title,
   content: content,
   actions: [
-    DialogAction(
+    UI.DialogAction(
       label: actionLabel,
       onPressed: () => Navigator.of(context).pop(false),
     ),

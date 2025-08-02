@@ -27,10 +27,10 @@ class DiscoveryHomeTile extends StatelessWidget {
       create: () => homeViewModel.makeViewModel(id, locale),
       builder: (context, viewModel, _) {
         final home = viewModel.home;
-        return ListTile(
+        return UI.ListTile(
           title: Text(home.meta.title),
           subtitle: Text(id, maxLines: 1, overflow: TextOverflow.ellipsis),
-          leading: UIcon(
+          leading: UI.Icon(
             home.hasProject ? Icons.home.filled : Icons.home.outlined,
           ),
           onTap: onTap,

@@ -12,12 +12,12 @@ class DiscoveryStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return ListTile(
+    return UI.ListTile(
       title: Text(locale.discovery),
-      leading: UIcon(Icons.search),
+      leading: UI.Icon(Icons.search),
       trailing: ListenableBuilder(
         listenable: viewModel,
-        builder: (context, _) => Switcher(
+        builder: (context, _) => UI.Switcher(
           value: viewModel.state,
           onChanged: viewModel.toggleDiscovery,
         ),

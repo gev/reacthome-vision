@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class UIconMacOS extends StatelessWidget {
+class IconMacOS extends StatelessWidget {
   final IconData icon;
   final Color? color;
   final double? size;
 
-  const UIconMacOS(this.icon, {this.color, this.size, super.key});
+  const IconMacOS(this.icon, {this.color, this.size, super.key});
 
   @override
   Widget build(BuildContext context) {

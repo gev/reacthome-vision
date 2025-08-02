@@ -18,6 +18,10 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.restoreSystemUIOverlays();
-    return AppRoot(navigation: navigation, title: title, seedColor: seedColor);
+    return UI.AppRoot(
+      navigation: navigation,
+      title: title,
+      seedColor: seedColor,
+    );
   }
 }

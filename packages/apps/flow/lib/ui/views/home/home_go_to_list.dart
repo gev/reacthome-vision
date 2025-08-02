@@ -9,11 +9,11 @@ class HomeGoToList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return ListSection(
+    return UI.ListSection(
       children: [
-        ListTile(
+        UI.ListTile(
           title: Text(locale.myHomes),
-          trailing: ListChevron(),
+          trailing: UI.ListChevron(),
           onTap: () =>
               Navigator.of(context).pushNamed(NavigationRouteNames.myHomes),
         ),

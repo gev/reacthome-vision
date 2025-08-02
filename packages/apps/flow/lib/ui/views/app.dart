@@ -30,7 +30,7 @@ class App extends StatelessWidget with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     SystemChrome.restoreSystemUIOverlays();
-    return AppRoot(
+    return UI.AppRoot(
       navigation: navigation,
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,

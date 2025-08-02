@@ -14,7 +14,7 @@ class HomeRemove extends StatelessWidget {
   const HomeRemove(this.id, this.viewModel, {super.key});
 
   void onHomeTileTap(String id, BuildContext context) async {
-    final confirmed = await showDialog<bool>(
+    final confirmed = await UI.showDialog<bool>(
       context,
       builder: (_) => HomeRemoveConfirm(id, viewModel),
     );
@@ -29,11 +29,11 @@ class HomeRemove extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return ListSection(
+    return UI.ListSection(
       children: [
-        ListTile(
+        UI.ListTile(
           title: Text(locale.removeThisHome),
-          leading: UIcon(Icons.delete),
+          leading: UI.Icon(Icons.delete),
           onTap: () => onHomeTileTap(id, context),
         ),
       ],

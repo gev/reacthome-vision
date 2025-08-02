@@ -12,11 +12,11 @@ class MetaProps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return ListSection(
+    return UI.ListSection(
       children: [
-        ListTile(title: Text(id)),
-        ListTile(title: Text(meta.title), trailing: Text(locale.title)),
-        ListTile(title: Text(meta.code), trailing: Text(locale.code)),
+        UI.ListTile(title: Text(id)),
+        UI.ListTile(title: Text(meta.title), trailing: Text(locale.title)),
+        UI.ListTile(title: Text(meta.code), trailing: Text(locale.code)),
       ],
     );
   }

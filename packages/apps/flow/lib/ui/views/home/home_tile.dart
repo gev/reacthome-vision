@@ -20,13 +20,13 @@ class HomeTile extends StatelessWidget {
       create: () => homeViewModel.makeViewModel(id, locale),
       builder: (context, viewModel, _) {
         final home = viewModel.home;
-        return ListTile(
+        return UI.ListTile(
           title: Text(home.meta.name),
           subtitle: Text(id, maxLines: 1, overflow: TextOverflow.ellipsis),
-          leading: UIcon(
+          leading: UI.Icon(
             home.hasProject ? Icons.home.filled : Icons.home.outlined,
           ),
-          trailing: ListChevron(),
+          trailing: UI.ListChevron(),
           onTap: () {
             viewModel.setCurrentHome();
             Navigator.of(

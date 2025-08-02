@@ -6,50 +6,10 @@ import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/icon.dart';
 import 'package:ui_kit_cupertino/theme_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/app_bar_fixed_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/app_bar_sliver_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/app_root_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/button_filled_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/button_icon_filled_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/dialog_action_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/dialog_alert_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/divider_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/indicator_activity_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/list_chevron_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/list_section_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/list_tile_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/scaffold_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/show_dialog_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/switcher_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/text_field_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/uicon_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets_cupertino.dart';
 
 void initCupertinoKit() {
-  AppRoot = AppRootCupertino.new;
-  AppBar = AppBarFixedCupertino.new;
-  AppBarSliver = AppBarSliverCupertino.new;
-
-  Button = ButtonFilledCupertino.new;
-  ButtonIcon = ButtonIconFilledCupertino.new;
-
-  AlertDialog = AlertDialogCupertino.new;
-  DialogAction = DialogActionCupertino.new;
-  showDialog = showDialogCupertino;
-
-  Divider = DividerCupertino.new;
-
-  IndicatorActivity = IndicatorActivityCupertino.new;
-
-  ListSection = ListSectionCupertino.new;
-  ListTile = ListTileCupertino.new;
-  ListChevron = ListChevronCupertino.new;
-
-  Scaffold = ScaffoldCupertino.new;
-  Switcher = SwitcherCupertino.new;
-
-  TextField = TextFieldCupertino.new;
-
-  UIcon = UIconCupertino.new;
+  UI = const WidgetsCupertino();
 
   Icons = const IconContainer(
     add: CupertinoIcons.add,

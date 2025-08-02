@@ -4,36 +4,39 @@ import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
 import 'package:ui_kit/widgets/dialog.dart';
 import 'package:ui_kit/widgets/divider.dart';
+import 'package:ui_kit/widgets/icon.dart';
 import 'package:ui_kit/widgets/indicator.dart';
 import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
-import 'package:ui_kit/widgets/uicon.dart';
 
-late final AppRootFactory AppRoot;
-late final AppBarFactory AppBar;
-late final AppBarSliverFactory AppBarSliver;
+abstract interface class Widgets {
+  AppRootFactory get AppRoot;
+  AppBarFactory get AppBar;
+  AppBarSliverFactory get AppBarSliver;
 
-late final ButtonFactory Button;
-late final ButtonIconFactory ButtonIcon;
+  ButtonFactory get Button;
+  ButtonIconFactory get ButtonIcon;
 
-late final AlertDialogFactory AlertDialog;
-late final DialogActionFactory DialogAction;
-late final ShowDialog showDialog;
+  AlertDialogFactory get AlertDialog;
+  DialogActionFactory get DialogAction;
+  ShowDialog get showDialog;
 
-late final DividerFactory Divider;
+  DividerFactory get Divider;
 
-late final IndicatorActivityFactory IndicatorActivity;
+  IconFactory get Icon;
+  IndicatorActivityFactory get IndicatorActivity;
 
-late final ListChevronFactory ListChevron;
-late final ListTileFactory ListTile;
-late final ListSectionFactory ListSection;
+  ListChevronFactory get ListChevron;
+  ListTileFactory get ListTile;
+  ListSectionFactory get ListSection;
 
-late final ScaffoldFactory Scaffold;
+  ScaffoldFactory get Scaffold;
 
-late final SwitcherFactory Switcher;
+  SwitcherFactory get Switcher;
 
-late final TextFieldFactory TextField;
+  TextFieldFactory get TextField;
+}
 
-late final UIconFactory UIcon;
+late final Widgets UI;

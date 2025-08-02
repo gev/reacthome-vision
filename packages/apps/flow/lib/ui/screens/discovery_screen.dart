@@ -28,7 +28,7 @@ class DiscoveryScreen extends StatelessWidget {
       title: locale.addAHome,
       body: Column(
         children: [
-          ListSection(
+          UI.ListSection(
             children: [
               DiscoveryHomeAdd(homeViewModel),
               DiscoveryStatus(discoveryViewModel),

@@ -8,6 +8,6 @@ class CenterLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: body));
+    return UI.Scaffold(body: Center(child: body));
   }
 }

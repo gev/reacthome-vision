@@ -18,6 +18,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     // SystemChrome.restoreSystemUIOverlays();
     // return MacosApp(title: title, routes: navigation.routes);
-    return AppRoot(navigation: navigation, title: title, seedColor: seedColor);
+    return UI.AppRoot(
+      navigation: navigation,
+      title: title,
+      seedColor: seedColor,
+    );
   }
 }

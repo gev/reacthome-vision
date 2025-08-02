@@ -10,12 +10,12 @@ class HomeGoToAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return ListSection(
+    return UI.ListSection(
       children: [
-        ListTile(
+        UI.ListTile(
           title: Text(locale.addAHome),
-          leading: UIcon(Icons.add),
-          trailing: ListChevron(),
+          leading: UI.Icon(Icons.add),
+          trailing: UI.ListChevron(),
           onTap: () =>
               Navigator.of(context).pushNamed(NavigationRouteNames.discovery),
         ),

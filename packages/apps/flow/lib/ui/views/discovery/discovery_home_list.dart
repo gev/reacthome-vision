@@ -27,7 +27,7 @@ class DiscoveryHomeList extends StatelessWidget {
     BuildContext context,
     AppLocalizations locale,
   ) async {
-    final confirmed = await showDialog<bool>(
+    final confirmed = await UI.showDialog<bool>(
       context,
       builder: (_) => DiscoveryHomeAddConfirm(id, homeViewModel),
     );
@@ -40,7 +40,7 @@ class DiscoveryHomeList extends StatelessWidget {
         }
       } else {
         if (context.mounted) {
-          showDialog(context, builder: (_) => const DiscoveryHomeAddAlert());
+          UI.showDialog(context, builder: (_) => const DiscoveryHomeAddAlert());
         }
       }
     }
@@ -55,7 +55,7 @@ class DiscoveryHomeList extends StatelessWidget {
         final homes = homeListViewModel.homes;
         return homes.isEmpty
             ? const SizedBox()
-            : ListSection(
+            : UI.ListSection(
                 title: locale.discovered,
                 children: homes
                     .map(

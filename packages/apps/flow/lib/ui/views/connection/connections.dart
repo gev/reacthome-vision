@@ -17,7 +17,7 @@ class Connections extends StatelessWidget {
     create: () => viewModel.makeConnectionViewModel(id),
     builder: (context, viewModel, _) {
       final locale = AppLocalizations.of(context)!;
-      return ListSection(
+      return UI.ListSection(
         children: [
           Connection(
             isConnected: viewModel.isConnected,

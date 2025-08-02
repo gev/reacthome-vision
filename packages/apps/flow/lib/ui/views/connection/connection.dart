@@ -17,9 +17,9 @@ class Connection extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => ListTile(
+  Widget build(BuildContext context) => UI.ListTile(
     title: Text(title),
     subtitle: subtitle?.let(Text.new),
-    trailing: Switcher(value: isConnected, onChanged: onToggle),
+    trailing: UI.Switcher(value: isConnected, onChanged: onToggle),
   );
 }

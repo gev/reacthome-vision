@@ -18,7 +18,7 @@ class HomeList extends StatelessWidget {
         final homes = homeListViewModel.homes;
         return homes.isEmpty
             ? const SizedBox()
-            : ListSection(
+            : UI.ListSection(
                 children: homes
                     .map((id) => HomeTile(id, homeViewModel, key: ValueKey(id)))
                     .toList(),

@@ -27,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: DefaultPadding.vertical),
-          Button(
+          UI.Button(
             label: locale.addAHome,
             onPressed: () => Navigator.of(
               context,
