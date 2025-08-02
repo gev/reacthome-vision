@@ -3,7 +3,6 @@ import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:l10n/app_localizations.dart';
 import 'package:navigation/navigator_extension.dart';
-import 'package:ui_kit/layout_paddings.dart';
 import 'package:ui_kit/widgets.dart';
 
 class HomeAddForm extends StatefulWidget {
@@ -29,13 +28,13 @@ class _HomeAddFormState extends State<HomeAddForm> {
     final locale = AppLocalizations.of(context)!;
     return Column(
       children: [
-        DefaultPadding.all(
+        UI.DefaultPadding.all(
           child: UI.TextField(
             controller: _id,
             placeholder: 'XXXX-XXXX-XXXX-XXXX-XXXX',
           ),
         ),
-        DefaultPadding.all(
+        UI.DefaultPadding.all(
           child: UI.Button(
             label: locale.add,
             onPressed: () {

@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:ui_kit/layout_padding.dart';
+import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
@@ -11,6 +13,7 @@ import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
+import 'package:ui_kit_material/theme_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_fixed_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
 import 'package:ui_kit_material/widgets/app_root_material.dart';
@@ -29,7 +32,7 @@ import 'package:ui_kit_material/widgets/show_dialog_material.dart';
 import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 
-class WidgetsMaterial implements Widgets {
+class WidgetsMaterial implements WidgetContainer {
   const WidgetsMaterial();
 
   @override
@@ -76,4 +79,11 @@ class WidgetsMaterial implements Widgets {
 
   @override
   IconFactory get Icon => IconMaterial.new;
+
+  @override
+  LayoutPadding get DefaultPadding =>
+      const LayoutPadding(start: 20, top: 25, end: 20, bottom: 10);
+
+  @override
+  ThemeBuilder get themeOf => ThemeMaterial.new;
 }

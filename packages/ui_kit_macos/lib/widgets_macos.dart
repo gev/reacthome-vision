@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:ui_kit/layout_padding.dart';
+import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
@@ -11,6 +13,7 @@ import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
+import 'package:ui_kit_cupertino/theme_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/app_bar_fixed_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/app_bar_sliver_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/divider_cupertino.dart';
@@ -29,7 +32,7 @@ import 'package:ui_kit_macos/widgets/show_dialog_macos.dart';
 import 'package:ui_kit_macos/widgets/switcher_macos.dart';
 import 'package:ui_kit_macos/widgets/text_field_macos.dart';
 
-class WidgetsMacOS implements Widgets {
+class WidgetsMacOS implements WidgetContainer {
   const WidgetsMacOS();
 
   @override
@@ -73,4 +76,11 @@ class WidgetsMacOS implements Widgets {
 
   @override
   TextFieldFactory get TextField => TextFieldMacOS.new;
+
+  @override
+  LayoutPadding get DefaultPadding =>
+      const LayoutPadding(start: 16, top: 22, end: 16, bottom: 8);
+
+  @override
+  ThemeBuilder get themeOf => ThemeCupertino.new;
 }

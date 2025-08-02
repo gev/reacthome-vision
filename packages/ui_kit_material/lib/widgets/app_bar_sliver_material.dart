@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit/layout_paddings.dart';
+import 'package:ui_kit/widgets.dart';
 
 class AppBarSliverMaterial extends StatelessWidget {
   final String title;
@@ -17,7 +17,7 @@ class AppBarSliverMaterial extends StatelessWidget {
         collapseMode: CollapseMode.pin,
         background: Container(
           alignment: AlignmentDirectional.bottomStart,
-          padding: DefaultPadding.edgeInsets,
+          padding: UI.DefaultPadding.edgeInsets,
           child: Text(title, style: Theme.of(context).textTheme.headlineLarge),
         ),
       ),

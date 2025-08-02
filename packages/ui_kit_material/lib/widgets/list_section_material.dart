@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ui_kit/layout_paddings.dart';
+import 'package:ui_kit/widgets.dart';
 
 class ListSectionMaterial extends StatelessWidget {
   final String? title;
@@ -24,7 +24,7 @@ class ListSectionMaterial extends StatelessWidget {
         ],
       );
     } else {
-      return DefaultPadding.fullWidth(
+      return UI.DefaultPadding.fullWidth(
         child: Card(
           shape: const ContinuousRectangleBorder(),
           margin: EdgeInsets.zero,
@@ -45,14 +45,14 @@ class ListSectionCardMaterial extends StatelessWidget {
   final EdgeInsetsGeometry padding;
 
   ListSectionCardMaterial(this.children, {super.key})
-    : padding = DefaultPadding.edgeInsets;
+    : padding = UI.DefaultPadding.edgeInsets;
 
   ListSectionCardMaterial.withTitle(this.children, {super.key})
     : padding = EdgeInsetsDirectional.fromSTEB(
-        DefaultPadding.start,
+        UI.DefaultPadding.start,
         4,
-        DefaultPadding.end,
-        DefaultPadding.bottom,
+        UI.DefaultPadding.end,
+        UI.DefaultPadding.bottom,
       );
 
   @override
@@ -78,9 +78,9 @@ class ListSectionTitleMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
     padding: EdgeInsetsDirectional.fromSTEB(
-      DefaultPadding.start,
-      DefaultPadding.top,
-      DefaultPadding.end,
+      UI.DefaultPadding.start,
+      UI.DefaultPadding.top,
+      UI.DefaultPadding.end,
       0,
     ),
     child: Text(title, style: Theme.of(context).textTheme.titleMedium),

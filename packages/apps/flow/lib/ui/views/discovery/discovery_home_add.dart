@@ -2,7 +2,6 @@ import 'package:flow/ui/navigation.dart';
 import 'package:flow/ui/view_models/home_view_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:l10n/app_localizations.dart';
-import 'package:ui_kit/icons.dart';
 import 'package:ui_kit/widgets.dart';
 
 class DiscoveryHomeAdd extends StatelessWidget {

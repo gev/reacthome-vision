@@ -1,5 +1,14 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:ui_kit/widgets/icon.dart';
+import 'package:flutter/widgets.dart';
 
-late final IconContainer Icons;
+typedef IconKind = ({IconData filled, IconData outlined});
+
+abstract interface class IconContainer {
+  IconData get add;
+  IconData get delete;
+  IconData get search;
+  IconData get settings;
+  IconData get wifi;
+  IconKind get home;
+}

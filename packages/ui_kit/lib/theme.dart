@@ -10,5 +10,3 @@ abstract interface class Theme {
   Color get primaryColor;
   Color get secondaryColor;
 }
-
-late final ThemeBuilder themeOf;

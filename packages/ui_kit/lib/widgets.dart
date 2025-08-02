@@ -1,5 +1,8 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:ui_kit/icons.dart';
+import 'package:ui_kit/layout_padding.dart';
+import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
 import 'package:ui_kit/widgets/dialog.dart';
@@ -11,7 +14,7 @@ import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 
-abstract interface class Widgets {
+abstract interface class WidgetContainer {
   AppRootFactory get AppRoot;
   AppBarFactory get AppBar;
   AppBarSliverFactory get AppBarSliver;
@@ -37,6 +40,11 @@ abstract interface class Widgets {
   SwitcherFactory get Switcher;
 
   TextFieldFactory get TextField;
+
+  LayoutPadding get DefaultPadding;
+
+  ThemeBuilder get themeOf;
 }
 
-late final Widgets UI;
+late final WidgetContainer UI;
+late final IconContainer Icons;

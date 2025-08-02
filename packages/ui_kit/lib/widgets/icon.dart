@@ -2,23 +2,3 @@ import 'package:flutter/widgets.dart';
 
 typedef IconFactory =
     Widget Function(IconData icon, {Color? color, double? size, Key? key});
-
-typedef IconKind = ({IconData filled, IconData outlined});
-
-class IconContainer {
-  final IconData add;
-  final IconData delete;
-  final IconData search;
-  final IconData settings;
-  final IconData wifi;
-  final IconKind home;
-
-  const IconContainer({
-    required this.add,
-    required this.delete,
-    required this.search,
-    required this.settings,
-    required this.wifi,
-    required this.home,
-  });
-}
