@@ -6,19 +6,19 @@ import 'package:ui_kit/layout_paddings.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/icon.dart';
+import 'package:ui_kit_cupertino/widgets/app_bar_fixed_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets/app_bar_sliver_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets/divider_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets/list_chevron_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets/list_section_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets/list_tile_cupertino.dart';
 import 'package:ui_kit_macos/theme_macos.dart';
-import 'package:ui_kit_macos/widgets/app_bar_fixed_macos.dart';
-import 'package:ui_kit_macos/widgets/app_bar_sliver_macos.dart';
 import 'package:ui_kit_macos/widgets/app_root_macos.dart';
 import 'package:ui_kit_macos/widgets/button_filled_macos.dart';
 import 'package:ui_kit_macos/widgets/button_icon_filled_macos.dart';
 import 'package:ui_kit_macos/widgets/dialog_action_macos.dart';
 import 'package:ui_kit_macos/widgets/dialog_alert_macos.dart';
-import 'package:ui_kit_macos/widgets/divider_macos.dart';
 import 'package:ui_kit_macos/widgets/indicator_activity_macos.dart';
-import 'package:ui_kit_macos/widgets/list_chevron_macos.dart';
-import 'package:ui_kit_macos/widgets/list_section_macos.dart';
-import 'package:ui_kit_macos/widgets/list_tile_macos.dart';
 import 'package:ui_kit_macos/widgets/scaffold_macos.dart';
 import 'package:ui_kit_macos/widgets/show_dialog_macos.dart';
 import 'package:ui_kit_macos/widgets/switcher_macos.dart';
@@ -32,8 +32,8 @@ Future<void> configureMacosWindowUtils() async {
 
 void initMacOSKit() {
   AppRoot = AppRootMacOS.new;
-  AppBar = AppBarFixedMacOS.new;
-  AppBarSliver = AppBarSliverMacOS.new;
+  AppBar = AppBarFixedCupertino.new;
+  AppBarSliver = AppBarSliverCupertino.new;
 
   Button = ButtonFilledMacOS.new;
   ButtonIcon = ButtonIconFilledMacOS.new;
@@ -42,13 +42,13 @@ void initMacOSKit() {
   DialogAction = DialogActionMacOS.new;
   showDialog = showDialogMacOS;
 
-  Divider = DividerMacOS.new;
+  Divider = DividerCupertino.new;
 
   IndicatorActivity = IndicatorActivityMacOS.new;
 
-  ListSection = ListSectionMacOS.new;
-  ListTile = ListTileMacOS.new;
-  ListChevron = ListChevronMacOS.new;
+  ListSection = ListSectionCupertino.new;
+  ListTile = ListTileCupertino.new;
+  ListChevron = ListChevronCupertino.new;
 
   Scaffold = ScaffoldMacOS.new;
   Switcher = SwitcherMacOS.new;

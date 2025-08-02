@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:ui';
+
+import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:navigation/navigation.dart';
 import 'package:ui_kit_macos/theme_macos.dart';

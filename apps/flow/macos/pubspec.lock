@@ -516,17 +516,17 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  ui_kit_cupertino:
+    dependency: transitive
+    description:
+      path: "../../../packages/ui_kit_cupertino"
+      relative: true
+    source: path
+    version: "0.0.1"
   ui_kit_macos:
     dependency: "direct main"
     description:
       path: "../../../packages/ui_kit_macos"
-      relative: true
-    source: path
-    version: "0.0.1"
-  ui_kit_material:
-    dependency: transitive
-    description:
-      path: "../../../packages/ui_kit_material"
       relative: true
     source: path
     version: "0.0.1"
