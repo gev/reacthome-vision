@@ -3,6 +3,6 @@ import 'package:studio/make/make.dart';
 import 'package:ui_kit_yaru/init.dart';
 
 void main() async {
-  initLinuxKit();
+  initYaruKit();
   runApp(await make());
 }
