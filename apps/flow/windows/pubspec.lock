@@ -500,17 +500,17 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
-  ui_kit_fluent:
-    dependency: "direct main"
-    description:
-      path: "../../../packages/ui_kit_fluent"
-      relative: true
-    source: path
-    version: "0.0.1"
   ui_kit_material:
     dependency: transitive
     description:
       path: "../../../packages/ui_kit_material"
+      relative: true
+    source: path
+    version: "0.0.1"
+  ui_kit_windows:
+    dependency: "direct main"
+    description:
+      path: "../../../packages/ui_kit_windows"
       relative: true
     source: path
     version: "0.0.1"
