@@ -16,11 +16,12 @@ import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_fluent/widgets/app_root_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_filled_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_icon_filled_fluent.dart';
+import 'package:ui_kit_fluent/widgets/dialog_action_fluent.dart';
+import 'package:ui_kit_fluent/widgets/dialog_alert_fluent.dart';
+import 'package:ui_kit_fluent/widgets/show_dialog_fluent.dart';
 import 'package:ui_kit_material/theme_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_fixed_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
-import 'package:ui_kit_material/widgets/dialog_action_material.dart';
-import 'package:ui_kit_material/widgets/dialog_alert_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
 import 'package:ui_kit_material/widgets/indicator_activity_material.dart';
@@ -28,7 +29,6 @@ import 'package:ui_kit_material/widgets/list_chevron_material.dart';
 import 'package:ui_kit_material/widgets/list_section_material.dart';
 import 'package:ui_kit_material/widgets/list_tile_material.dart';
 import 'package:ui_kit_material/widgets/scaffold_material.dart';
-import 'package:ui_kit_material/widgets/show_dialog_material.dart';
 import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 
@@ -48,11 +48,11 @@ class WidgetsFluent implements WidgetContainer {
   ButtonIconFactory get ButtonIcon => ButtonIconFilledFluent.new;
 
   @override
-  AlertDialogFactory get AlertDialog => AlertDialogMaterial.new;
+  AlertDialogFactory get AlertDialog => AlertDialogFluent.new;
   @override
-  DialogActionFactory get DialogAction => DialogActionMaterial.new;
+  DialogActionFactory get DialogAction => DialogActionFluent.new;
   @override
-  ShowDialog get showDialog => showDialogMaterial;
+  ShowDialog get showDialog => showDialogFluent;
 
   @override
   DividerFactory get Divider => DividerMaterial.new;
