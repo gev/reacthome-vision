@@ -37,16 +37,13 @@ dependencies:
   ui_kit:
     path: ../../../packages/ui_kit
 
-  ui_kit_material:
-    path: ../../../packages/ui_kit_material
+  ui_kit_linux:
+    path: ../../../packages/ui_kit_linux
 
   flutter_launcher_icons:
     git: 
       url: https://github.com/devmil/flutter_launcher_icons.git
       ref: add_linux_support
-
-  yaru_window: ^0.2.1+1
-  yaru: ^8.0.0
 
 dev_dependencies:
   flutter_test:

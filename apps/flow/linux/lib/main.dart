@@ -1,8 +1,8 @@
 import 'package:flow/make/make.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ui_kit_material/init.dart';
+import 'package:ui_kit_linux/init.dart';
 
 void main() async {
-  initMaterialKit();
+  initLinuxKit();
   runApp(await make());
 }
