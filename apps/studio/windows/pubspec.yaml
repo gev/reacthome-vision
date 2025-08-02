@@ -37,8 +37,8 @@ dependencies:
   ui_kit:
     path: ../../../packages/ui_kit
 
-  ui_kit_windows:
-    path: ../../../packages/ui_kit_windows
+  ui_kit_fluent:
+    path: ../../../packages/ui_kit_fluent
 
   flutter_launcher_icons: ^0.14.4
 

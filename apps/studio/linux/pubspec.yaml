@@ -40,8 +40,8 @@ dependencies:
   ui_kit:
     path: ../../../packages/ui_kit
 
-  ui_kit_linux:
-    path: ../../../packages/ui_kit_linux
+  ui_kit_yaru:
+    path: ../../../packages/ui_kit_yaru
 
   flutter_launcher_icons:
     git: 
