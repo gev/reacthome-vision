@@ -27,11 +27,7 @@ class FixedWidthLayout extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             slivers: [
               UI.AppBarSliver(title: title),
-              SliverFillRemaining(
-                hasScrollBody: false,
-                fillOverscroll: true,
-                child: body,
-              ),
+              SliverFillViewport(delegate: SliverChildListDelegate([body])),
             ],
           ),
         ),
