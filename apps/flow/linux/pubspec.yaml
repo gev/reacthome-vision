@@ -45,6 +45,8 @@ dependencies:
       url: https://github.com/devmil/flutter_launcher_icons.git
       ref: add_linux_support
 
+  handy_window: ^0.4.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
