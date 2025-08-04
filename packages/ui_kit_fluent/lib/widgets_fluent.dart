@@ -19,6 +19,7 @@ import 'package:ui_kit_fluent/widgets/button_icon_filled_fluent.dart';
 import 'package:ui_kit_fluent/widgets/dialog_action_fluent.dart';
 import 'package:ui_kit_fluent/widgets/dialog_alert_fluent.dart';
 import 'package:ui_kit_fluent/widgets/indicator_activity_fluent.dart';
+import 'package:ui_kit_fluent/widgets/list_section_fluent.dart';
 import 'package:ui_kit_fluent/widgets/list_tile_fluent.dart';
 import 'package:ui_kit_fluent/widgets/show_dialog_fluent.dart';
 import 'package:ui_kit_material/theme_material.dart';
@@ -27,7 +28,6 @@ import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
 import 'package:ui_kit_material/widgets/list_chevron_material.dart';
-import 'package:ui_kit_material/widgets/list_section_material.dart';
 import 'package:ui_kit_material/widgets/scaffold_material.dart';
 import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
@@ -61,7 +61,7 @@ class WidgetsFluent implements WidgetContainer {
   IndicatorActivityFactory get IndicatorActivity => IndicatorActivityFluent.new;
 
   @override
-  ListSectionFactory get ListSection => ListSectionMaterial.new;
+  ListSectionFactory get ListSection => ListSectionFluent.new;
   @override
   ListTileFactory get ListTile => ListTileFluent.new;
   @override
