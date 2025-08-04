@@ -19,7 +19,7 @@ class AlertDialogYaru extends StatelessWidget {
       actions: actions,
       titlePadding: EdgeInsets.zero,
       actionsAlignment: MainAxisAlignment.center,
-      title: const YaruDialogTitleBar(isClosable: true),
+      title: YaruDialogTitleBar(isClosable: true, title: title),
       content: content,
     );
   }
