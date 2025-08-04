@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit/widgets.dart';
+import 'package:yaru/yaru.dart';
 
 class ListSectionYaru extends StatelessWidget {
   final String? title;
@@ -25,8 +26,7 @@ class ListSectionYaru extends StatelessWidget {
       );
     } else {
       return UI.DefaultPadding.fullWidth(
-        child: Card(
-          shape: const ContinuousRectangleBorder(),
+        child: YaruSection(
           margin: EdgeInsets.zero,
           child: Column(
             children: ListTile.divideTiles(
@@ -58,7 +58,7 @@ class ListSectionCardMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
     padding: padding,
-    child: Card(
+    child: YaruSection(
       margin: EdgeInsets.zero,
       child: Column(
         children: ListTile.divideTiles(
