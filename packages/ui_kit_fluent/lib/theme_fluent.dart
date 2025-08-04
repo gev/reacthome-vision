@@ -1,31 +1,30 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:flutter/material.dart';
 import 'package:ui_kit/theme.dart' as ui_kit;
 
-class ThemeMaterial implements ui_kit.Theme {
-  late final ThemeData _themeData;
+class ThemeFluent implements ui_kit.Theme {
+  late final FluentThemeData _themeData;
 
-  ThemeMaterial(BuildContext context) {
-    _themeData = Theme.of(context);
+  ThemeFluent(BuildContext context) {
+    _themeData = FluentTheme.of(context);
   }
 
   @override
-  TextStyle get titleStyle => _themeData.textTheme.headlineLarge!;
+  TextStyle get titleStyle => _themeData.typography.titleLarge!;
 
   @override
-  Color get color => _themeData.colorScheme.onSurface;
+  Color get color => _themeData.cardColor;
 
   @override
-  TextStyle get bodyStyle => _themeData.textTheme.bodyMedium!;
+  TextStyle get bodyStyle => _themeData.typography.body!;
 
   @override
-  Color get backgroundColor => _themeData.colorScheme.surface;
+  Color get backgroundColor => _themeData.scaffoldBackgroundColor;
 
   @override
-  Color get primaryColor => _themeData.colorScheme.primary;
+  Color get primaryColor => _themeData.activeColor;
 
   @override
-  Color get secondaryColor => _themeData.colorScheme.secondary;
+  Color get secondaryColor => _themeData.accentColor;
 }
 
 FluentThemeData makeFluentTheme(Color seedColor, Brightness brightness) =>
