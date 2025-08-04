@@ -1,25 +1,26 @@
-import 'package:flutter/material.dart' as m;
 import 'package:flutter/widgets.dart';
 import 'package:ui_kit/icons.dart';
+import 'package:yaru/yaru.dart';
 
 class IconsYaru implements IconContainer {
   const IconsYaru();
 
   @override
-  IconData get add => m.Icons.add;
+  IconData get add => YaruIcons.plus;
 
   @override
-  IconData get delete => m.Icons.delete;
+  IconData get delete => YaruIcons.trash;
 
   @override
-  IconData get search => m.Icons.search;
+  IconData get search => YaruIcons.search;
 
   @override
-  IconData get settings => m.Icons.settings;
+  IconData get settings => YaruIcons.settings;
 
   @override
-  IconData get wifi => m.Icons.wifi;
+  IconData get wifi => YaruIcons.network_wireless;
 
   @override
-  IconKind get home => (filled: m.Icons.home, outlined: m.Icons.home_outlined);
+  IconKind get home =>
+      (filled: YaruIcons.home_filled, outlined: YaruIcons.home);
 }
