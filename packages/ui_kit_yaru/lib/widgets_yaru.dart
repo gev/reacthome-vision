@@ -19,7 +19,6 @@ import 'package:ui_kit_material/widgets/button_filled_material.dart';
 import 'package:ui_kit_material/widgets/button_icon_filled_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
-import 'package:ui_kit_material/widgets/indicator_activity_material.dart';
 import 'package:ui_kit_material/widgets/list_chevron_material.dart';
 import 'package:ui_kit_material/widgets/list_section_material.dart';
 import 'package:ui_kit_material/widgets/list_tile_material.dart';
@@ -31,6 +30,7 @@ import 'package:ui_kit_yaru/theme_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_root_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_action_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_alert_yaru.dart';
+import 'package:ui_kit_yaru/widgets/indicator_activity_yaru.dart';
 
 class WidgetsYaru implements WidgetContainer {
   const WidgetsYaru();
@@ -58,8 +58,7 @@ class WidgetsYaru implements WidgetContainer {
   DividerFactory get Divider => DividerMaterial.new;
 
   @override
-  IndicatorActivityFactory get IndicatorActivity =>
-      IndicatorActivityMaterial.new;
+  IndicatorActivityFactory get IndicatorActivity => IndicatorActivityYaru.new;
 
   @override
   ListSectionFactory get ListSection => ListSectionMaterial.new;
