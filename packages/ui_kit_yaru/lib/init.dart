@@ -1,8 +1,8 @@
 import 'package:ui_kit/widgets.dart';
-import 'package:ui_kit_material/icons_material.dart';
-import 'package:ui_kit_material/widgets_material.dart';
+import 'package:ui_kit_yaru/icons_yaru.dart';
+import 'package:ui_kit_yaru/widgets_yaru.dart';
 
 void initYaruKit() {
-  UI = const WidgetsMaterial();
-  Icons = const IconsMaterial();
+  UI = const WidgetsYaru();
+  Icons = const IconsYaru();
 }
