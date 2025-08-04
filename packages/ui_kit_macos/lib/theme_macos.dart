@@ -3,29 +3,29 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:ui_kit/theme.dart' as ui_kit;
 
 class ThemeMacOS implements ui_kit.Theme {
-  late final CupertinoThemeData _themeData;
+  late final MacosThemeData _themeData;
 
   ThemeMacOS(BuildContext context) {
-    _themeData = CupertinoTheme.of(context);
+    _themeData = MacosTheme.of(context);
   }
 
   @override
-  TextStyle get titleStyle => _themeData.textTheme.navLargeTitleTextStyle;
+  TextStyle get titleStyle => _themeData.typography.largeTitle;
 
   @override
-  Color get color => _themeData.textTheme.textStyle.color!;
+  Color get color => _themeData.typography.body.color!;
 
   @override
-  TextStyle get bodyStyle => _themeData.textTheme.textStyle;
+  TextStyle get bodyStyle => _themeData.typography.body;
 
   @override
-  Color get backgroundColor => _themeData.scaffoldBackgroundColor;
+  Color get backgroundColor => _themeData.canvasColor;
 
   @override
   Color get primaryColor => _themeData.primaryColor;
 
   @override
-  Color get secondaryColor => _themeData.primaryContrastingColor;
+  Color get secondaryColor => _themeData.dividerColor;
 }
 
 MacosThemeData makeMacOSTheme(
