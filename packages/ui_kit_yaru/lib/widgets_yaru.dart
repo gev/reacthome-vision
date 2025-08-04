@@ -13,10 +13,8 @@ import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
-import 'package:ui_kit_material/theme_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_fixed_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
-import 'package:ui_kit_material/widgets/app_root_material.dart';
 import 'package:ui_kit_material/widgets/button_filled_material.dart';
 import 'package:ui_kit_material/widgets/button_icon_filled_material.dart';
 import 'package:ui_kit_material/widgets/dialog_action_material.dart';
@@ -31,12 +29,14 @@ import 'package:ui_kit_material/widgets/scaffold_material.dart';
 import 'package:ui_kit_material/widgets/show_dialog_material.dart';
 import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
+import 'package:ui_kit_yaru/theme_yaru.dart';
+import 'package:ui_kit_yaru/widgets/app_root_yaru.dart';
 
 class WidgetsYaru implements WidgetContainer {
   const WidgetsYaru();
 
   @override
-  AppRootFactory get AppRoot => AppRootMaterial.new;
+  AppRootFactory get AppRoot => AppRootYaru.new;
   @override
   AppBarFactory get AppBar => AppBarFixedMaterial.new;
   @override
@@ -85,5 +85,5 @@ class WidgetsYaru implements WidgetContainer {
       const LayoutPadding(start: 20, top: 25, end: 20, bottom: 10);
 
   @override
-  ThemeBuilder get themeOf => ThemeMaterial.new;
+  ThemeBuilder get themeOf => ThemeYaru.new;
 }
