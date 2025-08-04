@@ -59,6 +59,7 @@ class WidgetsCupertino implements WidgetContainer {
 
   @override
   IconFactory get Icon => UIconCupertino.new;
+
   @override
   IndicatorActivityFactory get IndicatorActivity =>
       IndicatorActivityCupertino.new;

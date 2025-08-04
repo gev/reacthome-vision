@@ -59,6 +59,7 @@ class WidgetsMacOS implements WidgetContainer {
 
   @override
   IconFactory get Icon => IconMacOS.new;
+
   @override
   IndicatorActivityFactory get IndicatorActivity => IndicatorActivityMacOS.new;
 

@@ -58,6 +58,9 @@ class WidgetsMaterial implements WidgetContainer {
   DividerFactory get Divider => DividerMaterial.new;
 
   @override
+  IconFactory get Icon => IconMaterial.new;
+
+  @override
   IndicatorActivityFactory get IndicatorActivity =>
       IndicatorActivityMaterial.new;
 
@@ -76,9 +79,6 @@ class WidgetsMaterial implements WidgetContainer {
 
   @override
   TextFieldFactory get TextField => TextFieldMaterial.new;
-
-  @override
-  IconFactory get Icon => IconMaterial.new;
 
   @override
   LayoutPadding get DefaultPadding =>

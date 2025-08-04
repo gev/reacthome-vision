@@ -58,6 +58,9 @@ class WidgetsFluent implements WidgetContainer {
   DividerFactory get Divider => DividerMaterial.new;
 
   @override
+  IconFactory get Icon => IconMaterial.new;
+
+  @override
   IndicatorActivityFactory get IndicatorActivity => IndicatorActivityFluent.new;
 
   @override
@@ -75,9 +78,6 @@ class WidgetsFluent implements WidgetContainer {
 
   @override
   TextFieldFactory get TextField => TextFieldFluent.new;
-
-  @override
-  IconFactory get Icon => IconMaterial.new;
 
   @override
   LayoutPadding get DefaultPadding =>
