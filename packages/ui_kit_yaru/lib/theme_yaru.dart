@@ -27,12 +27,3 @@ class ThemeYaru implements ui_kit.Theme {
   @override
   Color get secondaryColor => _themeData.colorScheme.secondary;
 }
-
-ThemeData makeYaruTheme(Color seedColor, Brightness brightness) =>
-    createYaruTheme(
-      colorScheme: ColorScheme.fromSeed(
-        brightness: brightness,
-        seedColor: seedColor,
-        dynamicSchemeVariant: DynamicSchemeVariant.vibrant,
-      ),
-    );

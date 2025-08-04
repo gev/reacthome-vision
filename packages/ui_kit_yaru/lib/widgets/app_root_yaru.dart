@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:navigation/navigation.dart';
-import 'package:ui_kit_yaru/theme_yaru.dart';
+import 'package:yaru/yaru.dart';
 
 class AppRootYaru extends StatelessWidget {
   final String title;
@@ -23,8 +23,8 @@ class AppRootYaru extends StatelessWidget {
     return MaterialApp(
       title: title,
       themeMode: ThemeMode.system,
-      theme: makeYaruTheme(seedColor, Brightness.light),
-      darkTheme: makeYaruTheme(seedColor, Brightness.dark),
+      theme: createYaruLightTheme(primaryColor: seedColor),
+      darkTheme: createYaruDarkTheme(primaryColor: seedColor),
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
       initialRoute: navigation.initialRoute,
