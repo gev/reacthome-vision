@@ -27,7 +27,6 @@ class ListSectionYaru extends StatelessWidget {
     } else {
       return UI.DefaultPadding.fullWidth(
         child: YaruSection(
-          margin: EdgeInsets.zero,
           child: Column(
             children: ListTile.divideTiles(
               context: context,
@@ -59,7 +58,6 @@ class ListSectionCardMaterial extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
     padding: padding,
     child: YaruSection(
-      margin: EdgeInsets.zero,
       child: Column(
         children: ListTile.divideTiles(
           context: context,
