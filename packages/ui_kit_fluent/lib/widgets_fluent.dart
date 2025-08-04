@@ -22,6 +22,7 @@ import 'package:ui_kit_fluent/widgets/indicator_activity_fluent.dart';
 import 'package:ui_kit_fluent/widgets/list_section_fluent.dart';
 import 'package:ui_kit_fluent/widgets/list_tile_fluent.dart';
 import 'package:ui_kit_fluent/widgets/show_dialog_fluent.dart';
+import 'package:ui_kit_fluent/widgets/switcher_fluent.dart';
 import 'package:ui_kit_material/theme_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_fixed_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
@@ -29,7 +30,6 @@ import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
 import 'package:ui_kit_material/widgets/list_chevron_material.dart';
 import 'package:ui_kit_material/widgets/scaffold_material.dart';
-import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 
 class WidgetsFluent implements WidgetContainer {
@@ -71,7 +71,7 @@ class WidgetsFluent implements WidgetContainer {
   ScaffoldFactory get Scaffold => ScaffoldMaterial.new;
 
   @override
-  SwitcherFactory get Switcher => SwitcherMaterial.new;
+  SwitcherFactory get Switcher => SwitcherFluent.new;
 
   @override
   TextFieldFactory get TextField => TextFieldMaterial.new;
