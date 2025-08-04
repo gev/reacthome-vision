@@ -19,18 +19,18 @@ import 'package:ui_kit_material/widgets/button_filled_material.dart';
 import 'package:ui_kit_material/widgets/button_icon_filled_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
-import 'package:ui_kit_material/widgets/list_chevron_material.dart';
-import 'package:ui_kit_material/widgets/list_section_material.dart';
-import 'package:ui_kit_material/widgets/list_tile_material.dart';
 import 'package:ui_kit_material/widgets/scaffold_material.dart';
 import 'package:ui_kit_material/widgets/show_dialog_material.dart';
-import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 import 'package:ui_kit_yaru/theme_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_root_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_action_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_alert_yaru.dart';
 import 'package:ui_kit_yaru/widgets/indicator_activity_yaru.dart';
+import 'package:ui_kit_yaru/widgets/list_chevron_yaru.dart';
+import 'package:ui_kit_yaru/widgets/list_section_yaru.dart';
+import 'package:ui_kit_yaru/widgets/list_tile_yaru.dart';
+import 'package:ui_kit_yaru/widgets/switcher_yaru.dart';
 
 class WidgetsYaru implements WidgetContainer {
   const WidgetsYaru();
@@ -61,17 +61,17 @@ class WidgetsYaru implements WidgetContainer {
   IndicatorActivityFactory get IndicatorActivity => IndicatorActivityYaru.new;
 
   @override
-  ListSectionFactory get ListSection => ListSectionMaterial.new;
+  ListSectionFactory get ListSection => ListSectionYaru.new;
   @override
-  ListTileFactory get ListTile => ListTileMaterial.new;
+  ListTileFactory get ListTile => ListTileYaru.new;
   @override
-  ListChevronFactory get ListChevron => ListChevronMaterial.new;
+  ListChevronFactory get ListChevron => ListChevronYaru.new;
 
   @override
   ScaffoldFactory get Scaffold => ScaffoldMaterial.new;
 
   @override
-  SwitcherFactory get Switcher => SwitcherMaterial.new;
+  SwitcherFactory get Switcher => SwitcherYaru.new;
 
   @override
   TextFieldFactory get TextField => TextFieldMaterial.new;
