@@ -40,12 +40,12 @@ dependencies:
   ui_kit_yaru:
     path: ../../../packages/ui_kit_yaru
 
+  handy_window: ^0.4.0
+
   flutter_launcher_icons:
     git: 
       url: https://github.com/devmil/flutter_launcher_icons.git
       ref: add_linux_support
-
-  handy_window: ^0.4.0
 
 dev_dependencies:
   flutter_test:
