@@ -18,16 +18,9 @@ class AlertDialogYaru extends StatelessWidget {
     return AlertDialog(
       actions: actions,
       titlePadding: EdgeInsets.zero,
-      title: YaruDialogTitleBar(title: title, isClosable: true),
-      content: SizedBox(
-        height: 100,
-        child: YaruBanner.tile(
-          // surfaceTintColor: Colors.pink,
-          title: title!,
-          subtitle: content,
-          // icon: const Text('🪟', style: TextStyle(fontSize: 30)),
-        ),
-      ),
+      actionsAlignment: MainAxisAlignment.center,
+      title: const YaruDialogTitleBar(isClosable: true),
+      content: content,
     );
   }
 }

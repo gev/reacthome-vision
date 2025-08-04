@@ -17,7 +17,6 @@ import 'package:ui_kit_material/widgets/app_bar_fixed_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
 import 'package:ui_kit_material/widgets/button_filled_material.dart';
 import 'package:ui_kit_material/widgets/button_icon_filled_material.dart';
-import 'package:ui_kit_material/widgets/dialog_action_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
 import 'package:ui_kit_material/widgets/indicator_activity_material.dart';
@@ -30,6 +29,7 @@ import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 import 'package:ui_kit_yaru/theme_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_root_yaru.dart';
+import 'package:ui_kit_yaru/widgets/dialog_action_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_alert_yaru.dart';
 
 class WidgetsYaru implements WidgetContainer {
@@ -50,7 +50,7 @@ class WidgetsYaru implements WidgetContainer {
   @override
   AlertDialogFactory get AlertDialog => AlertDialogYaru.new;
   @override
-  DialogActionFactory get DialogAction => DialogActionMaterial.new;
+  DialogActionFactory get DialogAction => DialogActionYaru.new;
   @override
   ShowDialog get showDialog => showDialogMaterial;
 
