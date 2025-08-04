@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ui_kit/theme.dart' as ui_kit;
+import 'package:yaru/yaru.dart';
 
 class ThemeYaru implements ui_kit.Theme {
   late final ThemeData _themeData;
@@ -28,15 +28,11 @@ class ThemeYaru implements ui_kit.Theme {
   Color get secondaryColor => _themeData.colorScheme.secondary;
 }
 
-ThemeData makeMaterialTheme(
-  Color seedColor,
-  Brightness brightness, [
-  NoDefaultCupertinoThemeData? cupertinoOverrideTheme,
-]) => ThemeData(
-  colorScheme: ColorScheme.fromSeed(
-    brightness: brightness,
-    seedColor: seedColor,
-    dynamicSchemeVariant: DynamicSchemeVariant.vibrant,
-  ),
-  cupertinoOverrideTheme: cupertinoOverrideTheme,
-);
+ThemeData makeYaruTheme(Color seedColor, Brightness brightness) =>
+    createYaruTheme(
+      colorScheme: ColorScheme.fromSeed(
+        brightness: brightness,
+        seedColor: seedColor,
+        dynamicSchemeVariant: DynamicSchemeVariant.vibrant,
+      ),
+    );
