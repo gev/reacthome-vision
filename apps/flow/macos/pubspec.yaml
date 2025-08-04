@@ -40,6 +40,9 @@ dependencies:
   ui_kit_macos:
     path: ../../../packages/ui_kit_macos
 
+  ui_kit_yaru:
+    path: ../../../packages/ui_kit_yaru
+
   flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
