@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ui_kit/theme.dart' as ui_kit;
-import 'package:yaru/yaru.dart';
 
 class ThemeYaru implements ui_kit.Theme {
   late final ThemeData _themeData;
