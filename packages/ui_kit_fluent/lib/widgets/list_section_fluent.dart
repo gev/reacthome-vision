@@ -72,6 +72,6 @@ class ListSectionTitleMaterial extends StatelessWidget {
       UI.DefaultPadding.end,
       0,
     ),
-    child: Text(title, style: FluentTheme.of(context).typography.title!),
+    child: Text(title, style: FluentTheme.of(context).typography.caption),
   );
 }
