@@ -3,7 +3,7 @@ import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit_cupertino/icons_cupertino.dart';
 import 'package:ui_kit_macos/widgets_macos.dart';
 
-Future<void> configureMacosWindowUtils() async {
+Future<void> configureMacosWindow() async {
   const config = MacosWindowUtilsConfig();
   await config.apply();
 }
