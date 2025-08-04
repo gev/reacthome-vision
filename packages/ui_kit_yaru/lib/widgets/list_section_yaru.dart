@@ -25,7 +25,7 @@ class ListSectionYaru extends StatelessWidget {
         ],
       );
     } else {
-      return UI.DefaultPadding.fullWidth(
+      return UI.DefaultPadding.all(
         child: YaruSection(
           child: Column(
             children: ListTile.divideTiles(

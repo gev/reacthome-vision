@@ -24,7 +24,7 @@ class ListSectionFluent extends StatelessWidget {
         ],
       );
     } else {
-      return UI.DefaultPadding.fullWidth(
+      return UI.DefaultPadding.all(
         child: Card(
           margin: EdgeInsets.zero,
           child: Column(children: children),
