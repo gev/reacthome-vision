@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:ui_kit/widgets.dart';
 
 class ListSectionFluent extends StatelessWidget {
@@ -26,7 +26,6 @@ class ListSectionFluent extends StatelessWidget {
     } else {
       return UI.DefaultPadding.fullWidth(
         child: Card(
-          shape: const ContinuousRectangleBorder(),
           margin: EdgeInsets.zero,
           child: Column(children: children),
         ),
@@ -73,6 +72,6 @@ class ListSectionTitleMaterial extends StatelessWidget {
       UI.DefaultPadding.end,
       0,
     ),
-    child: Text(title, style: Theme.of(context).textTheme.titleMedium),
+    child: Text(title, style: FluentTheme.of(context).typography.title!),
   );
 }
