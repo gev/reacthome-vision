@@ -12,7 +12,7 @@ class ThemeFluent implements ui_kit.Theme {
   TextStyle get titleStyle => _themeData.typography.titleLarge!;
 
   @override
-  Color get color => _themeData.cardColor;
+  Color get color => _themeData.typography.body!.color!;
 
   @override
   TextStyle get bodyStyle => _themeData.typography.body!;
@@ -24,7 +24,7 @@ class ThemeFluent implements ui_kit.Theme {
   Color get primaryColor => _themeData.activeColor;
 
   @override
-  Color get secondaryColor => _themeData.accentColor;
+  Color get secondaryColor => _themeData.inactiveColor;
 }
 
 FluentThemeData makeFluentTheme(Color seedColor, Brightness brightness) =>
