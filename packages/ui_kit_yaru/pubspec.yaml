@@ -20,7 +20,7 @@ dependencies:
   ui_kit_material:
     path: ../ui_kit_material
 
-yaru: ^8.1.0
+  yaru: ^8.1.0
 
 dev_dependencies:
   flutter_test:
