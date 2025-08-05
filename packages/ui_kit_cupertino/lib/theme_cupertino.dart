@@ -31,8 +31,5 @@ CupertinoThemeData makeCupertinoTheme(Color seedColor, Brightness brightness) =>
     CupertinoThemeData(
       primaryColor: seedColor,
       brightness: brightness,
-      textTheme: const CupertinoTextThemeData(),
-      barBackgroundColor: CupertinoColors.systemBackground,
-      scaffoldBackgroundColor: CupertinoColors.systemGroupedBackground,
       applyThemeToAll: true,
     );
