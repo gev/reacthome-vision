@@ -20,7 +20,7 @@ class AlertDialogMacOS extends StatelessWidget {
       message: content!,
       primaryButton: actions[0] as PushButton,
       secondaryButton: actions[1] as PushButton,
-      appIcon: Center(),
+      appIcon: const SizedBox(),
     );
   }
 }
