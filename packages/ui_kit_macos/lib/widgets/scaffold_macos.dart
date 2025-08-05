@@ -9,16 +9,14 @@ class ScaffoldMacOS extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MacosWindow(
-      child: MacosScaffold(
-        children: [
-          ContentArea(
-            builder: (BuildContext context, ScrollController scrollController) {
-              return body;
-            },
-          ),
-        ],
-      ),
+    return MacosScaffold(
+      children: [
+        ContentArea(
+          builder: (BuildContext context, ScrollController scrollController) {
+            return body;
+          },
+        ),
+      ],
     );
   }
 }
