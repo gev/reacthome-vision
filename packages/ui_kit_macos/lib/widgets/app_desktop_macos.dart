@@ -32,7 +32,7 @@ class AppDesktopMacos extends StatelessWidget {
           return end ?? const Center(child: Text("Inspector"));
         },
       ),
-      titleBar: TitleBar(height: 48, title: toolbar),
+      titleBar: TitleBar(height: 51, title: toolbar),
       child: body,
     );
   }
