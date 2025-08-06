@@ -9,6 +9,6 @@ Future<void> configureMacosWindow() async {
 }
 
 void initMacOSKit() {
-  UI = const WidgetsMacOS();
+  UI = const WidgetsMacos();
   Icons = const IconsCupertino();
 }

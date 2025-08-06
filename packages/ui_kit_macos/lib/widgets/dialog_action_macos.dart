@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class DialogActionMacOS extends PushButton {
+class DialogActionMacos extends PushButton {
   final String label;
 
-  DialogActionMacOS({
+  DialogActionMacos({
     required this.label,
     bool isDefaultAction = false,
     bool isDestructiveAction = false,

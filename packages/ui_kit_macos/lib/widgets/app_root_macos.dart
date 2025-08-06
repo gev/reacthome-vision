@@ -5,14 +5,14 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:navigation/navigation.dart';
 import 'package:ui_kit_macos/theme_macos.dart';
 
-class AppRootMacOS extends StatelessWidget {
+class AppRootMacos extends StatelessWidget {
   final String title;
   final Color seedColor;
   final Navigation navigation;
   final Iterable<LocalizationsDelegate<dynamic>>? localizationsDelegates;
   final Iterable<Locale> supportedLocales;
 
-  const AppRootMacOS({
+  const AppRootMacos({
     required this.title,
     required this.seedColor,
     required this.navigation,

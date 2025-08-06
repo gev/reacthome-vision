@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class AlertDialogMacOS extends StatelessWidget {
+class AlertDialogMacos extends StatelessWidget {
   final Widget? title;
   final Widget? content;
   final List<Widget> actions;
 
-  const AlertDialogMacOS({
+  const AlertDialogMacos({
     this.title,
     this.content,
     required this.actions,

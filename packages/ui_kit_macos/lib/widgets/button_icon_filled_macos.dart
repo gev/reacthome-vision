@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-class ButtonIconFilledMacOS extends StatelessWidget {
+class ButtonIconFilledMacos extends StatelessWidget {
   final String label;
   final IconData icon;
   final Function()? onPressed;
 
-  const ButtonIconFilledMacOS({
+  const ButtonIconFilledMacos({
     required this.label,
     required this.icon,
     this.onPressed,

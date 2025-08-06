@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 
-class AppDesktopMacOS extends StatelessWidget {
+class AppDesktopMacos extends StatelessWidget {
   final Widget? toolbar;
   final Widget? start;
   final Widget? end;
   final Widget? child;
 
-  const AppDesktopMacOS({
+  const AppDesktopMacos({
     this.toolbar,
     this.start,
     this.end,

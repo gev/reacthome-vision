@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
-Future<T?> showDialogMacOS<T>(
+Future<T?> showDialogMacos<T>(
   BuildContext context, {
   required WidgetBuilder builder,
 }) => showMacosAlertDialog(

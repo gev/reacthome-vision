@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:ui_kit/theme.dart' as ui_kit;
 
-class ThemeMacOS implements ui_kit.Theme {
+class ThemeMacos implements ui_kit.Theme {
   late final MacosThemeData _themeData;
 
-  ThemeMacOS(BuildContext context) {
+  ThemeMacos(BuildContext context) {
     _themeData = MacosTheme.of(context);
   }
 
