@@ -5,4 +5,5 @@ typedef TextFieldFactory =
       TextEditingController? controller,
       String? placeholder,
       bool autofocus,
+      Key? key,
     });

@@ -6,6 +6,7 @@ typedef DialogActionFactory =
       bool isDefaultAction,
       bool isDestructiveAction,
       void Function()? onPressed,
+      Key? key,
     });
 
 typedef AlertDialogFactory =
@@ -13,6 +14,7 @@ typedef AlertDialogFactory =
       Widget? title,
       Widget? content,
       required List<Widget> actions,
+      Key? key,
     });
 
 typedef ShowDialog =

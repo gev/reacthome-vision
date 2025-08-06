@@ -9,6 +9,7 @@ typedef ListTileFactory =
       Widget? leading,
       Widget? trailing,
       void Function()? onTap,
+      Key? key,
     });
 
 typedef ListSectionFactory =
@@ -16,4 +17,5 @@ typedef ListSectionFactory =
       String? title,
       required List<Widget> children,
       bool hasLeading,
+      Key? key,
     });

@@ -11,10 +11,10 @@ typedef AppRootFactory =
     });
 
 typedef AppBarFactory =
-    Widget Function({required String title, Widget? trailing});
+    Widget Function({required String title, Widget? trailing, Key? key});
 
 typedef AppBarSliverFactory =
-    Widget Function({required String title, Widget? trailing});
+    Widget Function({required String title, Widget? trailing, Key? key});
 
 typedef AppDesktopFactory =
     Widget Function({
@@ -22,4 +22,5 @@ typedef AppDesktopFactory =
       Widget? start,
       Widget? body,
       Widget? end,
+      Key? key,
     });
