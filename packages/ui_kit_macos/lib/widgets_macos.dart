@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:macos_ui/macos_ui.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
@@ -14,12 +15,12 @@ import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_cupertino/theme_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/app_bar_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/app_bar_sliver_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/divider_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/list_chevron_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/list_section_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/list_tile_cupertino.dart';
+import 'package:ui_kit_macos/widgets/app_bar_macos.dart';
 import 'package:ui_kit_macos/widgets/app_root_macos.dart';
 import 'package:ui_kit_macos/widgets/button_filled_macos.dart';
 import 'package:ui_kit_macos/widgets/button_icon_filled_macos.dart';
@@ -32,13 +33,13 @@ import 'package:ui_kit_macos/widgets/show_dialog_macos.dart';
 import 'package:ui_kit_macos/widgets/switcher_macos.dart';
 import 'package:ui_kit_macos/widgets/text_field_macos.dart';
 
-class WidgetsMacOS implements WidgetContainer {
+class WidgetsMacOS implements WidgetContainer<ToolBar> {
   const WidgetsMacOS();
 
   @override
   AppRootFactory get AppRoot => AppRootMacOS.new;
   @override
-  AppBarFactory get AppBar => AppBarCupertino.new;
+  AppBarFactory<ToolBar> get AppBar => AppBarMacos.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverCupertino.new;
 
@@ -71,7 +72,7 @@ class WidgetsMacOS implements WidgetContainer {
   ListChevronFactory get ListChevron => ListChevronCupertino.new;
 
   @override
-  ScaffoldFactory get Scaffold => ScaffoldMacOS.new;
+  ScaffoldFactory<ToolBar> get Scaffold => ScaffoldMacOS.new;
   @override
   SwitcherFactory get Switcher => SwitcherMacOS.new;
 

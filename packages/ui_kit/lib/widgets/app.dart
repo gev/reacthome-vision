@@ -10,8 +10,8 @@ typedef AppRootFactory =
       Iterable<Locale>? supportedLocales,
     });
 
-typedef AppBarFactory =
-    PreferredSizeWidget Function({required String title, Widget? trailing});
+typedef AppBarFactory<T extends Widget> =
+    T Function({required String title, Widget? trailing});
 
 typedef AppBarSliverFactory =
     Widget Function({required String title, Widget? trailing});

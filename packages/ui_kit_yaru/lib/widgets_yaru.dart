@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/widgets.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
@@ -32,13 +33,13 @@ import 'package:ui_kit_yaru/widgets/list_section_yaru.dart';
 import 'package:ui_kit_yaru/widgets/list_tile_yaru.dart';
 import 'package:ui_kit_yaru/widgets/switcher_yaru.dart';
 
-class WidgetsYaru implements WidgetContainer {
+class WidgetsYaru implements WidgetContainer<PreferredSizeWidget> {
   const WidgetsYaru();
 
   @override
   AppRootFactory get AppRoot => AppRootYaru.new;
   @override
-  AppBarFactory get AppBar => AppBarYaru.new;
+  AppBarFactory<PreferredSizeWidget> get AppBar => AppBarYaru.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
 
@@ -71,7 +72,7 @@ class WidgetsYaru implements WidgetContainer {
   ListChevronFactory get ListChevron => ListChevronYaru.new;
 
   @override
-  ScaffoldFactory get Scaffold => ScaffoldMaterial.new;
+  ScaffoldFactory<PreferredSizeWidget> get Scaffold => ScaffoldMaterial.new;
 
   @override
   SwitcherFactory get Switcher => SwitcherYaru.new;

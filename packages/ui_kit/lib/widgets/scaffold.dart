@@ -1,4 +1,4 @@
 import 'package:flutter/widgets.dart';
 
-typedef ScaffoldFactory =
-    Widget Function({PreferredSizeWidget? appBar, required Widget body});
+typedef ScaffoldFactory<T extends Widget> =
+    Widget Function({T? appBar, required Widget body});

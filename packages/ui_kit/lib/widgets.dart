@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter/widgets.dart';
 import 'package:ui_kit/icons.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
@@ -14,9 +15,9 @@ import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 
-abstract interface class WidgetContainer {
+abstract interface class WidgetContainer<AB extends Widget> {
   AppRootFactory get AppRoot;
-  AppBarFactory get AppBar;
+  AppBarFactory<AB> get AppBar;
   AppBarSliverFactory get AppBarSliver;
 
   ButtonFactory get Button;
@@ -35,7 +36,7 @@ abstract interface class WidgetContainer {
   ListTileFactory get ListTile;
   ListSectionFactory get ListSection;
 
-  ScaffoldFactory get Scaffold;
+  ScaffoldFactory<AB> get Scaffold;
 
   SwitcherFactory get Switcher;
 
