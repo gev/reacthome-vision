@@ -425,6 +425,13 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  utils:
+    dependency: transitive
+    description:
+      path: "../../../packages/utils"
+      relative: true
+    source: path
+    version: "0.0.1"
   vector_graphics:
     dependency: transitive
     description:

@@ -22,6 +22,9 @@ dependencies:
   ui_kit:
     path: ../../ui_kit
 
+  utils:
+    path: ../../utils
+
   flutter_svg: ^2.2.0
 
 dev_dependencies:

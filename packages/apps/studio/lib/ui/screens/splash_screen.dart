@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:navigation/navigator_extension.dart';
 import 'package:studio/ui/navigation.dart';
 import 'package:studio/ui/widgets/logo.dart';
-import 'package:studio/util/navigator_extension.dart';
 import 'package:ui_kit/layouts/center_layout.dart';
 
 class SplashScreen extends StatelessWidget {
