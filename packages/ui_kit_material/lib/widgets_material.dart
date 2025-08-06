@@ -17,6 +17,7 @@ import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_material/theme_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
+import 'package:ui_kit_material/widgets/app_desktop_cupertino.dart';
 import 'package:ui_kit_material/widgets/app_root_material.dart';
 import 'package:ui_kit_material/widgets/button_filled_material.dart';
 import 'package:ui_kit_material/widgets/button_icon_filled_material.dart';
@@ -42,6 +43,8 @@ class WidgetsMaterial implements WidgetContainer<PreferredSizeWidget> {
   AppBarFactory<PreferredSizeWidget> get AppBar => AppBarMaterial.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
+  @override
+  AppDesktopFactory get AppDesktop => AppDesktopMaterial.new;
 
   @override
   ButtonFactory get Button => ButtonFilledMaterial.new;

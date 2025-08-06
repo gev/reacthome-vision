@@ -19,6 +19,7 @@ abstract interface class WidgetContainer<AB extends Widget> {
   AppRootFactory get AppRoot;
   AppBarFactory<AB> get AppBar;
   AppBarSliverFactory get AppBarSliver;
+  AppDesktopFactory get AppDesktop;
 
   ButtonFactory get Button;
   ButtonIconFactory get ButtonIcon;

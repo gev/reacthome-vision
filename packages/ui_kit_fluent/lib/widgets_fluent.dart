@@ -14,6 +14,7 @@ import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_fluent/theme_fluent.dart';
+import 'package:ui_kit_fluent/widgets/app_desktop_fluent.dart';
 import 'package:ui_kit_fluent/widgets/app_root_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_filled_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_icon_filled_fluent.dart';
@@ -41,6 +42,8 @@ class WidgetsFluent implements WidgetContainer {
   AppBarFactory get AppBar => AppBarMaterial.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
+  @override
+  AppDesktopFactory get AppDesktop => AppDesktopFluent.new;
 
   @override
   ButtonFactory get Button => ButtonFilledFluent.new;

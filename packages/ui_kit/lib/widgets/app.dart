@@ -15,3 +15,11 @@ typedef AppBarFactory<T extends Widget> =
 
 typedef AppBarSliverFactory =
     Widget Function({required String title, Widget? trailing});
+
+typedef AppDesktopFactory =
+    Widget Function({
+      Widget? toolbar,
+      Widget? start,
+      Widget? child,
+      Widget? end,
+    });
