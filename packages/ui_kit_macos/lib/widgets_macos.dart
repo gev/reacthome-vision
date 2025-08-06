@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:macos_ui/macos_ui.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
@@ -34,13 +33,13 @@ import 'package:ui_kit_macos/widgets/show_dialog_macos.dart';
 import 'package:ui_kit_macos/widgets/switcher_macos.dart';
 import 'package:ui_kit_macos/widgets/text_field_macos.dart';
 
-class WidgetsMacos implements WidgetContainer<ToolBar> {
+class WidgetsMacos implements WidgetContainer {
   const WidgetsMacos();
 
   @override
   AppRootFactory get AppRoot => AppRootMacos.new;
   @override
-  AppBarFactory<ToolBar> get AppBar => AppBarMacos.new;
+  AppBarFactory get AppBar => AppBarMacos.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverCupertino.new;
   @override
@@ -75,7 +74,7 @@ class WidgetsMacos implements WidgetContainer<ToolBar> {
   ListChevronFactory get ListChevron => ListChevronCupertino.new;
 
   @override
-  ScaffoldFactory<ToolBar> get Scaffold => ScaffoldMacos.new;
+  ScaffoldFactory get Scaffold => ScaffoldMacos.new;
   @override
   SwitcherFactory get Switcher => SwitcherMacos.new;
 

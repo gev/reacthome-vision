@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/widgets.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
@@ -34,13 +33,13 @@ import 'package:ui_kit_material/widgets/show_dialog_material.dart';
 import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 
-class WidgetsMaterial implements WidgetContainer<PreferredSizeWidget> {
+class WidgetsMaterial implements WidgetContainer {
   const WidgetsMaterial();
 
   @override
   AppRootFactory get AppRoot => AppRootMaterial.new;
   @override
-  AppBarFactory<PreferredSizeWidget> get AppBar => AppBarMaterial.new;
+  AppBarFactory get AppBar => AppBarMaterial.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
   @override
@@ -76,7 +75,7 @@ class WidgetsMaterial implements WidgetContainer<PreferredSizeWidget> {
   ListChevronFactory get ListChevron => ListChevronMaterial.new;
 
   @override
-  ScaffoldFactory<PreferredSizeWidget> get Scaffold => ScaffoldMaterial.new;
+  ScaffoldFactory get Scaffold => ScaffoldMaterial.new;
 
   @override
   SwitcherFactory get Switcher => SwitcherMaterial.new;

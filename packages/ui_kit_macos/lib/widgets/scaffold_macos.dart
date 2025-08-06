@@ -5,7 +5,8 @@ class ScaffoldMacos extends StatelessWidget {
   final ToolBar? appBar;
   final Widget body;
 
-  const ScaffoldMacos({this.appBar, required this.body, super.key});
+  const ScaffoldMacos({Widget? appBar, required this.body, super.key})
+    : appBar = appBar as ToolBar?;
 
   @override
   Widget build(BuildContext context) {

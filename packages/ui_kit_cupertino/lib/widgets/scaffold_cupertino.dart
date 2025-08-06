@@ -4,7 +4,8 @@ class ScaffoldCupertino extends StatelessWidget {
   final ObstructingPreferredSizeWidget? appBar;
   final Widget body;
 
-  const ScaffoldCupertino({this.appBar, required this.body, super.key});
+  const ScaffoldCupertino({Widget? appBar, required this.body, super.key})
+    : appBar = appBar as ObstructingPreferredSizeWidget;
 
   @override
   Widget build(BuildContext context) {

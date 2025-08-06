@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
@@ -34,15 +33,13 @@ import 'package:ui_kit_cupertino/widgets/switcher_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/text_field_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/uicon_cupertino.dart';
 
-class WidgetsCupertino
-    implements WidgetContainer<ObstructingPreferredSizeWidget> {
+class WidgetsCupertino implements WidgetContainer {
   const WidgetsCupertino();
 
   @override
   AppRootFactory get AppRoot => AppRootCupertino.new;
   @override
-  AppBarFactory<ObstructingPreferredSizeWidget> get AppBar =>
-      AppBarCupertino.new;
+  AppBarFactory get AppBar => AppBarCupertino.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverCupertino.new;
   @override
@@ -78,8 +75,7 @@ class WidgetsCupertino
   ListChevronFactory get ListChevron => ListChevronCupertino.new;
 
   @override
-  ScaffoldFactory<ObstructingPreferredSizeWidget> get Scaffold =>
-      ScaffoldCupertino.new;
+  ScaffoldFactory get Scaffold => ScaffoldCupertino.new;
   @override
   SwitcherFactory get Switcher => SwitcherCupertino.new;
 

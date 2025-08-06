@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:flutter/cupertino.dart';
 import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
@@ -34,13 +33,13 @@ import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
 
-class WidgetsFluent implements WidgetContainer<Widget> {
+class WidgetsFluent implements WidgetContainer {
   const WidgetsFluent();
 
   @override
   AppRootFactory get AppRoot => AppRootFluent.new;
   @override
-  AppBarFactory<Widget> get AppBar => AppBarMaterial.new;
+  AppBarFactory get AppBar => AppBarMaterial.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
   @override
@@ -75,7 +74,7 @@ class WidgetsFluent implements WidgetContainer<Widget> {
   ListChevronFactory get ListChevron => ListChevronFluent.new;
 
   @override
-  ScaffoldFactory<Widget> get Scaffold => ScaffoldFluent.new;
+  ScaffoldFactory get Scaffold => ScaffoldFluent.new;
 
   @override
   SwitcherFactory get Switcher => SwitcherFluent.new;

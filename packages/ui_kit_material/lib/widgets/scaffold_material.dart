@@ -4,7 +4,8 @@ class ScaffoldMaterial extends StatelessWidget {
   final PreferredSizeWidget? appBar;
   final Widget body;
 
-  const ScaffoldMaterial({this.appBar, required this.body, super.key});
+  const ScaffoldMaterial({Widget? appBar, required this.body, super.key})
+    : appBar = appBar as PreferredSizeWidget?;
 
   @override
   Widget build(BuildContext context) {
