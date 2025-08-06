@@ -4,13 +4,13 @@ class AppDesktopFluent extends StatelessWidget {
   final Widget? toolbar;
   final Widget? start;
   final Widget? end;
-  final Widget? child;
+  final Widget? body;
 
   const AppDesktopFluent({
     this.toolbar,
     this.start,
     this.end,
-    this.child,
+    this.body,
     super.key,
   });
 

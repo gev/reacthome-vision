@@ -20,6 +20,6 @@ typedef AppDesktopFactory =
     Widget Function({
       Widget? toolbar,
       Widget? start,
-      Widget? child,
+      Widget? body,
       Widget? end,
     });
