@@ -27,7 +27,7 @@ import 'package:ui_kit_fluent/widgets/scaffold_fluent.dart';
 import 'package:ui_kit_fluent/widgets/show_dialog_fluent.dart';
 import 'package:ui_kit_fluent/widgets/switcher_fluent.dart';
 import 'package:ui_kit_fluent/widgets/text_field_fluent.dart';
-import 'package:ui_kit_material/widgets/app_bar_fixed_material.dart';
+import 'package:ui_kit_material/widgets/app_bar_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
 import 'package:ui_kit_material/widgets/icon_material.dart';
@@ -38,7 +38,7 @@ class WidgetsFluent implements WidgetContainer {
   @override
   AppRootFactory get AppRoot => AppRootFluent.new;
   @override
-  AppBarFactory get AppBar => AppBarFixedMaterial.new;
+  AppBarFactory get AppBar => AppBarMaterial.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
 

@@ -14,7 +14,7 @@ import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_material/theme_material.dart';
-import 'package:ui_kit_material/widgets/app_bar_fixed_material.dart';
+import 'package:ui_kit_material/widgets/app_bar_material.dart';
 import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
 import 'package:ui_kit_material/widgets/app_root_material.dart';
 import 'package:ui_kit_material/widgets/button_filled_material.dart';
@@ -38,7 +38,7 @@ class WidgetsMaterial implements WidgetContainer {
   @override
   AppRootFactory get AppRoot => AppRootMaterial.new;
   @override
-  AppBarFactory get AppBar => AppBarFixedMaterial.new;
+  AppBarFactory get AppBar => AppBarMaterial.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
 
