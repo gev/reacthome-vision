@@ -16,17 +16,19 @@ class AppDesktopFluent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NavigationView(
-      appBar: NavigationAppBar(title: toolbar),
-      pane: NavigationPane(
-        displayMode: PaneDisplayMode.open,
-        items: [
-          PaneItem(
-            icon: const Icon(FluentIcons.home),
-            title: const Text('Home'),
-            body: body!,
-          ),
-        ],
+    return Acrylic(
+      child: NavigationView(
+        appBar: NavigationAppBar(title: toolbar),
+        pane: NavigationPane(
+          displayMode: PaneDisplayMode.open,
+          items: [
+            PaneItem(
+              icon: const Icon(FluentIcons.home),
+              title: const Text('Home'),
+              body: body!,
+            ),
+          ],
+        ),
       ),
     );
   }
