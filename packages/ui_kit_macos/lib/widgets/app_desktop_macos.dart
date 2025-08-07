@@ -28,8 +28,8 @@ class AppDesktopMacos extends StatelessWidget {
       endSidebar: Sidebar(
         minWidth: 200,
         maxWidth: 500,
-        builder: (_, _) {
-          return end ?? const Center(child: Text("Inspector"));
+        builder: (_, controller) {
+          return SingleChildScrollView(controller: controller, child: end);
         },
       ),
       titleBar: TitleBar(height: 51, title: toolbar),

@@ -245,10 +245,11 @@ packages:
   macos_ui:
     dependency: transitive
     description:
-      name: macos_ui
-      sha256: "0a4ed386fdf7ef3269330cd869c9ed1d97deb73c1930f21d54a300e65e5f0508"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: dev
+      resolved-ref: "31d62c4f2d406694cd86cfc0460745cd4c1ab90a"
+      url: "https://github.com/macosui/macos_ui.git"
+    source: git
     version: "2.2.0"
   macos_window_utils:
     dependency: transitive
