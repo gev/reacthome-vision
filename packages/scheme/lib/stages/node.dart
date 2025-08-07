@@ -76,8 +76,8 @@ class NodeStyle {
     this.sigma = 8.0,
   }) : background = Paint()
          ..style = PaintingStyle.fill
-         ..color = backgroundColor
-         ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+         ..color = backgroundColor,
+       //  ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
        fill = Paint()
          ..style = PaintingStyle.fill
          ..color = backgroundColor,

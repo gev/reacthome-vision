@@ -142,6 +142,6 @@ class LineStyle {
          ..color = backgroundColor
          ..strokeWidth = 2 * sigma
          ..strokeCap = StrokeCap.round
-         ..strokeJoin = StrokeJoin.round
-         ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma);
+         ..strokeJoin = StrokeJoin.round;
+  //  ..imageFilter = ImageFilter.blur(sigmaX: sigma, sigmaY: sigma);
 }

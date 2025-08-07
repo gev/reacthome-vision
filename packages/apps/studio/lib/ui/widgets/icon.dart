@@ -7,9 +7,11 @@ class Icon extends StatelessWidget {
   const Icon({required this.iconic, super.key});
 
   @override
-  Widget build(BuildContext context) => CustomPaint(
-    painter: _IconicPainter(iconic),
-    size: Size(iconic.size, iconic.size),
+  Widget build(BuildContext context) => RepaintBoundary(
+    child: CustomPaint(
+      painter: _IconicPainter(iconic),
+      size: Size(iconic.size, iconic.size),
+    ),
   );
 }
 
