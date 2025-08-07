@@ -28,7 +28,7 @@ class AppDesktopFluent extends StatelessWidget {
           ),
         ],
       ),
-      content: body,
+      // content: body,
     );
   }
 }
