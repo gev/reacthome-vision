@@ -8,6 +8,8 @@ class ScaffoldFluent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldPage(header: appBar, content: body);
+    return Acrylic(
+      child: ScaffoldPage(header: appBar, content: body),
+    );
   }
 }
