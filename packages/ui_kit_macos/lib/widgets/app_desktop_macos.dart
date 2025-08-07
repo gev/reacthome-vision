@@ -29,10 +29,12 @@ class AppDesktopMacos extends StatelessWidget {
         minWidth: 200,
         maxWidth: 500,
         builder: (_, controller) {
-          return SingleChildScrollView(controller: controller, child: end);
+          return SizedBox.expand(
+            child: SingleChildScrollView(controller: controller, child: end),
+          );
         },
       ),
-      titleBar: TitleBar(height: 51, title: toolbar),
+      titleBar: TitleBar(height: 52, title: toolbar),
       child: body,
     );
   }
