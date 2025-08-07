@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 
 class AppDesktopFluent extends StatelessWidget {
   final Widget? toolbar;
@@ -16,6 +16,10 @@ class AppDesktopFluent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError('AppDesktopCupertino is not implemented yet. ');
+    return NavigationView(
+      appBar: NavigationAppBar(title: toolbar),
+      pane: NavigationPane(displayMode: PaneDisplayMode.open, items: []),
+      content: body,
+    );
   }
 }
