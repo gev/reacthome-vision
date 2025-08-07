@@ -20,15 +20,17 @@ class AppRootFluent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FluentApp(
-      title: title,
-      themeMode: ThemeMode.system,
-      theme: makeFluentTheme(seedColor, Brightness.light),
-      darkTheme: makeFluentTheme(seedColor, Brightness.dark),
-      localizationsDelegates: localizationsDelegates,
-      supportedLocales: supportedLocales,
-      initialRoute: navigation.initialRoute,
-      routes: navigation.routes,
+    return Acrylic(
+      child: FluentApp(
+        title: title,
+        themeMode: ThemeMode.system,
+        theme: makeFluentTheme(seedColor, Brightness.light),
+        darkTheme: makeFluentTheme(seedColor, Brightness.dark),
+        localizationsDelegates: localizationsDelegates,
+        supportedLocales: supportedLocales,
+        initialRoute: navigation.initialRoute,
+        routes: navigation.routes,
+      ),
     );
   }
 }
