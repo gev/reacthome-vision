@@ -24,7 +24,7 @@ class AppDesktopFluent extends StatelessWidget {
           PaneItem(
             icon: const Icon(FluentIcons.home),
             title: const Text('Home'),
-            body: Acrylic(child: body!),
+            body: Acrylic(),
           ),
         ],
       ),
