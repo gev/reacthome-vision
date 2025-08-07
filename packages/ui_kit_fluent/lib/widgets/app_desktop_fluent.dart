@@ -18,7 +18,16 @@ class AppDesktopFluent extends StatelessWidget {
   Widget build(BuildContext context) {
     return NavigationView(
       appBar: NavigationAppBar(title: toolbar),
-      pane: NavigationPane(displayMode: PaneDisplayMode.open, items: []),
+      pane: NavigationPane(
+        displayMode: PaneDisplayMode.open,
+        items: [
+          PaneItem(
+            icon: const Icon(FluentIcons.home),
+            title: const Text('Home'),
+            body: start ?? const Center(child: Text("Sidebar Start")),
+          ),
+        ],
+      ),
       content: body,
     );
   }
