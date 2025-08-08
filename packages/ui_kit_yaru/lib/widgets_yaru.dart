@@ -23,7 +23,6 @@ import 'package:ui_kit_material/widgets/show_dialog_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 import 'package:ui_kit_yaru/theme_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_bar_yaru.dart';
-import 'package:ui_kit_yaru/widgets/app_desktop_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_root_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_action_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_alert_yaru.dart';
@@ -42,8 +41,6 @@ class WidgetsYaru implements WidgetContainer {
   AppBarFactory get AppBar => AppBarYaru.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
-  @override
-  AppDesktopFactory get AppDesktop => AppDesktopYaru.new;
 
   @override
   ButtonFactory get Button => ButtonFilledMaterial.new;

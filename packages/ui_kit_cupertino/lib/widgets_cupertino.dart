@@ -16,7 +16,6 @@ import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_cupertino/theme_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/app_bar_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/app_bar_sliver_cupertino.dart';
-import 'package:ui_kit_cupertino/widgets/app_desktop_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/app_root_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/button_filled_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/button_icon_filled_cupertino.dart';
@@ -42,8 +41,6 @@ class WidgetsCupertino implements WidgetContainer {
   AppBarFactory get AppBar => AppBarCupertino.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverCupertino.new;
-  @override
-  AppDesktopFactory get AppDesktop => AppDesktopCupertino.new;
 
   @override
   ButtonFactory get Button => ButtonFilledCupertino.new;
