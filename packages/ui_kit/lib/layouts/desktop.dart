@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/widgets.dart';
 
 class Desktop extends StatelessWidget {
@@ -16,19 +18,22 @@ class Desktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 52, child: title),
-        Expanded(
-          child: Row(
-            children: [
-              SizedBox(width: 200, child: startSidebar),
-              Expanded(child: body),
-              SizedBox(width: 200, child: endSidebar),
-            ],
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 100.0, sigmaY: 100.0),
+      child: Column(
+        children: [
+          SizedBox(height: 52, child: title),
+          Expanded(
+            child: Row(
+              children: [
+                SizedBox(width: 200, child: startSidebar),
+                Expanded(child: body),
+                SizedBox(width: 200, child: endSidebar),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
