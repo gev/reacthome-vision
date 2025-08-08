@@ -6,7 +6,7 @@ Future<void> applyAcrylicEffect() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Window.initialize();
   await Window.setEffect(
-    effect: WindowEffect.acrylic,
+    effect: WindowEffect.transparent,
     // color: const Color(0xCC222222),
   );
 }
