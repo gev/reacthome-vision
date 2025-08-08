@@ -4,15 +4,15 @@ import 'package:scheme/stages/iconic_factory.dart';
 import 'package:studio/ui/scheme/samples/node_scheme.dart';
 import 'package:studio/ui/views/scheme_editor.dart';
 import 'package:studio/ui/widgets/icon.dart' as w;
-import 'package:ui_kit/widgets.dart';
+import 'package:ui_kit/layouts/desktop.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return UI.AppDesktop(
-      end: Wrap(
+    return Desktop(
+      endSidebar: Wrap(
         children: [
           for (final it in ItemType.values)
             Draggable(
