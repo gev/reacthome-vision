@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  flutter_acrylic
   gtk
   handy_window
   screen_retriever_linux
