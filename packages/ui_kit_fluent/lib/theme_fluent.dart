@@ -28,4 +28,7 @@ class ThemeFluent implements ui_kit.Theme {
 }
 
 FluentThemeData makeFluentTheme(Color seedColor, Brightness brightness) =>
-    FluentThemeData(brightness: brightness);
+    FluentThemeData(
+      brightness: brightness,
+      scaffoldBackgroundColor: Colors.transparent,
+    );
