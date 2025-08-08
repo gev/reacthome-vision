@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:ui_kit/widgets.dart';
 
 class CenterLayout extends StatelessWidget {
   final Widget body;
@@ -8,6 +7,6 @@ class CenterLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UI.Scaffold(body: Center(child: body));
+    return Center(child: body);
   }
 }
