@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:multi_split_view/multi_split_view.dart';
 
 class Desktop extends StatelessWidget {
   final Widget? title;
@@ -19,14 +20,12 @@ class Desktop extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 52, child: title),
-        Expanded(
-          child: Row(
-            children: [
-              SizedBox(width: 200, child: startSidebar),
-              Expanded(child: body),
-              SizedBox(width: 200, child: endSidebar),
-            ],
-          ),
+        MultiSplitView(
+          initialAreas: [
+            Area(builder: (context, area) => startSidebar!),
+            Area(builder: (context, area) => body),
+            Area(builder: (context, area) => endSidebar!),
+          ],
         ),
       ],
     );
