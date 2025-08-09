@@ -1,11 +1,19 @@
-import 'package:macos_ui/macos_ui.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_acrylic/window.dart';
+import 'package:flutter_acrylic/window_effect.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit_cupertino/icons_cupertino.dart';
 import 'package:ui_kit_macos/widgets_macos.dart';
 
 Future<void> configureMacosWindow() async {
-  const config = MacosWindowUtilsConfig();
-  await config.apply();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Window.initialize();
+  await Window.setEffect(
+    effect: WindowEffect.transparent,
+    // color: const Color(0xCC222222),
+  );
+  // const config = MacosWindowUtilsConfig();
+  // await config.apply();
 }
 
 void initMacOSKit() {
