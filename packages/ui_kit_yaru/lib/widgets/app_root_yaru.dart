@@ -23,14 +23,8 @@ class AppRootYaru extends StatelessWidget {
     return MaterialApp(
       title: title,
       themeMode: ThemeMode.system,
-      theme: createYaruLightTheme(
-        primaryColor: seedColor,
-        lightBaseColor: Colors.transparent,
-      ),
-      darkTheme: createYaruDarkTheme(
-        primaryColor: seedColor,
-        darkBaseColor: Colors.transparent,
-      ),
+      theme: createYaruLightTheme(primaryColor: seedColor),
+      darkTheme: createYaruDarkTheme(primaryColor: seedColor),
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
       initialRoute: navigation.initialRoute,
