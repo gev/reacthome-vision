@@ -12,8 +12,6 @@ Future<void> configureMacosWindow() async {
     effect: WindowEffect.transparent,
     // color: const Color(0xCC222222),
   );
-  // const config = MacosWindowUtilsConfig();
-  // await config.apply();
 }
 
 void initMacOSKit() {
