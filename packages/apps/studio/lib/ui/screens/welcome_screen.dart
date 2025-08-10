@@ -10,6 +10,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Desktop(
+      startSidebar: const SizedBox(),
       endSidebar: const Palette(),
       body: SchemeEditor(scheme: nodeScheme),
     );

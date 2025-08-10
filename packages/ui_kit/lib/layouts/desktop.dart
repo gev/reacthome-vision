@@ -3,14 +3,14 @@ import 'package:multi_split_view/multi_split_view.dart';
 
 class Desktop extends StatelessWidget {
   final Widget? title;
-  final Widget? startSidebar;
-  final Widget? endSidebar;
+  final Widget startSidebar;
+  final Widget endSidebar;
   final Widget body;
 
   const Desktop({
     this.title,
-    this.startSidebar,
-    this.endSidebar,
+    required this.startSidebar,
+    required this.endSidebar,
     required this.body,
     super.key,
   });
@@ -23,15 +23,9 @@ class Desktop extends StatelessWidget {
         Expanded(
           child: MultiSplitView(
             initialAreas: [
-              Area(
-                size: 250,
-                builder: (context, area) => startSidebar ?? Draft.blue(),
-              ),
+              Area(size: 250, builder: (context, area) => startSidebar),
               Area(builder: (context, area) => body),
-              Area(
-                size: 250,
-                builder: (context, area) => endSidebar ?? Draft.green(),
-              ),
+              Area(size: 250, builder: (context, area) => endSidebar),
             ],
           ),
         ),

@@ -36,5 +36,4 @@ MacosThemeData makeMacOSTheme(
   // primaryColor: seedColor,
   accentColor: accentColor,
   brightness: brightness,
-  canvasColor: MacosColors.transparent,
 );

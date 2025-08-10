@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:scheme/core/item.dart';
-import 'package:scheme/stages/iconic_factory.dart';
 import 'package:studio/ui/widgets/scheme_icon.dart';
 
 class Palette extends StatelessWidget {
@@ -13,19 +13,16 @@ class Palette extends StatelessWidget {
         children: [
           for (final it in ItemType.values)
             Draggable(
+              key: ValueKey(it),
               data: it,
               dragAnchorStrategy: (_, _, _) => const Offset(60, 60),
               feedback: Padding(
                 padding: const EdgeInsetsGeometry.all(16),
-                child: SchemeIcon(
-                  iconic: selectIconic(it, const Offset(40, 40), 80),
-                ),
+                child: SchemeIcon(type: it, size: 80),
               ),
               child: Padding(
                 padding: const EdgeInsetsGeometry.all(16),
-                child: SchemeIcon(
-                  iconic: selectIconic(it, const Offset(20, 20), 40),
-                ),
+                child: SchemeIcon(type: it, size: 40),
               ),
             ),
         ],

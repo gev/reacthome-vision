@@ -1,5 +1,4 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:scheme/core/item.dart';
 import 'package:scheme/stages/iconic_factory.dart';
 import 'package:ui_kit/figures/figure.dart';
@@ -23,7 +22,12 @@ class Node implements Paintable, Hittable {
     required this.center,
     required this.style,
   }) : _radiusSquared = radius * radius,
-       _iconic = selectIconic(type, center, 30);
+       _iconic = selectIconic(
+         type: type,
+         offset: center,
+         size: 30,
+         style: makeIconicStyle(style.stroke.color),
+       );
 
   Node moveTo(Offset offset) => Node(
     type: type,
