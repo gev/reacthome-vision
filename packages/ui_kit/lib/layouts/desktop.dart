@@ -20,12 +20,20 @@ class Desktop extends StatelessWidget {
     return Column(
       children: [
         SizedBox(height: 52, child: title),
-        MultiSplitView(
-          initialAreas: [
-            Area(builder: (context, area) => startSidebar!),
-            Area(builder: (context, area) => body),
-            Area(builder: (context, area) => endSidebar!),
-          ],
+        Expanded(
+          child: MultiSplitView(
+            initialAreas: [
+              Area(
+                size: 250,
+                builder: (context, area) => startSidebar ?? Draft.blue(),
+              ),
+              Area(builder: (context, area) => body),
+              Area(
+                size: 250,
+                builder: (context, area) => endSidebar ?? Draft.green(),
+              ),
+            ],
+          ),
         ),
       ],
     );
