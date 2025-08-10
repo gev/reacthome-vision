@@ -8,22 +8,28 @@ class Palette extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      children: [
-        for (final it in ItemType.values)
-          Draggable(
-            data: it,
-            dragAnchorStrategy: (_, _, _) => const Offset(60, 60),
-            feedback: Padding(
-              padding: const EdgeInsetsGeometry.all(16),
-              child: w.Icon(iconic: selectIconic(it, const Offset(40, 40), 80)),
+    return SingleChildScrollView(
+      child: Wrap(
+        children: [
+          for (final it in ItemType.values)
+            Draggable(
+              data: it,
+              dragAnchorStrategy: (_, _, _) => const Offset(60, 60),
+              feedback: Padding(
+                padding: const EdgeInsetsGeometry.all(16),
+                child: w.Icon(
+                  iconic: selectIconic(it, const Offset(40, 40), 80),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsetsGeometry.all(16),
+                child: w.Icon(
+                  iconic: selectIconic(it, const Offset(20, 20), 40),
+                ),
+              ),
             ),
-            child: Padding(
-              padding: const EdgeInsetsGeometry.all(16),
-              child: w.Icon(iconic: selectIconic(it, const Offset(20, 20), 40)),
-            ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
