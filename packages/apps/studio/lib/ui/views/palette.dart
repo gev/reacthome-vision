@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:scheme/core/item.dart';
 import 'package:scheme/stages/iconic_factory.dart';
-import 'package:studio/ui/widgets/icon.dart' as w;
+import 'package:studio/ui/widgets/scheme_icon.dart';
 
 class Palette extends StatelessWidget {
   const Palette({super.key});
@@ -17,13 +17,13 @@ class Palette extends StatelessWidget {
               dragAnchorStrategy: (_, _, _) => const Offset(60, 60),
               feedback: Padding(
                 padding: const EdgeInsetsGeometry.all(16),
-                child: w.Icon(
+                child: SchemeIcon(
                   iconic: selectIconic(it, const Offset(40, 40), 80),
                 ),
               ),
               child: Padding(
                 padding: const EdgeInsetsGeometry.all(16),
-                child: w.Icon(
+                child: SchemeIcon(
                   iconic: selectIconic(it, const Offset(20, 20), 40),
                 ),
               ),

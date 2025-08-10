@@ -1,10 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:ui_kit/figures/iconic.dart';
 
-class Icon extends StatelessWidget {
+class SchemeIcon extends StatelessWidget {
   final Iconic iconic;
 
-  const Icon({required this.iconic, super.key});
+  const SchemeIcon({required this.iconic, super.key});
 
   @override
   Widget build(BuildContext context) => RepaintBoundary(
