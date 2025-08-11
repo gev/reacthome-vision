@@ -12,6 +12,8 @@ Future<void> configureFluentWindows() async {
     effect: WindowEffect.acrylic,
     // color: const Color(0xCC222222),
   );
+  await Window.hideWindowControls();
+  await Window.hideTitle();
 }
 
 void initFluentKit() {
