@@ -19,45 +19,50 @@ class AppDesktopYaru extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Desktop(
-      title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          spacing: 8,
-          children: [
-            ?title,
-            YaruWindowControl(
-              type: YaruWindowControlType.minimize,
-              onTap: () {
-                YaruWindow.minimize(context);
-              },
-            ),
-            StreamBuilder(
-              stream: YaruWindow.states(context),
-              builder: (context, snapshot) {
-                final isMaximized = snapshot.data?.isMaximized ?? false;
-                return isMaximized
-                    ? YaruWindowControl(
-                        type: YaruWindowControlType.restore,
-                        onTap: () {
-                          YaruWindow.restore(context);
-                        },
-                      )
-                    : YaruWindowControl(
-                        type: YaruWindowControlType.maximize,
-                        onTap: () {
-                          YaruWindow.maximize(context);
-                        },
-                      );
-              },
-            ),
-            YaruWindowControl(
-              type: YaruWindowControlType.close,
-              onTap: () {
-                YaruWindow.close(context);
-              },
-            ),
-          ],
+      title: GestureDetector(
+        onTapMove: (_) {
+          YaruWindow.drag(context);
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            spacing: 8,
+            children: [
+              ?title,
+              YaruWindowControl(
+                type: YaruWindowControlType.minimize,
+                onTap: () {
+                  YaruWindow.minimize(context);
+                },
+              ),
+              StreamBuilder(
+                stream: YaruWindow.states(context),
+                builder: (context, snapshot) {
+                  final isMaximized = snapshot.data?.isMaximized ?? false;
+                  return isMaximized
+                      ? YaruWindowControl(
+                          type: YaruWindowControlType.restore,
+                          onTap: () {
+                            YaruWindow.restore(context);
+                          },
+                        )
+                      : YaruWindowControl(
+                          type: YaruWindowControlType.maximize,
+                          onTap: () {
+                            YaruWindow.maximize(context);
+                          },
+                        );
+                },
+              ),
+              YaruWindowControl(
+                type: YaruWindowControlType.close,
+                onTap: () {
+                  YaruWindow.close(context);
+                },
+              ),
+            ],
+          ),
         ),
       ),
       startSidebar: startSidebar,
