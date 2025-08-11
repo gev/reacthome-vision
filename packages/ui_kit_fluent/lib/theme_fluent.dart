@@ -18,7 +18,7 @@ class ThemeFluent implements ui_kit.Theme {
   TextStyle get bodyStyle => _themeData.typography.body!;
 
   @override
-  Color get backgroundColor => _themeData.scaffoldBackgroundColor;
+  Color get backgroundColor => _themeData.inactiveBackgroundColor;
 
   @override
   Color get primaryColor => _themeData.activeColor;
@@ -30,5 +30,5 @@ class ThemeFluent implements ui_kit.Theme {
 FluentThemeData makeFluentTheme(Color seedColor, Brightness brightness) =>
     FluentThemeData(
       brightness: brightness,
-      // acrylicBackgroundColor: Colors.transparent,
+      acrylicBackgroundColor: Colors.transparent,
     );
