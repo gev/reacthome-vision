@@ -3,7 +3,7 @@ import 'package:studio/make/make.dart';
 import 'package:ui_kit_fluent/init.dart';
 
 void main() async {
-  await configureFluentWindows();
+  await configureFluentWindow();
   initFluentKit();
   runApp(await make());
 }
