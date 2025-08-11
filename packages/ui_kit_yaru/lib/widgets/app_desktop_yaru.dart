@@ -20,10 +20,10 @@ class AppDesktopYaru extends StatelessWidget {
   Widget build(BuildContext context) {
     return Desktop(
       title: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          spacing: 16,
+          spacing: 8,
           children: [
             ?title,
             YaruWindowControl(
@@ -49,12 +49,6 @@ class AppDesktopYaru extends StatelessWidget {
                           YaruWindow.maximize(context);
                         },
                       );
-              },
-            ),
-            YaruWindowControl(
-              type: YaruWindowControlType.restore,
-              onTap: () {
-                YaruWindow.restore(context);
               },
             ),
             YaruWindowControl(
