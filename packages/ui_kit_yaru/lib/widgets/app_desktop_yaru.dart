@@ -19,18 +19,52 @@ class AppDesktopYaru extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Desktop(
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          ?title,
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 16, 8),
-            child: YaruWindowControl(
-              type: YaruWindowControlType.close,
-              onTap: () {},
+      title: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          spacing: 16,
+          children: [
+            ?title,
+            YaruWindowControl(
+              type: YaruWindowControlType.minimize,
+              onTap: () {
+                YaruWindow.minimize(context);
+              },
             ),
-          ),
-        ],
+            FutureBuilder(
+              future: YaruWindow.state(context),
+              builder: (context, snapshot) {
+                final isMaximized = snapshot.data?.isMaximized ?? false;
+                return isMaximized
+                    ? YaruWindowControl(
+                        type: YaruWindowControlType.restore,
+                        onTap: () {
+                          YaruWindow.restore(context);
+                        },
+                      )
+                    : YaruWindowControl(
+                        type: YaruWindowControlType.maximize,
+                        onTap: () {
+                          YaruWindow.maximize(context);
+                        },
+                      );
+              },
+            ),
+            YaruWindowControl(
+              type: YaruWindowControlType.restore,
+              onTap: () {
+                YaruWindow.restore(context);
+              },
+            ),
+            YaruWindowControl(
+              type: YaruWindowControlType.close,
+              onTap: () {
+                YaruWindow.close(context);
+              },
+            ),
+          ],
+        ),
       ),
       startSidebar: startSidebar,
       endSidebar: endSidebar,
