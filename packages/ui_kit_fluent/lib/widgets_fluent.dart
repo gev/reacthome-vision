@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:ui_kit/layout_padding.dart';
-import 'package:ui_kit/layouts/desktop.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
@@ -15,6 +14,7 @@ import 'package:ui_kit/widgets/scaffold.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_fluent/theme_fluent.dart';
+import 'package:ui_kit_fluent/widgets/app_desktop_fluent.dart';
 import 'package:ui_kit_fluent/widgets/app_root_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_filled_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_icon_filled_fluent.dart';
@@ -43,7 +43,7 @@ class WidgetsFluent implements WidgetContainer {
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverMaterial.new;
   @override
-  AppDesktopFactory get AppDesktop => Desktop.new;
+  AppDesktopFactory get AppDesktop => AppDesktopFluent.new;
 
   @override
   ButtonFactory get Button => ButtonFilledFluent.new;
