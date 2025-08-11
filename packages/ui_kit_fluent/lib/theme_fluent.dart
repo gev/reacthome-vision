@@ -30,5 +30,5 @@ class ThemeFluent implements ui_kit.Theme {
 FluentThemeData makeFluentTheme(Color seedColor, Brightness brightness) =>
     FluentThemeData(
       brightness: brightness,
-      acrylicBackgroundColor: Colors.transparent,
+      // acrylicBackgroundColor: Colors.transparent,
     );

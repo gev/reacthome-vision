@@ -1,5 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:ui_kit/layouts/desktop.dart';
+import 'package:window_manager/window_manager.dart';
 
 class AppDesktopFluent extends StatelessWidget {
   final Widget? title;
@@ -17,8 +18,9 @@ class AppDesktopFluent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Desktop(
-      title: title,
+      title: WindowCaption(brightness: theme.brightness, title: title),
       startSidebar: startSidebar,
       endSidebar: endSidebar,
       body: body,
