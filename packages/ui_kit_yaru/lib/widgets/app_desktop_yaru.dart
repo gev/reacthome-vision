@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:ui_kit/layouts/desktop.dart';
+import 'package:ui_kit_yaru/theme_yaru.dart';
 import 'package:yaru/yaru.dart';
 
 class AppDesktopYaru extends StatelessWidget {
@@ -18,8 +19,12 @@ class AppDesktopYaru extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = ThemeYaru(context);
     return Desktop(
-      title: YaruWindowTitleBar(title: title),
+      title: YaruWindowTitleBar(
+        backgroundColor: theme.backgroundColor,
+        title: title,
+      ),
       startSidebar: startSidebar,
       endSidebar: endSidebar,
       body: body,
