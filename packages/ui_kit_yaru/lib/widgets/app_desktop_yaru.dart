@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:ui_kit/layouts/desktop.dart';
+import 'package:yaru/yaru.dart';
 
 class AppDesktopYaru extends StatelessWidget {
   final Widget? title;
@@ -18,7 +19,12 @@ class AppDesktopYaru extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Desktop(
-      title: title,
+      title: Row(
+        children: [
+          ?title,
+          YaruWindowControl(type: YaruWindowControlType.close, onTap: () {}),
+        ],
+      ),
       startSidebar: startSidebar,
       endSidebar: endSidebar,
       body: body,
