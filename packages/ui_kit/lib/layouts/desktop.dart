@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:multi_split_view/multi_split_view.dart';
+import 'package:ui_kit/widgets.dart';
 
 class Desktop extends StatelessWidget {
   final Widget? title;
@@ -17,19 +18,47 @@ class Desktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 52, child: title),
-        Expanded(
-          child: MultiSplitView(
-            initialAreas: [
-              Area(size: 250, builder: (context, area) => startSidebar),
-              Area(builder: (context, area) => body),
-              Area(size: 250, builder: (context, area) => endSidebar),
-            ],
-          ),
+    return Expanded(
+      child: MultiSplitViewTheme(
+        data: MultiSplitViewThemeData(dividerThickness: 4),
+        child: MultiSplitView(
+          initialAreas: [
+            Area(
+              min: 160,
+              size: 240,
+              max: 320,
+              builder: (context, area) => startSidebar,
+            ),
+            Area(
+              size: 250,
+              builder: (context, area) {
+                final theme = UI.themeOf(context);
+                return Container(
+                  color: theme.backgroundColor,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 52, child: title),
+                      Expanded(
+                        child: MultiSplitView(
+                          initialAreas: [
+                            Area(builder: (context, area) => body),
+                            Area(
+                              min: 160,
+                              size: 240,
+                              max: 320,
+                              builder: (context, area) => endSidebar,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }

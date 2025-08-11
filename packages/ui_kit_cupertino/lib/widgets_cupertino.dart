@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'package:ui_kit/layout_padding.dart';
+import 'package:ui_kit/layouts/desktop.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
@@ -41,6 +42,8 @@ class WidgetsCupertino implements WidgetContainer {
   AppBarFactory get AppBar => AppBarCupertino.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverCupertino.new;
+  @override
+  AppDesktopFactory get AppDesktop => Desktop.new;
 
   @override
   ButtonFactory get Button => ButtonFilledCupertino.new;

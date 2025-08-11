@@ -20,6 +20,7 @@ import 'package:ui_kit_cupertino/widgets/list_section_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/list_tile_cupertino.dart';
 import 'package:ui_kit_macos/theme_macos.dart';
 import 'package:ui_kit_macos/widgets/app_bar_macos.dart';
+import 'package:ui_kit_macos/widgets/app_desktop_macos.dart';
 import 'package:ui_kit_macos/widgets/app_root_macos.dart';
 import 'package:ui_kit_macos/widgets/button_filled_macos.dart';
 import 'package:ui_kit_macos/widgets/button_icon_filled_macos.dart';
@@ -41,6 +42,8 @@ class WidgetsMacos implements WidgetContainer {
   AppBarFactory get AppBar => AppBarMacos.new;
   @override
   AppBarSliverFactory get AppBarSliver => AppBarSliverCupertino.new;
+  @override
+  AppDesktopFactory get AppDesktop => AppDesktopMacos.new;
 
   @override
   ButtonFactory get Button => ButtonFilledMacos.new;
