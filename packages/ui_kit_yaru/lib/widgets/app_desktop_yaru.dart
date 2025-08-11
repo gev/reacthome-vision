@@ -20,9 +20,16 @@ class AppDesktopYaru extends StatelessWidget {
   Widget build(BuildContext context) {
     return Desktop(
       title: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           ?title,
-          YaruWindowControl(type: YaruWindowControlType.close, onTap: () {}),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 16, 8),
+            child: YaruWindowControl(
+              type: YaruWindowControlType.close,
+              onTap: () {},
+            ),
+          ),
         ],
       ),
       startSidebar: startSidebar,
