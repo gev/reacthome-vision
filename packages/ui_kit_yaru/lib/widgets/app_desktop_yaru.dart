@@ -32,8 +32,8 @@ class AppDesktopYaru extends StatelessWidget {
                 YaruWindow.minimize(context);
               },
             ),
-            FutureBuilder(
-              future: YaruWindow.state(context),
+            StreamBuilder(
+              stream: YaruWindow.states(context),
               builder: (context, snapshot) {
                 final isMaximized = snapshot.data?.isMaximized ?? false;
                 return isMaximized
