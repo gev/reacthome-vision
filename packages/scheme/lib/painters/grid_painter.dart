@@ -37,7 +37,7 @@ class GridPainter extends CustomPainter {
     final scaled = preScaled * step;
 
     void line({required Offset from, required Offset to}) {
-      canvas.drawLine(from, to, style.axisStyle);
+      canvas.drawLine(from, to, style.axis);
     }
 
     void label({required Offset offset}) {
@@ -59,8 +59,8 @@ class GridPainter extends CustomPainter {
           }
         }
       }
-      style.pointStyle.strokeWidth = 1 + controller.scale;
-      canvas.drawPoints(PointMode.points, points, style.pointStyle);
+      style.point.strokeWidth = 1 + controller.scale;
+      canvas.drawPoints(PointMode.points, points, style.point);
     }
 
     void xAxis() {
@@ -73,11 +73,14 @@ class GridPainter extends CustomPainter {
       label(offset: Offset(4, y + 4));
     }
 
-    canvas.drawColor(style.backgroundColor, BlendMode.src);
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      style.background,
+    );
 
     i = 0;
     x = controller.offset.dx;
-    while (x >= 0) {
+    while (x > 0) {
       xAxis();
       x -= scaled;
       i -= step;
@@ -127,19 +130,23 @@ class GridStyle {
   final double axisLength;
   final double axisStrokeWidth;
 
-  final Paint axisStyle;
-  final Paint pointStyle;
+  final Paint axis;
+  final Paint point;
+  final Paint background;
 
   GridStyle({
     required this.backgroundColor,
     required this.labelStyle,
     required this.axisStrokeWidth,
   }) : axisLength = labelStyle.fontSize!,
-       axisStyle = Paint()
+       axis = Paint()
          ..style = PaintingStyle.stroke
          ..color = labelStyle.color!.withAlpha(128),
-       pointStyle = Paint()
+       point = Paint()
          ..style = PaintingStyle.stroke
          ..strokeCap = StrokeCap.round
-         ..color = labelStyle.color!.withAlpha(64);
+         ..color = labelStyle.color!.withAlpha(64),
+       background = Paint()
+         ..style = PaintingStyle.fill
+         ..color = backgroundColor;
 }
