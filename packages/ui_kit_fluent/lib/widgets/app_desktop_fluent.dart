@@ -18,23 +18,12 @@ class AppDesktopFluent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Desktop(
-      title: _WindowCaptionWrapper(title: title),
+      title: WindowCaption(brightness: theme.brightness, title: title),
       startSidebar: startSidebar,
       endSidebar: endSidebar,
       body: body,
     );
-  }
-}
-
-class _WindowCaptionWrapper extends StatelessWidget {
-  final Widget? title;
-
-  const _WindowCaptionWrapper({this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return WindowCaption(brightness: theme.brightness, title: title);
   }
 }
