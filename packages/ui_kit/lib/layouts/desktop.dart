@@ -18,46 +18,44 @@ class Desktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: MultiSplitViewTheme(
-        data: MultiSplitViewThemeData(dividerThickness: 4),
-        child: MultiSplitView(
-          initialAreas: [
-            Area(
-              min: 160,
-              size: 240,
-              max: 320,
-              builder: (context, area) => startSidebar,
-            ),
-            Area(
-              size: 250,
-              builder: (context, area) {
-                final theme = UI.themeOf(context);
-                return Container(
-                  color: theme.backgroundColor,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 52, child: title),
-                      Expanded(
-                        child: MultiSplitView(
-                          initialAreas: [
-                            Area(builder: (context, area) => body),
-                            Area(
-                              min: 160,
-                              size: 240,
-                              max: 320,
-                              builder: (context, area) => endSidebar,
-                            ),
-                          ],
-                        ),
+    return MultiSplitViewTheme(
+      data: MultiSplitViewThemeData(dividerThickness: 4),
+      child: MultiSplitView(
+        initialAreas: [
+          Area(
+            min: 160,
+            size: 240,
+            max: 320,
+            builder: (context, area) => startSidebar,
+          ),
+          Area(
+            size: 250,
+            builder: (context, area) {
+              final theme = UI.themeOf(context);
+              return Container(
+                color: theme.backgroundColor,
+                child: Column(
+                  children: [
+                    SizedBox(height: 52, child: title),
+                    Expanded(
+                      child: MultiSplitView(
+                        initialAreas: [
+                          Area(builder: (context, area) => body),
+                          Area(
+                            min: 160,
+                            size: 240,
+                            max: 320,
+                            builder: (context, area) => endSidebar,
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
