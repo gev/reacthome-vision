@@ -5,5 +5,4 @@ import 'package:ui_kit_macos/init.dart';
 void main() async {
   await configureMacosWindow();
   initMacOSKit();
-  runApp(await make());
-}
+  runApp(awa

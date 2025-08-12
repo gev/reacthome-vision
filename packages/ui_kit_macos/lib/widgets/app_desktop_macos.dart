@@ -18,7 +18,7 @@ class AppDesktopMacos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Desktop(
-      title: title,
+      title: Center(child: title),
       startSidebar: startSidebar,
       endSidebar: endSidebar,
       body: body,
