@@ -30,7 +30,7 @@ class AppDesktopFluent extends StatelessWidget {
 class _WindowCaptionWrapper extends StatelessWidget {
   final Widget? title;
 
-  const _WindowCaptionWrapper({this.title, super.key});
+  const _WindowCaptionWrapper({this.title});
 
   @override
   Widget build(BuildContext context) {
