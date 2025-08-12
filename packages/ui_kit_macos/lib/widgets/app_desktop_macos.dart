@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:macos_ui/macos_ui.dart';
 import 'package:ui_kit/layouts/desktop.dart';
 
 class AppDesktopMacos extends StatelessWidget {
@@ -18,14 +17,11 @@ class AppDesktopMacos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MacosWindow(
-      backgroundColor: MacosColors.transparent,
-      child: Desktop(
-        title: title,
-        startSidebar: startSidebar,
-        endSidebar: endSidebar,
-        body: body,
-      ),
+    return Desktop(
+      title: title,
+      startSidebar: startSidebar,
+      endSidebar: endSidebar,
+      body: body,
     );
   }
 }
