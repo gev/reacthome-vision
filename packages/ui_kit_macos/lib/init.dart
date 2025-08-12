@@ -10,7 +10,6 @@ Future<void> configureMacosWindow() async {
   WidgetsFlutterBinding.ensureInitialized();
   const config = MacosWindowUtilsConfig();
   await config.apply();
-  // await Window.initialize();
   await Window.setEffect(
     effect: WindowEffect.acrylic,
     color: const Color(0xCC222222),
