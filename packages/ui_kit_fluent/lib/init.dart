@@ -8,18 +8,18 @@ import 'package:window_manager/window_manager.dart';
 
 Future<void> configureFluentWindow() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Window.initialize();
-  await Window.hideWindowControls();
-  await WindowManager.instance.ensureInitialized();
-  await windowManager.waitUntilReadyToShow();
-  await windowManager.setTitleBarStyle(
-    TitleBarStyle.hidden,
-    windowButtonVisibility: false,
-  );
-  await windowManager.show();
-  await Window.setEffect(
-    effect: WindowEffect.acrylic,
-    // color: const Color(0xCC222222),
+  await windowManager.ensureInitialized();
+  windowManager.waitUntilReadyToShow(
+    const WindowOptions(titleBarStyle: TitleBarStyle.hidden),
+    () async {
+      await Window.initialize();
+      await Window.setEffect(
+        effect: WindowEffect.acrylic,
+        // color: const Color(0xCC222222),
+      );
+      await windowManager.show();
+      await windowManager.focus();
+    },
   );
 }
 
