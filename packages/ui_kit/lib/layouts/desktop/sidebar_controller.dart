@@ -14,8 +14,12 @@ class SidebarController extends ValueNotifier<double> {
     this.maxSize = double.infinity,
   });
 
-  void resizeBy(double delta) {
-    value = max(minSize, min(maxSize, value + delta));
+  void resize(double size) {
+    value = max(minSize, min(maxSize, size));
     notifyListeners();
+  }
+
+  void resizeBy(double delta) {
+    resize(size + delta);
   }
 }
