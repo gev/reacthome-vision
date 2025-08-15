@@ -1,3 +1,3 @@
 import 'dart:ui';
 
-const windowSize = Size(1280, 800);
+const windowSize = Size(1200, 675);
