@@ -35,43 +35,40 @@ class _DesktopState extends State<Desktop> {
   @override
   Widget build(BuildContext context) {
     final theme = UI.themeOf(context);
-    return SizedBox(
-      width: MediaQuery.of(context).size.width, // или фиксированная ширина
-      child: Row(
-        children: [
-          ListenableBuilder(
-            listenable: startSidebarController,
-            builder: (context, child) =>
-                StartSideBar(controller: startSidebarController, child: child),
-            child: widget.startSidebar,
-          ),
-          Expanded(
-            child: Container(
-              color: theme.backgroundColor,
-              child: Column(
-                children: [
-                  SizedBox(height: 52, child: widget.title),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(child: ClipRect(child: widget.body)),
-                        ListenableBuilder(
-                          listenable: endSidebarController,
-                          builder: (context, child) => EndSideBar(
-                            controller: endSidebarController,
-                            child: child,
-                          ),
-                          child: widget.endSidebar,
+    return Row(
+      children: [
+        ListenableBuilder(
+          listenable: startSidebarController,
+          builder: (context, child) =>
+              StartSideBar(controller: startSidebarController, child: child),
+          child: widget.startSidebar,
+        ),
+        Expanded(
+          child: Container(
+            color: theme.backgroundColor,
+            child: Column(
+              children: [
+                SizedBox(height: 52, child: widget.title),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(child: ClipRect(child: widget.body)),
+                      ListenableBuilder(
+                        listenable: endSidebarController,
+                        builder: (context, child) => EndSideBar(
+                          controller: endSidebarController,
+                          child: child,
                         ),
-                      ],
-                    ),
+                        child: widget.endSidebar,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
