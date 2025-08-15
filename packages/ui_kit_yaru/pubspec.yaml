@@ -21,7 +21,11 @@ dependencies:
     path: ../ui_kit_material
 
   window_manager: ^0.5.1
-  yaru: ^8.1.0
+
+  yaru: 
+    git:
+      url: https://github.com/ubuntu/yaru.dart.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
