@@ -24,7 +24,7 @@ dependencies:
 
   yaru: 
     git:
-      url: https://github.com/ubuntu/yaru.dart.git
+      url: https://github.com/gev/yaru.dart.git
       ref: main
 
 dev_dependencies:
