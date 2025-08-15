@@ -22,7 +22,6 @@ class AppRootYaru extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: title,
-      themeMode: ThemeMode.system,
       theme: createYaruLightTheme(primaryColor: seedColor),
       darkTheme: createYaruDarkTheme(primaryColor: seedColor),
       localizationsDelegates: localizationsDelegates,
