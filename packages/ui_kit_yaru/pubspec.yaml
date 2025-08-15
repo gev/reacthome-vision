@@ -20,6 +20,7 @@ dependencies:
   ui_kit_material:
     path: ../ui_kit_material
 
+  window_manager: ^0.5.1
   yaru: ^8.1.0
 
 dev_dependencies:

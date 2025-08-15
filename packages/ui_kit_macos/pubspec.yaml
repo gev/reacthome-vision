@@ -31,6 +31,8 @@ dependencies:
       url: https://github.com/macosui/macos_ui.git
       ref: dev
 
+  window_manager: ^0.5.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -5,8 +5,9 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit_cupertino/icons_cupertino.dart';
 import 'package:ui_kit_macos/widgets_macos.dart';
+import 'package:window_manager/window_manager.dart';
 
-Future<void> configureMacosWindow() async {
+Future<void> configureMacosWindow(Size size) async {
   WidgetsFlutterBinding.ensureInitialized();
   const config = MacosWindowUtilsConfig();
   await config.apply();
@@ -14,6 +15,9 @@ Future<void> configureMacosWindow() async {
     effect: WindowEffect.acrylic,
     color: const Color(0xCC222222),
   );
+  await windowManager.ensureInitialized();
+  await windowManager.setMinimumSize(size);
+  await windowManager.setSize(size);
 }
 
 void initMacOSKit() {

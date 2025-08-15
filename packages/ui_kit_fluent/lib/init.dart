@@ -6,7 +6,7 @@ import 'package:ui_kit_fluent/icons_fluent.dart';
 import 'package:ui_kit_fluent/widgets_fluent.dart';
 import 'package:window_manager/window_manager.dart';
 
-Future<void> configureFluentWindow() async {
+Future<void> configureFluentWindow(Size size) async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   windowManager.waitUntilReadyToShow(
@@ -17,8 +17,8 @@ Future<void> configureFluentWindow() async {
         effect: WindowEffect.acrylic,
         // color: const Color(0xCC222222),
       );
-      await windowManager.show();
-      await windowManager.focus();
+      await windowManager.setMinimumSize(size);
+      await windowManager.setSize(size);
     },
   );
 }
