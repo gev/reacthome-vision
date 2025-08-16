@@ -3,14 +3,14 @@ import 'package:navigation/navigation.dart';
 
 class NavigationRouteNames {
   static const splash = '/';
-  static const welcome = 'welcome';
+  static const iconic = 'iconic';
 }
 
 class NavigationLab implements Navigation {
   final WidgetBuilder splash;
-  final WidgetBuilder welcome;
+  final WidgetBuilder iconic;
 
-  const NavigationLab({required this.splash, required this.welcome});
+  const NavigationLab({required this.splash, required this.iconic});
 
   @override
   String get initialRoute => NavigationRouteNames.splash;
@@ -18,6 +18,6 @@ class NavigationLab implements Navigation {
   @override
   Map<String, WidgetBuilder> get routes => ({
     NavigationRouteNames.splash: splash,
-    NavigationRouteNames.welcome: welcome,
+    NavigationRouteNames.iconic: iconic,
   });
 }
