@@ -1,4 +1,4 @@
-import '../line.dart';
+import 'package:scheme/stages/line.dart';
 
 class LeftDown extends Line {
   LeftDown({

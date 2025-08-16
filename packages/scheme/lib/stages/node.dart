@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:iconic/figures/iconic.dart';
 import 'package:scheme/core/item.dart';
 import 'package:scheme/stages/iconic_factory.dart';
 import 'package:ui_kit/figures/figure.dart';
-import 'package:ui_kit/figures/iconic.dart';
 
 class Node implements Paintable, Hittable {
   final ItemType type;

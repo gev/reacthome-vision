@@ -1,4 +1,4 @@
-import '../stages/anchor_line.dart';
+import 'package:scheme/stages/anchor_line.dart';
 
 class Connector<Id> {
   Connector({required this.id, required this.direction});

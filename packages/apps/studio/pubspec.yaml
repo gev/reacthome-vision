@@ -13,6 +13,9 @@ dependencies:
   assets:
     path: ../../assets
 
+  iconic:
+    path: ../../iconic
+
   navigation:
     path: ../../navigation
 

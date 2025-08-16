@@ -224,6 +224,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.2"
+  iconic:
+    dependency: transitive
+    description:
+      path: "../../../packages/iconic"
+      relative: true
+    source: path
+    version: "0.0.1"
   image:
     dependency: transitive
     description:
