@@ -16,7 +16,7 @@ class AirConditionerIconic extends Iconic {
   AirConditionerIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(

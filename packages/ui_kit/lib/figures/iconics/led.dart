@@ -12,7 +12,7 @@ class LedIconic extends Iconic {
   LedIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - ledLength / 2, offset.dy - ledHeight)

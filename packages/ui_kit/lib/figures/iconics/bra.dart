@@ -12,7 +12,7 @@ class BraIconic extends Iconic {
   BraIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx, offset.dy - braHeight)

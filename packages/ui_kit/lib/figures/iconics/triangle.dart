@@ -12,7 +12,7 @@ abstract class TriangleIconic extends Iconic {
   TriangleIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   });
 
   double get sidePosition => realSize * kSidePosition;
@@ -32,7 +32,7 @@ class RightTriangleIconic extends TriangleIconic {
   RightTriangleIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - sidePosition, offset.dy - sideLength)
@@ -47,7 +47,7 @@ class LeftTriangleIconic extends TriangleIconic {
   LeftTriangleIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx + sidePosition, offset.dy - sideLength)
@@ -62,7 +62,7 @@ class TopTriangleIconic extends TriangleIconic {
   TopTriangleIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - sideLength, offset.dy + sidePosition)
@@ -77,7 +77,7 @@ class BottomTriangleIconic extends TriangleIconic {
   BottomTriangleIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - sideLength, offset.dy - sidePosition)

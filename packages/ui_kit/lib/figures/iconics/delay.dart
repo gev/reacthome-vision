@@ -11,7 +11,7 @@ class DelayIconic extends Iconic {
   DelayIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - halfSize, offset.dy + delayPosition)

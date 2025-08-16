@@ -11,7 +11,7 @@ class ScreenIconic extends Iconic {
   ScreenIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - screenWidth, offset.dy - screenTop)

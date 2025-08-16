@@ -9,7 +9,7 @@ class PlusIconic extends Iconic {
   PlusIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - plusSize, offset.dy)

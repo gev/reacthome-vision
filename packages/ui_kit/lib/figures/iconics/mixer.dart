@@ -13,7 +13,7 @@ abstract class MixerIconic extends Iconic {
   MixerIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   });
 
   double get mixerGap => realSize * kMixerGap;
@@ -34,7 +34,7 @@ class DownMixerIconic extends MixerIconic {
   DownMixerIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx, offset.dy + center)
@@ -50,7 +50,7 @@ class UpMixerIconic extends MixerIconic {
   UpMixerIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx, offset.dy - center)
@@ -66,7 +66,7 @@ class LeftMixerIconic extends MixerIconic {
   LeftMixerIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - center, offset.dy)
@@ -82,7 +82,7 @@ class RightMixerIconic extends MixerIconic {
   RightMixerIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx + center, offset.dy)

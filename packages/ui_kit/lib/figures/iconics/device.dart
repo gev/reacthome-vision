@@ -10,7 +10,7 @@ class DeviceIconic extends Iconic {
   DeviceIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..addRect(

@@ -13,7 +13,7 @@ class DropIconic extends Iconic {
   DropIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path.moveTo(offset.dx, offset.dy - dropStart);
     _path.relativeCubicTo(

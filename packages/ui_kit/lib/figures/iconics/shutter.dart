@@ -12,7 +12,7 @@ abstract class ShutterIconic extends Iconic {
     required super.offset,
     required super.size,
     required double phi,
-    required super.iconicStyle,
+    required super.style,
   }) {
     final dx = realSize * cos(-phi) / 2;
     final dy = realSize * sin(-phi) / 2;
@@ -34,7 +34,7 @@ class HorizontalShutterIconic extends ShutterIconic {
   HorizontalShutterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) : super(phi: 0);
 }
 
@@ -42,7 +42,7 @@ class VerticalShutterIconic extends ShutterIconic {
   VerticalShutterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) : super(phi: pi / 2);
 }
 
@@ -50,7 +50,7 @@ class DiagonalShutterIconic extends ShutterIconic {
   DiagonalShutterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) : super(phi: pi / 4);
 }
 
@@ -58,6 +58,6 @@ class BackDiagonalShutterIconic extends ShutterIconic {
   BackDiagonalShutterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) : super(phi: 3 * pi / 4);
 }

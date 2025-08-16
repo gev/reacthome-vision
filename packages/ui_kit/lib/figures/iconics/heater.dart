@@ -11,7 +11,7 @@ class HeaterIconic extends Iconic {
   HeaterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx + realSize / 2, offset.dy - heaterHeight)

@@ -11,7 +11,7 @@ class BlindsIconic extends Iconic {
   BlindsIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - blindsWidth, offset.dy - blindsGap * 2)

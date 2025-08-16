@@ -11,7 +11,7 @@ class TrackIconic extends Iconic {
   TrackIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - trackLength / 2, offset.dy - trackHeight)

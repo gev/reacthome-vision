@@ -11,7 +11,7 @@ abstract class _BarIconic extends Iconic {
   _BarIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   });
 
   double get barGap => realSize * kBarGap;
@@ -30,7 +30,7 @@ class HorizontalBarIconic extends _BarIconic {
   HorizontalBarIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - barLength, offset.dy - barGap)
@@ -46,7 +46,7 @@ class VerticalBarIconic extends _BarIconic {
   VerticalBarIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - barGap, offset.dy - barLength)

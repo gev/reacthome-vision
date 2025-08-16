@@ -7,11 +7,7 @@ const kSPSide = 0.35;
 
 abstract class SPIconic extends Iconic {
   final Path _path = Path();
-  SPIconic({
-    required super.offset,
-    required super.size,
-    required super.iconicStyle,
-  });
+  SPIconic({required super.offset, required super.size, required super.style});
 
   double get spWidth => realSize * kSPWidth;
   double get spSide => realSize * kSPSide;
@@ -29,7 +25,7 @@ class HorizontalSPIconic extends SPIconic {
   HorizontalSPIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - spWidth, offset.dy - spSide)
@@ -45,7 +41,7 @@ class VerticalSPIconic extends SPIconic {
   VerticalSPIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - spSide, offset.dy - spWidth)

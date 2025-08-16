@@ -2,6 +2,13 @@ import 'dart:ui';
 
 import 'figure.dart';
 
+typedef IconicFactory =
+    Iconic Function({
+      required Offset offset,
+      required double size,
+      required IconicStyle style,
+    });
+
 abstract class Iconic implements Paintable {
   final Offset offset;
   final double size;
@@ -10,16 +17,13 @@ abstract class Iconic implements Paintable {
   double get weight => 1;
   double get realSize => size * weight;
 
-  Iconic({
-    required this.offset,
-    required this.size,
-    required IconicStyle iconicStyle,
-  }) : strokeStyle = Paint()
-         ..style = PaintingStyle.stroke
-         ..strokeCap = iconicStyle.cap
-         ..strokeJoin = iconicStyle.join
-         ..strokeWidth = size * iconicStyle.width
-         ..color = iconicStyle.color;
+  Iconic({required this.offset, required this.size, required IconicStyle style})
+    : strokeStyle = Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeCap = style.cap
+        ..strokeJoin = style.join
+        ..strokeWidth = size * style.width
+        ..color = style.color;
 }
 
 class IconicStyle {
@@ -35,3 +39,6 @@ class IconicStyle {
     this.join = StrokeJoin.miter,
   });
 }
+
+IconicStyle makeIconicStyle(Color color) =>
+    IconicStyle(width: 0.01, color: color);

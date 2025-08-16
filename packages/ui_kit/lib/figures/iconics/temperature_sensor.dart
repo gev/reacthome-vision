@@ -10,7 +10,7 @@ class TemperatureSensorIconic extends Iconic {
   TemperatureSensorIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx, offset.dy - halfSize)

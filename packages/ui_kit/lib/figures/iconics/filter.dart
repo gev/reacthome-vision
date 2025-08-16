@@ -10,7 +10,7 @@ abstract class FilterIconic extends Iconic {
   FilterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   });
 
   double get sideLine => realSize * kSideLine;
@@ -32,7 +32,7 @@ class RightFilterIconic extends FilterIconic {
   RightFilterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - lines / 2, offset.dy - sideLine / 2)
@@ -60,7 +60,7 @@ class LeftFilterIconic extends FilterIconic {
   LeftFilterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx + lines / 2, offset.dy - sideLine / 2)
@@ -88,7 +88,7 @@ class DownFilterIconic extends FilterIconic {
   DownFilterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - sideLine / 2, offset.dy - lines / 2)
@@ -116,7 +116,7 @@ class UpFilterIconic extends FilterIconic {
   UpFilterIconic({
     required super.offset,
     required super.size,
-    required super.iconicStyle,
+    required super.style,
   }) {
     _path
       ..moveTo(offset.dx - sideLine / 2, offset.dy + lines / 2)
