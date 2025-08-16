@@ -1,9 +1,11 @@
 import 'package:flutter/widgets.dart';
+import 'package:iconic/iconics.dart';
 import 'package:iconic/scheme_icon.dart';
-import 'package:lab/ui/screens/iconic_screen.dart';
 
 class IconicPalette extends StatelessWidget {
-  const IconicPalette({super.key});
+  final double size;
+
+  const IconicPalette({required this.size, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class IconicPalette extends StatelessWidget {
           for (final it in iconics)
             Container(
               padding: const EdgeInsetsGeometry.all(20),
-              child: SchemeIcon(makeIconic: it, size: 80),
+              child: SchemeIcon(makeIconic: it, size: size),
             ),
         ],
       ),
