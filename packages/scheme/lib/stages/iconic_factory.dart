@@ -28,9 +28,6 @@ import 'package:ui_kit/figures/iconics/temperature_sensor.dart';
 import 'package:ui_kit/figures/iconics/track.dart';
 import 'package:ui_kit/figures/iconics/triangle.dart';
 
-IconicStyle makeIconicStyle(Color color) =>
-    IconicStyle(width: 0.01, color: color);
-
 Iconic selectIconic({
   required ItemType type,
   required Offset offset,
@@ -80,4 +77,4 @@ Iconic selectIconic({
   ItemType.delay => DelayIconic.new,
   ItemType.temperatureSensor => TemperatureSensorIconic.new,
   ItemType.drop => DropIconic.new,
-}(offset: offset, size: size, iconicStyle: style);
+}(offset: offset, size: size, style: style);
