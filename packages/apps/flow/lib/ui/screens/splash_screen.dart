@@ -6,7 +6,6 @@ import 'package:flow/ui/navigation.dart';
 import 'package:flow/ui/widgets/logo.dart';
 import 'package:flutter/widgets.dart';
 import 'package:navigation/navigator_extension.dart';
-import 'package:ui_kit/layouts/center_layout.dart';
 
 class SplashScreen extends StatelessWidget {
   final PreferencesApi preferencesApi;
@@ -35,6 +34,6 @@ class SplashScreen extends StatelessWidget {
         );
       }
     });
-    return CenterLayout(body: logo(width: 120));
+    return Center(child: logo(width: 120));
   }
 }

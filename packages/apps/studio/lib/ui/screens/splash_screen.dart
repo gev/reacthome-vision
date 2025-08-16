@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:navigation/navigator_extension.dart';
 import 'package:studio/ui/navigation.dart';
 import 'package:studio/ui/widgets/logo.dart';
-import 'package:ui_kit/layouts/center_layout.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -15,6 +14,6 @@ class SplashScreen extends StatelessWidget {
       final navigator = Navigator.of(context);
       navigator.clearNamed(NavigationRouteNames.welcome);
     });
-    return CenterLayout(body: logo(width: 120));
+    return Center(child: logo(width: 120));
   }
 }

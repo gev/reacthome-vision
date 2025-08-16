@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import 'package:lab/ui/navigation.dart';
 import 'package:lab/ui/widgets/logo.dart';
 import 'package:navigation/navigator_extension.dart';
-import 'package:ui_kit/layouts/center_layout.dart';
 import 'package:ui_kit/widgets.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -17,8 +16,8 @@ class SplashScreen extends StatelessWidget {
       final navigator = Navigator.of(context);
       navigator.clearNamed(NavigationRouteNames.iconic);
     });
-    return CenterLayout(
-      body: Column(
+    return Center(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           logo(width: 120),
