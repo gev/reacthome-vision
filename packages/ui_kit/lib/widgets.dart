@@ -11,6 +11,7 @@ import 'package:ui_kit/widgets/icon.dart';
 import 'package:ui_kit/widgets/indicator.dart';
 import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
+import 'package:ui_kit/widgets/slider.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 
@@ -37,6 +38,8 @@ abstract interface class WidgetContainer {
   ListSectionFactory get ListSection;
 
   ScaffoldFactory get Scaffold;
+
+  SliderFactory get Slider;
 
   SwitcherFactory get Switcher;
 
