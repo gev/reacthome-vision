@@ -11,6 +11,7 @@ import 'package:ui_kit/widgets/icon.dart';
 import 'package:ui_kit/widgets/indicator.dart';
 import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
+import 'package:ui_kit/widgets/slider.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_fluent/theme_fluent.dart';
@@ -26,6 +27,7 @@ import 'package:ui_kit_fluent/widgets/list_section_fluent.dart';
 import 'package:ui_kit_fluent/widgets/list_tile_fluent.dart';
 import 'package:ui_kit_fluent/widgets/scaffold_fluent.dart';
 import 'package:ui_kit_fluent/widgets/show_dialog_fluent.dart';
+import 'package:ui_kit_fluent/widgets/slider_fluent.dart';
 import 'package:ui_kit_fluent/widgets/switcher_fluent.dart';
 import 'package:ui_kit_fluent/widgets/text_field_fluent.dart';
 import 'package:ui_kit_material/widgets/app_bar_material.dart';
@@ -75,6 +77,9 @@ class WidgetsFluent implements WidgetContainer {
 
   @override
   ScaffoldFactory get Scaffold => ScaffoldFluent.new;
+
+  @override
+  SliderFactory get Slider => SliderFluent.new;
 
   @override
   SwitcherFactory get Switcher => SwitcherFluent.new;

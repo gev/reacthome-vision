@@ -12,6 +12,7 @@ import 'package:ui_kit/widgets/icon.dart';
 import 'package:ui_kit/widgets/indicator.dart';
 import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
+import 'package:ui_kit/widgets/slider.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_material/theme_material.dart';
@@ -30,6 +31,7 @@ import 'package:ui_kit_material/widgets/list_section_material.dart';
 import 'package:ui_kit_material/widgets/list_tile_material.dart';
 import 'package:ui_kit_material/widgets/scaffold_material.dart';
 import 'package:ui_kit_material/widgets/show_dialog_material.dart';
+import 'package:ui_kit_material/widgets/slider_material.dart';
 import 'package:ui_kit_material/widgets/switcher_material.dart';
 import 'package:ui_kit_material/widgets/text_field_material.dart';
 
@@ -76,6 +78,9 @@ class WidgetsMaterial implements WidgetContainer {
 
   @override
   ScaffoldFactory get Scaffold => ScaffoldMaterial.new;
+
+  @override
+  SliderFactory get Slider => SliderMaterial.new;
 
   @override
   SwitcherFactory get Switcher => SwitcherMaterial.new;

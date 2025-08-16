@@ -11,6 +11,7 @@ import 'package:ui_kit/widgets/icon.dart';
 import 'package:ui_kit/widgets/indicator.dart';
 import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
+import 'package:ui_kit/widgets/slider.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_cupertino/widgets/app_bar_sliver_cupertino.dart';
@@ -30,6 +31,7 @@ import 'package:ui_kit_macos/widgets/icon_macos.dart';
 import 'package:ui_kit_macos/widgets/indicator_activity_macos.dart';
 import 'package:ui_kit_macos/widgets/scaffold_macos.dart';
 import 'package:ui_kit_macos/widgets/show_dialog_macos.dart';
+import 'package:ui_kit_macos/widgets/slider_macos.dart';
 import 'package:ui_kit_macos/widgets/switcher_macos.dart';
 import 'package:ui_kit_macos/widgets/text_field_macos.dart';
 
@@ -75,6 +77,10 @@ class WidgetsMacos implements WidgetContainer {
 
   @override
   ScaffoldFactory get Scaffold => ScaffoldMacos.new;
+
+  @override
+  SliderFactory get Slider => SliderMacos.new;
+
   @override
   SwitcherFactory get Switcher => SwitcherMacos.new;
 
