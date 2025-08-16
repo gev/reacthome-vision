@@ -12,6 +12,7 @@ import 'package:ui_kit/widgets/icon.dart';
 import 'package:ui_kit/widgets/indicator.dart';
 import 'package:ui_kit/widgets/list.dart';
 import 'package:ui_kit/widgets/scaffold.dart';
+import 'package:ui_kit/widgets/slider.dart';
 import 'package:ui_kit/widgets/switcher.dart';
 import 'package:ui_kit/widgets/text.dart';
 import 'package:ui_kit_cupertino/theme_cupertino.dart';
@@ -29,6 +30,7 @@ import 'package:ui_kit_cupertino/widgets/list_section_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/list_tile_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/scaffold_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/show_dialog_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets/slider_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/switcher_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/text_field_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/uicon_cupertino.dart';
@@ -76,6 +78,10 @@ class WidgetsCupertino implements WidgetContainer {
 
   @override
   ScaffoldFactory get Scaffold => ScaffoldCupertino.new;
+
+  @override
+  SliderFactory get Slider => SliderCupertino.new;
+
   @override
   SwitcherFactory get Switcher => SwitcherCupertino.new;
 
