@@ -1,16 +1,14 @@
 import 'package:flutter/widgets.dart';
-import 'package:scheme/core/item.dart';
-import 'package:scheme/stages/iconic_factory.dart';
 import 'package:ui_kit/figures/iconic.dart';
 import 'package:ui_kit/widgets.dart';
 
 class SchemeIcon extends StatelessWidget {
-  final ItemType type;
+  final IconicFactory makeIconic;
   final double size;
   final Size _size;
   final Offset _offset;
 
-  SchemeIcon({required this.type, required this.size, super.key})
+  SchemeIcon({required this.makeIconic, required this.size, super.key})
     : _size = Size(size, size),
       _offset = Offset(size / 2, size / 2);
 
@@ -21,7 +19,7 @@ class SchemeIcon extends StatelessWidget {
     return RepaintBoundary(
       child: CustomPaint(
         painter: _IconicPainter(
-          selectIconic(type: type, offset: _offset, size: size, style: style),
+          makeIconic(offset: _offset, size: size, style: style),
         ),
         size: _size,
       ),
