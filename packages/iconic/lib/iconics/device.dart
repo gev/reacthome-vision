@@ -1,27 +1,27 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
-const kButtonSize = 0.5;
+const kCircleSize = 0.7;
 
-class ButtonIconic extends Iconic {
+class DeviceIconic extends Iconic {
   final Path _path = Path();
 
-  ButtonIconic({
+  DeviceIconic({
     required super.offset,
     required super.size,
     required super.style,
   }) {
     _path
-      ..moveTo(offset.dx - _buttonSize, offset.dy)
-      ..relativeLineTo(realSize, 0)
-      ..moveTo(offset.dx, offset.dy - _buttonSize)
-      ..relativeLineTo(0, realSize)
       ..addRect(
         Rect.fromCenter(center: offset, width: realSize, height: realSize),
+      )
+      ..addOval(
+        Rect.fromCenter(center: offset, width: circleSize, height: circleSize),
       );
   }
-  double get _buttonSize => realSize * kButtonSize;
+
+  double get circleSize => realSize * kCircleSize;
 
   @override
   double get weight => 0.8;

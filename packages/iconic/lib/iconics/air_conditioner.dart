@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
 const kConditionerWidth = 0.5;
 const kConditionerHeight = 0.3;

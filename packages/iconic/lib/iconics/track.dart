@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
 const kTrackLength = 0.8;
 const kTrackHeight = 0.2;

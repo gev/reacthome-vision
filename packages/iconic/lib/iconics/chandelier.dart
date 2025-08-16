@@ -1,15 +1,15 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
 const kRectTop = 0.1;
 const kRectWidth = 0.2;
 const kArcRadius = 0.1;
 
-class SpotIconic extends Iconic {
+class ChandelierIconic extends Iconic {
   final Path _path = Path();
 
-  SpotIconic({
+  ChandelierIconic({
     required super.offset,
     required super.size,
     required super.style,
@@ -30,6 +30,8 @@ class SpotIconic extends Iconic {
         clockwise: true,
       )
       ..lineTo(offset.dx + (halfSize - rectWidth / 2), offset.dy - rectTop)
+      ..moveTo(offset.dx, offset.dy - halfSize)
+      ..lineTo(offset.dx, offset.dy - rectTop)
       ..addRect(
         Rect.fromPoints(
           Offset(offset.dx - halfSize, offset.dy - rectTop),
@@ -40,6 +42,12 @@ class SpotIconic extends Iconic {
         Rect.fromPoints(
           Offset(offset.dx + (halfSize - rectWidth), offset.dy - rectTop),
           Offset(offset.dx + halfSize, offset.dy + halfSize),
+        ),
+      )
+      ..addRect(
+        Rect.fromPoints(
+          Offset(offset.dx - rectWidth / 2, offset.dy - rectTop),
+          Offset(offset.dx + rectWidth / 2, offset.dy + halfSize),
         ),
       )
       ..close();

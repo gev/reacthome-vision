@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
 const kCircleRadius = 0.15;
 const kLinesGap = 0.19;

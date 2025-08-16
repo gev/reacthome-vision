@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
 const kBlindsGap = 0.2;
 const kBlindsWidth = 0.5;

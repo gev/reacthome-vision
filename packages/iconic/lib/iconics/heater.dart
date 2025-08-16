@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
 const kHeaterHeight = 0.4;
 const kArcRadius = kHeaterHeight / 2;

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 
 const kCurtainsWidth = 0.5;
 const kCurtainsSides = 0.3;

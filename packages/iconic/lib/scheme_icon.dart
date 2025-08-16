@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:iconic/figures/iconic.dart';
+import 'package:iconic/iconic.dart';
 import 'package:ui_kit/widgets.dart';
 
 class SchemeIcon extends StatelessWidget {

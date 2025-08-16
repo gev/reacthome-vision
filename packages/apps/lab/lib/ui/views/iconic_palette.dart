@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:iconic/widgets/scheme_icon.dart';
+import 'package:iconic/scheme_icon.dart';
 import 'package:lab/ui/screens/iconic_screen.dart';
 
 class IconicPalette extends StatelessWidget {

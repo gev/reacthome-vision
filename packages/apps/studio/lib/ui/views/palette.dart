@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconic/iconics.dart';
-import 'package:iconic/widgets/scheme_icon.dart';
+import 'package:iconic/scheme_icon.dart';
 
 class Palette extends StatelessWidget {
   const Palette({super.key});
