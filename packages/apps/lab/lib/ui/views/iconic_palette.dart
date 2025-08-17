@@ -5,9 +5,14 @@ import 'package:iconic/scheme_icon.dart';
 import 'package:ui_kit/widgets.dart';
 
 class IconicPalette extends StatelessWidget {
+  final bool shouldShowGrid;
   final double size;
 
-  const IconicPalette({required this.size, super.key});
+  const IconicPalette({
+    required this.size,
+    required this.shouldShowGrid,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +35,14 @@ class IconicPalette extends StatelessWidget {
                     margin: const EdgeInsets.all(20),
                     child: Stack(
                       children: [
-                        SchemeIcon(
-                          makeIconic: IconicGrid.new,
-                          size: size,
-                          color: theme.color.withAlpha(16),
-                          strokeWidth: 0.005,
-                        ),
+                        ?shouldShowGrid
+                            ? SchemeIcon(
+                                makeIconic: IconicGrid.new,
+                                size: size,
+                                color: theme.color.withAlpha(16),
+                                strokeWidth: 0.01,
+                              )
+                            : null,
                         SchemeIcon(makeIconic: it, size: size),
                       ],
                     ),

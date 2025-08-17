@@ -10,11 +10,13 @@ class IconicScreen extends StatefulWidget {
 }
 
 class _IconicScreenState extends State<IconicScreen> {
+  late bool shouldShowGrid;
   late double size;
 
   @override
   void initState() {
     super.initState();
+    shouldShowGrid = true;
     size = 80;
   }
 
@@ -24,30 +26,42 @@ class _IconicScreenState extends State<IconicScreen> {
     });
   }
 
+  void showGrid(bool? value) {
+    setState(() {
+      shouldShowGrid = value ?? false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return UI.Scaffold(
       appBar: UI.AppBar(title: 'Iconic experiment'),
       body: Column(
         children: [
-          Expanded(child: IconicPalette(size: size)),
+          Expanded(
+            child: IconicPalette(size: size, shouldShowGrid: shouldShowGrid),
+          ),
           UI.Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Icon size'),
-              Container(
-                width: 300,
-                padding: const EdgeInsets.all(16),
-                child: UI.Slider(
-                  value: size,
-                  min: 20,
-                  max: 320,
-                  onChanged: setSize,
+          Padding(
+            padding: const EdgeInsetsGeometry.all(16),
+            child: Row(
+              spacing: 20,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Icon size'),
+                SizedBox(
+                  width: 300,
+                  child: UI.Slider(
+                    value: size,
+                    min: 20,
+                    max: 320,
+                    onChanged: setSize,
+                  ),
                 ),
-              ),
-              const Text('Show icon\'s grid'),
-            ],
+                const Text('Show icon\'s grid'),
+                UI.Checkbox(value: shouldShowGrid, onChanged: showGrid),
+              ],
+            ),
           ),
         ],
       ),
