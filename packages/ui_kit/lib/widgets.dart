@@ -5,6 +5,7 @@ import 'package:ui_kit/layout_padding.dart';
 import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
+import 'package:ui_kit/widgets/checkbox.dart';
 import 'package:ui_kit/widgets/dialog.dart';
 import 'package:ui_kit/widgets/divider.dart';
 import 'package:ui_kit/widgets/icon.dart';
@@ -39,9 +40,9 @@ abstract interface class WidgetContainer {
 
   ScaffoldFactory get Scaffold;
 
-  SliderFactory get Slider;
-
+  CheckboxFactory get Checkbox;
   SwitcherFactory get Switcher;
+  SliderFactory get Slider;
 
   TextFieldFactory get TextField;
 
