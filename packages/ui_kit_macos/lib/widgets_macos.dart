@@ -5,6 +5,7 @@ import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
+import 'package:ui_kit/widgets/checkbox.dart';
 import 'package:ui_kit/widgets/dialog.dart';
 import 'package:ui_kit/widgets/divider.dart';
 import 'package:ui_kit/widgets/icon.dart';
@@ -25,6 +26,7 @@ import 'package:ui_kit_macos/widgets/app_desktop_macos.dart';
 import 'package:ui_kit_macos/widgets/app_root_macos.dart';
 import 'package:ui_kit_macos/widgets/button_filled_macos.dart';
 import 'package:ui_kit_macos/widgets/button_icon_filled_macos.dart';
+import 'package:ui_kit_macos/widgets/checkbox_macos.dart';
 import 'package:ui_kit_macos/widgets/dialog_action_macos.dart';
 import 'package:ui_kit_macos/widgets/dialog_alert_macos.dart';
 import 'package:ui_kit_macos/widgets/icon_macos.dart';
@@ -79,10 +81,11 @@ class WidgetsMacos implements WidgetContainer {
   ScaffoldFactory get Scaffold => ScaffoldMacos.new;
 
   @override
-  SliderFactory get Slider => SliderMacos.new;
-
+  CheckboxFactory get Checkbox => CheckboxMacos.new;
   @override
   SwitcherFactory get Switcher => SwitcherMacos.new;
+  @override
+  SliderFactory get Slider => SliderMacos.new;
 
   @override
   TextFieldFactory get TextField => TextFieldMacos.new;
