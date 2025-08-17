@@ -5,9 +5,18 @@ class AppBarMacos extends ToolBar {
   AppBarMacos({required String title, Widget? trailing, super.key})
     : super(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(title), ?trailing],
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [Text(title)],
         ),
-        titleWidth: double.infinity,
+        actions: trailing != null
+            ? [
+                CustomToolbarItem(
+                  inToolbarBuilder: (context) => GestureDetector(
+                    child: SizedBox(width: 200, child: trailing),
+                  ),
+                ),
+              ]
+            : [],
+        // titleWidth: double.infinity,
       );
 }
