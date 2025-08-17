@@ -5,6 +5,7 @@ import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
+import 'package:ui_kit/widgets/checkbox.dart';
 import 'package:ui_kit/widgets/dialog.dart';
 import 'package:ui_kit/widgets/divider.dart';
 import 'package:ui_kit/widgets/icon.dart';
@@ -27,6 +28,7 @@ import 'package:ui_kit_yaru/theme_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_bar_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_desktop_yaru.dart';
 import 'package:ui_kit_yaru/widgets/app_root_yaru.dart';
+import 'package:ui_kit_yaru/widgets/checkbox_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_action_yaru.dart';
 import 'package:ui_kit_yaru/widgets/dialog_alert_yaru.dart';
 import 'package:ui_kit_yaru/widgets/indicator_activity_yaru.dart';
@@ -79,10 +81,11 @@ class WidgetsYaru implements WidgetContainer {
   ScaffoldFactory get Scaffold => ScaffoldMaterial.new;
 
   @override
-  SliderFactory get Slider => SliderMaterial.new;
-
+  CheckboxFactory get Checkbox => CheckboxYaru.new;
   @override
   SwitcherFactory get Switcher => SwitcherYaru.new;
+  @override
+  SliderFactory get Slider => SliderMaterial.new;
 
   @override
   TextFieldFactory get TextField => TextFieldMaterial.new;
