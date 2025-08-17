@@ -17,10 +17,12 @@ class SliderMacos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = MacosTheme.of(context);
     return MacosSlider(
       value: value,
       min: min ?? 0,
       max: max ?? 1,
+      color: theme.primaryColor,
       onChanged: onChanged,
     );
   }
