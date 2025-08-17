@@ -5,17 +5,27 @@ import 'package:ui_kit/widgets.dart';
 class SchemeIcon extends StatelessWidget {
   final IconicFactory makeIconic;
   final double size;
+  final double? strokeWidth;
+  final Color? color;
   final Size _size;
   final Offset _offset;
 
-  SchemeIcon({required this.makeIconic, required this.size, super.key})
-    : _size = Size(size, size),
-      _offset = Offset(size / 2, size / 2);
+  SchemeIcon({
+    required this.makeIconic,
+    required this.size,
+    this.strokeWidth,
+    this.color,
+    super.key,
+  }) : _size = Size(size, size),
+       _offset = Offset(size / 2, size / 2);
 
   @override
   Widget build(BuildContext context) {
     final theme = UI.themeOf(context);
-    final style = makeIconicStyle(theme.color);
+    final style = makeIconicStyle(
+      color: color ?? theme.color,
+      strokeWidth: strokeWidth,
+    );
     return SizedBox(
       width: size,
       height: size,

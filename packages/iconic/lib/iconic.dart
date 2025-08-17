@@ -12,13 +12,13 @@ typedef IconicFactory =
 abstract class Iconic implements Paintable {
   final Offset offset;
   final double size;
-  final Paint strokeStyle;
+  final Paint stroke;
 
   double get weight => 1;
   double get realSize => size * weight;
 
   Iconic({required this.offset, required this.size, required IconicStyle style})
-    : strokeStyle = Paint()
+    : stroke = Paint()
         ..style = PaintingStyle.stroke
         ..strokeCap = style.cap
         ..strokeJoin = style.join
@@ -40,5 +40,5 @@ class IconicStyle {
   });
 }
 
-IconicStyle makeIconicStyle(Color color) =>
-    IconicStyle(width: 0.01, color: color);
+IconicStyle makeIconicStyle({required Color color, double? strokeWidth}) =>
+    IconicStyle(width: strokeWidth ?? 0.01, color: color);

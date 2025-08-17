@@ -1,28 +1,28 @@
 import 'dart:ui';
 
-import 'package:ui_kit/figures/figure.dart';
+import 'package:iconic/iconic.dart';
 
-class IconicGrid implements Paintable {
-  final Offset offset;
-  final double size;
-  final IconicGridStyle style;
-
-  IconicGrid({required this.offset, required this.size, required this.style});
+class IconicGrid extends Iconic {
+  IconicGrid({
+    required super.offset,
+    required super.size,
+    required super.style,
+  });
 
   @override
   void paint(Canvas canvas) {
-    canvas.drawCircle(offset, size / 2, style.stroke);
+    canvas.drawCircle(offset, size / 2, stroke);
     canvas.drawRect(
       Rect.fromCenter(center: offset, width: 0.9 * size, height: 0.6 * size),
-      style.stroke,
+      stroke,
     );
     canvas.drawRect(
       Rect.fromCenter(center: offset, width: 0.6 * size, height: 0.9 * size),
-      style.stroke,
+      stroke,
     );
     canvas.drawRect(
       Rect.fromCenter(center: offset, width: 0.8 * size, height: 0.8 * size),
-      style.stroke,
+      stroke,
     );
   }
 }

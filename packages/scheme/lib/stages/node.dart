@@ -26,7 +26,7 @@ class Node implements Paintable, Hittable {
          type: type,
          offset: center,
          size: 30,
-         style: makeIconicStyle(style.stroke.color),
+         style: makeIconicStyle(color: style.stroke.color),
        );
 
   Node moveTo(Offset offset) => Node(

@@ -24,6 +24,6 @@ class MinusIconic extends Iconic {
 
   @override
   void paint(Canvas canvas) {
-    canvas.drawPath(_path, strokeStyle);
+    canvas.drawPath(_path, stroke);
   }
 }

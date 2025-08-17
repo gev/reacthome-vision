@@ -32,15 +32,22 @@ class _IconicScreenState extends State<IconicScreen> {
         children: [
           Expanded(child: IconicPalette(size: size)),
           UI.Divider(),
-          Container(
-            width: 300,
-            padding: const EdgeInsets.all(16),
-            child: UI.Slider(
-              value: size,
-              min: 16,
-              max: 240,
-              onChanged: setSize,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Icon size'),
+              Container(
+                width: 300,
+                padding: const EdgeInsets.all(16),
+                child: UI.Slider(
+                  value: size,
+                  min: 20,
+                  max: 320,
+                  onChanged: setSize,
+                ),
+              ),
+              const Text('Show icon\'s grid'),
+            ],
           ),
         ],
       ),
