@@ -6,6 +6,7 @@ import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
+import 'package:ui_kit/widgets/checkbox.dart';
 import 'package:ui_kit/widgets/dialog.dart';
 import 'package:ui_kit/widgets/divider.dart';
 import 'package:ui_kit/widgets/icon.dart';
@@ -21,6 +22,7 @@ import 'package:ui_kit_material/widgets/app_bar_sliver_material.dart';
 import 'package:ui_kit_material/widgets/app_root_material.dart';
 import 'package:ui_kit_material/widgets/button_filled_material.dart';
 import 'package:ui_kit_material/widgets/button_icon_filled_material.dart';
+import 'package:ui_kit_material/widgets/checkbox_material.dart';
 import 'package:ui_kit_material/widgets/dialog_action_material.dart';
 import 'package:ui_kit_material/widgets/dialog_alert_material.dart';
 import 'package:ui_kit_material/widgets/divider_material.dart';
@@ -80,10 +82,11 @@ class WidgetsMaterial implements WidgetContainer {
   ScaffoldFactory get Scaffold => ScaffoldMaterial.new;
 
   @override
-  SliderFactory get Slider => SliderMaterial.new;
-
+  CheckboxFactory get Checkbox => CheckboxMaterial.new;
   @override
   SwitcherFactory get Switcher => SwitcherMaterial.new;
+  @override
+  SliderFactory get Slider => SliderMaterial.new;
 
   @override
   TextFieldFactory get TextField => TextFieldMaterial.new;
