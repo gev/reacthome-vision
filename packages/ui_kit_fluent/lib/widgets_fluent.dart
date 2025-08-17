@@ -5,6 +5,7 @@ import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
+import 'package:ui_kit/widgets/checkbox.dart';
 import 'package:ui_kit/widgets/dialog.dart';
 import 'package:ui_kit/widgets/divider.dart';
 import 'package:ui_kit/widgets/icon.dart';
@@ -19,6 +20,7 @@ import 'package:ui_kit_fluent/widgets/app_desktop_fluent.dart';
 import 'package:ui_kit_fluent/widgets/app_root_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_filled_fluent.dart';
 import 'package:ui_kit_fluent/widgets/button_icon_filled_fluent.dart';
+import 'package:ui_kit_fluent/widgets/checkbox_fluent.dart';
 import 'package:ui_kit_fluent/widgets/dialog_action_fluent.dart';
 import 'package:ui_kit_fluent/widgets/dialog_alert_fluent.dart';
 import 'package:ui_kit_fluent/widgets/indicator_activity_fluent.dart';
@@ -79,10 +81,11 @@ class WidgetsFluent implements WidgetContainer {
   ScaffoldFactory get Scaffold => ScaffoldFluent.new;
 
   @override
-  SliderFactory get Slider => SliderFluent.new;
-
+  CheckboxFactory get Checkbox => CheckboxFluent.new;
   @override
   SwitcherFactory get Switcher => SwitcherFluent.new;
+  @override
+  SliderFactory get Slider => SliderFluent.new;
 
   @override
   TextFieldFactory get TextField => TextFieldFluent.new;
