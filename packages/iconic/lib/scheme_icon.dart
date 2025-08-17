@@ -16,12 +16,16 @@ class SchemeIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = UI.themeOf(context);
     final style = makeIconicStyle(theme.color);
-    return RepaintBoundary(
-      child: CustomPaint(
-        painter: _IconicPainter(
-          makeIconic(offset: _offset, size: size, style: style),
+    return SizedBox(
+      width: size,
+      height: size,
+      child: RepaintBoundary(
+        child: CustomPaint(
+          painter: _IconicPainter(
+            makeIconic(offset: _offset, size: size, style: style),
+          ),
+          size: _size,
         ),
-        size: _size,
       ),
     );
   }
