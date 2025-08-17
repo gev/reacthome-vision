@@ -16,9 +16,9 @@ class IconicPalette extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = UI.themeOf(context);
     return LayoutBuilder(
       builder: (context, constrains) {
+        final theme = UI.themeOf(context);
         return SizedBox(
           width: constrains.maxWidth,
           child: SingleChildScrollView(
