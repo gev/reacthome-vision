@@ -6,6 +6,7 @@ import 'package:ui_kit/theme.dart';
 import 'package:ui_kit/widgets.dart';
 import 'package:ui_kit/widgets/app.dart';
 import 'package:ui_kit/widgets/button.dart';
+import 'package:ui_kit/widgets/checkbox.dart';
 import 'package:ui_kit/widgets/dialog.dart';
 import 'package:ui_kit/widgets/divider.dart';
 import 'package:ui_kit/widgets/icon.dart';
@@ -21,6 +22,7 @@ import 'package:ui_kit_cupertino/widgets/app_bar_sliver_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/app_root_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/button_filled_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/button_icon_filled_cupertino.dart';
+import 'package:ui_kit_cupertino/widgets/checkbox_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/dialog_action_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/dialog_alert_cupertino.dart';
 import 'package:ui_kit_cupertino/widgets/divider_cupertino.dart';
@@ -80,10 +82,11 @@ class WidgetsCupertino implements WidgetContainer {
   ScaffoldFactory get Scaffold => ScaffoldCupertino.new;
 
   @override
-  SliderFactory get Slider => SliderCupertino.new;
-
+  CheckboxFactory get Checkbox => CheckboxCupertino.new;
   @override
   SwitcherFactory get Switcher => SwitcherCupertino.new;
+  @override
+  SliderFactory get Slider => SliderCupertino.new;
 
   @override
   TextFieldFactory get TextField => TextFieldCupertino.new;
