@@ -9,16 +9,23 @@ class IconicPalette extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Wrap(
-        children: [
-          for (final it in iconics)
-            Container(
-              padding: const EdgeInsetsGeometry.all(20),
-              child: SchemeIcon(makeIconic: it, size: size),
+    return LayoutBuilder(
+      builder: (context, constrains) {
+        return SizedBox(
+          width: constrains.maxWidth,
+          child: SingleChildScrollView(
+            child: Wrap(
+              children: [
+                for (final it in iconics)
+                  Padding(
+                    padding: const EdgeInsetsGeometry.all(20),
+                    child: SchemeIcon(makeIconic: it, size: size),
+                  ),
+              ],
             ),
-        ],
-      ),
+          ),
+        );
+      },
     );
   }
 }
