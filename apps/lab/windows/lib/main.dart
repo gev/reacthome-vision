@@ -3,6 +3,7 @@ import 'package:lab/make/make.dart';
 import 'package:ui_kit_fluent/init.dart';
 
 void main() async {
+  await configureFluentWindow(windowSize);
   initFluentKit();
   runApp(await make());
 }
