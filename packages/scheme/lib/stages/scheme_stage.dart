@@ -17,7 +17,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   final _nodes = <Id, Ref<Node>>{};
   final _selected = <Ref<Node>>{};
   final _lineIndex = <Ref<Node>, Set<Link<Id>>>{};
-  final _lines = <Id, ({AnchorLine line, Node source, Node sink})>{};
+  final _lines = <Id, ({AnchorLine line, Node start, Node end})>{};
   Ref<Node>? _hit;
 
   SchemeStage({
@@ -46,13 +46,13 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   void paint(Canvas canvas) {
     final painted = <Node>{};
     for (final it in _lines.values) {
-      if (!painted.contains(it.source)) {
-        it.source.paint(canvas);
-        painted.add(it.source);
+      if (!painted.contains(it.start)) {
+        it.start.paint(canvas);
+        painted.add(it.start);
       }
-      if (!painted.contains(it.sink)) {
-        it.sink.paint(canvas);
-        painted.add(it.sink);
+      if (!painted.contains(it.end)) {
+        it.end.paint(canvas);
+        painted.add(it.end);
       }
       it.line.paint(canvas);
     }
@@ -145,8 +145,8 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
           end: (direction: link.sink.direction, offset: end.ref.center),
           style: style.lineStyle,
         ),
-        source: start.ref,
-        sink: end.ref,
+        start: start.ref,
+        end: end.ref,
       );
     }
   }
