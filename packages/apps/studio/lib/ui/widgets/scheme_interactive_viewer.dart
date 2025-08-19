@@ -52,7 +52,9 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
 
   void onInteractionStart(ScaleStartDetails details) {
     if (details.pointerCount == 1) {
-      previousPoint = widget.transformationController.toScene(details.localFocalPoint);
+      previousPoint = widget.transformationController.toScene(
+        details.localFocalPoint,
+      );
       if (widget.onSelect(previousPoint)) {
         disablePan();
       }
@@ -61,13 +63,16 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
 
   void onInteractionUpdate(ScaleUpdateDetails details) {
     if (panEnabled) {
-      if (HardwareKeyboard.instance.isAltPressed || HardwareKeyboard.instance.isControlPressed) {
+      if (HardwareKeyboard.instance.isAltPressed ||
+          HardwareKeyboard.instance.isControlPressed) {
         enableTrackpadScrollCausesScale();
       } else {
         disableTrackpadScrollCausesScale();
       }
     } else {
-      final currentPoint = widget.transformationController.toScene(details.localFocalPoint);
+      final currentPoint = widget.transformationController.toScene(
+        details.localFocalPoint,
+      );
       widget.onDrag(currentPoint - previousPoint);
       previousPoint = currentPoint;
     }
@@ -84,8 +89,8 @@ class _SchemeInteractiveViewState extends State<SchemeInteractiveViewer> {
   Widget build(BuildContext context) {
     return InteractiveViewer(
       boundaryMargin: const EdgeInsets.all(double.infinity),
-      minScale: 0.1,
-      maxScale: 10.0,
+      minScale: 0.25,
+      maxScale: 4,
       trackpadScrollCausesScale: trackpadScrollCausesScale,
       panEnabled: panEnabled,
       scaleEnabled: true,
