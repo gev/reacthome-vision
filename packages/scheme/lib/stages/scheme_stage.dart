@@ -150,16 +150,6 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
       );
     }
   }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   for (final element in _stage) {
-  //     if (element case Disposable it) {
-  //       it.dispose();
-  //     }
-  //   }
-  // }
 }
 
 class SchemeStyle {
