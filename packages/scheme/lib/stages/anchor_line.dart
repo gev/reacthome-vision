@@ -40,7 +40,7 @@ class AnchorLine implements Paintable {
   AnchorLine({
     required Anchor start,
     required Anchor end,
-    double radius = 24,
+    double radius = 30,
     required this.style,
   }) {
     _line = switch (start.direction) {

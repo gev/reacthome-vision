@@ -130,7 +130,7 @@ class LineStyle {
     required Color color,
     required Color backgroundColor,
     double strokeWidth = 1.0,
-    double sigma = 8,
+    double sigma = 3,
   }) : stroke = Paint()
          ..style = PaintingStyle.stroke
          ..color = color

@@ -17,7 +17,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   final _nodes = <Id, Ref<Node>>{};
   final _selected = <Ref<Node>>{};
   final _lineIndex = <Ref<Node>, Set<Link<Id>>>{};
-  final _lines = <Id, AnchorLine>{};
+  final _lines = <Id, ({AnchorLine line, Node source, Node sink})>{};
   Ref<Node>? _hit;
 
   SchemeStage({
@@ -44,11 +44,17 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
 
   @override
   void paint(Canvas canvas) {
+    final painted = <Node>{};
     for (final it in _lines.values) {
-      it.paint(canvas);
-    }
-    for (final it in _nodes.values) {
-      it.ref.paint(canvas);
+      if (!painted.contains(it.source)) {
+        it.source.paint(canvas);
+        painted.add(it.source);
+      }
+      if (!painted.contains(it.sink)) {
+        it.sink.paint(canvas);
+        painted.add(it.sink);
+      }
+      it.line.paint(canvas);
     }
     for (final it in _selected) {
       it.ref.paintSelection(canvas);
@@ -133,10 +139,14 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     final start = _nodes[link.source.id];
     final end = _nodes[link.sink.id];
     if (start != null && end != null) {
-      _lines[link.id] = AnchorLine(
-        start: (direction: link.source.direction, offset: start.ref.center),
-        end: (direction: link.sink.direction, offset: end.ref.center),
-        style: style.lineStyle,
+      _lines[link.id] = (
+        line: AnchorLine(
+          start: (direction: link.source.direction, offset: start.ref.center),
+          end: (direction: link.sink.direction, offset: end.ref.center),
+          style: style.lineStyle,
+        ),
+        source: start.ref,
+        sink: end.ref,
       );
     }
   }

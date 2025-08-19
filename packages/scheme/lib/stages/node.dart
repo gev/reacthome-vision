@@ -16,9 +16,9 @@ class Node implements Paintable, Hittable {
 
   Node({
     required this.type,
-    this.radius = 24,
-    this.radiusFocussed = 36,
-    this.radiusSelected = 48,
+    this.radius = 32,
+    this.radiusFocussed = 44,
+    this.radiusSelected = 56,
     required this.center,
     required this.style,
   }) : _radiusSquared = radius * radius,
@@ -77,7 +77,7 @@ class NodeStyle {
     double strokeWidth = 2.0,
     double focussedWidth = 1.0,
     double selectedWidth = 0.5,
-    this.sigma = 8.0,
+    this.sigma = 3.0,
   }) : background = Paint()
          ..style = PaintingStyle.fill
          ..color = backgroundColor,
