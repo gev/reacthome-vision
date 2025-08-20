@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iconic/iconics/plus.dart';
 import 'package:scheme/core/link.dart';
 import 'package:scheme/core/scheme.dart';
 import 'package:scheme/stages/anchor_line.dart';
@@ -28,7 +29,11 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     for (final it in scheme.items) {
       final position = Offset(gap * it.x, gap * it.y);
       final node = (Ref(
-        Node(type: it.type, center: position, style: style.nodeStyle),
+        Node(
+          makeIconic: PlusIconic.new,
+          center: position,
+          style: style.nodeStyle,
+        ),
       ));
       _nodes[it.id] = node;
       _lineIndex[node] = {};

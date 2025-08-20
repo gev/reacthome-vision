@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iconic/iconic.dart';
-import 'package:scheme/core/item.dart';
-import 'package:scheme/stages/iconic_factory.dart';
 import 'package:ui_kit/figures/figure.dart';
 
 class Node implements Paintable, Hittable {
-  final ItemType type;
+  final IconicFactory makeIconic;
   final double radius;
   final double radiusFocussed;
   final double radiusSelected;
@@ -15,22 +13,21 @@ class Node implements Paintable, Hittable {
   final Iconic _iconic;
 
   Node({
-    required this.type,
+    required this.makeIconic,
     this.radius = 32,
     this.radiusFocussed = 44,
     this.radiusSelected = 56,
     required this.center,
     required this.style,
   }) : _radiusSquared = radius * radius,
-       _iconic = selectIconic(
-         type: type,
+       _iconic = makeIconic(
          offset: center,
          size: 30,
          style: makeIconicStyle(color: style.stroke.color),
        );
 
   Node moveTo(Offset offset) => Node(
-    type: type,
+    makeIconic: makeIconic,
     center: offset,
     radius: radius,
     radiusFocussed: radiusFocussed,
