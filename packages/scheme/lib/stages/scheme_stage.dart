@@ -62,6 +62,11 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
       }
       it.line.paint(canvas);
     }
+    for (final it in _nodes.values) {
+      if (!painted.contains(it.ref)) {
+        it.ref.paint(canvas);
+      }
+    }
     for (final it in _selected) {
       it.ref.paintSelection(canvas);
     }
