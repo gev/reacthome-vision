@@ -28,7 +28,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     required this.gap,
   }) {
     for (final it in scheme.items) {
-      final position = Offset(gap * it.x, gap * it.y);
+      final position = it.position * gap;
       final node = (Ref(
         RoundNode(
           makeIconic: PlusIconic.new,

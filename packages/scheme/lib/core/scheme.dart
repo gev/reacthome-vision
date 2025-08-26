@@ -1,21 +1,14 @@
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:scheme/core/item.dart';
 import 'package:scheme/core/link.dart';
 
 class Scheme<Id> {
-  Scheme({
+  const Scheme({
     required this.id,
-    Iterable<Item<Id>>? items,
-    Iterable<Link<Id>>? links,
-  }) {
-    _items = IList(items);
-    _links = IList(links);
-  }
+    this.items = const [],
+    this.links = const [],
+  });
 
   final Id id;
-  late final IList<Item<Id>> _items;
-  late final IList<Link<Id>> _links;
-
-  Iterable<Item<Id>> get items => _items;
-  Iterable<Link<Id>> get links => _links;
+  final Iterable<Item<Id>> items;
+  final Iterable<Link<Id>> links;
 }
