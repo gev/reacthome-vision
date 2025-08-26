@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconic/iconics/plus.dart';
-import 'package:scheme/core/link.dart';
+import 'package:scheme/core/link.dart' show Link;
 import 'package:scheme/core/scheme.dart';
 import 'package:scheme/stages/anchor_line.dart';
 import 'package:scheme/stages/line.dart';
@@ -8,83 +8,97 @@ import 'package:scheme/stages/node.dart';
 import 'package:scheme/stages/nodes/round_node.dart';
 import 'package:ui_kit/figures/figure.dart';
 
-class Ref<T> {
-  Ref(this.ref);
-  T ref;
-}
-
 class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   final SchemeStyle style;
   final double gap;
-  final _nodes = <Id, Ref<Node>>{};
-  final _selected = <Ref<Node>>{};
-  final _lineIndex = <Ref<Node>, Set<Link<Id>>>{};
-  final _lines = <Id, ({AnchorLine line, Node start, Node end})>{};
-  Ref<Node>? _hit;
+  final Scheme<Id> scheme;
+  final _lines = <Id, AnchorLine>{};
+  final _nodes = <Id, Node>{};
+  final _selected = <Id>{};
+  Id? _hit;
 
-  SchemeStage({
-    required Scheme<Id> scheme,
-    required this.style,
-    required this.gap,
-  }) {
-    for (final it in scheme.items) {
-      final position = it.position * gap;
-      final node = (Ref(
-        RoundNode(
-          makeIconic: PlusIconic.new,
-          center: position,
-          style: style.nodeStyle,
-        ),
-      ));
-      _nodes[it.id] = node;
-      _lineIndex[node] = {};
-    }
-    for (final link in scheme.links) {
-      final start = _nodes[link.source.id];
-      final end = _nodes[link.sink.id];
-      _lineIndex[start]?.add(link);
-      _lineIndex[end]?.add(link);
-    }
-    scheme.links.forEach(_makeLine);
-  }
+  SchemeStage({required this.scheme, required this.style, required this.gap});
 
   @override
   void paint(Canvas canvas) {
-    final painted = <Node>{};
-    for (final it in _lines.values) {
-      if (!painted.contains(it.start)) {
-        it.start.paint(canvas);
-        painted.add(it.start);
-      }
-      if (!painted.contains(it.end)) {
-        it.end.paint(canvas);
-        painted.add(it.end);
-      }
-      it.line.paint(canvas);
+    final painted = <Id>{};
+    for (final it in scheme.links) {
+      paintLink(canvas, it, painted);
     }
-    for (final it in _nodes.values) {
-      if (!painted.contains(it.ref)) {
-        it.ref.paint(canvas);
-      }
+    for (final it in scheme.items) {
+      paintItem(canvas, it.id, painted);
     }
     for (final it in _selected) {
-      it.ref.paintSelection(canvas);
+      getNode(it).paintSelection(canvas);
     }
-    _hit?.ref.paintFocus(canvas);
+    final hit = _hit;
+    if (hit != null) {
+      getNode(hit).paintFocus(canvas);
+    }
+  }
+
+  void paintLink(Canvas canvas, Link<Id> link, Set<Id> painted) {
+    paintItem(canvas, link.source.id, painted);
+    paintItem(canvas, link.sink.id, painted);
+    paintLine(canvas, link);
+  }
+
+  void paintItem(Canvas canvas, Id id, Set<Id> painted) {
+    if (!painted.contains(id)) {
+      paintNode(canvas, id);
+      painted.add(id);
+    }
+  }
+
+  void paintLine(Canvas canvas, Link link) {
+    getLine(link).paint(canvas);
+  }
+
+  void paintNode(Canvas canvas, Id id) {
+    getNode(id).paint(canvas);
+  }
+
+  AnchorLine getLine(Link link) {
+    var line = _lines[link.id];
+    line ??= AnchorLine(
+      start: (
+        offset: scheme.item(link.source.id).offset * gap,
+        direction: link.source.direction,
+      ),
+      end: (
+        offset: scheme.item(link.sink.id).offset * gap,
+        direction: link.sink.direction,
+      ),
+      style: style.lineStyle,
+    );
+    _lines[link.id] = line;
+    return line;
+  }
+
+  Node getNode(Id id) {
+    var node = _nodes[id];
+    node ??= RoundNode(
+      makeIconic: PlusIconic.new,
+      center: scheme.item(id).offset * gap,
+      style: style.nodeStyle,
+    );
+    _nodes[id] = node;
+    return node;
   }
 
   @override
   bool hitTest(Offset position) {
-    for (final it in _nodes.values.toList().reversed) {
-      if (it.ref.hitTest(position)) {
+    for (final it in scheme.items.toList().reversed) {
+      final node = getNode(it.id);
+      if (node.hitTest(position)) {
         if (_selected.contains(it)) {
           if (it == _hit) {
             _selected.remove(it);
           }
         } else {
-          _selected.add(it);
+          _selected.add(it.id);
         }
-        _hit = it;
+        _hit = it.id;
         notifyListeners();
         return true;
       }
@@ -96,70 +110,35 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   }
 
   void drag(Offset offset) {
-    final hit = _hit;
-    for (final it in _selected) {
-      if (it != hit) {
-        _moveBy(it, offset);
-      }
-    }
-    if (hit != null) {
-      _moveBy(hit, offset);
-    }
+    // final hit = _hit;
+    // for (final it in _selected) {
+    //   if (it != hit) {
+    //     _moveBy(it, offset);
+    //   }
+    // }
+    // if (hit != null) {
+    //   _moveBy(hit, offset);
+    // }
     notifyListeners();
   }
 
   double round(double a) => (a / gap).roundToDouble() * gap;
 
-  void snapPosition(Ref<Node> node) {
-    _moveTo(node, Offset(round(node.ref.center.dx), round(node.ref.center.dy)));
+  void snapPosition(Node node) {
+    // _moveTo(node, Offset(round(node.center.dx), round(node.center.dy)));
   }
 
   void dragged() {
-    final hit = _hit;
-    for (final it in _selected) {
-      if (it != hit) {
-        snapPosition(it);
-      }
-    }
-    if (hit != null) {
-      snapPosition(hit);
-    }
-    notifyListeners();
-  }
-
-  void _moveTo(Ref<Node> node, Offset offset) {
-    node.ref = node.ref.moveTo(offset);
-    _updateLine(node);
-  }
-
-  void _moveBy(Ref<Node> node, Offset offset) {
-    node.ref = node.ref.moveBy(offset);
-    _updateLine(node);
-  }
-
-  void _updateLine(Ref<Node> node) {
-    final links = _lineIndex[node];
-    if (links != null) {
-      for (final link in links) {
-        _makeLine(link);
-      }
-    }
-  }
-
-  void _makeLine(Link<Id> link) {
-    final start = _nodes[link.source.id];
-    final end = _nodes[link.sink.id];
-    if (start != null && end != null) {
-      _lines[link.id] = (
-        line: AnchorLine(
-          start: (direction: link.source.direction, offset: start.ref.center),
-          end: (direction: link.sink.direction, offset: end.ref.center),
-          style: style.lineStyle,
-        ),
-        start: start.ref,
-        end: end.ref,
-      );
-    }
+    //   final hit = _hit;
+    //   for (final it in _selected) {
+    //     if (it != hit) {
+    //       snapPosition(it);
+    //     }
+    //   }
+    //   if (hit != null) {
+    //     snapPosition(hit);
+    //   }
+    //   notifyListeners();
   }
 }
 

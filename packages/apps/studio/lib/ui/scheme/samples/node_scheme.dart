@@ -5,13 +5,13 @@ import 'package:scheme/core/link.dart';
 import 'package:scheme/core/scheme.dart';
 import 'package:scheme/stages/anchor_line.dart';
 
-final nodeScheme = const Scheme(
+final nodeScheme = Scheme(
   id: 0,
-  items: [
-    Item(id: 0, position: Offset(3, 3)),
-    Item(id: 1, position: Offset(5, 3)),
+  items: const [
+    Item(id: 0, offset: Offset(3, 3)),
+    Item(id: 1, offset: Offset(5, 3)),
   ],
-  links: [
+  links: const [
     Link(
       id: 0,
       source: Connector(id: 0, direction: Direction.left),
