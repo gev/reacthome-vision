@@ -1,61 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:iconic/iconic.dart';
 import 'package:ui_kit/figures/figure.dart';
 
-class Node implements Paintable, Hittable {
-  final IconicFactory makeIconic;
-  final double radius;
-  final double radiusFocussed;
-  final double radiusSelected;
-  final double _radiusSquared;
-  final NodeStyle style;
+abstract class Node implements Paintable, Hittable {
   final Offset center;
-  final Iconic _iconic;
+  final NodeStyle style;
 
-  Node({
-    required this.makeIconic,
-    this.radius = 32,
-    this.radiusFocussed = 44,
-    this.radiusSelected = 56,
-    required this.center,
-    required this.style,
-  }) : _radiusSquared = radius * radius,
-       _iconic = makeIconic(
-         offset: center,
-         size: 30,
-         style: makeIconicStyle(color: style.stroke.color),
-       );
+  Node({required this.center, required this.style});
 
-  Node moveTo(Offset offset) => Node(
-    makeIconic: makeIconic,
-    center: offset,
-    radius: radius,
-    radiusFocussed: radiusFocussed,
-    radiusSelected: radiusSelected,
-    style: style,
-  );
+  Node moveTo(Offset offset);
 
   Node moveBy(Offset offset) => moveTo(center + offset);
 
-  @override
-  void paint(Canvas canvas) {
-    canvas.drawCircle(center, radius + style.sigma, style.background);
-    canvas.drawCircle(center, radius, style.fill);
-    canvas.drawCircle(center, radius, style.stroke);
-    _iconic.paint(canvas);
-  }
+  void paintSelection(Canvas canvas);
 
-  void paintSelection(Canvas canvas) {
-    canvas.drawCircle(center, radiusSelected, style.selected);
-  }
-
-  void paintFocus(Canvas canvas) {
-    canvas.drawCircle(center, radiusFocussed, style.focused);
-  }
-
-  @override
-  bool hitTest(Offset position) =>
-      (position - center).distanceSquared < _radiusSquared;
+  void paintFocus(Canvas canvas);
 }
 
 class NodeStyle {

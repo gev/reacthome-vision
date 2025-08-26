@@ -5,6 +5,7 @@ import 'package:scheme/core/scheme.dart';
 import 'package:scheme/stages/anchor_line.dart';
 import 'package:scheme/stages/line.dart';
 import 'package:scheme/stages/node.dart';
+import 'package:scheme/stages/nodes/round_node.dart';
 import 'package:ui_kit/figures/figure.dart';
 
 class Ref<T> {
@@ -29,7 +30,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     for (final it in scheme.items) {
       final position = Offset(gap * it.x, gap * it.y);
       final node = (Ref(
-        Node(
+        RoundNode(
           makeIconic: PlusIconic.new,
           center: position,
           style: style.nodeStyle,
