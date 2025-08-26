@@ -7,7 +7,10 @@ import 'package:scheme/stages/anchor_line.dart';
 
 final nodeScheme = const Scheme(
   id: 0,
-  items: [Item(id: 0, position: Offset(3, 3))],
+  items: [
+    Item(id: 0, position: Offset(3, 3)),
+    Item(id: 1, position: Offset(5, 3)),
+  ],
   links: [
     Link(
       id: 0,
