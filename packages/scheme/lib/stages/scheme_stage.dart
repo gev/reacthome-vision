@@ -7,17 +7,16 @@ import 'package:scheme/stages/line.dart';
 import 'package:scheme/stages/node.dart';
 import 'package:scheme/stages/nodes/round_node.dart';
 import 'package:ui_kit/figures/figure.dart';
+import 'package:utils/cache.dart';
 
 class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
-  final SchemeStyle style;
-  final double gap;
   final Scheme<Id> scheme;
-  final _lines = <Id, AnchorLine>{};
-  final _nodes = <Id, Node>{};
+  final Lines<Id> lines;
+  final Nodes<Id> nodes;
   final _selected = <Id>{};
   Id? _hit;
 
-  SchemeStage({required this.scheme, required this.style, required this.gap});
+  SchemeStage({required this.scheme, required this.lines, required this.nodes});
 
   @override
   void paint(Canvas canvas) {
@@ -29,11 +28,11 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
       paintItem(canvas, it.id, painted);
     }
     for (final it in _selected) {
-      getNode(it).paintSelection(canvas);
+      nodes.lookup(it).paintSelection(canvas);
     }
     final hit = _hit;
     if (hit != null) {
-      getNode(hit).paintFocus(canvas);
+      nodes.lookup(hit).paintFocus(canvas);
     }
   }
 
@@ -51,45 +50,17 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
   }
 
   void paintLine(Canvas canvas, Link link) {
-    getLine(link).paint(canvas);
+    lines.lookup(link.id).paint(canvas);
   }
 
   void paintNode(Canvas canvas, Id id) {
-    getNode(id).paint(canvas);
-  }
-
-  AnchorLine getLine(Link link) {
-    var line = _lines[link.id];
-    line ??= AnchorLine(
-      start: (
-        offset: scheme.item(link.source.id).offset * gap,
-        direction: link.source.direction,
-      ),
-      end: (
-        offset: scheme.item(link.sink.id).offset * gap,
-        direction: link.sink.direction,
-      ),
-      style: style.lineStyle,
-    );
-    _lines[link.id] = line;
-    return line;
-  }
-
-  Node getNode(Id id) {
-    var node = _nodes[id];
-    node ??= RoundNode(
-      makeIconic: PlusIconic.new,
-      center: scheme.item(id).offset * gap,
-      style: style.nodeStyle,
-    );
-    _nodes[id] = node;
-    return node;
+    nodes.lookup(id).paint(canvas);
   }
 
   @override
   bool hitTest(Offset position) {
     for (final it in scheme.items.toList().reversed) {
-      final node = getNode(it.id);
+      final node = nodes.lookup(it.id);
       if (node.hitTest(position)) {
         if (_selected.contains(it)) {
           if (it == _hit) {
@@ -122,7 +93,7 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     notifyListeners();
   }
 
-  double round(double a) => (a / gap).roundToDouble() * gap;
+  // double round(double a) => (a / gap).roundToDouble() * gap;
 
   void snapPosition(Node node) {
     // _moveTo(node, Offset(round(node.center.dx), round(node.center.dy)));
@@ -139,6 +110,45 @@ class SchemeStage<Id> with ChangeNotifier implements Paintable, Hittable {
     //     snapPosition(hit);
     //   }
     //   notifyListeners();
+  }
+}
+
+class Nodes<Id> extends Cache<Id, Node> {
+  final Scheme scheme;
+  final double gap;
+  final NodeStyle style;
+
+  Nodes({required this.scheme, required this.gap, required this.style});
+
+  @override
+  Node make(Id id) => RoundNode(
+    makeIconic: PlusIconic.new,
+    center: scheme.item(id).offset * gap,
+    style: style,
+  );
+}
+
+class Lines<Id> extends Cache<Id, AnchorLine> {
+  final Scheme scheme;
+  final double gap;
+  final LineStyle style;
+
+  Lines({required this.scheme, required this.gap, required this.style});
+
+  @override
+  AnchorLine make(Id id) {
+    final link = scheme.link(id);
+    return AnchorLine(
+      start: (
+        offset: scheme.item(link.source.id).offset * gap,
+        direction: link.source.direction,
+      ),
+      end: (
+        offset: scheme.item(link.sink.id).offset * gap,
+        direction: link.sink.direction,
+      ),
+      style: style,
+    );
   }
 }
 

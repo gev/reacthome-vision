@@ -11,8 +11,8 @@ import 'package:ui_kit/widgets.dart';
 
 const double gap = 100;
 
-class SchemeEditor extends StatelessWidget {
-  final Scheme scheme;
+class SchemeEditor<Id> extends StatelessWidget {
+  final Scheme<Id> scheme;
 
   const SchemeEditor({required this.scheme, super.key});
 
@@ -43,16 +43,21 @@ class SchemeEditor extends StatelessWidget {
   }
 }
 
-class _SchemeEditor extends StatefulWidget {
-  final Scheme items;
+class _SchemeEditor<Id> extends StatefulWidget {
+  final Scheme<Id> items;
   final GridStyle gridStyle;
   final SchemeStyle schemeStyle;
+  late final Nodes<Id> nodes;
+  late final Lines<Id> lines;
 
-  const _SchemeEditor({
+  _SchemeEditor({
     required this.items,
     required this.gridStyle,
     required this.schemeStyle,
-  });
+  }) {
+    lines = Lines(scheme: items, gap: gap, style: schemeStyle.lineStyle);
+    nodes = Nodes(scheme: items, gap: gap, style: schemeStyle.nodeStyle);
+  }
 
   @override
   State<_SchemeEditor> createState() => _SchemeEditorState();
@@ -68,8 +73,8 @@ class _SchemeEditorState extends State<_SchemeEditor> {
     super.initState();
     stage = SchemeStage(
       scheme: widget.items,
-      gap: gap,
-      style: widget.schemeStyle,
+      lines: widget.lines,
+      nodes: widget.nodes,
     );
     gridController = GridController();
     transformationController = TransformationController();
@@ -90,8 +95,8 @@ class _SchemeEditorState extends State<_SchemeEditor> {
       stage.dispose();
       stage = SchemeStage(
         scheme: widget.items,
-        gap: gap,
-        style: widget.schemeStyle,
+        lines: widget.lines,
+        nodes: widget.nodes,
       );
     }
   }
