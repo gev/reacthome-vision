@@ -1,0 +1,36 @@
+name: reacthome_vision
+environment:
+  sdk: ">=3.9.0 <4.0.0"
+dev_dependencies:
+  melos: ^7.1.0
+workspace:
+  - apps/flow/android
+  - apps/flow/ios
+  - apps/flow/linux
+  - apps/flow/macos
+  - apps/flow/windows
+  - apps/lab/android
+  - apps/lab/ios
+  - apps/lab/linux
+  - apps/lab/macos
+  - apps/lab/windows
+  - apps/studio/linux
+  - apps/studio/macos
+  - apps/studio/windows
+  - packages/apps/flow
+  - packages/apps/lab
+  - packages/apps/studio
+  - packages/assets
+  - packages/common
+  - packages/iconic
+  - packages/l10n
+  - packages/navigation
+  - packages/scheme
+  - packages/ui_kit
+  - packages/ui_kit_cupertino
+  - packages/ui_kit_fluent
+  - packages/ui_kit_macos
+  - packages/ui_kit_material
+  - packages/ui_kit_yaru
+  - packages/utils
+melos: 
