@@ -16,17 +16,11 @@ dependencies:
     sdk: flutter
 
   assets:
-
   common:
-
   l10n:
-
   navigation:
-
   ui_kit:
-
   utils:
-
   flutter_svg: ^2.2.0
   path: ^1.9.1
   path_provider: ^2.1.5

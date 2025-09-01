@@ -12,17 +12,11 @@ dependencies:
     sdk: flutter
 
   assets:
-
   iconic:
-
   navigation:
-
   scheme:
-    
   ui_kit:
-
   utils:
-
   flutter_svg: ^2.2.0
 
 dev_dependencies:

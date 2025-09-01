@@ -33,13 +33,9 @@ dependencies:
     sdk: flutter
 
   scheme:
-
   studio:
-
   ui_kit:
-
   ui_kit_macos:
-
   flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:

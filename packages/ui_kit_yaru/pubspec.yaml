@@ -12,11 +12,8 @@ dependencies:
     sdk: flutter
 
   navigation:
-
   ui_kit:
-
   ui_kit_material:
-
   window_manager: ^0.5.1
 
   yaru: 

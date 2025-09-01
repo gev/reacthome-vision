@@ -12,11 +12,8 @@ dependencies:
     sdk: flutter
 
   navigation:
-
   ui_kit:
-
   ui_kit_material:
-
   flutter_acrylic: ^1.1.4
   fluent_ui: ^4.12.0
   window_manager: ^0.5.1
