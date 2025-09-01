@@ -1,1 +1,1 @@
-# Reacthome Lab for MacOS
+# Reacthome Lab for iOS
