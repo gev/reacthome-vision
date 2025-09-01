@@ -2,6 +2,7 @@ name: flow
 description: "Reacthome Flow"
 version: 0.0.1
 publish_to: none
+resolution: workspace
 
 environment:
   sdk: ^3.9.0
@@ -15,22 +16,16 @@ dependencies:
     sdk: flutter
 
   assets:
-    path: ../../assets
 
   common:
-    path: ../../common
 
   l10n:
-    path: ../../l10n
 
   navigation:
-    path: ../../navigation
 
   ui_kit:
-    path: ../../ui_kit
 
   utils:
-    path: ../../utils
 
   flutter_svg: ^2.2.0
   path: ^1.9.1

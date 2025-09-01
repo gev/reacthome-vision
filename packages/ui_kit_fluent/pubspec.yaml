@@ -2,7 +2,7 @@ name: ui_kit_fluent
 description: "Reacthome Fluent UI Kit."
 version: 0.0.1
 publish_to: none
-
+resolution: workspace
 
 environment:
   sdk: ^3.9.0
@@ -12,13 +12,10 @@ dependencies:
     sdk: flutter
 
   navigation:
-    path: ../navigation
 
   ui_kit:
-    path: ../ui_kit
 
   ui_kit_material:
-    path: ../ui_kit_material
 
   flutter_acrylic: ^1.1.4
   fluent_ui: ^4.12.0

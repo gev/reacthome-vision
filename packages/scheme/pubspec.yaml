@@ -2,6 +2,7 @@ name: scheme
 description: Reacthome Scheme Elements
 version: 0.0.1
 publish_to: none
+resolution: workspace
 
 environment:
   sdk: ^3.9.0
@@ -11,13 +12,10 @@ dependencies:
     sdk: flutter
 
   iconic: 
-    path: ../iconic
 
   ui_kit:
-    path: ../ui_kit
 
   utils:
-    path: ../utils
 
   fast_immutable_collections: ^11.0.4
 

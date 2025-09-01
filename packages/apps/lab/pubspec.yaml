@@ -2,6 +2,7 @@ name: lab
 description: "Reacthome Lab"
 version: 0.0.1
 publish_to: none
+resolution: workspace
 
 environment:
   sdk: ^3.9.0
@@ -11,22 +12,16 @@ dependencies:
     sdk: flutter
 
   assets:
-    path: ../../assets
 
   iconic:
-    path: ../../iconic
 
   navigation:
-    path: ../../navigation
 
   scheme:
-    path: ../../scheme
     
   ui_kit:
-    path: ../../ui_kit
 
   utils:
-    path: ../../utils
 
   flutter_svg: ^2.2.0
 

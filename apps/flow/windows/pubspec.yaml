@@ -3,6 +3,7 @@ description: "Reacthome Flow for Windows"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+resolution: workspace
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -32,13 +33,10 @@ dependencies:
     sdk: flutter
 
   flow:
-    path: ../../../packages/apps/flow
 
   ui_kit:
-    path: ../../../packages/ui_kit
 
   ui_kit_fluent:
-    path: ../../../packages/ui_kit_fluent
 
   flutter_launcher_icons: ^0.14.4
 

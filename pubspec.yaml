@@ -1,8 +1,7 @@
 name: reacthome_vision
+publish_to: none
 environment:
-  sdk: ">=3.9.0 <4.0.0"
-dev_dependencies:
-  melos: ^7.1.0
+  sdk: ^3.9.0
 workspace:
   - apps/flow/android
   - apps/flow/ios
@@ -33,4 +32,3 @@ workspace:
   - packages/ui_kit_material
   - packages/ui_kit_yaru
   - packages/utils
-melos: 

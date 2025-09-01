@@ -2,7 +2,7 @@ name: ui_kit_cupertino
 description: "Reacthome Cupertino UI Kit."
 version: 0.0.1
 publish_to: none
-
+resolution: workspace
 
 environment:
   sdk: ^3.9.0
@@ -12,10 +12,8 @@ dependencies:
     sdk: flutter
     
   navigation:
-    path: ../navigation
 
   ui_kit:
-    path: ../ui_kit
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -2,7 +2,7 @@ name: ui_kit_yaru
 description: "Reacthome Yaru UI Kit."
 version: 0.0.1
 publish_to: none
-
+resolution: workspace
 
 environment:
   sdk: ^3.9.0
@@ -12,13 +12,10 @@ dependencies:
     sdk: flutter
 
   navigation:
-    path: ../navigation
 
   ui_kit:
-    path: ../ui_kit
 
   ui_kit_material:
-    path: ../ui_kit_material
 
   window_manager: ^0.5.1
 

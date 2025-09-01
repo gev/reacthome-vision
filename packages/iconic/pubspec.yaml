@@ -2,7 +2,7 @@ name: iconic
 description: "Reacthome Icons."
 version: 0.0.1
 publish_to: none
-
+resolution: workspace
 
 environment:
   sdk: ^3.9.0
@@ -12,10 +12,8 @@ dependencies:
     sdk: flutter
 
   navigation:
-    path: ../navigation
 
   ui_kit:
-    path: ../ui_kit
 
 dev_dependencies:
   flutter_test:

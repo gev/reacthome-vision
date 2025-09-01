@@ -2,6 +2,7 @@ name: navigation
 description: "Reacthome Navigation"
 version: 0.0.1
 publish_to: 'none' 
+resolution: workspace
 
 environment:
   sdk: ^3.9.0

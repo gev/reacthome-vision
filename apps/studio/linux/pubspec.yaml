@@ -3,6 +3,7 @@ description: "Reacthome Studio for Linux"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+resolution: workspace
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -32,23 +33,16 @@ dependencies:
     sdk: flutter
 
   scheme:
-    path: ../../../packages/scheme
 
   studio:
-    path: ../../../packages/apps/studio
 
   ui_kit:
-    path: ../../../packages/ui_kit
 
   ui_kit_yaru:
-    path: ../../../packages/ui_kit_yaru
 
   handy_window: ^0.4.0
 
-  flutter_launcher_icons:
-    git: 
-      url: https://github.com/devmil/flutter_launcher_icons.git
-      ref: add_linux_support
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
