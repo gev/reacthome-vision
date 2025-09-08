@@ -17,7 +17,6 @@ Future<void> configureMacosWindow(Size size) async {
   );
   await windowManager.ensureInitialized();
   await windowManager.setMinimumSize(size);
-  await windowManager.setSize(size);
 }
 
 void initMacOSKit() {

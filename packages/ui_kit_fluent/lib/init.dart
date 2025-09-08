@@ -18,7 +18,6 @@ Future<void> configureFluentWindow(Size size) async {
         // color: const Color(0xCC222222),
       );
       await windowManager.setMinimumSize(size);
-      await windowManager.setSize(size);
     },
   );
 }

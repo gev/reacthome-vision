@@ -10,7 +10,6 @@ Future<void> configureYaruWindow(Size size) async {
   await YaruWindow.ensureInitialized();
   await YaruWindowTitleBar.ensureInitialized();
   await windowManager.setMinimumSize(size);
-  await windowManager.setSize(size);
 }
 
 void initYaruKit() {
