@@ -346,10 +346,10 @@ packages:
     description:
       path: "."
       ref: dev
-      resolved-ref: "31d62c4f2d406694cd86cfc0460745cd4c1ab90a"
+      resolved-ref: f5c6d6efbbd135db02c4635d80217d81ea38d6e9
       url: "https://github.com/macosui/macos_ui.git"
     source: git
-    version: "2.2.0"
+    version: "2.2.2"
   macos_window_utils:
     dependency: transitive
     description:
@@ -756,5 +756,5 @@ packages:
     source: hosted
     version: "0.0.4"
 sdks:
-  dart: ">=3.9.0 <4.0.0"
-  flutter: ">=3.32.0"
+  dart: ">=3.9.2 <4.0.0"
+  flutter: ">=3.35.0"
