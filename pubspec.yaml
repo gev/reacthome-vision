@@ -23,6 +23,7 @@ workspace:
   - packages/common
   - packages/iconic
   - packages/l10n
+  - packages/lisp
   - packages/navigation
   - packages/scheme
   - packages/ui_kit
