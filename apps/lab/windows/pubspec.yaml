@@ -33,8 +33,6 @@ dependencies:
     sdk: flutter
 
   lab:
-  ui_kit:
-  ui_kit_fluent:
   flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:

@@ -33,9 +33,6 @@ dependencies:
     sdk: flutter
 
   flow:
-  ui_kit:
-  ui_kit_yaru:
-  handy_window: ^0.4.0
   flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
