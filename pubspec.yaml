@@ -1,7 +1,9 @@
 name: reacthome_vision
 publish_to: none
+
 environment:
   sdk: ^3.9.0
+
 workspace:
   - apps/flow/android
   - apps/flow/ios
