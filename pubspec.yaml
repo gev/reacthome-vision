@@ -20,4 +20,5 @@ workspace:
   - packages/apps/lab
   - packages/apps/studio
   - packages/assets
+  - packages/vision
   
