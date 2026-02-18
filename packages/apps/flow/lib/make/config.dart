@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flow/make/config/discovery_config.dart';
-import 'package:flow/make/config/multicast_config.dart';
-import 'package:flow/make/config/theme_config.dart';
-import 'package:flow/make/config/websocket_config.dart';
+import 'package:flow/config/discovery_config.dart';
+import 'package:flow/config/multicast_config.dart';
+import 'package:flow/config/theme_config.dart';
+import 'package:flow/config/websocket_config.dart';
 import 'package:flutter/widgets.dart';
 
 class Config {

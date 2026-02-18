@@ -1,4 +1,4 @@
-import 'package:flow/make/config/multicast_config.dart';
+import 'package:flow/config/multicast_config.dart';
 
 class DiscoveryConfig {
   final MulticastConfig listen;

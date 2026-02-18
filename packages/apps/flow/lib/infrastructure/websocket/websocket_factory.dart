@@ -1,8 +1,8 @@
 import 'dart:io' as io;
 
 import 'package:common/handler.dart';
+import 'package:flow/config/websocket_config.dart';
 import 'package:flow/infrastructure/websocket/websocket.dart';
-import 'package:flow/make/config/websocket_config.dart';
 
 abstract class WebSocketFactory {
   final Handler<String> controller;
