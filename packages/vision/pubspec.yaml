@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  assets:
+  glue:
+  glue_flutter:
 
 dev_dependencies:
   flutter_test:

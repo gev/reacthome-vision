@@ -21,4 +21,14 @@ workspace:
   - packages/apps/studio
   - packages/assets
   - packages/vision
-  
+
+dependency_overrides:
+  glue:
+    git:
+      url: https://github.com/gev/glue.git
+      path: dart/glue
+
+  glue_flutter:
+    git:
+      url: https://github.com/gev/glue.git
+      path: flutter/glue_flutter
