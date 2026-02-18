@@ -1,4 +1,0 @@
-enum ConnectionType {
-  local,
-  cloud,
-}

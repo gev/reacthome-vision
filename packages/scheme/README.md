@@ -1,1 +1,0 @@
-# Reacthome Scheme Elements

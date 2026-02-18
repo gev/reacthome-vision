@@ -20,16 +20,4 @@ workspace:
   - packages/apps/lab
   - packages/apps/studio
   - packages/assets
-  - packages/common
-  - packages/iconic
-  - packages/l10n
-  - packages/lisp
-  - packages/navigation
-  - packages/scheme
-  - packages/ui_kit
-  - packages/ui_kit_cupertino
-  - packages/ui_kit_fluent
-  - packages/ui_kit_macos
-  - packages/ui_kit_material
-  - packages/ui_kit_yaru
-  - packages/utils
+  

@@ -1,4 +1,0 @@
-enum AppLifecycleEvent {
-  active,
-  inactive,
-}
