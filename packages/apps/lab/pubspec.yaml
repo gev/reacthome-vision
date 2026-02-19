@@ -11,6 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  vision:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
