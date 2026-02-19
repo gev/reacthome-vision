@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common/channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
@@ -9,7 +8,7 @@ import 'package:vision/websocket/websocket_state.dart';
 /// A WebSocket client with auto-reconnection support.
 class WebSocketClient<T> extends ChangeNotifier {
   final String _url;
-  final Channel<T> _channel;
+  final StreamController<T> _channel;
   final WebSocketReconnectPolicy _reconnectPolicy;
   late final StreamSubscription<T> _channelSubscription;
   WebSocket? _socket;
@@ -27,12 +26,12 @@ class WebSocketClient<T> extends ChangeNotifier {
   /// [channel] - Channel for messages to send and receive
   WebSocketClient({
     required String url,
-    required Channel<T> channel,
+    required StreamController<T> channel,
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _channel = channel,
        _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
-    _channelSubscription = _channel.source.listen(_handleChannelMessage);
+    _channelSubscription = _channel.stream.listen(_handleChannelMessage);
     _establishConnection();
   }
 
