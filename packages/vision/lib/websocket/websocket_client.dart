@@ -5,43 +5,33 @@ import 'package:common/channel/broadcast_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
-import 'package:vision/websocket/websocket_state_machine.dart';
 
 /// A WebSocket client with auto-reconnection support.
-///
-/// Uses WebSocketConnectionStateMachine for state management.
 class WebSocketClient extends ChangeNotifier {
   WebSocket? _socket;
   String? _url;
   final BroadcastChannel<String> _channel;
   StreamSubscription<String>? _channelSubscription;
+  final WebSocketReconnectPolicy _reconnectPolicy;
 
-  late final WebSocketConnectionStateMachine _stateMachine;
+  WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
+  bool _isManuallyDisconnected = false;
+  Timer? _reconnectTimer;
 
   /// Current connection state.
-  WebSocketConnectionState get state => _stateMachine.state;
+  WebSocketConnectionState get state => _state;
 
   /// Creates a new WebSocket client.
   ///
-  /// [reconnectPolicy] - Optional reconnection policy for auto-reconnect
   /// [channel] - Channel for message sharing between multiple clients
-  WebSocketClient({
-    WebSocketReconnectPolicy? reconnectPolicy,
-    required BroadcastChannel<String> channel,
-  }) : _channel = channel,
-       _stateMachine = WebSocketConnectionStateMachine(
-         reconnectPolicy: reconnectPolicy,
-       ) {
+  WebSocketClient({required BroadcastChannel<String> channel})
+    : _channel = channel,
+      _reconnectPolicy = WebSocketReconnectPolicy() {
     _channelSubscription = _channel.source.listen(_handleChannelMessage);
-    _stateMachine.addListener(_onStateChanged);
-  }
-
-  void _onStateChanged() {
-    notifyListeners();
   }
 
   void _handleChannelMessage(String message) {
-    if (state == WebSocketConnectionState.connected) {
+    if (_state == WebSocketConnectionState.connected) {
       _socket?.add(message);
     }
   }
@@ -49,22 +39,27 @@ class WebSocketClient extends ChangeNotifier {
   /// Connects to the WebSocket server at the specified URL.
   Future<void> connect(String url) async {
     _url = url;
-    _stateMachine.connect();
+    _isManuallyDisconnected = false;
     await _establishConnection();
   }
 
   /// Disconnects from the WebSocket server.
   Future<void> disconnect() async {
-    _stateMachine.disconnect();
+    _isManuallyDisconnected = true;
+    _reconnectTimer?.cancel();
+    _updateState(WebSocketConnectionState.disconnected);
     await _closeSocket();
   }
 
   Future<void> _establishConnection() async {
     if (_url == null) return;
 
+    _updateState(WebSocketConnectionState.connecting);
+
     try {
       _socket = await WebSocket.connect(_url!);
-      _stateMachine.onConnected();
+      _reconnectPolicy.recordSuccess();
+      _updateState(WebSocketConnectionState.connected);
 
       // Listen for messages from WebSocket
       _socket!.listen(
@@ -72,15 +67,53 @@ class WebSocketClient extends ChangeNotifier {
           _channel.sink.emit(data);
         },
         onError: (error) {
-          _stateMachine.onConnectionFailed();
+          _handleConnectionError();
         },
         onDone: () {
-          _stateMachine.onConnectionClosed();
+          _handleConnectionClosed();
         },
       );
     } catch (e) {
-      _stateMachine.onConnectionFailed();
+      _handleConnectionError();
     }
+  }
+
+  void _handleConnectionError() {
+    if (_isManuallyDisconnected) return;
+
+    if (!_reconnectPolicy.canRetry) {
+      _updateState(WebSocketConnectionState.disconnected);
+      return;
+    }
+
+    _scheduleReconnect();
+  }
+
+  void _handleConnectionClosed() {
+    if (_isManuallyDisconnected) return;
+
+    if (!_reconnectPolicy.canRetry) {
+      _updateState(WebSocketConnectionState.disconnected);
+      return;
+    }
+
+    _scheduleReconnect();
+  }
+
+  void _scheduleReconnect() {
+    _updateState(WebSocketConnectionState.reconnecting);
+
+    final delay = _reconnectPolicy.nextDelayMs;
+    _reconnectPolicy.recordFailedAttempt();
+
+    _reconnectTimer = Timer(Duration(milliseconds: delay), () {
+      _establishConnection();
+    });
+  }
+
+  void _updateState(WebSocketConnectionState newState) {
+    _state = newState;
+    notifyListeners();
   }
 
   Future<void> _closeSocket() async {
@@ -89,10 +122,9 @@ class WebSocketClient extends ChangeNotifier {
 
   @override
   void dispose() {
-    _stateMachine.removeListener(_onStateChanged);
+    _reconnectTimer?.cancel();
     _channelSubscription?.cancel();
     _closeSocket();
-    _stateMachine.dispose();
     super.dispose();
   }
 }
