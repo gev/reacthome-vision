@@ -10,15 +10,15 @@ import 'package:vision/websocket/websocket_state.dart';
 ///
 /// This client automatically reconnects when the connection is lost,
 /// using an exponential backoff strategy to avoid overwhelming the server.
-class WebSocketClient<T> extends ChangeNotifier {
+class WebSocketClient extends ChangeNotifier {
   WebSocket? _socket;
 
   Timer? _reconnectTimer;
   String? _url;
   WebSocketReconnectPolicy _reconnectPolicy;
   bool _isManuallyDisconnected = false;
-  final BroadcastChannel<T> _bus;
-  StreamSubscription<T>? _busSubscription;
+  final BroadcastChannel<String> _channel;
+  StreamSubscription<String>? _channelSubscription;
 
   /// Current connection state.
   WebSocketConnectionState _connectionState =
@@ -28,12 +28,20 @@ class WebSocketClient<T> extends ChangeNotifier {
   /// Creates a new WebSocket client.
   ///
   /// [reconnectPolicy] - Optional reconnection policy for auto-reconnect
-  /// [bus] - Bus for message sharing between multiple clients
+  /// [channel] - Channel for message sharing between multiple clients
   WebSocketClient({
     WebSocketReconnectPolicy? reconnectPolicy,
-    required BroadcastChannel<T> bus,
+    required BroadcastChannel<String> channel,
   }) : _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy(),
-       _bus = bus;
+       _channel = channel {
+    _channelSubscription = _channel.source.listen(_handleChannelMessage);
+  }
+
+  void _handleChannelMessage(String message) {
+    if (_connectionState == WebSocketConnectionState.connected) {
+      _socket?.add(message);
+    }
+  }
 
   /// Connects to the WebSocket server at the specified URL.
   Future<void> connect(String url) async {
@@ -46,7 +54,6 @@ class WebSocketClient<T> extends ChangeNotifier {
   Future<void> disconnect() async {
     _isManuallyDisconnected = true;
     _reconnectTimer?.cancel();
-    _reconnectTimer = null;
     await _closeSocket();
     _updateConnectionState(WebSocketConnectionState.disconnected);
   }
@@ -76,17 +83,10 @@ class WebSocketClient<T> extends ChangeNotifier {
       _reconnectPolicy.recordSuccess();
       _updateConnectionState(WebSocketConnectionState.connected);
 
-      // Listen to bus stream and forward to WebSocket
-      _busSubscription = _bus.source.listen((message) {
-        if (_connectionState == WebSocketConnectionState.connected) {
-          _socket?.add(message);
-        }
-      });
-
       // Listen for messages from WebSocket
-      _socket!.listen(
+      _socket.listen(
         (data) {
-          _bus.sink.emit(data);
+          _channel.sink.emit(data);
         },
         onError: (error) {
           _handleConnectionError(error);
@@ -137,15 +137,13 @@ class WebSocketClient<T> extends ChangeNotifier {
   }
 
   Future<void> _closeSocket() async {
-    await _busSubscription?.cancel();
-    _busSubscription = null;
     await _socket?.close();
-    _socket = null;
   }
 
   @override
   void dispose() {
     _reconnectTimer?.cancel();
+    _channelSubscription?.cancel();
     _closeSocket();
     super.dispose();
   }
