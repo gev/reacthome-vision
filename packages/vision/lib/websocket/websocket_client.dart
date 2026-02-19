@@ -10,18 +10,15 @@ import 'package:vision/websocket/websocket_state.dart';
 ///
 /// This client automatically reconnects when the connection is lost,
 /// using an exponential backoff strategy to avoid overwhelming the server.
-class WebSocketClient extends ChangeNotifier {
+class WebSocketClient<T> extends ChangeNotifier {
   WebSocket? _socket;
 
   Timer? _reconnectTimer;
   String? _url;
   WebSocketReconnectPolicy _reconnectPolicy;
   bool _isManuallyDisconnected = false;
-  final Bus<String> _bus;
-  StreamSubscription<String>? _busSubscription;
-
-  /// Stream of incoming messages.
-  Stream<String> get messages => _bus.stream;
+  final Bus<T> _bus;
+  StreamSubscription<T>? _busSubscription;
 
   /// Current connection state.
   WebSocketConnectionState _connectionState =
@@ -34,7 +31,7 @@ class WebSocketClient extends ChangeNotifier {
   /// [bus] - Bus for message sharing between multiple clients
   WebSocketClient({
     WebSocketReconnectPolicy? reconnectPolicy,
-    required Bus<String> bus,
+    required Bus<T> bus,
   }) : _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy(),
        _bus = bus;
 
@@ -80,7 +77,7 @@ class WebSocketClient extends ChangeNotifier {
       _updateConnectionState(WebSocketConnectionState.connected);
 
       // Listen to bus stream and forward to WebSocket
-      _busSubscription = _bus.stream.listen((message) {
+      _busSubscription = _bus.source.listen((message) {
         if (_connectionState == WebSocketConnectionState.connected) {
           _socket?.add(message);
         }
@@ -89,9 +86,7 @@ class WebSocketClient extends ChangeNotifier {
       // Listen for messages from WebSocket
       _socket!.listen(
         (data) {
-          if (data is String) {
-            _bus.sink.emit(data);
-          }
+          _bus.sink.emit(data);
         },
         onError: (error) {
           _handleConnectionError(error);
