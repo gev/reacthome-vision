@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:common/bus/bus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
 
@@ -8,32 +10,33 @@ import 'package:vision/websocket/websocket_state.dart';
 ///
 /// This client automatically reconnects when the connection is lost,
 /// using an exponential backoff strategy to avoid overwhelming the server.
-class WebSocketClient {
+class WebSocketClient extends ChangeNotifier {
   WebSocket? _socket;
-  final _messageController = StreamController<String>.broadcast();
-  final _connectionStateController =
-      StreamController<WebSocketConnectionState>.broadcast();
 
   Timer? _reconnectTimer;
   String? _url;
   WebSocketReconnectPolicy _reconnectPolicy;
   bool _isManuallyDisconnected = false;
+  final Bus<String> _bus;
+  StreamSubscription<String>? _busSubscription;
 
   /// Stream of incoming messages.
-  Stream<String> get messages => _messageController.stream;
-
-  /// Stream of connection state changes.
-  Stream<WebSocketConnectionState> get connectionState =>
-      _connectionStateController.stream;
+  Stream<String> get messages => _bus.stream;
 
   /// Current connection state.
   WebSocketConnectionState _connectionState =
       WebSocketConnectionState.disconnected;
-  WebSocketConnectionState get connectionStateSync => _connectionState;
+  WebSocketConnectionState get state => _connectionState;
 
-  /// Creates a new WebSocket client with the specified reconnection policy.
-  WebSocketClient({WebSocketReconnectPolicy? reconnectPolicy})
-    : _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy();
+  /// Creates a new WebSocket client.
+  ///
+  /// [reconnectPolicy] - Optional reconnection policy for auto-reconnect
+  /// [bus] - Bus for message sharing between multiple clients
+  WebSocketClient({
+    WebSocketReconnectPolicy? reconnectPolicy,
+    required Bus<String> bus,
+  }) : _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy(),
+       _bus = bus;
 
   /// Connects to the WebSocket server at the specified URL.
   Future<void> connect(String url) async {
@@ -76,11 +79,18 @@ class WebSocketClient {
       _reconnectPolicy.recordSuccess();
       _updateConnectionState(WebSocketConnectionState.connected);
 
-      // Listen for messages
+      // Listen to bus stream and forward to WebSocket
+      _busSubscription = _bus.stream.listen((message) {
+        if (_connectionState == WebSocketConnectionState.connected) {
+          _socket?.add(message);
+        }
+      });
+
+      // Listen for messages from WebSocket
       _socket!.listen(
         (data) {
           if (data is String) {
-            _messageController.add(data);
+            _bus.sink.emit(data);
           }
         },
         onError: (error) {
@@ -128,19 +138,20 @@ class WebSocketClient {
 
   void _updateConnectionState(WebSocketConnectionState state) {
     _connectionState = state;
-    _connectionStateController.add(state);
+    notifyListeners();
   }
 
   Future<void> _closeSocket() async {
+    await _busSubscription?.cancel();
+    _busSubscription = null;
     await _socket?.close();
     _socket = null;
   }
 
-  /// Disposes of the client and releases resources.
-  Future<void> dispose() async {
+  @override
+  void dispose() {
     _reconnectTimer?.cancel();
-    await _closeSocket();
-    await _messageController.close();
-    await _connectionStateController.close();
+    _closeSocket();
+    super.dispose();
   }
 }
