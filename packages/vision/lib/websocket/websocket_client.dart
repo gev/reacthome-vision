@@ -8,9 +8,9 @@ import 'package:vision/websocket/websocket_state.dart';
 /// A WebSocket client with auto-reconnection support.
 class WebSocketClient<T> extends ChangeNotifier {
   final String _url;
-  final StreamController<T> _channel;
+  final Sink<T> _sink;
   final WebSocketReconnectPolicy _reconnectPolicy;
-  late final StreamSubscription<T> _channelSubscription;
+  late final StreamSubscription<T> _subscription;
   WebSocket? _socket;
 
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
@@ -23,15 +23,17 @@ class WebSocketClient<T> extends ChangeNotifier {
   /// Creates a new WebSocket client and connects to the server.
   ///
   /// [url] - WebSocket server URL
-  /// [channel] - Channel for messages to send and receive
+  /// [sink] - Sink for messages to send
+  /// [source] - Stream for messages to receive
   WebSocketClient({
     required String url,
-    required StreamController<T> channel,
+    required Sink<T> sink,
+    required Stream<T> source,
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
-       _channel = channel,
+       _sink = sink,
        _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
-    _channelSubscription = _channel.stream.listen(_handleChannelMessage);
+    _subscription = source.listen(_handleChannelMessage);
     _establishConnection();
   }
 
@@ -57,7 +59,7 @@ class WebSocketClient<T> extends ChangeNotifier {
 
     _socket!.listen(
       (data) {
-        _channel.sink.add(data);
+        _sink.add(data);
       },
       onError: (error) {
         _onConnectionLost();
@@ -92,7 +94,7 @@ class WebSocketClient<T> extends ChangeNotifier {
   @override
   void dispose() {
     _reconnectTimer?.cancel();
-    _channelSubscription.cancel();
+    _subscription.cancel();
     _closeSocket();
     super.dispose();
   }
