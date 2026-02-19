@@ -37,10 +37,9 @@ class WebSocketClient extends ChangeNotifier {
   }
 
   /// Connects to the WebSocket server at the specified URL.
-  Future<void> connect(String url) async {
-    _url = url;
+  Future<void> connect() async {
     _isManuallyDisconnected = false;
-    await _establishConnection();
+    return _establishConnection();
   }
 
   /// Disconnects from the WebSocket server.
@@ -48,14 +47,11 @@ class WebSocketClient extends ChangeNotifier {
     _isManuallyDisconnected = true;
     _reconnectTimer?.cancel();
     _updateState(WebSocketConnectionState.disconnected);
-    await _closeSocket();
+    return _closeSocket();
   }
 
   Future<void> _establishConnection() async {
-    if (_url == null) return;
-
     _updateState(WebSocketConnectionState.connecting);
-
     try {
       _socket = await WebSocket.connect(_url!);
       _reconnectPolicy.recordSuccess();
@@ -67,45 +63,27 @@ class WebSocketClient extends ChangeNotifier {
           _channel.sink.emit(data);
         },
         onError: (error) {
-          _handleConnectionError();
+          _onConnectionLost();
         },
         onDone: () {
-          _handleConnectionClosed();
+          _onConnectionLost();
         },
       );
     } catch (e) {
-      _handleConnectionError();
+      _onConnectionLost();
     }
   }
 
-  void _handleConnectionError() {
+  void _onConnectionLost() {
+    _updateState(WebSocketConnectionState.disconnected);
     if (_isManuallyDisconnected) return;
-
-    if (!_reconnectPolicy.canRetry) {
-      _updateState(WebSocketConnectionState.disconnected);
-      return;
-    }
-
-    _scheduleReconnect();
-  }
-
-  void _handleConnectionClosed() {
-    if (_isManuallyDisconnected) return;
-
-    if (!_reconnectPolicy.canRetry) {
-      _updateState(WebSocketConnectionState.disconnected);
-      return;
-    }
-
+    if (!_reconnectPolicy.canRetry) return;
     _scheduleReconnect();
   }
 
   void _scheduleReconnect() {
-    _updateState(WebSocketConnectionState.reconnecting);
-
     final delay = _reconnectPolicy.nextDelayMs;
     _reconnectPolicy.recordFailedAttempt();
-
     _reconnectTimer = Timer(Duration(milliseconds: delay), () {
       _establishConnection();
     });
