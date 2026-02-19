@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:vision/splash.dart';
+import 'package:vision/theme.dart';
 
 class VisionApp extends StatelessWidget {
   final String title;
@@ -8,8 +10,10 @@ class VisionApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: title,
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Scaffold(body: Center(child: Text('Vision'))),
+      themeMode: ThemeMode.system,
+      theme: makeTheme(Colors.blue, Brightness.light),
+      darkTheme: makeTheme(Colors.blue, Brightness.dark),
+      home: Splash(title),
     );
   }
 }
