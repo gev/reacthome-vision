@@ -10,6 +10,7 @@ class WebSocketClient<T> extends ChangeNotifier {
   final String _url;
   final Sink<T> _sink;
   final WebSocketReconnectPolicy _reconnectPolicy;
+
   late final StreamSubscription<T> _subscription;
   WebSocket? _socket;
 
