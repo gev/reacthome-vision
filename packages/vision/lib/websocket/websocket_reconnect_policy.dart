@@ -23,7 +23,7 @@ class WebSocketReconnectPolicy {
     this.initialDelayMs = 1000,
     this.maxDelayMs = 30000,
     this.multiplier = 2.0,
-    this.maxAttempts = 5,
+    this.maxAttempts = 10,
   }) : _currentDelayMs = initialDelayMs;
 
   /// Returns true if more reconnection attempts are allowed.
