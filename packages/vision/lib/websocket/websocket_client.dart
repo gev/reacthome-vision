@@ -8,10 +8,11 @@ import 'package:vision/websocket/websocket_state.dart';
 
 /// A WebSocket client with auto-reconnection support.
 class WebSocketClient extends ChangeNotifier {
-  WebSocket? _socket;
+  final String _url;
   final BroadcastChannel<String> _channel;
-  StreamSubscription<String>? _channelSubscription;
   final WebSocketReconnectPolicy _reconnectPolicy;
+  StreamSubscription<String>? _channelSubscription;
+  WebSocket? _socket;
 
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
   bool _isManuallyDisconnected = false;
@@ -20,23 +21,18 @@ class WebSocketClient extends ChangeNotifier {
   /// Current connection state.
   WebSocketConnectionState get state => _state;
 
-  /// Private constructor.
-  WebSocketClient._(this._channel)
-    : _reconnectPolicy = WebSocketReconnectPolicy() {
-    _channelSubscription = _channel.source.listen(_handleChannelMessage);
-  }
-
   /// Creates a new WebSocket client and connects to the server.
   ///
   /// [url] - WebSocket server URL
   /// [channel] - Channel for message sharing between multiple clients
-  static Future<WebSocketClient> connect(
-    String url,
-    BroadcastChannel<String> channel,
-  ) async {
-    final client = WebSocketClient._(channel);
-    await client._establishConnection(url);
-    return client;
+  WebSocketClient({
+    required String url,
+    required BroadcastChannel<String> channel,
+  }) : _url = url,
+       _channel = channel,
+       _reconnectPolicy = WebSocketReconnectPolicy() {
+    _channelSubscription = _channel.source.listen(_handleChannelMessage);
+    _establishConnection();
   }
 
   void _handleChannelMessage(String message) {
@@ -53,28 +49,29 @@ class WebSocketClient extends ChangeNotifier {
     await _closeSocket();
   }
 
-  Future<void> _establishConnection(String url) async {
+  void _establishConnection() {
     _updateState(WebSocketConnectionState.connecting);
-    try {
-      _socket = await WebSocket.connect(url);
-      _reconnectPolicy.recordSuccess();
-      _updateState(WebSocketConnectionState.connected);
+    WebSocket.connect(_url)
+        .then((socket) {
+          _socket = socket;
+          _reconnectPolicy.recordSuccess();
+          _updateState(WebSocketConnectionState.connected);
 
-      // Listen for messages from WebSocket
-      _socket!.listen(
-        (data) {
-          _channel.sink.emit(data);
-        },
-        onError: (error) {
+          socket.listen(
+            (data) {
+              _channel.sink.emit(data);
+            },
+            onError: (error) {
+              _onConnectionLost();
+            },
+            onDone: () {
+              _onConnectionLost();
+            },
+          );
+        })
+        .catchError((e) {
           _onConnectionLost();
-        },
-        onDone: () {
-          _onConnectionLost();
-        },
-      );
-    } catch (e) {
-      _onConnectionLost();
-    }
+        });
   }
 
   void _onConnectionLost() {
@@ -88,7 +85,7 @@ class WebSocketClient extends ChangeNotifier {
     final delay = _reconnectPolicy.nextDelayMs;
     _reconnectPolicy.recordFailedAttempt();
     _reconnectTimer = Timer(Duration(milliseconds: delay), () {
-      // Reconnect would need url stored - simplified for now
+      _establishConnection();
     });
   }
 
