@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common/channel/broadcast_channel.dart';
+import 'package:common/channel/channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
 
 /// A WebSocket client with auto-reconnection support.
-class WebSocketClient extends ChangeNotifier {
+class WebSocketClient<T> extends ChangeNotifier {
   final String _url;
-  final BroadcastChannel<String> _channel;
+  final Channel<T> _channel;
   final WebSocketReconnectPolicy _reconnectPolicy;
-  StreamSubscription<String>? _channelSubscription;
+  late final StreamSubscription<T> _channelSubscription;
   WebSocket? _socket;
 
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
@@ -24,18 +24,19 @@ class WebSocketClient extends ChangeNotifier {
   /// Creates a new WebSocket client and connects to the server.
   ///
   /// [url] - WebSocket server URL
-  /// [channel] - Channel for message sharing between multiple clients
+  /// [channel] - Channel for messages to send and receive
   WebSocketClient({
     required String url,
-    required BroadcastChannel<String> channel,
+    required Channel<T> channel,
+    WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _channel = channel,
-       _reconnectPolicy = WebSocketReconnectPolicy() {
+       _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
     _channelSubscription = _channel.source.listen(_handleChannelMessage);
     _establishConnection();
   }
 
-  void _handleChannelMessage(String message) {
+  void _handleChannelMessage(T message) {
     if (_state == WebSocketConnectionState.connected) {
       _socket?.add(message);
     }
@@ -43,50 +44,43 @@ class WebSocketClient extends ChangeNotifier {
 
   /// Disconnects from the WebSocket server.
   Future<void> disconnect() async {
-    _isManuallyDisconnected = true;
     _reconnectTimer?.cancel();
+    _isManuallyDisconnected = true;
     _updateState(WebSocketConnectionState.disconnected);
-    await _closeSocket();
+    return _closeSocket();
   }
 
-  void _establishConnection() {
+  Future<void> _establishConnection() async {
     _updateState(WebSocketConnectionState.connecting);
-    WebSocket.connect(_url)
-        .then((socket) {
-          _socket = socket;
-          _reconnectPolicy.recordSuccess();
-          _updateState(WebSocketConnectionState.connected);
+    _socket = await WebSocket.connect(_url);
+    _reconnectPolicy.recordSuccess();
+    _updateState(WebSocketConnectionState.connected);
 
-          socket.listen(
-            (data) {
-              _channel.sink.emit(data);
-            },
-            onError: (error) {
-              _onConnectionLost();
-            },
-            onDone: () {
-              _onConnectionLost();
-            },
-          );
-        })
-        .catchError((e) {
-          _onConnectionLost();
-        });
+    _socket!.listen(
+      (data) {
+        _channel.sink.emit(data);
+      },
+      onError: (error) {
+        _onConnectionLost();
+      },
+      onDone: _onConnectionLost,
+    );
   }
 
   void _onConnectionLost() {
     _updateState(WebSocketConnectionState.disconnected);
-    if (_isManuallyDisconnected) return;
-    if (!_reconnectPolicy.canRetry) return;
     _scheduleReconnect();
   }
 
   void _scheduleReconnect() {
+    if (_isManuallyDisconnected) return;
+    if (!_reconnectPolicy.canRetry) return;
     final delay = _reconnectPolicy.nextDelayMs;
     _reconnectPolicy.recordFailedAttempt();
-    _reconnectTimer = Timer(Duration(milliseconds: delay), () {
-      _establishConnection();
-    });
+    _reconnectTimer = Timer(
+      Duration(milliseconds: delay),
+      _establishConnection,
+    );
   }
 
   void _updateState(WebSocketConnectionState newState) {
@@ -94,14 +88,12 @@ class WebSocketClient extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _closeSocket() async {
-    await _socket?.close();
-  }
+  Future<void> _closeSocket() async => _socket?.close();
 
   @override
   void dispose() {
     _reconnectTimer?.cancel();
-    _channelSubscription?.cancel();
+    _channelSubscription.cancel();
     _closeSocket();
     super.dispose();
   }
