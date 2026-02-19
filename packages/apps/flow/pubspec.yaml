@@ -12,8 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_localizations:
-    sdk: flutter
+  vision:
 
 dev_dependencies:
   flutter_test:
