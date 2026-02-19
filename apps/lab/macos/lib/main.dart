@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:lab/lab_app.dart';
+import 'package:lab/make_lab_app.dart';
 
 void main() {
-  runApp(make());
+  runApp(makeLabApp());
 }
