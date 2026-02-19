@@ -1,7 +1,7 @@
-import 'package:common/bus/bus_listener.dart';
+import 'package:common/channel/channel_listener.dart';
 import 'package:flutter/widgets.dart';
 
-abstract class ViewModel<E> extends BusListener<E> with ChangeNotifier {
+abstract class ViewModel<E> extends ChannelListener<E> with ChangeNotifier {
   ViewModel({required super.eventSource});
 
   bool shouldNotify(E event);

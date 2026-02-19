@@ -4,10 +4,10 @@ import 'dart:async';
 
 import 'package:common/handler.dart';
 
-abstract class BusListener<E> extends Object implements Handler<E> {
+abstract class ChannelListener<E> extends Object implements Handler<E> {
   late StreamSubscription<E> _subscription;
 
-  BusListener({required Stream<E> eventSource}) {
+  ChannelListener({required Stream<E> eventSource}) {
     _subscription = eventSource.listen(handle);
   }
 

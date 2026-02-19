@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common/bus/bus.dart';
+import 'package:common/channel/broadcast_channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
@@ -17,7 +17,7 @@ class WebSocketClient<T> extends ChangeNotifier {
   String? _url;
   WebSocketReconnectPolicy _reconnectPolicy;
   bool _isManuallyDisconnected = false;
-  final Bus<T> _bus;
+  final BroadcastChannel<T> _bus;
   StreamSubscription<T>? _busSubscription;
 
   /// Current connection state.
@@ -31,7 +31,7 @@ class WebSocketClient<T> extends ChangeNotifier {
   /// [bus] - Bus for message sharing between multiple clients
   WebSocketClient({
     WebSocketReconnectPolicy? reconnectPolicy,
-    required Bus<T> bus,
+    required BroadcastChannel<T> bus,
   }) : _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy(),
        _bus = bus;
 
