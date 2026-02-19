@@ -48,7 +48,7 @@ class WebSocketClient<T> extends ChangeNotifier {
     _reconnectTimer?.cancel();
     _isManuallyDisconnected = true;
     _updateState(WebSocketConnectionState.disconnected);
-    return _closeSocket();
+    _closeSocket();
   }
 
   Future<void> _establishConnection() async {
@@ -74,14 +74,14 @@ class WebSocketClient<T> extends ChangeNotifier {
   }
 
   void _scheduleReconnect() {
-    if (_isManuallyDisconnected) return;
-    if (!_reconnectPolicy.canRetry) return;
-    final delay = _reconnectPolicy.nextDelayMs;
-    _reconnectPolicy.recordFailedAttempt();
-    _reconnectTimer = Timer(
-      Duration(milliseconds: delay),
-      _establishConnection,
-    );
+    if (!_isManuallyDisconnected && _reconnectPolicy.canRetry) {
+      final delay = _reconnectPolicy.nextDelayMs;
+      _reconnectPolicy.recordFailedAttempt();
+      _reconnectTimer = Timer(
+        Duration(milliseconds: delay),
+        _establishConnection,
+      );
+    }
   }
 
   void _updateState(WebSocketConnectionState newState) {
