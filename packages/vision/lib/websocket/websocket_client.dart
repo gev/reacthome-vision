@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:common/channel/channel.dart';
+import 'package:common/channel.dart';
 import 'package:flutter/foundation.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
@@ -58,7 +58,7 @@ class WebSocketClient<T> extends ChangeNotifier {
 
     _socket!.listen(
       (data) {
-        _channel.sink.emit(data);
+        _channel.sink.add(data);
       },
       onError: (error) {
         _onConnectionLost();
