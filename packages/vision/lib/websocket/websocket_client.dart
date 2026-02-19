@@ -59,16 +59,6 @@ class WebSocketClient extends ChangeNotifier {
     await _closeSocket();
   }
 
-  /// Sends a message to the WebSocket server.
-  void send(String message) {
-    if (state != WebSocketConnectionState.connected) {
-      throw StateError(
-        'Cannot send message: WebSocket is not connected. Current state: $state',
-      );
-    }
-    _socket?.add(message);
-  }
-
   Future<void> _establishConnection() async {
     if (_url == null) return;
 
