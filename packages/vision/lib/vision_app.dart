@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:vision/splash.dart';
-import 'package:vision/theme.dart';
+import 'package:vision/websocket/websocket_client.dart';
+import 'package:vision/widgets/home.dart';
+import 'package:vision/widgets/splash.dart';
+import 'package:vision/widgets/theme.dart';
 
 class VisionApp extends StatelessWidget {
   final String title;
-  const VisionApp({super.key, required this.title});
+  final WebSocketClient client;
+  const VisionApp({required this.client, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class VisionApp extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: makeTheme(Colors.blue, Brightness.light),
       darkTheme: makeTheme(Colors.blue, Brightness.dark),
-      home: Splash(title),
+      home: Home(client: client, child: Splash(title)),
     );
   }
 }

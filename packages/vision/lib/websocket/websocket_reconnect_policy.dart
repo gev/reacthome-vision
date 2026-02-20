@@ -23,12 +23,12 @@ class WebSocketReconnectPolicy {
     this.initialDelayMs = 1000,
     this.maxDelayMs = 30000,
     this.multiplier = 2.0,
-    this.maxAttempts = 10,
+    this.maxAttempts = 0,
   }) : _currentDelayMs = initialDelayMs;
 
   /// Returns true if more reconnection attempts are allowed.
   bool get canRetry {
-    return _attemptCount < maxAttempts;
+    return maxAttempts <= 0 || _attemptCount < maxAttempts;
   }
 
   /// Returns the delay in milliseconds before the next reconnection attempt.

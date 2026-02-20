@@ -6,12 +6,12 @@ import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
 
 /// A WebSocket client with auto-reconnection support.
-class WebSocketClient<T> extends ChangeNotifier {
+class WebSocketClient<Si, So> extends ChangeNotifier {
   final String _url;
-  final Sink<T> _sink;
+  final Sink<Si> _sink;
   final WebSocketReconnectPolicy _reconnectPolicy;
 
-  late final StreamSubscription<T> _subscription;
+  late final StreamSubscription<So> _subscription;
   WebSocket? _socket;
 
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
@@ -28,8 +28,8 @@ class WebSocketClient<T> extends ChangeNotifier {
   /// [source] - Stream for messages to receive
   WebSocketClient({
     required String url,
-    required Sink<T> sink,
-    required Stream<T> source,
+    required Sink<Si> sink,
+    required Stream<So> source,
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _sink = sink,
@@ -38,7 +38,7 @@ class WebSocketClient<T> extends ChangeNotifier {
     _establishConnection();
   }
 
-  void _handleChannelMessage(T message) {
+  void _handleChannelMessage(So message) {
     if (_state == WebSocketConnectionState.connected) {
       _socket?.add(message);
     }
@@ -54,19 +54,23 @@ class WebSocketClient<T> extends ChangeNotifier {
 
   Future<void> _establishConnection() async {
     _updateState(WebSocketConnectionState.connecting);
-    _socket = await WebSocket.connect(_url);
-    _reconnectPolicy.recordSuccess();
-    _updateState(WebSocketConnectionState.connected);
+    try {
+      _socket = await WebSocket.connect(_url);
+      _reconnectPolicy.recordSuccess();
+      _updateState(WebSocketConnectionState.connected);
 
-    _socket!.listen(
-      (data) {
-        _sink.add(data);
-      },
-      onError: (error) {
-        _onConnectionLost();
-      },
-      onDone: _onConnectionLost,
-    );
+      _socket!.listen(
+        (data) {
+          _sink.add(data);
+        },
+        onError: (error) {
+          _onConnectionLost();
+        },
+        onDone: _onConnectionLost,
+      );
+    } catch (_) {
+      _onConnectionLost();
+    }
   }
 
   void _onConnectionLost() {
