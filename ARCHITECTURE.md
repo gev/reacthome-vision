@@ -255,16 +255,17 @@ The client can maintain more than one store. Stores differ along two axes:
 
 | | In-Memory only | Persistent (survives restart) |
 |---|---|---|
-| **Local** | ephemeral local state | persisted local state |
-| **Remote** | volatile server-backed | cached server-backed |
+| **Local** | ephemeral local state | local state |
+| **Remote** | volatile server-backed | persisted cached server-backed |
 
 Stores are **first-class Glue values**. `lookup` and `put` take the store as their first argument, making the storage target explicit and composable:
 
 ```clojure
 ;; Stores defined once at app or screen initialisation
-(def remote (store :remote :persistent))   ;; server-backed, persisted to disk
-(def session (store :remote :memory))      ;; server-backed, in-memory only
-(def local   (store :local  :memory))      ;; local in-memory only, never fetched
+(def cache create-remote-cache)   ;; server-backed, persisted to disk
+(def session create-remote-store) ;; server-backed, in-memory only
+(def local create-local-store)    ;; local in-memory only, never fetched
+(def secure create-secure-store)  ;; local storage with OS Secure Storage as backend
 
 ;; Binding notifiers — each lookup targets a specific store
 (def cart         (lookup remote  'cart))
