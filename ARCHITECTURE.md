@@ -246,3 +246,58 @@ Once connected, the server pushes fresh resources and can initiate application f
 ## Summary
 
 This is **SDUI taken to its logical extreme** with **bidirectional Glue RPC**. The store holds both state (data) and screens (reactive Glue expressions using `listen`). Screens use `lookup` to bind `StateNotifier`s for any resource ID — triggering lazy fetches from the server when needed — and `listen` to subscribe reactively. Each `listen` is an independent re-render boundary. The client is a runtime, not an application.
+
+---
+
+## Use Case: Multiple Stores
+
+The client can maintain more than one store. Stores differ along two axes:
+
+| | In-Memory only | Persistent (survives restart) |
+|---|---|---|
+| **Local** | ephemeral local state | persisted local state |
+| **Remote** | volatile server-backed | cached server-backed |
+
+Stores are **first-class Glue values**. `lookup` and `put` take the store as their first argument, making the storage target explicit and composable:
+
+```clojure
+;; Stores defined once at app or screen initialisation
+(def remote (store :remote :persistent))   ;; server-backed, persisted to disk
+(def session (store :remote :memory))      ;; server-backed, in-memory only
+(def local   (store :local  :memory))      ;; local in-memory only, never fetched
+
+;; Binding notifiers — each lookup targets a specific store
+(def cart         (lookup remote  'cart))
+(def current-user (lookup session 'current-user))
+(def form-state   (lookup local   'draft-form))
+
+;; Screens use the notifiers as usual
+(listen cart
+  (lambda ()
+    (cart-widget (read cart))))
+```
+
+### Who defines the store for `put`?
+
+- **Server-initiated puts** — the server declares the target store explicitly:
+  ```clojure
+  (put remote  'cart (:items () :total 0))    ;; persistent remote
+  (put session 'current-user (:id "u1" ...))  ;; volatile session
+  ```
+- **Local puts** — the client writes to local stores independently, no server involved:
+  ```clojure
+  (put local 'draft-form (:name "" :email ""))
+  ```
+
+### Who defines the store for `get`?
+
+The client sends `(get 'id)` without specifying a store — it just requests the resource by ID. The **server decides** which store to write to when it responds with `put`. This keeps the client free of policy decisions about remote resource persistence. The client only specifies stores for resources it manages locally.
+
+### Typical store configuration
+
+| Store | Persistence | Remote | Typical use |
+|---|---|---|---|
+| `remote` | persistent | yes | UI resources, domain state — survives restart, refreshed from server |
+| `session` | memory | yes | volatile server state — lost on restart, re-fetched on reconnect |
+| `local` | memory | no | form state, selection state, transient UI — client-only |
+| `prefs` | persistent | no | user preferences — saved locally, never sent to server |
