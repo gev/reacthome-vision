@@ -66,16 +66,14 @@ Neither side is purely passive. The server can drive the client at any time — 
 
 The client maintains a single **keyed reactive store** of Glue values. Both state and screens live here, identified by ID. There is no distinction at the storage level — both are `Ir` values wrapped in `StateNotifier`.
 
-```
-ID                  │  Value                              │  Role
-────────────────────┼─────────────────────────────────────┼────────────
-'user-profile       │  (:name "Alice" :age 30 ...)        │  State
-'cart               │  ((:id "p1" :qty 2) ...)            │  State
-'notifications      │  (...)                              │  State
-'home-screen        │  (listen user-profile (\ () ...))   │  Screen
-'cart-screen        │  (listen cart (\ () ...))           │  Screen
-'profile-screen     │  (listen user-profile (\ () ...))   │  Screen
-```
+| ID | Value | Role |
+|---|---|---|
+| `'user-profile` | `(:name "Alice" :age 30 ...)` | State |
+| `'cart` | `((:id "p1" :qty 2) ...)` | State |
+| `'notifications` | `(...)` | State |
+| `'home-screen` | `(listen user-profile (\ () ...))` | Screen |
+| `'cart-screen` | `(listen cart (\ () ...))` | Screen |
+| `'profile-screen` | `(listen user-profile (\ () ...))` | Screen |
 
 ### State Resources
 Pure data delivered by the server. Stored as Glue values. When updated, all screens that listen to them re-render automatically.
@@ -121,14 +119,12 @@ Screens are composed from smaller fragments using `lookup` + `listen`. `lookup` 
           (user-stats (read user-profile)))))))
 ```
 
-```
-ID                     │  Role
-───────────────────────┼───────────────────────────
-'home-screen           │  Screen (top-level)
-'header-widget         │  Screen fragment (sub-resource)
-'user-stats-widget     │  Screen fragment (sub-resource)
-'user-profile          │  State
-```
+| ID | Role |
+|---|---|
+| `'home-screen` | Screen (top-level) |
+| `'header-widget` | Screen fragment (sub-resource) |
+| `'user-stats-widget` | Screen fragment (sub-resource) |
+| `'user-profile` | State |
 
 - `lookup` is called once per resource — returns the `StateNotifier` and triggers a server fetch if needed
 - `listen` attaches a reactive lambda to a `StateNotifier` — re-runs on every value change
