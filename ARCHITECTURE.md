@@ -512,18 +512,3 @@ When resources span multiple servers:
 3. **Connection Management** - Each server maintains its own WebSocket connection. Connections are independent - one server going offline doesn't affect others.
 
 4. **Server Discovery** - Server URLs can be discovered at runtime or configured statically.
-
-### Example: Multi-Server Screen
-
-```clojure
-;; A screen pulling from multiple servers
-(listen user-profile
-  (lambda (user)
-    (column
-      (listen order-history
-        (lambda (orders)
-          (order-list orders)))
-      (listen product-list
-        (lambda (products)
-          (product-grid products))))))
-```
