@@ -548,3 +548,37 @@ When a screen references resources from multiple servers, there are security imp
    - Send `put` messages for resources they don't own
    - Invoke client functions
    - Access cached resources
+
+### Alternative: Server Context
+
+An alternative approach is to embed the server in the evaluation context rather than passing server-id explicitly:
+
+```clojure
+;; No server-id needed - context provides it
+(get 'user-profile)    ;; → uses current server context
+(post ('refresh-token))  ;; → uses current server context
+```
+
+**How it works:**
+1. Client maintains evaluation context with current server
+2. When evaluating `put` from auth-server, context = auth-server
+3. All `get`/`post` calls automatically use that server
+4. Context switches when evaluating code from different server
+
+**Advantages:**
+- **Simpler API** - no server-id parameter needed
+- **Security by default** - client can't be tricked into posting to wrong server
+- **Implicit isolation** - each server's code runs in its context naturally
+
+**Security:**
+- Server cannot inject cross-server `post` calls - client always uses current context
+- Even if server sends malicious data like `(post 'other-server 'action)`, client ignores the explicit server and uses its own context
+
+```clojure
+;; Server sends this malicious payload
+(:action (post 'billing-server 'steal-money))
+
+;; Client evaluates in auth-server context
+(post 'billing-server 'steal-money)  ;; IGNORED!
+(post ('steal-money))  ;; → sent to auth-server (correct)
+```
