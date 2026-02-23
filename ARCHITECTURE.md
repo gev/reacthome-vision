@@ -439,3 +439,91 @@ The client sends `(get 'id)` without specifying a store — it just requests the
 | `session` | memory | yes | volatile server state — lost on restart, re-fetched on reconnect |
 | `local` | memory | no | form state, selection state, transient UI — client-only |
 | `prefs` | persistent | no | user preferences — saved locally, never sent to server |
+
+---
+
+## Multi-Server Architecture
+
+In distributed systems, a single application may span multiple servers (e.g., auth-service, billing-service, core-service). The client connects to multiple servers simultaneously, each providing different resources and domain logic.
+
+### API Changes
+
+The `get` and `post` functions accept a **server-id** as the first parameter to route requests to the appropriate server:
+
+```clojure
+;; Single server (default)
+(get 'resource-id)
+(post ('inc 'counter 1))
+
+;; Multi-server - server-id as first parameter
+(get 'auth-server 'user-profile)
+(get 'billing-server 'cart)
+(get 'core-server 'products)
+
+(post 'auth-server ('refresh-token))
+(post 'billing-server ('create-order cart))
+```
+
+### Syntax Requirements
+
+Following Glue grammar rules (no mixed content), server-id must be passed as a quoted symbol:
+
+```clojure
+;; get: (get server-id resource-id)
+(get 'auth-server 'user-profile)
+(get 'billing-server 'order-history)
+
+;; post: (post server-id expression)
+(post 'auth-server ('logout))
+(post 'billing-server ('process-payment (:amount 100)))
+```
+
+### Server Registry
+
+The client maintains a registry of available servers:
+
+```clojure
+;; Server configuration (typically from app initialization)
+(def servers
+  (:auth-server   (:url "wss://auth.example.com/glue"))
+   :billing-server (:url "wss://billing.example.com/glue"))
+   :core-server   (:url "wss://core.example.com/glue"))
+```
+
+### Resource Binding
+
+Resources can be bound to specific servers at definition time:
+
+```clojure
+;; Bind resources to specific servers
+(def user-profile  (get 'auth-server 'user-profile))
+(def order-history (get 'billing-server 'order-history))
+(def product-list  (get 'core-server 'products))
+```
+
+### Cross-Server Considerations
+
+When resources span multiple servers:
+
+1. **Resource References** - A screen may reference resources from different servers. The client handles routing automatically based on server-id.
+
+2. **Consistency** - Each server manages its own state. Cross-server transactions are not atomic - use eventual consistency patterns.
+
+3. **Connection Management** - Each server maintains its own WebSocket connection. Connections are independent - one server going offline doesn't affect others.
+
+4. **Server Discovery** - Server URLs can be discovered at runtime or configured statically.
+
+### Example: Multi-Server Screen
+
+```clojure
+;; A screen pulling from multiple servers
+(listen user-profile
+  (lambda (user)
+    (column
+      (listen order-history
+        (lambda (orders)
+          (order-list orders)))
+      (listen product-list
+        (lambda (products)
+          (product-grid products))))))
+```
