@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:glue/compile.dart';
 import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue/parser.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue/parse.dart';
 import 'package:vision/glue/env.dart';
 
 typedef GlueEvalResult = Either<GlueError, List<Widget>>;
@@ -13,31 +13,21 @@ typedef GlueEvalResult = Either<GlueError, List<Widget>>;
 class GlueEvaluator {
   /// Evaluate Glue code and return either widgets or a Glue error
   static Future<GlueEvalResult> evaluateCode(String code) async {
-    print('🔄 Starting Glue evaluation for code: "${code.trim()}"');
-
-    final parseResult = parseGlue(code.trim());
+    final parseResult = parseGlue(code);
     return parseResult.match(
       (parseError) {
-        print('💥 Parse failed: $parseError');
         return Left(parseError);
       },
       (ast) async {
-        print('✅ Parse successful: $ast');
         final irTree = compile(ast);
-        print('✅ Compilation successful: $irTree');
-
-        print('✅ Environment created with UI module: $uiCoreModule');
         final evalResult = await runEvalSimple(eval(irTree), env);
         return evalResult.match(
           (error) {
-            print('💥 Evaluation failed: $error');
             return Left(error);
           },
           (value) {
             final (resultIr, _) = value;
-            print('✅ Evaluation successful: $resultIr');
             final widgets = _extractWidgetsFromIr(resultIr, []);
-            print('✅ Widget extraction complete: ${widgets.length} widgets');
             return Right(widgets);
           },
         );
