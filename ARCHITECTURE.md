@@ -250,7 +250,6 @@ These types can be converted to AST and sent over the wire:
 | `DottedSymbol` | Namespaced identifiers |
 | `List` | Lists of IR values |
 | `Object` | Key-value maps |
-| `Void` | Unit/null type |
 
 ### Non-Serializable Types
 
@@ -263,6 +262,7 @@ These types cannot be transmitted over the wire:
 | `NativeFunc` | Curried host functions |
 | `Special` | Special forms (quote, if, define, etc.) |
 | `Closure` | Functions with captured environments |
+| `Void` | Unit/null type |
 
 ### The Quote Solution
 
@@ -270,7 +270,7 @@ The **quote** mechanism (`'`) prevents evaluation and preserves expressions as s
 
 ```clojure
 ;; Without quote - evaluated on client
-(inc counter amount)  ;; returns NativeFunc or error if not defined
+(inc counter amount)  ;; returns Void or error if not defined
 
 ;; With quote - preserved as data
 ('inc 'counter amount)  ;; returns List [Symbol "inc", Symbol "counter", ...]
