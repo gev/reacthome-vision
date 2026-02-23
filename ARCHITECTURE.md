@@ -512,3 +512,39 @@ When resources span multiple servers:
 3. **Connection Management** - Each server maintains its own WebSocket connection. Connections are independent - one server going offline doesn't affect others.
 
 4. **Server Discovery** - Server URLs can be discovered at runtime or configured statically.
+
+### Cross-Server Security (XSS-like Issues)
+
+When a screen references resources from multiple servers, there are security implications similar to web XSS:
+
+1. **Server Identity** - Each server must verify the identity of other servers it communicates with. Malicious servers could inject harmful code.
+
+2. **Resource Isolation** - A compromised server should not be able to:
+   - Access resources on other servers
+   - Execute arbitrary actions on the client
+   - Manipulate state meant for other servers
+
+3. **Message Routing** - The client must validate that:
+   - Each `put` message comes from the server it claims
+   - Resource IDs are scoped to their originating server
+   - Server-initiated calls are authorized
+
+4. **Defense Strategies**:
+   - **Server certificates** - Mutual TLS between client and servers
+   - **Message signing** - Servers sign their messages cryptographically
+   - **Resource scoping** - Prefix resources with server-id to prevent collision
+   - **Capability tokens** - Servers prove they have permission to act on resources
+
+```clojure
+;; Resource IDs scoped by server
+(get 'auth-server 'user-profile)      ;; user-profile from auth-server
+(get 'billing-server 'user-profile)   ;; user-profile from billing-server
+
+;; Server-signed put
+(put 'auth-server 'user-profile (:name "Alice") :signature "...")
+```
+
+5. **Trusted Servers List** - The client maintains a list of trusted server identities. Untrusted servers cannot:
+   - Send `put` messages for resources they don't own
+   - Invoke client functions
+   - Access cached resources
