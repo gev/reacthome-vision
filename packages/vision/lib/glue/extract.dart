@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/repository/state_notifier.dart';
+import 'package:vision/store/state_notifier.dart';
 
 /// Helper function to extract ChangeNotifier from IrNativeValue
 StateNotifier<Ir>? extractStateNotifier(Ir ir) {

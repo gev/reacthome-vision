@@ -1,9 +1,9 @@
-import 'package:vision/repository/state_notifier.dart';
+import 'package:vision/store/state_notifier.dart';
 
-class InternalStore<K, V> {
+class Internal<K, V> {
   final _store = <K, StateNotifier<V>>{};
 
-  void store(K key, V value) {
+  void put(K key, V value) {
     final state = _store[key];
     if (state != null) {
       state.value = value;
