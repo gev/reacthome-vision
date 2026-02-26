@@ -1,6 +1,6 @@
 import 'package:vision/store/state_notifier.dart';
 
-class Internal<K, V> {
+class InternalStore<K, V> {
   final _store = <K, StateNotifier<V>>{};
 
   void put(K key, V value) {
@@ -12,4 +12,6 @@ class Internal<K, V> {
   }
 
   StateNotifier<V>? lookup(K key) => _store[key];
+
+  void clear() => _store.clear();
 }

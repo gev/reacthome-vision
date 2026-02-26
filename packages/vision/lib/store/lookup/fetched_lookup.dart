@@ -1,11 +1,11 @@
-import 'package:vision/store/internal.dart';
+import 'package:vision/store/internal_store.dart';
 import 'package:vision/store/lookup.dart';
 import 'package:vision/store/state_notifier.dart';
 
 typedef Fetch<K> = void Function(K key);
 
 class FetchedLookup<K, V> implements Lookup<K, V> {
-  final Internal<K, V> _store;
+  final InternalStore<K, V> _store;
   final Fetch<K> _request;
 
   const FetchedLookup(this._store, this._request);
