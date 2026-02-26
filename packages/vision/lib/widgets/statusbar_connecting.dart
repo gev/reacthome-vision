@@ -8,7 +8,11 @@ class StatusbarConnecting extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CircularProgressIndicator.adaptive(),
+        SizedBox(
+          width: 16,
+          height: 16,
+          child: CircularProgressIndicator.adaptive(strokeWidth: 2),
+        ),
         SizedBox(width: 8),
         Text("Connecting"),
       ],
