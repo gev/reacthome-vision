@@ -1,6 +1,6 @@
+import 'package:vision/state/state_notifier.dart';
 import 'package:vision/store/internal_store.dart';
 import 'package:vision/store/lookup.dart';
-import 'package:vision/store/state_notifier.dart';
 
 typedef Fetch<K> = void Function(K key);
 

@@ -1,4 +1,4 @@
-import 'package:vision/store/state_notifier.dart';
+import 'package:vision/state/state_notifier.dart';
 
 class InternalStore<K, V> {
   final _store = <K, StateNotifier<V>>{};
