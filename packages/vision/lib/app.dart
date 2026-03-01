@@ -4,8 +4,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:vision/controllers/glue_controller.dart';
-import 'package:vision/vision_app.dart';
 import 'package:vision/websocket/websocket_client.dart';
+import 'package:vision/widgets/vision_app.dart';
 
 Widget makeApp({
   required String id,
