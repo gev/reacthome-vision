@@ -1,0 +1,43 @@
+import 'package:glue/either.dart';
+import 'package:glue/error.dart';
+import 'package:glue/eval.dart';
+import 'package:glue/ir.dart';
+import 'package:vision/glue/listenable.dart';
+import 'package:vision/state/state_notifier.dart';
+
+/// Creates a ListenableWidget that rebuilds when dependencies change
+/// Takes a StateNotifier and a lambda function that receives the current value
+final listenFunction = IrNativeFunc((Ir notifierIr) {
+  return Eval.pure(
+    IrNativeFunc((Ir lambda) {
+      return Eval((runtime) {
+        // Evaluate the notifier argument to get the actual StateNotifier object
+        final notifier = switch (notifierIr) {
+          IrNativeValue(value: final hv) => extractValue<StateNotifier<Ir>>(hv),
+          _ => null,
+        };
+
+        if (notifier == null) {
+          return Left(
+            EvalError(
+              [],
+              RuntimeException(
+                'invalid-argument',
+                IrString('Expected StateNotifier'),
+              ),
+            ),
+          );
+        }
+
+        // Create reactive widget that calls the lambda with current value
+        final reactiveContainer = Listenable(
+          notifier: notifier,
+          lambda: lambda,
+          runtime: runtime,
+        );
+
+        return Right((IrNativeValue(Value(reactiveContainer)), runtime));
+      });
+    }),
+  );
+});

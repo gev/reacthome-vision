@@ -3,7 +3,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/store/state_notifier.dart';
+import 'package:vision/state/state_notifier.dart';
 
 class Listenable extends StatefulWidget {
   final StateNotifier<Ir> notifier;
