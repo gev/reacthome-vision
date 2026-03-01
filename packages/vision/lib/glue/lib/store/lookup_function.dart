@@ -3,7 +3,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/store/lookup.dart';
 
-final Ir lookup = IrNativeFunc(lookupImpl);
+final Ir lookupFunction = IrNativeFunc(lookupImpl);
 
 Eval<Ir> lookupImpl(Ir store) {
   return Eval.pure(IrNativeFunc(lookupStore(store)));
