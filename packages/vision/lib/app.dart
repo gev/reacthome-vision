@@ -4,6 +4,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:vision/controllers/glue_controller.dart';
+import 'package:vision/glue/env.dart';
+import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/websocket/websocket_client.dart';
 import 'package:vision/widgets/vision_app.dart';
 
@@ -15,11 +17,12 @@ Widget makeApp({
 }) {
   final source = StreamController<Uint8List>();
   final sink = StreamController<String>();
-  GlueController(sink: sink, source: source.stream.map(utf8.decode));
+  final evaluator = GlueEvaluator(makeEnv(sink));
+  GlueController(evaluator: evaluator, source: source.stream.map(utf8.decode));
   final client = WebSocketClient(
     url: 'ws://$host:$port/$id',
     sink: source,
     source: sink.stream,
   );
-  return VisionApp(title: title, client: client);
+  return VisionApp(title: title, client: client, evaluator: evaluator);
 }

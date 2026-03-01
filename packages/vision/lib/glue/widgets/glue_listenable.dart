@@ -5,12 +5,12 @@ import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
 import 'package:vision/state/state_notifier.dart';
 
-class Listenable extends StatefulWidget {
+class GlueListenable extends StatefulWidget {
   final StateNotifier<Ir> notifier;
   final Ir lambda;
   final Runtime runtime;
 
-  const Listenable({
+  const GlueListenable({
     required this.notifier,
     required this.lambda,
     required this.runtime,
@@ -18,21 +18,22 @@ class Listenable extends StatefulWidget {
   });
 
   @override
-  State<Listenable> createState() => _ListenableState();
+  State<GlueListenable> createState() => _GlueListenableState();
 }
 
-class _ListenableState extends State<Listenable> {
-  Widget _cachedWidget = CircularProgressIndicator();
+class _GlueListenableState extends State<GlueListenable> {
+  late Widget _cachedWidget;
 
   @override
   void initState() {
     super.initState();
     widget.notifier.addListener(_updateWidget);
-    _updateWidget(); // Initial evaluation
+    // _updateWidget(); // Initial evaluation
+    _cachedWidget = extractWidget(widget.notifier.value);
   }
 
   @override
-  void didUpdateWidget(Listenable oldWidget) {
+  void didUpdateWidget(GlueListenable oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.notifier != widget.notifier) {
       oldWidget.notifier.removeListener(_updateWidget);
@@ -47,9 +48,7 @@ class _ListenableState extends State<Listenable> {
   }
 
   void _updateWidget() async {
-    // Get current value from StateNotifier
-    final stateNotifier = widget.notifier;
-    final currentValue = stateNotifier.value;
+    final currentValue = widget.notifier.value;
 
     // Call lambda with current value
     final result = await runEval(

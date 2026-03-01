@@ -1,14 +1,16 @@
 import 'dart:async';
 
-import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 
 class GlueController {
   late final GlueEvaluator _evaluator;
   late final StreamSubscription<String> _subscription;
 
-  GlueController({required Sink<String> sink, required Stream<String> source}) {
-    _evaluator = GlueEvaluator(makeEnv(sink));
+  GlueController({
+    required GlueEvaluator evaluator,
+    required Stream<String> source,
+  }) {
+    _evaluator = evaluator;
     _subscription = source.listen(_onData);
   }
 

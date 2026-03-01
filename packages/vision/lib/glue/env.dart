@@ -7,6 +7,7 @@ import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/store.dart';
+import 'package:vision/glue/lib/widgets.dart';
 
 Env makeEnv(Sink<String> sink) {
   return envFromModules([
@@ -18,5 +19,6 @@ Env makeEnv(Sink<String> sink) {
     uiMaterialModule,
     stateModule,
     storeModule(sink),
+    widgetsModule,
   ]);
 }

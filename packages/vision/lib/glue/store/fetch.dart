@@ -10,5 +10,6 @@ String fetchExpression(String key) {
 }
 
 Fetch<String> fetch(Sink<String> sink) => (String key) {
-  sink.add(fetchExpression(key));
+  final expression = fetchExpression(key);
+  sink.add(expression);
 };

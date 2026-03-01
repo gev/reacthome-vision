@@ -9,9 +9,10 @@ import 'package:vision/websocket/websocket_state.dart';
 class WebSocketClient<Si, So> extends ChangeNotifier {
   final String _url;
   final Sink<Si> _sink;
+  final Stream<So> _source;
   final WebSocketReconnectPolicy _reconnectPolicy;
 
-  late final StreamSubscription<So> _subscription;
+  StreamSubscription<So>? _subscription;
   WebSocket? _socket;
 
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
@@ -33,15 +34,13 @@ class WebSocketClient<Si, So> extends ChangeNotifier {
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _sink = sink,
+       _source = source,
        _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
-    _subscription = source.listen(_handleChannelMessage);
     _establishConnection();
   }
 
   void _handleChannelMessage(So message) {
-    if (_state == WebSocketConnectionState.connected) {
-      _socket?.add(message);
-    }
+    _socket?.add(message);
   }
 
   /// Disconnects from the WebSocket server.
@@ -58,6 +57,7 @@ class WebSocketClient<Si, So> extends ChangeNotifier {
       _socket = await WebSocket.connect(_url);
       _reconnectPolicy.recordSuccess();
       _updateState(WebSocketConnectionState.connected);
+      _subscription = _source.listen(_handleChannelMessage);
 
       _socket!.listen(
         (data) {
@@ -99,7 +99,7 @@ class WebSocketClient<Si, So> extends ChangeNotifier {
   @override
   void dispose() {
     _reconnectTimer?.cancel();
-    _subscription.cancel();
+    _subscription?.cancel();
     _closeSocket();
     super.dispose();
   }

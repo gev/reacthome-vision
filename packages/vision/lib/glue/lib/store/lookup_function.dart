@@ -18,8 +18,11 @@ Eval<Ir> Function(Ir) lookupKey(Ir store, Ir key) {
 }
 
 Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
-  switch (store) {
-    case IrNativeValue(value: Value(value: Lookup<Ir, Ir> s)):
+  switch ((store, key)) {
+    case (
+      IrNativeValue(value: Value(value: Lookup<String, Ir> s)),
+      IrString(value: String key),
+    ):
       final res = s.lookup(key, defaultValue);
       return Eval.pure(IrNativeValue(Value(res)));
     case _:

@@ -2,7 +2,7 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/listenable.dart';
+import 'package:vision/glue/widgets/glue_listenable.dart';
 import 'package:vision/state/state_notifier.dart';
 
 /// Creates a ListenableWidget that rebuilds when dependencies change
@@ -30,7 +30,7 @@ final listenFunction = IrNativeFunc((Ir notifierIr) {
         }
 
         // Create reactive widget that calls the lambda with current value
-        final reactiveContainer = Listenable(
+        final reactiveContainer = GlueListenable(
           notifier: notifier,
           lambda: lambda,
           runtime: runtime,
