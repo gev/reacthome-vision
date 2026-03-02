@@ -35,6 +35,6 @@ class VisionApp extends StatelessWidget {
 
 final String _main = '''
   (listen 
-    (lookup store.cache "main" placeholder)
+    (lookup store.cache 'main placeholder)
     (lambda (main) (main ())))
 ''';
