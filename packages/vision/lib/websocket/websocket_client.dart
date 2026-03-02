@@ -13,12 +13,15 @@ class WebSocketClient extends ChangeNotifier {
   final Stream<String> _source;
   final WebSocketReconnectPolicy _reconnectPolicy;
 
-  StreamSubscription<String>? _subscription;
+  late final StreamSubscription<String> _subscription;
+
   WebSocket? _socket;
 
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
   bool _isManuallyDisconnected = false;
   Timer? _reconnectTimer;
+
+  var _messagePool = <Uint8List>[];
 
   /// Current connection state.
   WebSocketConnectionState get state => _state;
@@ -37,6 +40,7 @@ class WebSocketClient extends ChangeNotifier {
        _sink = sink,
        _source = source,
        _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
+    _subscription = _source.listen(_sendMessage);
     _establishConnection();
   }
 
@@ -55,29 +59,36 @@ class WebSocketClient extends ChangeNotifier {
       _reconnectPolicy.recordSuccess();
       _updateState(WebSocketConnectionState.connected);
       _socket!.listen(
-        (data) {
-          final message = utf8.decode(data);
-          print(message);
-          // _sink.add(message);
-        },
-        onError: (error) {
-          _onConnectionLost();
-        },
-        onDone: () {
-          _onConnectionLost();
-        },
+        _receiveMessage,
+        onDone: _onConnectionLost,
+        cancelOnError: true,
       );
-      _subscription = _source.listen(_handleChannelMessage);
-    } catch (e) {
-      print(e);
+      _sendMessagePool();
+    } catch (_) {
       _onConnectionLost();
     }
   }
 
-  void _handleChannelMessage(String message) {
+  void _receiveMessage(dynamic data) {
+    final message = utf8.decode(data);
     print(message);
+    _sink.add(message);
+  }
+
+  void _sendMessage(String message) {
     final data = utf8.encode(message);
-    _socket?.add(data);
+    if (_state == WebSocketConnectionState.connected) {
+      _socket?.add(data);
+    } else {
+      _messagePool.add(data);
+    }
+  }
+
+  void _sendMessagePool() {
+    for (final message in _messagePool) {
+      _socket!.add(message);
+    }
+    _messagePool = [];
   }
 
   void _onConnectionLost() {
@@ -106,7 +117,7 @@ class WebSocketClient extends ChangeNotifier {
   @override
   void dispose() {
     _reconnectTimer?.cancel();
-    _subscription?.cancel();
+    _subscription.cancel();
     _closeSocket();
     super.dispose();
   }
