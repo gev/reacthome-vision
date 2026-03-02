@@ -71,7 +71,6 @@ class WebSocketClient extends ChangeNotifier {
 
   void _receiveMessage(dynamic data) {
     final message = utf8.decode(data);
-    print(message);
     _sink.add(message);
   }
 
