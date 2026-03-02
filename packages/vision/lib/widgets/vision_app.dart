@@ -27,13 +27,13 @@ class VisionApp extends StatelessWidget {
       // home: Screen(client: client, child: Splash(title)),
       home: Screen(
         client: client,
-        child: GlueWidget(evaluator: evaluator, glue: code),
+        child: GlueWidget(evaluator: evaluator, glue: _main),
       ),
     );
   }
 }
 
-final String code = '''
+final String _main = '''
   (listen 
     (lookup store.cache "main" placeholder)
     (lambda (main) (main ())))
