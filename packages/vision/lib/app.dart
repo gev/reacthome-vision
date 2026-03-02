@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:vision/controllers/glue_controller.dart';
@@ -15,10 +13,10 @@ Widget makeApp({
   required String host,
   required int port,
 }) {
-  final source = StreamController<Uint8List>();
+  final source = StreamController<String>();
   final sink = StreamController<String>();
   final evaluator = GlueEvaluator(makeEnv(sink));
-  GlueController(evaluator: evaluator, source: source.stream.map(utf8.decode));
+  GlueController(evaluator: evaluator, source: source.stream);
   final client = WebSocketClient(
     url: 'ws://$host:$port/$id',
     sink: source,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -6,13 +7,13 @@ import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
 
 /// A WebSocket client with auto-reconnection support.
-class WebSocketClient<Si, So> extends ChangeNotifier {
+class WebSocketClient extends ChangeNotifier {
   final String _url;
-  final Sink<Si> _sink;
-  final Stream<So> _source;
+  final Sink<String> _sink;
+  final Stream<String> _source;
   final WebSocketReconnectPolicy _reconnectPolicy;
 
-  StreamSubscription<So>? _subscription;
+  StreamSubscription<String>? _subscription;
   WebSocket? _socket;
 
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
@@ -29,18 +30,14 @@ class WebSocketClient<Si, So> extends ChangeNotifier {
   /// [source] - Stream for messages to receive
   WebSocketClient({
     required String url,
-    required Sink<Si> sink,
-    required Stream<So> source,
+    required Sink<String> sink,
+    required Stream<String> source,
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _sink = sink,
        _source = source,
        _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
     _establishConnection();
-  }
-
-  void _handleChannelMessage(So message) {
-    _socket?.add(message);
   }
 
   /// Disconnects from the WebSocket server.
@@ -57,20 +54,30 @@ class WebSocketClient<Si, So> extends ChangeNotifier {
       _socket = await WebSocket.connect(_url);
       _reconnectPolicy.recordSuccess();
       _updateState(WebSocketConnectionState.connected);
-      _subscription = _source.listen(_handleChannelMessage);
-
       _socket!.listen(
         (data) {
-          _sink.add(data);
+          final message = utf8.decode(data);
+          print(message);
+          // _sink.add(message);
         },
         onError: (error) {
           _onConnectionLost();
         },
-        onDone: _onConnectionLost,
+        onDone: () {
+          _onConnectionLost();
+        },
       );
-    } catch (_) {
+      _subscription = _source.listen(_handleChannelMessage);
+    } catch (e) {
+      print(e);
       _onConnectionLost();
     }
+  }
+
+  void _handleChannelMessage(String message) {
+    print(message);
+    final data = utf8.encode(message);
+    _socket?.add(data);
   }
 
   void _onConnectionLost() {

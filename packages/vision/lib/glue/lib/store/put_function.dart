@@ -19,9 +19,12 @@ Eval<Ir> Function(Ir) putKey(Ir store, Ir key) {
 }
 
 Eval<Ir> putValue(Ir store, Ir key, Ir value) {
-  switch (store) {
-    case IrNativeValue(value: Value(value: Put<Ir, Ir> s)):
-      s.put(key, value);
+  switch ((store, key)) {
+    case (
+      IrNativeValue(value: Value(value: Put<String, Ir> s)),
+      IrString(value: String k),
+    ):
+      s.put(k, value);
       return Eval.pure(IrVoid());
     case _:
       return throwError(wrongArgumentType(['store', 'key', 'value']));

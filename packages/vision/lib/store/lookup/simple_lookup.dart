@@ -9,6 +9,6 @@ class SimpleLookup<K, V> implements Lookup<K, V> {
 
   @override
   StateNotifier<V> lookup(K key, V defaultValue) {
-    return _store.lookup(key) ?? StateNotifier(defaultValue);
+    return _store.lookup(key, () => defaultValue);
   }
 }

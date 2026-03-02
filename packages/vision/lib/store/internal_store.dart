@@ -8,10 +8,17 @@ class InternalStore<K, V> {
     if (state != null) {
       state.value = value;
     }
-    _store[key] = StateNotifier(value);
   }
 
-  StateNotifier<V>? lookup(K key) => _store[key];
+  StateNotifier<V> lookup(K key, V Function() getDefaultValue) {
+    var state = _store[key];
+    if (state == null) {
+      final value = getDefaultValue();
+      state = StateNotifier(value);
+      _store[key] = state;
+    }
+    return state;
+  }
 
   void clear() => _store.clear();
 }

@@ -12,11 +12,9 @@ class FetchedLookup<K, V> implements Lookup<K, V> {
 
   @override
   StateNotifier<V> lookup(K key, V defaultValue) {
-    var state = _store.lookup(key);
-    if (state == null) {
+    return _store.lookup(key, () {
       _request(key);
-      state = StateNotifier(defaultValue);
-    }
-    return state;
+      return defaultValue;
+    });
   }
 }
