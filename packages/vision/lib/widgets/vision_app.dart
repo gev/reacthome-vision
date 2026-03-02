@@ -17,6 +17,12 @@ class VisionApp extends StatelessWidget {
     super.key,
   });
 
+  final _main = '''
+    (listen 
+      (lookup store.cache "main" placeholder)
+      (lambda (main) main))
+  ''';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,9 +38,3 @@ class VisionApp extends StatelessWidget {
     );
   }
 }
-
-final String _main = '''
-  (listen 
-    (lookup store.cache "main" placeholder)
-    (lambda (main) (main ())))
-''';
