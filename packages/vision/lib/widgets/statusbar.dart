@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vision/vision_scope.dart';
 import 'package:vision/websocket/websocket_client.dart';
 import 'package:vision/websocket/websocket_state.dart';
 import 'package:vision/widgets/statusbar_connected.dart';
@@ -6,28 +7,20 @@ import 'package:vision/widgets/statusbar_connecting.dart';
 import 'package:vision/widgets/statusbar_container.dart';
 
 class Statusbar extends StatefulWidget {
-  final WebSocketClient client;
-  final Color defaultColor;
-  final Color accentColor;
-
-  const Statusbar({
-    required this.client,
-    required this.defaultColor,
-    required this.accentColor,
-    super.key,
-  });
+  const Statusbar({super.key});
 
   @override
   State<StatefulWidget> createState() => _StatusbarState();
 }
 
 class _StatusbarState extends State<Statusbar> {
+  WebSocketClient? client;
   double height = 0;
   Color color = Colors.transparent;
   Widget content = SizedBox();
 
   void onStatusChange() {
-    switch (widget.client.state) {
+    switch (client?.state) {
       case WebSocketConnectionState.connected:
         setConnected();
       case _:
@@ -36,25 +29,21 @@ class _StatusbarState extends State<Statusbar> {
   }
 
   void setConnected() {
+    final colorScheme = Theme.of(context).colorScheme;
     setState(() {
       height = 0;
-      color = widget.defaultColor;
+      color = colorScheme.secondaryContainer;
       content = StatusbarConnected();
     });
   }
 
   void setConnecting() {
+    final colorScheme = Theme.of(context).colorScheme;
     setState(() {
       height = 40;
-      color = widget.accentColor;
+      color = colorScheme.errorContainer;
       content = StatusbarConnecting();
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    widget.client.addListener(onStatusChange);
   }
 
   @override
@@ -67,8 +56,18 @@ class _StatusbarState extends State<Statusbar> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final newClient = VisionScope.of(context).client;
+    if (newClient == client) return;
+    client?.removeListener(onStatusChange);
+    newClient.addListener(onStatusChange);
+    client = newClient;
+  }
+
+  @override
   void dispose() {
-    widget.client.removeListener(onStatusChange);
+    client?.removeListener(onStatusChange);
     super.dispose();
   }
 }
