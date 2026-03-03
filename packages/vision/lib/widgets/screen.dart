@@ -11,7 +11,7 @@ class Screen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: body),
-          const Statusbar(),
+          Statusbar(),
         ],
       ),
     );
