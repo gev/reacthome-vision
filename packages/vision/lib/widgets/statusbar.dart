@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:vision/vision_scope.dart';
 import 'package:vision/websocket/websocket_client.dart';
 import 'package:vision/websocket/websocket_state.dart';
 import 'package:vision/widgets/statusbar_connected.dart';
 import 'package:vision/widgets/statusbar_connecting.dart';
 import 'package:vision/widgets/statusbar_container.dart';
+import 'package:vision/widgets/vision_scope.dart';
 
 class Statusbar extends StatefulWidget {
   const Statusbar({super.key});

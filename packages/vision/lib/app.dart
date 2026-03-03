@@ -4,9 +4,9 @@ import 'package:flutter/widgets.dart';
 import 'package:vision/controllers/glue_controller.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
-import 'package:vision/vision_scope.dart';
 import 'package:vision/websocket/websocket_client.dart';
 import 'package:vision/widgets/vision_app.dart';
+import 'package:vision/widgets/vision_scope.dart';
 
 Widget makeApp({
   required String id,

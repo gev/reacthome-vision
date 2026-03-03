@@ -3,8 +3,8 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/vision_scope.dart';
 import 'package:vision/widgets/empty_widget.dart';
+import 'package:vision/widgets/vision_scope.dart';
 
 class GlueWidget extends StatelessWidget {
   final String glue;
