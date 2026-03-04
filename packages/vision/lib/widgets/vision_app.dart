@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
+import 'package:vision/navigation/app_navigator.dart';
 import 'package:vision/widgets/screen.dart';
 import 'package:vision/widgets/theme.dart';
 
@@ -18,6 +19,7 @@ class VisionApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: title,
+      navigatorKey: AppNavigator.navigatorKey,
       themeMode: ThemeMode.system,
       theme: makeTheme(Colors.blue, Brightness.light),
       darkTheme: makeTheme(Colors.blue, Brightness.dark),
