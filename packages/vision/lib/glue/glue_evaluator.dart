@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:glue/compile.dart';
 import 'package:glue/either.dart';
 import 'package:glue/env.dart';
@@ -20,6 +22,7 @@ class GlueEvaluator {
       (ast) async {
         final irTree = compile(ast);
         final evalResult = await runEvalSimple(eval(irTree), _env);
+        log('Eval result: $evalResult');
         return evalResult.match(
           (error) => Left(error),
           (value) => Right(value.$1),
