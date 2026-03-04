@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:vision/store/pool.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
 
@@ -11,6 +12,7 @@ class WebSocketClient extends ChangeNotifier {
   final String _url;
   final Sink<String> _sink;
   final Stream<String> _source;
+  final Pool<String> _pool;
   final WebSocketReconnectPolicy _reconnectPolicy;
 
   late final StreamSubscription<String> _subscription;
@@ -20,8 +22,6 @@ class WebSocketClient extends ChangeNotifier {
   WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
   bool _isManuallyDisconnected = false;
   Timer? _reconnectTimer;
-
-  var _messagePool = <Uint8List>[];
 
   /// Current connection state.
   WebSocketConnectionState get state => _state;
@@ -35,10 +35,12 @@ class WebSocketClient extends ChangeNotifier {
     required String url,
     required Sink<String> sink,
     required Stream<String> source,
+    required Pool<String> pool,
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _sink = sink,
        _source = source,
+       _pool = pool,
        _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
     _subscription = _source.listen(_sendMessage);
     _establishConnection();
@@ -75,24 +77,19 @@ class WebSocketClient extends ChangeNotifier {
   }
 
   void _sendMessage(String message) {
-    final data = utf8.encode(message);
-    if (_state == WebSocketConnectionState.connected) {
-      _socket?.add(data);
-    } else {
-      _messagePool.add(data);
-    }
+    _socket?.add(utf8.encode(message));
   }
 
   void _sendMessagePool() {
-    for (final message in _messagePool) {
-      _socket!.add(message);
+    for (final message in _pool.all) {
+      _sendMessage(message);
     }
-    _messagePool = [];
   }
 
   void _onConnectionLost() {
     _updateState(WebSocketConnectionState.disconnected);
     _scheduleReconnect();
+    _socket = null;
   }
 
   void _scheduleReconnect() {
