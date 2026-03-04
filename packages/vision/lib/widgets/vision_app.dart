@@ -12,7 +12,7 @@ class VisionApp extends StatelessWidget {
 
   VisionApp({required this.title, super.key}) {
     Timer(Duration(seconds: 3), () {
-      AppNavigator.push(makeRoute(HomeScreen()));
+      AppNavigator.pushReplacement(makeRoute(HomeScreen()));
     });
   }
 
