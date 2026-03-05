@@ -8,7 +8,7 @@ import 'package:vision/state/state_notifier.dart';
 /// Takes: state (IrNativeValue), returns function that takes transformation lambda
 /// Returns: IrVoid
 /// Usage: (modify state (lambda (current-value) new-value))
-final modifyFunction = IrNativeFunc((Ir stateIr) {
+final modify = IrNativeFunc((Ir stateIr) {
   return Eval.pure(
     IrNativeFunc((Ir lambdaIr) {
       return Eval((runtime) async {

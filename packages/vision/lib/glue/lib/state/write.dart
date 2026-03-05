@@ -7,7 +7,7 @@ import 'package:vision/state/state_notifier.dart';
 /// Writes the value of a reactive state
 /// Takes: state (IrNativeValue), returns function that takes newValue
 /// Returns: IrVoid
-final writeFunction = IrNativeFunc((Ir stateIr) {
+final write = IrNativeFunc((Ir stateIr) {
   return Eval.pure(
     IrNativeFunc((Ir newValueIr) {
       return Eval((runtime) {

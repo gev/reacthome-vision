@@ -7,7 +7,7 @@ import 'package:vision/state/state_notifier.dart';
 /// Reads the value of a reactive state
 /// Takes: state (IrNativeValue), returns the current value
 /// Returns: Ir (the current state value)
-final readFunction = IrNativeFunc((Ir stateIr) {
+final read = IrNativeFunc((Ir stateIr) {
   return Eval((runtime) {
     final state = switch (stateIr) {
       IrNativeValue(value: final hv) => extractValue<StateNotifier>(hv),

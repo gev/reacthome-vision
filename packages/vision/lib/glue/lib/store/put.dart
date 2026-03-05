@@ -4,7 +4,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/store/put.dart';
 
-final Ir putFunction = IrNativeFunc(putImpl);
+final Ir put = IrNativeFunc(putImpl);
 
 Eval<Ir> putImpl(Ir store) {
   return Eval.pure(IrNativeFunc(putStore(store)));

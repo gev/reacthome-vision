@@ -7,7 +7,7 @@ import 'package:vision/state/state_notifier.dart';
 
 /// Creates a ListenableWidget that rebuilds when dependencies change
 /// Takes a StateNotifier and a lambda function that receives the current value
-final listenFunction = IrNativeFunc((Ir notifierIr) {
+final listen = IrNativeFunc((Ir notifierIr) {
   return Eval.pure(
     IrNativeFunc((Ir lambda) {
       return Eval((runtime) {
