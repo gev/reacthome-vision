@@ -16,7 +16,7 @@ class AppNavigator {
     return navigatorKey.currentState!.pushReplacement(route);
   }
 
-  static void popUntil(bool Function(Route<dynamic>) predicate) {
+  static void popUntil(RoutePredicate predicate) {
     navigatorKey.currentState!.popUntil(predicate);
   }
 
