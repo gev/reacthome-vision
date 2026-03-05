@@ -12,8 +12,12 @@ StateNotifier<Ir>? extractStateNotifier(Ir ir) {
 
 /// Helper function to extract a single widget from Ir
 Widget extractWidget(Ir ir) {
-  return switch (ir) {
+  final res = switch (ir) {
+    IrList(elements: final elements) when elements.isNotEmpty => extractWidget(
+      elements.last,
+    ),
     IrNativeValue(value: Value(value: Widget widget)) => widget,
-    _ => const Text('Invalid widget'),
+    _ => Text('Invalid widget'),
   };
+  return res;
 }
