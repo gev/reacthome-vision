@@ -1,11 +1,17 @@
 import 'package:glue/module.dart';
-import 'package:vision/glue/lib/widgets/placeholder.dart';
+import 'package:vision/glue/lib/navigation/can-pop.dart';
+import 'package:vision/glue/lib/navigation/pop-until.dart';
+import 'package:vision/glue/lib/navigation/pop.dart';
+import 'package:vision/glue/lib/navigation/push-replacement.dart';
+import 'package:vision/glue/lib/navigation/push.dart';
+import 'package:vision/glue/lib/navigation/route.dart';
 
-/// State module providing reactive state management and UI components
-final widgetsModule = nativeModule('ffi.vision.navigation', [
-  ('route', routeFunction),
-  ('push', pushFunction),
-  ('push-replacement', pushReplacementFunction),
-  ('pop', popFunction),
-  ('can-pop', canPopFunction),
+/// Navigation module providing navigation functions
+final navigationModule = nativeModule('ffi.vision.navigation', [
+  ('route', route),
+  ('push', push),
+  ('push-replacement', pushReplacement),
+  ('pop', pop),
+  ('pop-until', popUntil),
+  ('can-pop', canPop),
 ]);
