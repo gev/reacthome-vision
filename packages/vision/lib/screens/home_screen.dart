@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
-import 'package:vision/widgets/screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,6 +12,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Screen(body: GlueWidget(glue: _main));
+    return GlueWidget(glue: _main);
   }
 }
