@@ -63,6 +63,7 @@ class _StatusbarState extends State<Statusbar> {
     client?.removeListener(onStatusChange);
     newClient.addListener(onStatusChange);
     client = newClient;
+    onStatusChange();
   }
 
   @override
