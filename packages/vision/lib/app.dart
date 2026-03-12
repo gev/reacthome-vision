@@ -16,14 +16,14 @@ Widget makeApp({
   required int port,
 }) {
   final pool = Pool<String>();
-  final source = StreamController<String>();
-  final sink = StreamController<String>();
-  final evaluator = GlueEvaluator(makeEnv(sink, pool));
-  GlueController(evaluator: evaluator, source: source.stream);
+  final inbound = StreamController<String>();
+  final outbound = StreamController<String>();
+  final evaluator = GlueEvaluator(makeEnv(outbound, pool));
+  GlueController(evaluator: evaluator, source: inbound.stream);
   final client = WebSocketClient(
     url: 'ws://$host:$port/$id',
-    sink: source,
-    source: sink.stream,
+    sink: inbound,
+    source: outbound.stream,
     pool: pool,
   );
   return VisionScope(
