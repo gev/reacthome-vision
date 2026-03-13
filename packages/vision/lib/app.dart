@@ -10,7 +10,6 @@ import 'package:vision/widgets/vision_app.dart';
 import 'package:vision/widgets/vision_scope.dart';
 
 Widget makeApp({
-  required String id,
   required String title,
   required String host,
   required int port,
@@ -21,7 +20,7 @@ Widget makeApp({
   final evaluator = GlueEvaluator(makeEnv(outbound, pool));
   GlueController(evaluator: evaluator, source: inbound.stream);
   final client = WebSocketClient(
-    url: 'ws://$host:$port/$id',
+    url: 'ws://$host:$port',
     sink: inbound,
     source: outbound.stream,
     pool: pool,
