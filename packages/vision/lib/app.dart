@@ -1,11 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/widgets.dart';
-import 'package:vision/controllers/glue_controller.dart';
-import 'package:vision/glue/env.dart';
-import 'package:vision/glue/glue_evaluator.dart';
-import 'package:vision/store/pool.dart';
-import 'package:vision/websocket/websocket_client.dart';
+import 'package:vision/scope.dart';
 import 'package:vision/widgets/vision_app.dart';
 import 'package:vision/widgets/vision_scope.dart';
 
@@ -14,20 +8,8 @@ Widget makeApp({
   required String host,
   required int port,
 }) {
-  final pool = Pool<String>();
-  final inbound = StreamController<String>();
-  final outbound = StreamController<String>();
-  final evaluator = GlueEvaluator(makeEnv(outbound, pool));
-  GlueController(evaluator: evaluator, source: inbound.stream);
-  final client = WebSocketClient(
-    url: 'ws://$host:$port',
-    sink: inbound,
-    source: outbound.stream,
-    pool: pool,
-  );
   return VisionScope(
-    client: client,
-    evaluator: evaluator,
+    scope: Scope(host: host, port: port),
     child: VisionApp(title: title),
   );
 }
