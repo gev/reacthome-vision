@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
-import 'package:vision/widgets/screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   final _main = '''
     (listen
-      (lookup store.cache "main" placeholder)
+      (lookup store.cache "main" (screen placeholder))
       (lambda (main) main))
   ''';
 
   @override
   Widget build(BuildContext context) {
-    return Screen(body: GlueWidget(glue: _main));
+    return GlueWidget(glue: _main);
   }
 }
