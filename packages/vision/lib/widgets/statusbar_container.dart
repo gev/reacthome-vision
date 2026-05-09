@@ -22,7 +22,7 @@ class StatusBarContainer extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.bottomLeft,
           end: Alignment.topLeft,
-          colors: [background, Colors.transparent],
+          colors: [background, background.withAlpha(0)],
         ),
       ),
       // color: colorScheme.errorContainer,
