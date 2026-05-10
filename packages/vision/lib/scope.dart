@@ -26,7 +26,6 @@ class Scope {
       url: 'ws://$host:$port',
       sink: _inbound,
       source: _outbound.stream,
-      pool: _pool,
     );
   }
 

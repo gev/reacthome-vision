@@ -3,16 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:vision/store/pool.dart';
 import 'package:vision/websocket/websocket_reconnect_policy.dart';
 import 'package:vision/websocket/websocket_state.dart';
 
-/// A WebSocket client with auto-reconnection support.
 class WebSocketClient extends ChangeNotifier {
   final String _url;
   final Sink<String> _sink;
   final Stream<String> _source;
-  final Pool<String> _pool;
   final WebSocketReconnectPolicy _reconnectPolicy;
 
   late final StreamSubscription<String> _subscription;
@@ -23,30 +20,21 @@ class WebSocketClient extends ChangeNotifier {
   bool _isManuallyDisconnected = false;
   Timer? _reconnectTimer;
 
-  /// Current connection state.
   WebSocketConnectionState get state => _state;
 
-  /// Creates a new WebSocket client and connects to the server.
-  ///
-  /// [url] - WebSocket server URL
-  /// [sink] - Sink for messages to send
-  /// [source] - Stream for messages to receive
   WebSocketClient({
     required String url,
     required Sink<String> sink,
     required Stream<String> source,
-    required Pool<String> pool,
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _sink = sink,
        _source = source,
-       _pool = pool,
        _reconnectPolicy = reconnectPolicy ?? WebSocketReconnectPolicy() {
     _subscription = _source.listen(_sendMessage);
     _establishConnection();
   }
 
-  /// Disconnects from the WebSocket server.
   Future<void> disconnect() async {
     _reconnectTimer?.cancel();
     _isManuallyDisconnected = true;
@@ -65,7 +53,6 @@ class WebSocketClient extends ChangeNotifier {
         onDone: _onConnectionLost,
         cancelOnError: true,
       );
-      _sendMessagePool();
     } catch (_) {
       _onConnectionLost();
     }
@@ -78,12 +65,6 @@ class WebSocketClient extends ChangeNotifier {
 
   void _sendMessage(String message) {
     _socket?.add(utf8.encode(message));
-  }
-
-  void _sendMessagePool() {
-    for (final message in _pool.all) {
-      _sendMessage(message);
-    }
   }
 
   void _onConnectionLost() {
