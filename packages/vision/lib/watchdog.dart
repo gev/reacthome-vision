@@ -1,17 +1,19 @@
 import 'dart:async';
 
+typedef Fire = void Function();
+
 class Watchdog {
-  final void Function() _fire;
+  static const Duration defaultTimeout = Duration(seconds: 15);
+
+  final Fire _fire;
   final Duration _timeout;
 
   bool _shouldFire = false;
   late Timer _timer;
 
-  Watchdog({
-    required void Function() fire,
-    Duration timeout = const Duration(seconds: 15),
-  }) : _fire = fire,
-       _timeout = timeout {
+  Watchdog({required Fire fire, Duration timeout = defaultTimeout})
+    : _fire = fire,
+      _timeout = timeout {
     _timer = _next;
   }
 
