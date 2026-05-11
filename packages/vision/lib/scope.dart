@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
-import 'package:vision/controllers/glue_controller.dart';
+import 'package:vision/controllers/controller.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/store/pool.dart';
@@ -9,23 +11,26 @@ import 'package:vision/websocket/websocket_client.dart';
 class Scope {
   late final WebSocketClient _client;
   late final GlueEvaluator _evaluator;
-  late final GlueController _controller;
+  late final Controller _controller;
 
   final _pool = Pool<String>();
-  final _inbound = StreamController<String>();
+  final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
   Scope({required String host, required int port}) {
     final env = makeEnv(_outbound, _pool);
     _evaluator = GlueEvaluator(env);
-    _controller = GlueController(
-      evaluator: _evaluator,
-      source: _inbound.stream,
-    );
+    _controller = Controller(evaluator: _evaluator, source: _inbound.stream);
     _client = WebSocketClient(
       url: 'ws://$host:$port',
       sink: _inbound,
-      source: _outbound.stream,
+      source: _outbound.stream.map(
+        (message) =>
+            (BytesBuilder(copy: false)
+                  ..addByte(1)
+                  ..add(utf8.encode(message)))
+                .takeBytes(),
+      ),
     );
   }
 
