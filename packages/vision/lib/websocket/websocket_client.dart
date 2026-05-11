@@ -8,11 +8,11 @@ import 'package:vision/websocket/websocket_state.dart';
 
 class WebSocketClient extends ChangeNotifier {
   final String _url;
-  final Sink<String> _sink;
-  final Stream<String> _source;
+  final Sink<Uint8List> _sink;
+  final Stream<Uint8List> _source;
   final WebSocketReconnectPolicy _reconnectPolicy;
 
-  late final StreamSubscription<String> _subscription;
+  late final StreamSubscription<Uint8List> _subscription;
 
   WebSocket? _socket;
 
@@ -24,8 +24,8 @@ class WebSocketClient extends ChangeNotifier {
 
   WebSocketClient({
     required String url,
-    required Sink<String> sink,
-    required Stream<String> source,
+    required Sink<Uint8List> sink,
+    required Stream<Uint8List> source,
     WebSocketReconnectPolicy? reconnectPolicy,
   }) : _url = url,
        _sink = sink,
@@ -58,13 +58,12 @@ class WebSocketClient extends ChangeNotifier {
     }
   }
 
-  void _receiveMessage(dynamic data) {
-    final message = utf8.decode(data);
+  void _receiveMessage(dynamic message) {
     _sink.add(message);
   }
 
-  void _sendMessage(String message) {
-    _socket?.add(utf8.encode(message));
+  void _sendMessage(Uint8List message) {
+    _socket?.add(message);
   }
 
   void _onConnectionLost() {
