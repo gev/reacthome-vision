@@ -5,7 +5,7 @@ import 'dart:typed_data';
 import 'package:vision/glue/glue_evaluator.dart';
 
 sealed class Header {
-  static const heartbeat = 1, glue = 2, file = 3;
+  static const heartbeat = 0, glue = 1, file = 2;
 }
 
 extension type Message(Uint8List message) {
