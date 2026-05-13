@@ -3,23 +3,23 @@ import 'dart:async';
 import 'package:vision/pub_sub/request.dart';
 import 'package:vision/pub_sub/store.dart';
 
-class Subscriber<K, V> {
+class Subscriber<K, R, V> {
   final Set<K> _keys = {};
   final Set<K> _pending = {};
 
-  final Store<K, V> _store;
+  final Store<K, R, V> _store;
   final Request<K> _request;
   final Duration _timeout;
 
   Subscriber({
-    required Store<K, V> store,
+    required Store<K, R, V> store,
     required Request<K> request,
     Duration timeout = const Duration(seconds: 3),
   }) : _store = store,
        _request = request,
        _timeout = timeout;
 
-  V? subscribe(K key) {
+  R? subscribe(K key) {
     if (!_keys.contains(key) && !_pending.contains(key)) {
       _keys.add(key);
       _pending.add(key);
