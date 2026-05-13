@@ -6,7 +6,7 @@ class HomeScreen extends StatelessWidget {
 
   final _main = '''
     (listen
-      (lookup store.cache "main" (screen placeholder))
+      (lookup store.tmp "main" (screen placeholder))
       (lambda (main) main))
   ''';
 

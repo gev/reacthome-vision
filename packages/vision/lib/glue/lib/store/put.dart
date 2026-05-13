@@ -2,7 +2,7 @@
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/store/put.dart';
+import 'package:vision/state/store.dart';
 
 final Ir put = IrNativeFunc(putImpl);
 
@@ -21,10 +21,10 @@ Eval<Ir> Function(Ir) putKey(Ir store, Ir key) {
 Eval<Ir> putValue(Ir store, Ir key, Ir value) {
   switch ((store, key)) {
     case (
-      IrNativeValue(value: Value(value: Put<String, Ir> s)),
+      IrNativeValue(value: Value(value: ReactiveStore<String, Ir> s)),
       IrString(value: String k),
     ):
-      s.put(k, value);
+      s.store(k, value);
       return Eval.pure(IrVoid());
     case _:
       return throwError(wrongArgumentType(['store', 'key', 'value']));

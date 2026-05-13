@@ -1,7 +1,7 @@
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/store/lookup.dart';
+import 'package:vision/state/store.dart';
 
 final Ir lookup = IrNativeFunc(lookupImpl);
 
@@ -20,7 +20,7 @@ Eval<Ir> Function(Ir) lookupKey(Ir store, Ir key) {
 Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
   switch ((store, key)) {
     case (
-      IrNativeValue(value: Value(value: Lookup<String, Ir> s)),
+      IrNativeValue(value: Value(value: ReactiveStore<String, Ir> s)),
       IrString(value: String key),
     ):
       final res = s.lookup(key, defaultValue);

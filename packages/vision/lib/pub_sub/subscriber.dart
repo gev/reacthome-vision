@@ -1,25 +1,25 @@
 import 'dart:async';
 
 import 'package:vision/pub_sub/request.dart';
-import 'package:vision/pub_sub/store.dart';
+import 'package:vision/state/store.dart';
 
-class Subscriber<K, R, V> {
+class Subscriber<K, V, R> {
   final Set<K> _keys = {};
   final Set<K> _pending = {};
 
-  final Store<K, R, V> _store;
+  final Store<K, V, R> _store;
   final Request<K> _request;
   final Duration _timeout;
 
   Subscriber({
-    required Store<K, R, V> store,
+    required Store<K, V, R> store,
     required Request<K> request,
     Duration timeout = const Duration(seconds: 3),
   }) : _store = store,
        _request = request,
        _timeout = timeout;
 
-  R? subscribe(K key) {
+  R subscribe(K key, V defaultValue) {
     if (!_keys.contains(key) && !_pending.contains(key)) {
       _keys.add(key);
       _pending.add(key);
@@ -28,7 +28,7 @@ class Subscriber<K, R, V> {
         _pending.remove(key);
       });
     }
-    return _store.lookup(key);
+    return _store.lookup(key, defaultValue);
   }
 
   void reSubscribeAll() {

@@ -5,7 +5,6 @@ import 'dart:typed_data';
 import 'package:vision/controllers/controller.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
-import 'package:vision/store/pool.dart';
 import 'package:vision/websocket/websocket_client.dart';
 
 class Scope {
@@ -13,12 +12,11 @@ class Scope {
   late final GlueEvaluator _evaluator;
   late final Controller _controller;
 
-  final _pool = Pool<String>();
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
   Scope({required String host, required int port}) {
-    final env = makeEnv(_outbound, _pool);
+    final env = makeEnv(_outbound);
     _evaluator = GlueEvaluator(env);
     _controller = Controller(evaluator: _evaluator, source: _inbound.stream);
     _client = WebSocketClient(

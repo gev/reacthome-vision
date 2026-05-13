@@ -10,9 +10,8 @@ import 'package:vision/glue/lib/rpc.dart';
 import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
-import 'package:vision/store/pool.dart';
 
-Env makeEnv(Sink<String> sink, Pool<String> pool) {
+Env makeEnv(Sink<String> sink) {
   return envFromModules([
     builtinModule,
     boolModule,
@@ -23,7 +22,7 @@ Env makeEnv(Sink<String> sink, Pool<String> pool) {
     widgetsModule,
     navigationModule,
     stateModule,
-    storeModule(sink, pool),
+    storeModule(sink),
     rpcModule(sink),
   ]);
 }
