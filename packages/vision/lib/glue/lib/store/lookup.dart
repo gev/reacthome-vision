@@ -1,7 +1,7 @@
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/state/store.dart';
+import 'package:vision/stores/store.dart';
 
 final Ir lookup = IrNativeFunc(lookupImpl);
 

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:vision/state/store.dart';
+import 'package:vision/stores/store.dart';
 
 class ReactiveCache<K, V> implements ReactiveStore<K, V> {
   final Map<K, ValueNotifier<V>> _cache = {};

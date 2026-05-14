@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:vision/pub_sub/request.dart';
-import 'package:vision/state/store.dart';
+import 'package:vision/stores/store.dart';
 
 class Subscriber<K, V, R> {
   final Set<K> _keys = {};

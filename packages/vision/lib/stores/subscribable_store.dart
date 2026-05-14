@@ -1,5 +1,5 @@
 import 'package:vision/pub_sub/subscriber.dart';
-import 'package:vision/state/store.dart';
+import 'package:vision/stores/store.dart';
 
 class SubscribableStore<K, V, R> implements Store<K, V, R> {
   final Subscriber<K, V, R> _subscriber;
