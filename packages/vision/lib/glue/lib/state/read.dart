@@ -1,8 +1,8 @@
+import 'package:flutter/widgets.dart';
 import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/state/state_notifier.dart';
 
 /// Reads the value of a reactive state
 /// Takes: state (IrNativeValue), returns the current value
@@ -10,7 +10,7 @@ import 'package:vision/state/state_notifier.dart';
 final read = IrNativeFunc((Ir stateIr) {
   return Eval((runtime) {
     final state = switch (stateIr) {
-      IrNativeValue(value: final hv) => extractValue<StateNotifier>(hv),
+      IrNativeValue(value: final hv) => extractValue<ValueNotifier>(hv),
       _ => null,
     };
     if (state == null) {
@@ -19,7 +19,7 @@ final read = IrNativeFunc((Ir stateIr) {
           [],
           RuntimeException(
             'invalid-argument',
-            IrString('Expected StateNotifier'),
+            IrString('Expected ValueNotifier'),
           ),
         ),
       );

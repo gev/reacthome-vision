@@ -1,8 +1,8 @@
+import 'package:flutter/widgets.dart';
 import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/state/state_notifier.dart';
 
 /// Modifies a reactive state atomically
 /// Takes: state (IrNativeValue), returns function that takes transformation lambda
@@ -13,7 +13,7 @@ final modify = IrNativeFunc((Ir stateIr) {
     IrNativeFunc((Ir lambdaIr) {
       return Eval((runtime) async {
         final state = switch (stateIr) {
-          IrNativeValue(value: final hv) => extractValue<StateNotifier>(hv),
+          IrNativeValue(value: final hv) => extractValue<ValueNotifier>(hv),
           _ => null,
         };
         if (state == null) {
@@ -22,7 +22,7 @@ final modify = IrNativeFunc((Ir stateIr) {
               [],
               RuntimeException(
                 'invalid-argument',
-                IrString('Expected StateNotifier'),
+                IrString('Expected ValueNotifier'),
               ),
             ),
           );

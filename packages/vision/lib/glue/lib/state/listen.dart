@@ -1,9 +1,9 @@
+import 'package:flutter/widgets.dart';
 import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/widgets/glue_listenable.dart';
-import 'package:vision/state/state_notifier.dart';
 
 /// Creates a ListenableWidget that rebuilds when dependencies change
 /// Takes a StateNotifier and a lambda function that receives the current value
@@ -13,7 +13,7 @@ final listen = IrNativeFunc((Ir notifierIr) {
       return Eval((runtime) {
         // Evaluate the notifier argument to get the actual StateNotifier object
         final notifier = switch (notifierIr) {
-          IrNativeValue(value: final hv) => extractValue<StateNotifier<Ir>>(hv),
+          IrNativeValue(value: final hv) => extractValue<ValueNotifier<Ir>>(hv),
           _ => null,
         };
 
@@ -23,7 +23,7 @@ final listen = IrNativeFunc((Ir notifierIr) {
               [],
               RuntimeException(
                 'invalid-argument',
-                IrString('Expected StateNotifier'),
+                IrString('Expected ValueNotifier'),
               ),
             ),
           );
