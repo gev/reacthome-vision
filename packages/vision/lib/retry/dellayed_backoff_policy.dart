@@ -3,6 +3,9 @@ import 'dart:math';
 import 'package:vision/retry/retry.dart';
 
 abstract class DelayedBackoffPolicy implements RetryPolicy {
+  int get currentDelay => _currentDelay;
+  int get nextDelay;
+
   final int _initialDelay;
   final int _attempts;
   final Random _random;
@@ -41,7 +44,4 @@ abstract class DelayedBackoffPolicy implements RetryPolicy {
     _currentAttempt++;
     return true;
   }
-
-  int get nextDelay;
-  int get currentDelay => _currentDelay;
 }
