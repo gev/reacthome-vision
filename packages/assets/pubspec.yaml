@@ -1,11 +1,11 @@
 name: assets
 description: "Reacthome assets."
 version: 0.0.1
-publish_to: 'none'
+publish_to: "none"
 resolution: workspace
 
 environment:
-  sdk: ^3.9.0
+  sdk: ^3.10.0
 
 dependencies:
   flutter:
@@ -21,7 +21,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # To add assets to your package, add an assets section, like this:
   assets:
     - ../../assets/logo_round.svg
@@ -30,7 +29,7 @@ flutter:
     - ../../assets/logo_sharp.svg
     - ../../assets/logo_sharp_dark.svg
     - ../../assets/logo_sharp_light.svg
-  
+
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
   #
