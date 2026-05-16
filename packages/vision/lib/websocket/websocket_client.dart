@@ -1,55 +1,56 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:vision/retry/retry.dart';
 import 'package:vision/websocket/websocket_state.dart';
 
-class WebSocketClient extends ChangeNotifier {
-  final String _url;
-  final Sink<Uint8List> _sink;
-  final Stream<Uint8List> _source;
+typedef OnWebSocketChangeState = void Function(WebSocketState state);
 
-  late final StreamSubscription<Uint8List> _subscription;
+class WebSocketClient implements Retryable {
+  final String url;
+  final Sink<Uint8List> sink;
+  final Stream<Uint8List> source;
+  final OnWebSocketChangeState onStateChange;
 
   WebSocket? _socket;
 
-  WebSocketConnectionState _state = WebSocketConnectionState.disconnected;
-
-  WebSocketConnectionState get state => _state;
-
   WebSocketClient({
-    required String url,
-    required Sink<Uint8List> sink,
-    required Stream<Uint8List> source,
-  }) : _url = url,
-       _sink = sink,
-       _source = source {
-    _subscription = _source.listen(_sendMessage);
-    _establishConnection();
+    required this.url,
+    required this.sink,
+    required this.source,
+    required this.onStateChange,
+  }) {
+    source.listen(_sendMessage, onDone: _onSourceClosed);
   }
 
-  Future<void> disconnect() async {
-    _updateState(WebSocketConnectionState.disconnected);
-    _closeSocket();
-  }
-
-  Future<void> _establishConnection() async {
-    _updateState(WebSocketConnectionState.connecting);
+  @override
+  Future<bool> init() async {
+    onStateChange(.connecting);
     try {
-      _socket = await WebSocket.connect(_url);
-      _updateState(WebSocketConnectionState.connected);
-      _socket!.listen(
-        _receiveMessage,
-        onDone: _onConnectionLost,
-        cancelOnError: true,
-      );
-    } catch (_) {
+      _socket = await WebSocket.connect(url);
+      onStateChange(.connected);
+      return true;
+    } catch (error, trace) {
       _onConnectionLost();
+      log(error.toString(), stackTrace: trace);
+      return false;
     }
   }
 
+  @override
+  Future<void> run() async {
+    try {
+      await _socket?.listen(_receiveMessage).asFuture();
+    } catch (error, trace) {
+      log(error.toString(), stackTrace: trace);
+    }
+    _onConnectionLost();
+  }
+
   void _receiveMessage(dynamic message) {
-    _sink.add(message);
+    sink.add(message);
   }
 
   void _sendMessage(Uint8List message) {
@@ -57,21 +58,11 @@ class WebSocketClient extends ChangeNotifier {
   }
 
   void _onConnectionLost() {
-    _updateState(WebSocketConnectionState.disconnected);
+    onStateChange(.disconnected);
     _socket = null;
   }
 
-  void _updateState(WebSocketConnectionState newState) {
-    _state = newState;
-    notifyListeners();
-  }
-
-  Future<void> _closeSocket() async => _socket?.close();
-
-  @override
-  void dispose() {
-    _subscription.cancel();
-    _closeSocket();
-    super.dispose();
+  void _onSourceClosed() {
+    _socket?.close();
   }
 }
