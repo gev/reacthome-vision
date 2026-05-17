@@ -8,7 +8,7 @@ import 'package:vision/websocket/websocket_state.dart';
 
 typedef OnWebSocketChangeState = void Function(WebSocketState state);
 
-class WebSocketClient implements Retryable {
+class RetryableWebSocket implements Retryable {
   final String url;
   final Sink<Uint8List> sink;
   final Stream<Uint8List> source;
@@ -16,7 +16,7 @@ class WebSocketClient implements Retryable {
 
   WebSocket? _socket;
 
-  WebSocketClient({
+  RetryableWebSocket({
     required this.url,
     required this.sink,
     required this.source,
