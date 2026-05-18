@@ -25,10 +25,10 @@ class Retry {
         policy.reset();
         await process.run();
       }
+      _isRuning = false;
       if (await policy.shouldRetry) {
         await start();
       }
-      _isRuning = false;
     }
   }
 }
