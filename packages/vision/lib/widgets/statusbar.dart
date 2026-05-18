@@ -14,8 +14,7 @@ class Statusbar extends StatelessWidget {
     final client = VisionScope.of(context).client;
     return ListenableBuilder(
       listenable: client,
-      builder: (context, _) =>
-          client.state == WebSocketConnectionState.connected
+      builder: (context, _) => client.state == WebSocketState.connected
           ? StatusBarContainer(
               height: 0,
               background: colorScheme.secondaryContainer,
