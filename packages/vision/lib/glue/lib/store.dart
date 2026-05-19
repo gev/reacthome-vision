@@ -5,9 +5,10 @@ import 'package:vision/glue/lib/store/store.dart';
 
 /// Generic store module providing key-value storage
 ModuleInfo storeModule(Sink<String> sink) {
+  print(stores('store', sink));
   return nativeModule('ffi.vision.store', [
     ('put', put),
     ('lookup', lookup),
-    ('store', store(sink)),
+    stores('store', sink),
   ]);
 }
