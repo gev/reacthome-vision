@@ -3,11 +3,9 @@ import 'package:glue/serialize.dart';
 import 'package:vision/pub_sub/request.dart';
 
 class GlueRequest implements Request<String> {
-  final SymbolAst _store;
   final Sink<String> _sink;
 
-  GlueRequest(String prefix, String name, this._sink)
-    : _store = SymbolAst("'$prefix.$name");
+  GlueRequest(this._sink);
 
   @override
   void one(String key) {
@@ -20,11 +18,11 @@ class GlueRequest implements Request<String> {
   }
 
   ListAst _one(String key) {
-    return ListAst([_get, _store, StringAst(key)]);
+    return ListAst([_get, StringAst(key)]);
   }
 
   ListAst _many(Iterable<String> keys) {
-    return ListAst([_get, _store, ...keys.map(StringAst.new)]);
+    return ListAst([_get, ...keys.map(StringAst.new)]);
   }
 
   void _request(ListAst ast) {

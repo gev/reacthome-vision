@@ -5,10 +5,6 @@ import 'package:vision/stores/reactive_cache.dart';
 import 'package:vision/stores/store.dart';
 import 'package:vision/stores/subscribable_store.dart';
 
-ReactiveStore<String, Ir> tmp(String prefix, String name, Sink<String> sink) =>
-    SubscribableStore(
-      Subscriber(
-        store: ReactiveCache(),
-        request: GlueRequest(prefix, name, sink),
-      ),
-    );
+ReactiveStore<String, Ir> tmp(Sink<String> sink) => SubscribableStore(
+  Subscriber(store: ReactiveCache(), request: GlueRequest(sink)),
+);
