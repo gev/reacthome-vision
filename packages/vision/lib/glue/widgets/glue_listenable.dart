@@ -48,12 +48,8 @@ class _GlueListenableState extends State<GlueListenable> {
       widget.notifier.addListener(_onNotifierTick);
     }
 
-    // Trigger re-evaluation if the closure scope/lambda changed
-    // or if the underlying notifier value updated
-    if (oldWidget.lambda != widget.lambda ||
-        widget.notifier.value != _lastEvaluatedValue) {
-      _executeEvaluation(widget.lambda, widget.notifier.value);
-    }
+    // Trigger re-evaluation
+    _executeEvaluation(widget.lambda, widget.notifier.value);
   }
 
   @override
