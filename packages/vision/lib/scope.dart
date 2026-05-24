@@ -8,7 +8,7 @@ import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/store/glue_request.dart';
 import 'package:vision/pub_sub/subscriber.dart';
-import 'package:vision/retry/exponentional_backoff_policy.dart';
+import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
 class Scope {
