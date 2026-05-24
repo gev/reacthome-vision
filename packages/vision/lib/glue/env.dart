@@ -10,8 +10,9 @@ import 'package:vision/glue/lib/rpc.dart';
 import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
+import 'package:vision/glue/logger.dart';
 
-Env makeEnv(Sink<String> sink) {
+Env makeEnv({required Sink<String> sink, required Logger log}) {
   return envFromModules([
     builtinModule,
     boolModule,
@@ -21,7 +22,7 @@ Env makeEnv(Sink<String> sink) {
     uiMaterialModule,
     widgetsModule,
     navigationModule,
-    stateModule,
+    stateModule(log),
     storeModule(sink),
     rpcModule(sink),
   ]);

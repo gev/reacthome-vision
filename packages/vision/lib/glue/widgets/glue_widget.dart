@@ -1,6 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:glue/either.dart';
-import 'package:glue/error.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
 import 'package:vision/widgets/empty_widget.dart';
@@ -13,15 +11,18 @@ class GlueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final evaluator = VisionScope.of(context).evaluator;
-    return FutureBuilder<Either<GlueError, Ir>>(
-      initialData: Right(IrNativeValue(Value(EmptyWidget()))),
-      future: evaluator.evaluate(glue),
+    final scope = VisionScope.of(context);
+    return FutureBuilder<Ir?>(
+      initialData: IrNativeValue(Value(EmptyWidget())),
+      future: scope.evaluator.evaluate(glue),
       builder: (context, snapshot) {
-        return snapshot.requireData.match(
-          (error) => Text('Error: $error'),
-          (value) => extractWidget(value),
-        );
+        final value = snapshot.requireData;
+        final widget = value != null ? extractWidget(value) : null;
+        if (widget == null) {
+          scope.log.error("$glue \n Widget requered");
+          return SizedBox.shrink();
+        }
+        return widget;
       },
     );
   }

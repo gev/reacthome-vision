@@ -4,11 +4,12 @@ import 'package:vision/glue/lib/state/modify.dart';
 import 'package:vision/glue/lib/state/read.dart';
 import 'package:vision/glue/lib/state/state.dart';
 import 'package:vision/glue/lib/state/write.dart';
+import 'package:vision/glue/logger.dart';
 
 /// State module providing reactive state management and UI components
-final stateModule = nativeModule('ffi.vision.state', [
+ModuleInfo stateModule(Logger log) => nativeModule('ffi.vision.state', [
   ('state', state),
-  ('listen', listen),
+  ('listen', listen(log)),
   ('read', read),
   ('write', write),
   ('modify', modify),

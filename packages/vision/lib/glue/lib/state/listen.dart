@@ -3,11 +3,12 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/widgets/glue_listenable.dart';
 
 /// Creates a ListenableWidget that rebuilds when dependencies change
 /// Takes a StateNotifier and a lambda function that receives the current value
-final listen = IrNativeFunc((Ir notifierIr) {
+IrNativeFunc listen(Logger log) => IrNativeFunc((Ir notifierIr) {
   return Eval.pure(
     IrNativeFunc((Ir lambda) {
       return Eval((runtime) {
@@ -34,6 +35,7 @@ final listen = IrNativeFunc((Ir notifierIr) {
           notifier: notifier,
           lambda: lambda,
           runtime: runtime,
+          log: log,
         );
 
         return Right((IrNativeValue(Value(reactiveContainer)), runtime));

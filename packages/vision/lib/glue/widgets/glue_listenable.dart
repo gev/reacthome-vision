@@ -4,16 +4,19 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
+import 'package:vision/glue/logger.dart';
 
 class GlueListenable extends StatefulWidget {
   final ValueNotifier<Ir> notifier;
   final Ir lambda;
   final Runtime runtime;
+  final Logger log;
 
   const GlueListenable({
     required this.notifier,
     required this.lambda,
     required this.runtime,
+    required this.log,
     super.key,
   });
 
@@ -69,6 +72,8 @@ class _GlueListenableState extends State<GlueListenable> {
     _lastEvaluatedLambda = lambda;
     _lastEvaluatedValue = value;
 
+    // final scope = VisionScope.of(context);
+
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
@@ -79,11 +84,15 @@ class _GlueListenableState extends State<GlueListenable> {
 
     switch (result) {
       case Left(:final value):
-        // On error, do nothing: the interface safely retains the previous working layout
-        print(value);
+        widget.log.error(value);
       case Right(:final value):
         if (mounted) {
-          setState(() => _cachedWidget = extractWidget(value.$1));
+          final newWidget = extractWidget(value.$1);
+          if (newWidget == null) {
+            widget.log.error('${widget.lambda} \n Widget required');
+          } else {
+            setState(() => _cachedWidget = newWidget);
+          }
         }
     }
   }

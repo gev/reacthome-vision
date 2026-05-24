@@ -1,31 +1,34 @@
-import 'dart:developer';
-
 import 'package:glue/compile.dart';
-import 'package:glue/either.dart';
 import 'package:glue/env.dart';
-import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/parse.dart';
+import 'package:vision/glue/logger.dart';
 
 class GlueEvaluator {
   late final Env _env;
+  late final Logger _log;
 
-  GlueEvaluator(this._env);
+  GlueEvaluator({required this._env, required this._log});
 
-  Future<Either<GlueError, Ir>> evaluate(String code) async {
+  Future<Ir?> evaluate(String code) async {
     final parseResult = parseGlue(code);
     return parseResult.match(
       (parseError) {
-        return Left(parseError);
+        _log.error(parseError);
+        return null;
       },
       (ast) async {
         final irTree = compile(ast);
         final evalResult = await runEvalSimple(eval(irTree), _env);
-        log('Eval result: $evalResult');
         return evalResult.match(
-          (error) => Left(error),
-          (value) => Right(value.$1),
+          (error) {
+            _log.error(error);
+            return null;
+          },
+          (value) {
+            return value.$1;
+          },
         );
       },
     );
