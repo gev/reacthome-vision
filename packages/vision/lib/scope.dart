@@ -6,6 +6,8 @@ import 'package:vision/controllers/controller.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
+import 'package:vision/glue/store/glue_request.dart';
+import 'package:vision/pub_sub/subscriber.dart';
 import 'package:vision/retry/exponentional_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
@@ -20,7 +22,8 @@ class Scope {
 
   Scope({required String host, required int port}) {
     _log = Logger(sink: _outbound);
-    final env = makeEnv(sink: _outbound, log: _log);
+    final subsciber = Subscriber(request: GlueRequest(_outbound));
+    final env = makeEnv(sink: _outbound, subscriber: subsciber, log: _log);
     _evaluator = GlueEvaluator(env: env, log: _log);
     _controller = Controller(evaluator: _evaluator, source: _inbound.stream);
     _client = ResilientWebSocket(
