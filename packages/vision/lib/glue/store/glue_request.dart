@@ -8,12 +8,12 @@ class GlueRequest implements Request<String> {
   GlueRequest(this._sink);
 
   @override
-  void one(String key) {
+  void subscribeOne(String key) {
     _request(_one(key));
   }
 
   @override
-  void many(Iterable<String> keys) {
+  void subscrybeMany(Iterable<String> keys) {
     _request(_many(keys));
   }
 

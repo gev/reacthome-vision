@@ -1,4 +1,4 @@
 abstract interface class Request<K> {
-  void one(K key);
-  void many(Iterable<K> keys);
+  void subscribeOne(K key);
+  void subscrybeMany(Iterable<K> keys);
 }
