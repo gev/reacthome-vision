@@ -5,7 +5,7 @@ import 'package:vision/pub_sub/request.dart';
 class GlueRequest implements Request<String> {
   final Sink<String> _sink;
 
-  GlueRequest(this._sink);
+  const GlueRequest(this._sink);
 
   @override
   void subscribeOne(String key) {
