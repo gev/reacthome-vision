@@ -3,21 +3,19 @@ import 'dart:async';
 import 'package:vision/pub_sub/request.dart';
 import 'package:vision/stores/store.dart';
 
-class Subscriber<K, V, R> {
+class Subscriber<K> {
   final Set<K> _keys = {};
   final Set<K> _pending = {};
 
-  final Store<K, V, R> _store;
   final Request<K> _request;
   final Duration _timeout;
 
   Subscriber({
-    required this._store,
     required this._request,
     this._timeout = const Duration(seconds: 3),
   });
 
-  R subscribe(K key, V defaultValue) {
+  void subscribe(K key) {
     if (!_keys.contains(key) && !_pending.contains(key)) {
       _keys.add(key);
       _pending.add(key);
@@ -26,7 +24,6 @@ class Subscriber<K, V, R> {
         _pending.remove(key);
       });
     }
-    return _store.lookup(key, defaultValue);
   }
 
   void reSubscribeAll() {
@@ -52,10 +49,10 @@ class Subscriber<K, V, R> {
     // ToDo: send unsubcribe request
   }
 
-  void publish(K key, V value) {
+  void publish<V, R>(K key, V value, Store<K, V, R> store) {
     if (_keys.contains(key)) {
       _pending.remove(key);
-      _store.store(key, value);
+      store.store(key, value);
     }
   }
 }
