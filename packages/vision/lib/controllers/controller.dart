@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:vision/glue/glue_evaluator.dart';
@@ -36,10 +37,10 @@ class Controller {
         case Header.file:
           _acceptFile(message.body);
         default:
-          print("Unknown header: ${message.header}");
+          log("Unknown header: ${message.header}");
       }
     } catch (e) {
-      print(e);
+      log(e.toString());
     }
   }
 
