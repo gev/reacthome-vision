@@ -12,21 +12,22 @@ import 'package:vision/retry/exponentional_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
 class Scope {
-  late final ResilientWebSocket _client;
-  late final GlueEvaluator _evaluator;
+  late final ResilientWebSocket client;
+  late final GlueEvaluator evaluator;
+  late final Logger log;
+
   late final Controller _controller;
-  late final Logger _log;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
   Scope({required String host, required int port}) {
-    _log = Logger(sink: _outbound);
+    log = Logger(sink: _outbound);
     final subsciber = Subscriber(request: GlueRequest(_outbound));
-    final env = makeEnv(sink: _outbound, subscriber: subsciber, log: _log);
-    _evaluator = GlueEvaluator(env: env, log: _log);
-    _controller = Controller(evaluator: _evaluator, source: _inbound.stream);
-    _client = ResilientWebSocket(
+    final env = makeEnv(sink: _outbound, subscriber: subsciber, log: log);
+    evaluator = GlueEvaluator(env: env, log: log);
+    _controller = Controller(evaluator: evaluator, source: _inbound.stream);
+    client = ResilientWebSocket(
       url: 'ws://$host:$port',
       sink: _inbound,
       policy: ExponentialBackoffPolicy(),
@@ -38,15 +39,11 @@ class Scope {
                 .takeBytes(),
       ),
     );
-    _client.start();
+    client.start();
   }
 
-  ResilientWebSocket get client => _client;
-  GlueEvaluator get evaluator => _evaluator;
-  Logger get log => _log;
-
   void dispose() {
-    _client.dispose();
+    client.dispose();
     _controller.dispose();
     _inbound.close();
     _outbound.close();
