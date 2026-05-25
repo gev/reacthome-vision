@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
+import 'package:vision/scope.dart';
 import 'package:vision/widgets/empty_widget.dart';
-import 'package:vision/widgets/vision_scope.dart';
 
 class GlueWidget extends StatelessWidget {
   final String glue;
@@ -11,7 +11,7 @@ class GlueWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scope = VisionScope.of(context);
+    final scope = Scope.of(context);
     return FutureBuilder<Ir?>(
       initialData: IrNativeValue(Value(EmptyWidget())),
       future: scope.evaluator.evaluate(glue),

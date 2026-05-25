@@ -4,15 +4,13 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:vision/retry/retry.dart';
-import 'package:vision/websocket/websocket_state.dart';
-
-typedef OnWebSocketChangeState = void Function(WebSocketState state);
+import 'package:vision/session/session_state.dart';
 
 class RetryableWebSocket implements Retryable {
   final String url;
   final Sink<Uint8List> sink;
   final Stream<Uint8List> source;
-  final OnWebSocketChangeState onStateChange;
+  final OnSessionStateChange onStateChange;
 
   WebSocket? _socket;
 

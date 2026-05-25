@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:vision/websocket/websocket_state.dart';
+import 'package:vision/scope.dart';
+import 'package:vision/session/session_state.dart';
 import 'package:vision/widgets/statusbar_connected.dart';
 import 'package:vision/widgets/statusbar_connecting.dart';
 import 'package:vision/widgets/statusbar_container.dart';
-import 'package:vision/widgets/vision_scope.dart';
 
 class Statusbar extends StatelessWidget {
   const Statusbar({super.key});
@@ -11,10 +11,10 @@ class Statusbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final client = VisionScope.of(context).client;
+    final session = Scope.of(context).session;
     return ListenableBuilder(
-      listenable: client,
-      builder: (context, _) => client.state == WebSocketState.connected
+      listenable: session,
+      builder: (context, _) => session.state == SessionState.connected
           ? StatusBarContainer(
               height: 0,
               background: colorScheme.secondaryContainer,

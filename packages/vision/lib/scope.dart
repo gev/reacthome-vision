@@ -1,51 +1,26 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
-
-import 'package:vision/controllers/controller.dart';
-import 'package:vision/glue/env.dart';
+import 'package:flutter/widgets.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
-import 'package:vision/glue/store/glue_request.dart';
-import 'package:vision/pub_sub/subscriber.dart';
-import 'package:vision/retry/exponentinal_backoff_policy.dart';
-import 'package:vision/websocket/resilient_websocket.dart';
+import 'package:vision/session/session_monitor.dart';
+import 'package:vision/session/session_orchestrator.dart';
 
-class Scope {
-  late final ResilientWebSocket client;
-  late final GlueEvaluator evaluator;
-  late final Logger log;
+class Scope extends InheritedWidget {
+  final SessionOrchestrator _orchestrator;
 
-  late final Controller _controller;
+  const Scope({required this._orchestrator, required super.child, super.key});
 
-  final _inbound = StreamController<Uint8List>();
-  final _outbound = StreamController<String>();
+  Logger get log => _orchestrator.log;
+  SessionMonitor get session => _orchestrator.monitor;
+  GlueEvaluator get evaluator => _orchestrator.evaluator;
 
-  Scope({required String host, required int port}) {
-    log = Logger(sink: _outbound);
-    final subsciber = Subscriber(request: GlueRequest(_outbound));
-    final env = makeEnv(sink: _outbound, subscriber: subsciber, log: log);
-    evaluator = GlueEvaluator(env: env, log: log);
-    _controller = Controller(evaluator: evaluator, source: _inbound.stream);
-    client = ResilientWebSocket(
-      url: 'ws://$host:$port',
-      sink: _inbound,
-      policy: ExponentialBackoffPolicy(),
-      source: _outbound.stream.map(
-        (message) =>
-            (BytesBuilder(copy: false)
-                  ..addByte(1)
-                  ..add(utf8.encode(message)))
-                .takeBytes(),
-      ),
-    );
-    client.start();
+  static Scope of(BuildContext context) {
+    final scope = context.dependOnInheritedWidgetOfExactType<Scope>();
+    assert(scope != null, 'No VisionScope found in context');
+    return scope!;
   }
 
-  void dispose() {
-    client.dispose();
-    _controller.dispose();
-    _inbound.close();
-    _outbound.close();
+  @override
+  bool updateShouldNotify(Scope oldWidget) {
+    return _orchestrator != oldWidget._orchestrator;
   }
 }
