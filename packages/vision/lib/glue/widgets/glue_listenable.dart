@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:glue/either.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/runtime.dart';
@@ -77,24 +76,27 @@ class _GlueListenableState extends State<GlueListenable> {
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
-    final result = await runEval(apply(lambda, [value]), widget.runtime);
+    final evaluation = eval(value).flatMap((val) => apply(lambda, [val]));
+    final result = await runEval(evaluation, widget.runtime);
 
-    // Discard result if a newer evaluation process has already started
     if (executionId != _currentExecutionId) return;
 
-    switch (result) {
-      case Left(:final value):
-        widget.log.error(value);
-      case Right(:final value):
+    result.match(
+      (err) {
+        widget.log.error(err);
+      },
+      (res) {
         if (mounted) {
-          final newWidget = extractWidget(value.$1);
+          final (val, _) = res;
+          final newWidget = extractWidget(val);
           if (newWidget == null) {
-            widget.log.error('${widget.lambda} \n Widget required');
+            widget.log.error('$value \n Widget required');
           } else {
             setState(() => _cachedWidget = newWidget);
           }
         }
-    }
+      },
+    );
   }
 
   @override
