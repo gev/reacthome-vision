@@ -17,9 +17,7 @@ class ReactiveCache<K, V> implements ReactiveStore<K, V> {
   @override
   void store(K key, V value) {
     final notifier = _cache[key];
-    if (notifier == null) {
-      _cache[key] = ValueNotifier(value);
-    } else {
+    if (notifier != null) {
       notifier.value = value;
     }
   }
