@@ -101,6 +101,8 @@ class _GlueListenableState extends State<GlueListenable> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.notifier.value);
+    print(widget.lambda);
     return _cachedWidget;
   }
 }
