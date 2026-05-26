@@ -22,7 +22,7 @@ class GlueRequest implements Request<String> {
   }
 
   ListAst _many(Iterable<String> keys) {
-    return ListAst([_get, ...keys.map(StringAst.new)]);
+    return ListAst(keys.map(_one).toList());
   }
 
   void _request(ListAst ast) {
