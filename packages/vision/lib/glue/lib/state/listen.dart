@@ -3,6 +3,7 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue/runtime.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/widgets/glue_listenable.dart';
 
@@ -34,7 +35,7 @@ IrNativeFunc listen(Logger log) => IrNativeFunc((Ir notifierIr) {
         final reactiveContainer = GlueListenable(
           notifier: notifier,
           lambda: lambda,
-          runtime: runtime,
+          runtime: Runtime.initial(runtime.rootEnv),
           log: log,
         );
 
