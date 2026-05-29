@@ -18,7 +18,7 @@ final Ir popUntil = IrNativeFunc((Ir predicateIr) {
           );
           return switch (result) {
             Right(value: (IrBool(value: bool v), _)) => v,
-            // ToDd: report error when result is a Future
+            // ToDo: report error when result is a Future
             _ => false,
           };
         }
