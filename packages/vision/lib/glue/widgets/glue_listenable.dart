@@ -4,7 +4,6 @@ import 'package:glue/ir.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
 import 'package:vision/glue/logger.dart';
-import 'package:vision/widgets/empty_widget.dart';
 
 class GlueListenable extends StatefulWidget {
   final ValueNotifier<Ir> notifier;
@@ -25,7 +24,7 @@ class GlueListenable extends StatefulWidget {
 }
 
 class _GlueListenableState extends State<GlueListenable> {
-  Widget _cachedWidget = const EmptyWidget();
+  Widget _cachedWidget = const SizedBox.shrink();
 
   // Tracks execution sequence to prevent async race conditions
   int _currentExecutionId = 0;
@@ -104,6 +103,7 @@ class _GlueListenableState extends State<GlueListenable> {
   Widget build(BuildContext context) {
     print(widget.notifier.value);
     print(_cachedWidget);
+    print(widget.runtime);
     print("");
     return _cachedWidget;
   }
