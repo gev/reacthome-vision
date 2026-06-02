@@ -7,6 +7,7 @@ import 'package:vision/controllers/controller.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/store/glue_request.dart';
 import 'package:vision/pub_sub/subscriber.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
@@ -21,7 +22,7 @@ class SessionOrchestrator {
 
   late final Logger log;
   late final Controller _controller;
-  late final Subscriber<String> _subscriber;
+  late final GlueSubscriber _subscriber;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();

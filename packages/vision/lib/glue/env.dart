@@ -11,11 +11,11 @@ import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
 import 'package:vision/glue/logger.dart';
-import 'package:vision/pub_sub/subscriber.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 
 Env makeEnv({
   required Sink<String> sink,
-  required Subscriber<String> subscriber,
+  required GlueSubscriber subscriber,
   required Logger log,
 }) {
   return envFromModules([

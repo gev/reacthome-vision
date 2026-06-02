@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
 import 'package:vision/pub_sub/request.dart';
 import 'package:vision/stores/store.dart';
 
-class Subscriber<K> {
-  final Set<K> _keys = {};
+class Subscriber<K, V, R> {
+  final Map<K, Set<Store<K, V, R>>> _stores = {};
   final Set<K> _pending = {};
 
   final Request<K> _request;
@@ -15,21 +16,24 @@ class Subscriber<K> {
     this._timeout = const Duration(seconds: 3),
   });
 
-  void subscribe(K key) {
-    if (!_keys.contains(key) && !_pending.contains(key)) {
-      _keys.add(key);
+  void subscribe(K key, Store<K, V, R> store) {
+    final stores = _stores[key];
+    if (stores == null) {
+      _stores[key] = {store};
       _pending.add(key);
       _request.subscribeOne(key);
       Timer(_timeout, () {
         _pending.remove(key);
       });
+    } else {
+      stores.add(store);
     }
   }
 
   void reSubscribeAll() {
-    if (_keys.isEmpty) return;
+    if (_stores.isEmpty) return;
     _pending.clear();
-    final snapshot = _keys.toList();
+    final snapshot = _stores.keys.toList();
     _pending.addAll(snapshot);
     _request.subscrybeMany(snapshot);
     Timer(_timeout * snapshot.length, () {
@@ -38,21 +42,26 @@ class Subscriber<K> {
   }
 
   void unsubscribe(K key) {
-    _keys.remove(key);
+    _stores.remove(key);
     _pending.remove(key);
     // ToDo: send unsubcribe request
   }
 
   void unsubscribeAll() {
-    _keys.clear();
+    _stores.clear();
     _pending.clear();
     // ToDo: send unsubcribe request
   }
 
-  void publish<V, R>(K key, V value, Store<K, V, R> store) {
-    if (_keys.contains(key)) {
-      _pending.remove(key);
-      store.store(key, value);
+  void publish(K key, V value) {
+    _pending.remove(key);
+    final stores = _stores[key];
+    if (stores != null) {
+      for (final s in stores) {
+        s.store(key, value);
+      }
     }
   }
 }
+
+typedef ReactiveSubscriber<K, V> = Subscriber<K, V, ValueNotifier<V>>;

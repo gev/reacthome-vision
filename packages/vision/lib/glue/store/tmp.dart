@@ -1,8 +1,8 @@
 import 'package:glue/ir.dart';
-import 'package:vision/pub_sub/subscriber.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/stores/lookup.dart';
 import 'package:vision/stores/reactive_cache.dart';
-import 'package:vision/stores/store.dart';
-import 'package:vision/stores/subscribable_store.dart';
+import 'package:vision/stores/subscribable.dart';
 
-ReactiveStore<String, Ir> tmp(Subscriber<String> subscriber) =>
-    SubscribableStore(subscriber: subscriber, store: ReactiveCache());
+ReactiveLookup<String, Ir> tmp(GlueSubscriber subscriber) =>
+    Subscribable(subscriber: subscriber, store: ReactiveCache());

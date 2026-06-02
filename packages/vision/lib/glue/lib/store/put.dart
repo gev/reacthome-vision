@@ -2,32 +2,29 @@
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/stores/store.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 
-final Ir put = IrSpecial(putImpl);
+Ir put(GlueSubscriber subscriber) {
+  Eval<Ir> putValue(Ir key, Ir value) {
+    switch (key) {
+      case IrString(value: String k):
+        subscriber.publish(k, value);
+        return Eval.pure(IrVoid());
+      case _:
+        return throwError(wrongArgumentType(['key', 'value']));
+    }
+  }
 
-Eval<Ir> putImpl(List<Ir> args) {
-  switch (args) {
-    case [final store, final key, final value]:
-      return eval(store).flatMap((s) {
+  Eval<Ir> putImpl(List<Ir> args) {
+    switch (args) {
+      case [final key, final value]:
         return eval(key).flatMap((k) {
-          return putValue(s, k, value);
+          return putValue(k, value);
         });
-      });
-    case _:
-      return throwError(wrongArgumentType(['store', 'key', 'value']));
+      case _:
+        return throwError(wrongArgumentType(['key', 'value']));
+    }
   }
-}
 
-Eval<Ir> putValue(Ir store, Ir key, Ir value) {
-  switch ((store, key)) {
-    case (
-      IrNativeValue(value: Value(value: ReactiveStore<String, Ir> s)),
-      IrString(value: String k),
-    ):
-      s.store(k, value);
-      return Eval.pure(IrVoid());
-    case _:
-      return throwError(wrongArgumentType(['store', 'key', 'value']));
-  }
+  return IrSpecial(putImpl);
 }
