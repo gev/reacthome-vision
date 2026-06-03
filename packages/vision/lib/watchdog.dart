@@ -11,9 +11,7 @@ class Watchdog {
   bool _shouldFire = false;
   late Timer _timer;
 
-  Watchdog({required Fire fire, Duration timeout = defaultTimeout})
-    : _fire = fire,
-      _timeout = timeout {
+  Watchdog({required this._fire, this._timeout = defaultTimeout}) {
     _timer = _next;
   }
 

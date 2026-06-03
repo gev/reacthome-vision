@@ -21,7 +21,7 @@ Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
   switch ((store, key)) {
     case (
       IrNativeValue(value: Value(value: GlueSubscribable s)),
-      IrSymbol(value: String key),
+      IrDottedSymbol key,
     ):
       final res = s.lookup(key, defaultValue);
       return Eval.pure(IrNativeValue(Value(res)));

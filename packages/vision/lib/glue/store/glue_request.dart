@@ -1,27 +1,28 @@
 import 'package:glue/ast.dart';
+import 'package:glue/ir.dart';
 import 'package:glue/serialize.dart';
 import 'package:vision/pub_sub/request.dart';
 
-class GlueRequest implements Request<String> {
+class GlueRequest implements Request<IrDottedSymbol> {
   final Sink<String> _sink;
 
   const GlueRequest(this._sink);
 
   @override
-  void subscribeOne(String key) {
+  void subscribeOne(IrDottedSymbol key) {
     _request(_one(key));
   }
 
   @override
-  void subscrybeMany(Iterable<String> keys) {
+  void subscrybeMany(Iterable<IrDottedSymbol> keys) {
     _request(_many(keys));
   }
 
-  ListAst _one(String key) {
+  ListAst _one(IrDottedSymbol key) {
     return ListAst([_get, SymbolAst("'$key")]);
   }
 
-  ListAst _many(Iterable<String> keys) {
+  ListAst _many(Iterable<IrDottedSymbol> keys) {
     return ListAst(keys.map(_one).toList());
   }
 
