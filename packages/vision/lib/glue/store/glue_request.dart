@@ -18,7 +18,7 @@ class GlueRequest implements Request<String> {
   }
 
   ListAst _one(String key) {
-    return ListAst([_get, StringAst(key)]);
+    return ListAst([_get, SymbolAst("'$key")]);
   }
 
   ListAst _many(Iterable<String> keys) {

@@ -13,10 +13,6 @@ Eval<Ir> Function(Ir) lookupStore(Ir store) {
   return (Ir key) => Eval.pure(IrNativeFunc(lookupKey(store, key)));
 }
 
-Eval<Ir> Function(Ir) lookupNamespace(Ir namespace) {
-  return (Ir key) => Eval.pure(IrNativeFunc(lookupKey(namespace, key)));
-}
-
 Eval<Ir> Function(Ir) lookupKey(Ir store, Ir key) {
   return (Ir defaultValue) => lookupValue(store, key, defaultValue);
 }
@@ -25,7 +21,7 @@ Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
   switch ((store, key)) {
     case (
       IrNativeValue(value: Value(value: GlueSubscribable s)),
-      IrString(value: String key),
+      IrSymbol(value: String key),
     ):
       final res = s.lookup(key, defaultValue);
       return Eval.pure(IrNativeValue(Value(res)));

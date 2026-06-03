@@ -7,7 +7,7 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 Ir put(GlueSubscriber subscriber) {
   Eval<Ir> putValue(Ir key, Ir value) {
     switch (key) {
-      case IrString(value: String k):
+      case IrSymbol(value: String k):
         subscriber.publish(k, value);
         return Eval.pure(IrVoid());
       case _:
