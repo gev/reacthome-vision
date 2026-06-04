@@ -1,50 +1,13 @@
-import 'package:vision/pub_sub/request.dart';
-import 'package:vision/pub_sub/tracker.dart';
-
-class Subscriber<K, V, T extends Tracker<K, V>> {
-  final T tracker;
-  final SubscribeRequest<K> _subscribe;
-
-  Subscriber({required this.tracker, required this._subscribe});
-
-  void subscribe(K key) {
-    if (tracker.isNotTracked(key)) {
-      _subscribe.subscribeOne(key);
-    }
-  }
-
-  void reSubscribeAll() {
-    if (tracker.isNotEmpty) {
-      _subscribe.subscribeMany(tracker.keys);
-    }
-  }
-
-  void publish(K key, V value) {
-    tracker.publish(key, value);
-  }
+abstract class Subscriber<K, V> {
+  bool get isEmpty;
+  bool get isNotEmpty => !isEmpty;
+  bool isSubscribed(K key);
+  bool isUnsubscribed(K key) => !isSubscribed(key);
+  void reSubscribeAll();
+  void publish(K key, V value);
 }
 
-class DynamicSubscriber<K, V, T extends DynamicTracker<K, V>>
-    extends Subscriber<K, V, T> {
-  final UnsubscribeRequest<K> _unsubscribe;
-
-  DynamicSubscriber({
-    required super.tracker,
-    required super.subscribe,
-    required this._unsubscribe,
-  });
-
-  void unsubscribe(K key) {
-    if (tracker.isTracked(key)) {
-      _unsubscribe.unsubscribeOne(key);
-      tracker.untrack(key);
-    }
-  }
-
-  void unsubscribeAll() {
-    if (tracker.isNotEmpty) {
-      _unsubscribe.unsubscribeMany(tracker.keys);
-      tracker.untrackAll();
-    }
-  }
+abstract interface class DynamicSubscriber<K, V> {
+  void unsubscribe(K key);
+  void unsubscribeAll();
 }

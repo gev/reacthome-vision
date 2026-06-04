@@ -1,5 +1,4 @@
 import 'package:glue/ir.dart';
-import 'package:vision/glue/pub_sub/glue_tracker.dart';
-import 'package:vision/pub_sub/subscriber.dart';
+import 'package:vision/pub_sub/multi_store_subscriber.dart';
 
-typedef GlueSubscriber = Subscriber<IrDottedSymbol, Ir, GlueTracker>;
+typedef GlueSubscriber = MultiStoreSubscriber<IrDottedSymbol, Ir>;
