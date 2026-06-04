@@ -3,7 +3,7 @@ abstract class Tracker<K, V> {
   bool isTracked(K key);
   bool isNotTracked(K key) => !isTracked(key);
   bool get isEmpty => keys.isEmpty;
-  bool get isNotEmpty => !isEmpty;
+  bool get isNotEmpty => keys.isNotEmpty;
   void publish(K key, V value);
 }
 
