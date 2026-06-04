@@ -1,7 +1,7 @@
 import 'package:vision/pub_sub/tracker.dart';
 import 'package:vision/stores/put.dart';
 
-class StoreTracker<K, V> extends Tracker<K, V> {
+class MultiTracker<K, V> extends Tracker<K, V> {
   final Map<K, Set<Put<K, V>>> _stores = {};
 
   void track(K key, Put<K, V> store) {

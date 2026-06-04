@@ -1,4 +1,4 @@
 import 'package:glue/ir.dart';
-import 'package:vision/pub_sub/store_tracker.dart';
+import 'package:vision/pub_sub/multi_tracker.dart';
 
-typedef GlueTracker = StoreTracker<IrDottedSymbol, Ir>;
+typedef GlueTracker = MultiTracker<IrDottedSymbol, Ir>;

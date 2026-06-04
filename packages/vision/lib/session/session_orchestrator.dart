@@ -9,7 +9,7 @@ import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/pub_sub/store_tracker.dart';
+import 'package:vision/pub_sub/multi_tracker.dart';
 import 'package:vision/pub_sub/subscriber.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/session/session_monitor.dart';
@@ -30,7 +30,7 @@ class SessionOrchestrator {
 
   SessionOrchestrator({required String host, required int port}) {
     _subscriber = Subscriber(
-      tracker: StoreTracker(),
+      tracker: MultiTracker(),
       subscribe: GlueRequest(_outbound),
     );
     log = Logger(sink: _outbound);
