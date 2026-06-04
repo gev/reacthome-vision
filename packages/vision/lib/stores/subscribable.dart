@@ -4,7 +4,7 @@ import 'package:vision/stores/lookup.dart';
 import 'package:vision/stores/store.dart';
 
 class Subscribable<K, V, R> implements Lookup<K, V, R> {
-  final Subscriber<K, V, R> _subscriber;
+  final Subscriber<K, V> _subscriber;
   final Store<K, V, R> _store;
 
   const Subscribable({required this._subscriber, required this._store});

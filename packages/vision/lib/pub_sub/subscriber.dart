@@ -1,15 +1,14 @@
-import 'package:flutter/widgets.dart';
 import 'package:vision/pub_sub/request.dart';
-import 'package:vision/stores/store.dart';
+import 'package:vision/stores/put.dart';
 
-class Subscriber<K, V, R> {
-  final Map<K, Set<Store<K, V, R>>> _stores = {};
+class Subscriber<K, V> {
+  final Map<K, Set<Put<K, V>>> _stores = {};
 
   final Request<K> _request;
 
   Subscriber({required this._request});
 
-  void subscribe(K key, Store<K, V, R> store) {
+  void subscribe(K key, Put<K, V> store) {
     final stores = _stores[key];
     if (stores == null) {
       _stores[key] = {store};
@@ -39,10 +38,8 @@ class Subscriber<K, V, R> {
     final stores = _stores[key];
     if (stores != null) {
       for (final s in stores) {
-        s.store(key, value);
+        s.put(key, value);
       }
     }
   }
 }
-
-typedef ReactiveSubscriber<K, V> = Subscriber<K, V, ValueNotifier<V>>;
