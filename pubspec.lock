@@ -152,7 +152,7 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: "59736e318522971c0dcfb20e15b376043014e00c"
+      resolved-ref: d833685215ae8ececfb59946d77864afe0f563d6
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -161,7 +161,7 @@ packages:
     description:
       path: "flutter/glue_flutter"
       ref: HEAD
-      resolved-ref: "59736e318522971c0dcfb20e15b376043014e00c"
+      resolved-ref: d833685215ae8ececfb59946d77864afe0f563d6
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
