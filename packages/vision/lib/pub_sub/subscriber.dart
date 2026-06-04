@@ -18,9 +18,9 @@ class Subscriber<K, V> {
   }
 
   void reSubscribeAll() {
-    if (_stores.isEmpty) return;
-    final snapshot = _stores.keys.toList();
-    _subscribe.subscribeMany(snapshot);
+    if (_stores.isNotEmpty) {
+      _subscribe.subscribeMany(_stores.keys);
+    }
   }
 
   void publish(K key, V value) {
