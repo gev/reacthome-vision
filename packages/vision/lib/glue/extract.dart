@@ -9,6 +9,7 @@ ValueNotifier<Ir>? extractStateNotifier(Ir ir) => switch (ir) {
 
 /// Helper function to extract a single widget from Ir
 Widget? extractWidget(Ir ir) => switch (ir) {
+  IrList(:final elements) => extractWidget(elements.last),
   IrNativeValue(value: Value(value: Widget widget)) => widget,
   _ => null,
 };
