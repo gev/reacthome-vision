@@ -1,4 +1,9 @@
-abstract interface class Request<K> {
+abstract interface class SubscribeRequest<K> {
   void subscribeOne(K key);
-  void subscrybeMany(Iterable<K> keys);
+  void subscribeMany(Iterable<K> keys);
+}
+
+abstract interface class UnsubscribeRequest<K> {
+  void unsubscribeOne(K key);
+  void unsubscribeMany(Iterable<K> keys);
 }

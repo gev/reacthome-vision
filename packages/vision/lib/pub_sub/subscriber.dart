@@ -3,16 +3,15 @@ import 'package:vision/stores/put.dart';
 
 class Subscriber<K, V> {
   final Map<K, Set<Put<K, V>>> _stores = {};
+  final SubscribeRequest<K> _subscribe;
 
-  final Request<K> _request;
-
-  Subscriber({required this._request});
+  Subscriber({required this._subscribe});
 
   void subscribe(K key, Put<K, V> store) {
     final stores = _stores[key];
     if (stores == null) {
       _stores[key] = {store};
-      _request.subscribeOne(key);
+      _subscribe.subscribeOne(key);
     } else {
       stores.add(store);
     }
@@ -21,17 +20,7 @@ class Subscriber<K, V> {
   void reSubscribeAll() {
     if (_stores.isEmpty) return;
     final snapshot = _stores.keys.toList();
-    _request.subscrybeMany(snapshot);
-  }
-
-  void unsubscribe(K key) {
-    _stores.remove(key);
-    // ToDo: send unsubcribe request
-  }
-
-  void unsubscribeAll() {
-    _stores.clear();
-    // ToDo: send unsubcribe request
+    _subscribe.subscribeMany(snapshot);
   }
 
   void publish(K key, V value) {
@@ -41,5 +30,21 @@ class Subscriber<K, V> {
         s.put(key, value);
       }
     }
+  }
+}
+
+class DynamicSubscriber<K, V> extends Subscriber<K, V> {
+  final UnsubscribeRequest<K> _unsubscribe;
+
+  DynamicSubscriber({required super.subscribe, required this._unsubscribe});
+
+  void unsubscribe(K key) {
+    _unsubscribe.unsubscribeOne(key);
+    _stores.remove(key);
+  }
+
+  void unsubscribeAll() {
+    _unsubscribe.unsubscribeMany(_stores.keys);
+    _stores.clear();
   }
 }

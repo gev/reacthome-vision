@@ -1,9 +1,10 @@
 import 'package:glue/ast.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/serialize.dart';
+
 import 'package:vision/pub_sub/request.dart';
 
-class GlueRequest implements Request<IrDottedSymbol> {
+class GlueRequest implements SubscribeRequest<IrDottedSymbol> {
   final Sink<String> _sink;
 
   const GlueRequest(this._sink);
@@ -14,7 +15,7 @@ class GlueRequest implements Request<IrDottedSymbol> {
   }
 
   @override
-  void subscrybeMany(Iterable<IrDottedSymbol> keys) {
+  void subscribeMany(Iterable<IrDottedSymbol> keys) {
     _request(_many(keys));
   }
 

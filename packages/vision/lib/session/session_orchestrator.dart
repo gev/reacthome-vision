@@ -28,7 +28,7 @@ class SessionOrchestrator {
   final _outbound = StreamController<String>();
 
   SessionOrchestrator({required String host, required int port}) {
-    _subscriber = Subscriber(request: GlueRequest(_outbound));
+    _subscriber = Subscriber(subscribe: GlueRequest(_outbound));
     log = Logger(sink: _outbound);
     final env = makeEnv(sink: _outbound, subscriber: _subscriber, log: log);
     evaluator = GlueEvaluator(env: env, log: log);
