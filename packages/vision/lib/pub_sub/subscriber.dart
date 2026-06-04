@@ -20,9 +20,7 @@ class Subscriber<K, V, T extends Tracker<K, V>> {
   }
 
   void publish(K key, V value) {
-    if (tracker.isTracked(key)) {
-      tracker.publish(key, value);
-    }
+    tracker.publish(key, value);
   }
 }
 
@@ -37,12 +35,16 @@ class DynamicSubscriber<K, V, T extends DynamicTracker<K, V>>
   });
 
   void unsubscribe(K key) {
-    _unsubscribe.unsubscribeOne(key);
-    tracker.untrack(key);
+    if (tracker.isTracked(key)) {
+      _unsubscribe.unsubscribeOne(key);
+      tracker.untrack(key);
+    }
   }
 
   void unsubscribeAll() {
-    _unsubscribe.unsubscribeMany(tracker.keys);
-    tracker.untrackAll();
+    if (tracker.isNotEmpty) {
+      _unsubscribe.unsubscribeMany(tracker.keys);
+      tracker.untrackAll();
+    }
   }
 }
