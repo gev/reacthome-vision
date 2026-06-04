@@ -4,10 +4,26 @@ import 'package:glue/serialize.dart';
 
 import 'package:vision/pub_sub/request.dart';
 
-class GlueRequest implements SubscribeRequest<IrDottedSymbol> {
+class GlueRequest extends _Request {
+  GlueRequest(super.sink);
+
+  @override
+  SymbolAst get _func => const SymbolAst('get');
+}
+
+class ModuleRequest extends _Request {
+  ModuleRequest(super.sink);
+
+  @override
+  SymbolAst get _func => const SymbolAst('module');
+}
+
+abstract class _Request implements SubscribeRequest<IrDottedSymbol> {
   final Sink<String> _sink;
 
-  const GlueRequest(this._sink);
+  const _Request(this._sink);
+
+  SymbolAst get _func;
 
   @override
   void subscribeOne(IrDottedSymbol key) {
@@ -20,7 +36,7 @@ class GlueRequest implements SubscribeRequest<IrDottedSymbol> {
   }
 
   ListAst _one(IrDottedSymbol key) {
-    return ListAst([_get, SymbolAst("'$key")]);
+    return ListAst([_func, SymbolAst("'$key")]);
   }
 
   ListAst _many(Iterable<IrDottedSymbol> keys) {
@@ -30,6 +46,4 @@ class GlueRequest implements SubscribeRequest<IrDottedSymbol> {
   void _request(ListAst ast) {
     _sink.add(serializeAst(ast));
   }
-
-  static const _get = SymbolAst('get');
 }
