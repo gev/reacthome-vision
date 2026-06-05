@@ -1,3 +1,3 @@
 abstract interface class Put<K, V> {
-  void put(K key, V defaultValue);
+  void put(K key, V value);
 }

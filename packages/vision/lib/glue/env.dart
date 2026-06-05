@@ -15,7 +15,7 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 
 Env makeEnv({
   required Sink<String> sink,
-  required GlueSubscriber subscriber,
+  required GlueSubscriber moduleSubscriber,
   required Logger log,
 }) {
   return envFromModules([
@@ -28,7 +28,7 @@ Env makeEnv({
     widgetsModule,
     navigationModule,
     stateModule(log),
-    storeModule(subscriber),
+    storeModule(moduleSubscriber),
     rpcModule(sink),
   ]);
 }

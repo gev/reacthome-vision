@@ -9,6 +9,7 @@ import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/glue/store/module_store.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/session/session_monitor.dart';
 import 'package:vision/session/session_state.dart';
@@ -21,15 +22,24 @@ class SessionOrchestrator {
 
   late final Logger log;
   late final Controller _controller;
-  late final GlueSubscriber _subscriber;
+  late final GlueSubscriber _glueSubscriber;
+  late final ModuleSubscriber _moduleSubscriber;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
   SessionOrchestrator({required String host, required int port}) {
-    _subscriber = GlueSubscriber(subscribe: GlueRequest(_outbound));
+    _glueSubscriber = GlueSubscriber(subscribe: GlueRequest(_outbound));
+    _moduleSubscriber = ModuleSubscriber(
+      subscribe: ModuleRequest(_outbound),
+      store: ModuleStore(),
+    );
     log = Logger(sink: _outbound);
-    final env = makeEnv(sink: _outbound, subscriber: _subscriber, log: log);
+    final env = makeEnv(
+      sink: _outbound,
+      moduleSubscriber: _glueSubscriber,
+      log: log,
+    );
     evaluator = GlueEvaluator(env: env, log: log);
     _controller = Controller(evaluator: evaluator, source: _inbound.stream);
     final client = _resilientWebSocket('ws://$host:$port');
@@ -53,7 +63,8 @@ class SessionOrchestrator {
   void _onStateChange(SessionState newState) {
     monitor.state = newState;
     if (newState == .connected) {
-      _subscriber.reSubscribeAll();
+      _glueSubscriber.reSubscribeAll();
+      _moduleSubscriber.reSubscribeAll();
     }
   }
 

@@ -3,5 +3,5 @@ import 'package:vision/glue/store/glue_subscribable.dart';
 import 'package:vision/stores/reactive_cache.dart';
 import 'package:vision/stores/subscribable.dart';
 
-GlueSubscribable tmp(GlueSubscriber subscriber) =>
-    Subscribable(subscriber: subscriber, store: ReactiveCache());
+GlueSubscribable tmpStore(GlueSubscriber subscriber) =>
+    ReactiveSubscribable(subscriber: subscriber, store: ReactiveCache());
