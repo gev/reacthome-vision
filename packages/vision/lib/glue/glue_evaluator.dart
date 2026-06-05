@@ -20,6 +20,7 @@ class GlueEvaluator {
       },
       (ast) async {
         final irTree = compile(ast);
+        print(irTree);
         final evalResult = await runEvalSimple(eval(irTree), _env);
         return evalResult.match(
           (error) {

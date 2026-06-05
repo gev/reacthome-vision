@@ -4,27 +4,17 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 
-Ir module(GlueSubscriber subscriber) {
-  Eval<Ir> putValue(Ir key, Ir value) {
-    switch (key) {
-      case IrDottedSymbol key:
-        subscriber.publish(key, value);
+Ir module(ModuleSubscriber subscriber) {
+  Eval<Ir> moduleImpl(List<Ir> args) {
+    switch (args) {
+      case [IrList exports, Ir body]:
+        print(exports);
+        print(body);
         return Eval.pure(IrVoid());
       case _:
-        return throwError(wrongArgumentType(['key', 'value']));
+        return throwError(wrongArgumentType(['name', 'body']));
     }
   }
 
-  Eval<Ir> putImpl(List<Ir> args) {
-    switch (args) {
-      case [final key, final value]:
-        return eval(key).flatMap((k) {
-          return putValue(k, value);
-        });
-      case _:
-        return throwError(wrongArgumentType(['key', 'value']));
-    }
-  }
-
-  return IrSpecial(putImpl);
+  return IrSpecial(moduleImpl);
 }

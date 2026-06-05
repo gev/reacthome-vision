@@ -1,31 +1,18 @@
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/store/glue_subscribable.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 
-final Ir import = IrNativeFunc(lookupImpl);
-
-Eval<Ir> lookupImpl(Ir store) {
-  return Eval.pure(IrNativeFunc(lookupStore(store)));
-}
-
-Eval<Ir> Function(Ir) lookupStore(Ir store) {
-  return (Ir key) => Eval.pure(IrNativeFunc(lookupKey(store, key)));
-}
-
-Eval<Ir> Function(Ir) lookupKey(Ir store, Ir key) {
-  return (Ir defaultValue) => lookupValue(store, key, defaultValue);
-}
-
-Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
-  switch ((store, key)) {
-    case (
-      IrNativeValue(value: Value(value: GlueSubscribable s)),
-      IrDottedSymbol key,
-    ):
-      final res = s.lookup(key, defaultValue);
-      return Eval.pure(IrNativeValue(Value(res)));
-    case _:
-      return throwError(wrongArgumentType(['store', 'key', 'defaultValue']));
+Ir import(ModuleSubscriber subscriber) {
+  Eval<Ir> importImpl(List<Ir> args) {
+    switch (args) {
+      case [IrDottedSymbol name]:
+        subscriber.subscribe(name);
+        return Eval.pure(IrVoid());
+      default:
+        return throwError(wrongArgumentType(['module name required']));
+    }
   }
+
+  return IrSpecial(importImpl);
 }

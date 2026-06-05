@@ -38,6 +38,7 @@ class SessionOrchestrator {
     final env = makeEnv(
       sink: _outbound,
       glueSubscriber: _glueSubscriber,
+      moduleSubscriber: _moduleSubscriber,
       log: log,
     );
     evaluator = GlueEvaluator(env: env, log: log);
