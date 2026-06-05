@@ -15,7 +15,7 @@ class ModuleRequest extends _Request {
   ModuleRequest(super.sink);
 
   @override
-  SymbolAst get _func => const SymbolAst('module');
+  SymbolAst get _func => const SymbolAst('load');
 }
 
 abstract class _Request implements SubscribeRequest<IrDottedSymbol> {

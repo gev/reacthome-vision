@@ -18,9 +18,7 @@ Ir put(GlueSubscriber subscriber) {
   Eval<Ir> putImpl(List<Ir> args) {
     switch (args) {
       case [final key, final value]:
-        return eval(key).flatMap((k) {
-          return putValue(k, value);
-        });
+        return putValue(key, value);
       case _:
         return throwError(wrongArgumentType(['key', 'value']));
     }

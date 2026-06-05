@@ -37,7 +37,8 @@ class SessionOrchestrator {
     log = Logger(sink: _outbound);
     final env = makeEnv(
       sink: _outbound,
-      moduleSubscriber: _glueSubscriber,
+      glueSubscriber: _glueSubscriber,
+      moduleSubscriber: _moduleSubscriber,
       log: log,
     );
     runtime = Runtime.initial(env);
