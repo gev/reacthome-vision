@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:glue/env.dart';
+import 'package:glue/runtime.dart';
 import 'package:vision/controllers/controller.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
@@ -18,7 +18,7 @@ import 'package:vision/websocket/resilient_websocket.dart';
 class SessionOrchestrator {
   final monitor = SessionMonitor();
   late final GlueEvaluator evaluator;
-  late final Env env;
+  late final Runtime runtime;
 
   late final Logger log;
   late final Controller _controller;
@@ -40,7 +40,8 @@ class SessionOrchestrator {
       moduleSubscriber: _glueSubscriber,
       log: log,
     );
-    evaluator = GlueEvaluator(env: env, log: log);
+    runtime = Runtime.initial(env);
+    evaluator = GlueEvaluator(runtime: runtime, log: log);
     _controller = Controller(evaluator: evaluator, source: _inbound.stream);
     final client = _resilientWebSocket('ws://$host:$port');
     client.start();

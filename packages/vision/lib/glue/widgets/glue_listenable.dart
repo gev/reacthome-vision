@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/glue/logger.dart';
+import 'package:vision/scope.dart';
 
 class GlueListenable extends StatefulWidget {
   final ValueNotifier<Ir> notifier;
   final Ir lambda;
-  final Runtime runtime;
-  final Logger log;
 
   const GlueListenable({
     required this.notifier,
     required this.lambda,
-    required this.runtime,
-    required this.log,
     super.key,
   });
 
@@ -37,7 +32,6 @@ class _GlueListenableState extends State<GlueListenable> {
   void initState() {
     super.initState();
     widget.notifier.addListener(_onNotifierTick);
-    _executeEvaluation(widget.lambda, widget.notifier.value);
   }
 
   @override
@@ -49,8 +43,13 @@ class _GlueListenableState extends State<GlueListenable> {
       oldWidget.notifier.removeListener(_onNotifierTick);
       widget.notifier.addListener(_onNotifierTick);
     }
-
     // Trigger re-evaluation
+    _executeEvaluation(widget.lambda, widget.notifier.value);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _executeEvaluation(widget.lambda, widget.notifier.value);
   }
 
@@ -76,21 +75,22 @@ class _GlueListenableState extends State<GlueListenable> {
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
+    final scope = Scope.of(context);
     final evaluation = eval(value).flatMap((val) => apply(lambda, [val]));
-    final result = await runEval(evaluation, widget.runtime);
+    final result = await runEval(evaluation, scope.runtime);
 
     if (executionId != _currentExecutionId) return;
 
     result.match(
       (err) {
-        widget.log.error(err);
+        scope.log.error(err);
       },
       (res) {
         if (mounted) {
           final (val, _) = res;
           final newWidget = extractWidget(val);
           if (newWidget == null) {
-            widget.log.error('$value \n Widget required');
+            scope.log.error('$value \n Widget required');
           } else {
             setState(() => _cachedWidget = newWidget);
           }
