@@ -1,15 +1,15 @@
 import 'package:glue/compile.dart';
-import 'package:glue/env.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/parse.dart';
+import 'package:glue/runtime.dart';
 import 'package:vision/glue/logger.dart';
 
 class GlueEvaluator {
-  late final Env _env;
+  late final Runtime _runtime;
   late final Logger _log;
 
-  GlueEvaluator({required this._env, required this._log});
+  GlueEvaluator({required this._runtime, required this._log});
 
   Future<Ir?> evaluate(String code) async {
     final parseResult = parseGlue(code);
@@ -20,8 +20,7 @@ class GlueEvaluator {
       },
       (ast) async {
         final irTree = compile(ast);
-        print(irTree);
-        final evalResult = await runEvalSimple(eval(irTree), _env);
+        final evalResult = await runEval(eval(irTree), _runtime);
         return evalResult.match(
           (error) {
             _log.error(error);

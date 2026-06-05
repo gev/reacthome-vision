@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:glue/runtime.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/session/session_monitor.dart';
@@ -10,6 +11,7 @@ class Scope extends InheritedWidget {
   const Scope({required this._orchestrator, required super.child, super.key});
 
   Logger get log => _orchestrator.log;
+  Runtime get runtime => _orchestrator.runtime;
   SessionMonitor get session => _orchestrator.monitor;
   GlueEvaluator get evaluator => _orchestrator.evaluator;
 
