@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/glue/logger.dart';
+import 'package:vision/scope.dart';
 
 class GlueWidget extends StatefulWidget {
   final Ir expression;
-  final Runtime runtime;
-  final Logger log;
 
-  const GlueWidget({
-    required this.expression,
-    required this.runtime,
-    required this.log,
-    super.key,
-  });
+  const GlueWidget({required this.expression, super.key});
 
   @override
   State<GlueWidget> createState() => _GlueWidgetState();
@@ -33,13 +25,17 @@ class _GlueWidgetState extends State<GlueWidget> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _executeEvaluation(widget.expression);
   }
 
   @override
   void didUpdateWidget(GlueWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-
     _executeEvaluation(widget.expression);
   }
 
@@ -54,21 +50,22 @@ class _GlueWidgetState extends State<GlueWidget> {
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
+    final scope = Scope.of(context);
     final evaluation = eval(expression);
-    final result = await runEval(evaluation, widget.runtime);
+    final result = await runEval(evaluation, scope.runtime);
 
     if (executionId != _currentExecutionId) return;
 
     result.match(
       (err) {
-        widget.log.error(err);
+        scope.log.error(err);
       },
       (res) {
         if (mounted) {
           final (val, _) = res;
           final newWidget = extractWidget(val);
           if (newWidget == null) {
-            widget.log.error('$expression \n Widget required');
+            scope.log.error('$expression \n Widget required');
           } else {
             setState(() => _cachedWidget = newWidget);
           }

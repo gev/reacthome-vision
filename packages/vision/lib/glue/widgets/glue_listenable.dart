@@ -35,6 +35,12 @@ class _GlueListenableState extends State<GlueListenable> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _executeEvaluation(widget.lambda, widget.notifier.value);
+  }
+
+  @override
   void didUpdateWidget(GlueListenable oldWidget) {
     super.didUpdateWidget(oldWidget);
 
@@ -44,12 +50,6 @@ class _GlueListenableState extends State<GlueListenable> {
       widget.notifier.addListener(_onNotifierTick);
     }
     // Trigger re-evaluation
-    _executeEvaluation(widget.lambda, widget.notifier.value);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     _executeEvaluation(widget.lambda, widget.notifier.value);
   }
 
