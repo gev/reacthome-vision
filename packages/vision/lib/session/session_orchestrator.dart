@@ -37,7 +37,7 @@ class SessionOrchestrator {
     log = Logger(sink: _outbound);
     final env = makeEnv(
       sink: _outbound,
-      moduleSubscriber: _glueSubscriber,
+      glueSubscriber: _glueSubscriber,
       log: log,
     );
     evaluator = GlueEvaluator(env: env, log: log);
