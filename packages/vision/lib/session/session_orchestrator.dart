@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:glue/env.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/controllers/controller.dart';
 import 'package:vision/glue/env.dart';
@@ -9,7 +10,7 @@ import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/glue/stores/module_store.dart';
+import 'package:vision/glue/stores/reactive_runtime.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/session/session_monitor.dart';
 import 'package:vision/session/session_state.dart';
@@ -17,33 +18,40 @@ import 'package:vision/websocket/resilient_websocket.dart';
 
 class SessionOrchestrator {
   final monitor = SessionMonitor();
-  late final GlueEvaluator evaluator;
-  late final Runtime runtime;
-
+  // late final GlueEvaluator evaluator;
   late final Logger log;
+
+  late final Env _env;
   late final Controller _controller;
   late final GlueSubscriber _glueSubscriber;
   late final ModuleSubscriber _moduleSubscriber;
+  late final ReactiveRuntime _reactiveRuntime;
+
+  Runtime get runtime => _reactiveRuntime.runtime;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
   SessionOrchestrator({required String host, required int port}) {
+    _reactiveRuntime = ReactiveRuntime(
+      runtimeBuilder: () => Runtime.initial(_env),
+    );
     _glueSubscriber = GlueSubscriber(subscribe: GlueRequest(_outbound));
     _moduleSubscriber = ModuleSubscriber(
       subscribe: ModuleRequest(_outbound),
-      store: ModuleStore(),
+      store: _reactiveRuntime,
     );
     log = Logger(sink: _outbound);
-    final env = makeEnv(
+    _env = makeEnv(
       sink: _outbound,
       glueSubscriber: _glueSubscriber,
       moduleSubscriber: _moduleSubscriber,
       log: log,
     );
-    runtime = Runtime.initial(env);
-    evaluator = GlueEvaluator(runtime: runtime, log: log);
-    _controller = Controller(evaluator: evaluator, source: _inbound.stream);
+    _controller = Controller(
+      evaluator: GlueEvaluator(runtime: runtime, log: log),
+      source: _inbound.stream,
+    );
     final client = _resilientWebSocket('ws://$host:$port');
     client.start();
   }

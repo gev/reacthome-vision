@@ -6,7 +6,7 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 Ir import(ModuleSubscriber subscriber) {
   Eval<Ir> importImpl(List<Ir> args) {
     switch (args) {
-      case [IrDottedSymbol name]:
+      case IrDottedSymbol name:
         subscriber.subscribe(name);
         return Eval.pure(IrVoid());
       default:
