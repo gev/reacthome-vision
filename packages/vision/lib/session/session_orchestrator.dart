@@ -9,7 +9,7 @@ import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/glue/store/module_store.dart';
+import 'package:vision/glue/stores/module_store.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/session/session_monitor.dart';
 import 'package:vision/session/session_state.dart';
