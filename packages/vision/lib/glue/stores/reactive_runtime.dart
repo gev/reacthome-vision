@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:glue/env.dart';
 import 'package:glue/module.dart';
+import 'package:glue/module/cache.dart';
+import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/logger.dart';
@@ -42,8 +44,14 @@ class ReactiveRuntime implements Put<String, RegisteredModule> {
   );
 
   @override
-  void put(String key, RegisteredModule module) {
-    print(key);
-    print(module);
+  void put(String name, RegisteredModule module) {
+    _runtime.value = runtime.copyWith(
+      registry: reregisterModule(runtime.registry, module),
+      importCache: removeFromCache(runtime.importCache, name),
+    );
+  }
+
+  void dispose() {
+    _runtime.dispose();
   }
 }
