@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:glue/env.dart';
-import 'package:glue/ir.dart';
+import 'package:glue/module.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/logger.dart';
@@ -10,9 +10,7 @@ import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/stores/put.dart';
 
-typedef ReactiveModule = ({Ir exports, Ir body});
-
-class ReactiveRuntime implements Put<IrDottedSymbol, ReactiveModule> {
+class ReactiveRuntime implements Put<String, RegisteredModule> {
   final StreamController<String> _sink;
   final Logger _log;
 
@@ -44,7 +42,7 @@ class ReactiveRuntime implements Put<IrDottedSymbol, ReactiveModule> {
   );
 
   @override
-  void put(IrDottedSymbol key, ReactiveModule module) {
+  void put(String key, RegisteredModule module) {
     print(key);
     print(module);
   }
