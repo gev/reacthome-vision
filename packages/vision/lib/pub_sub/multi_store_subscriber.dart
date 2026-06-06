@@ -35,7 +35,7 @@ class MultiStoreSubscriber<K, V> extends Subscriber<K, V> {
   }
 
   @override
-  void reSubscribeAll() {
+  void resubscribeAll() {
     if (isNotEmpty) {
       _subscribe.subscribeMany(_stores.keys);
     }

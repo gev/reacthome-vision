@@ -3,7 +3,7 @@ abstract class Subscriber<K, V> {
   bool get isNotEmpty => !isEmpty;
   bool isSubscribed(K key);
   bool isUnsubscribed(K key) => !isSubscribed(key);
-  void reSubscribeAll();
+  void resubscribeAll();
   void publish(K key, V value);
 }
 

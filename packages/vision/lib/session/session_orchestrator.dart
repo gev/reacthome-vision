@@ -2,14 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:glue/env.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/controllers/controller.dart';
-import 'package:vision/glue/env.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
-import 'package:vision/glue/pub_sub/glue_request.dart';
-import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/reactive_runtime.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/session/session_monitor.dart';
@@ -21,10 +17,7 @@ class SessionOrchestrator {
   // late final GlueEvaluator evaluator;
   late final Logger log;
 
-  late final Env _env;
   late final Controller _controller;
-  late final GlueSubscriber _glueSubscriber;
-  late final ModuleSubscriber _moduleSubscriber;
   late final ReactiveRuntime _reactiveRuntime;
 
   Runtime get runtime => _reactiveRuntime.runtime;
@@ -33,21 +26,8 @@ class SessionOrchestrator {
   final _outbound = StreamController<String>();
 
   SessionOrchestrator({required String host, required int port}) {
-    _reactiveRuntime = ReactiveRuntime(
-      runtimeBuilder: () => Runtime.initial(_env),
-    );
-    _glueSubscriber = GlueSubscriber(subscribe: GlueRequest(_outbound));
-    _moduleSubscriber = ModuleSubscriber(
-      subscribe: ModuleRequest(_outbound),
-      store: _reactiveRuntime,
-    );
     log = Logger(sink: _outbound);
-    _env = makeEnv(
-      sink: _outbound,
-      glueSubscriber: _glueSubscriber,
-      moduleSubscriber: _moduleSubscriber,
-      log: log,
-    );
+    _reactiveRuntime = ReactiveRuntime(sink: _outbound, log: log);
     _controller = Controller(
       evaluator: GlueEvaluator(runtime: runtime, log: log),
       source: _inbound.stream,
@@ -73,8 +53,7 @@ class SessionOrchestrator {
   void _onStateChange(SessionState newState) {
     monitor.state = newState;
     if (newState == .connected) {
-      _glueSubscriber.reSubscribeAll();
-      _moduleSubscriber.reSubscribeAll();
+      _reactiveRuntime.resubscribe();
     }
   }
 

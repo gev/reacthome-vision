@@ -1,19 +1,47 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:glue/env.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/runtime.dart';
+import 'package:vision/glue/env.dart';
+import 'package:vision/glue/logger.dart';
+import 'package:vision/glue/pub_sub/glue_request.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/stores/put.dart';
 
-typedef RuntimeBuilder = Runtime Function();
 typedef ReactiveModule = ({Ir exports, Ir body});
 
 class ReactiveRuntime implements Put<IrDottedSymbol, ReactiveModule> {
-  late final ValueNotifier<RuntimeBuilder> _runtime;
+  final StreamController<String> _sink;
+  final Logger _log;
 
-  Runtime get runtime => _runtime.value();
+  late final ValueNotifier<Runtime> _runtime;
+  late final GlueSubscriber _glueSubscriber;
+  late final ModuleSubscriber _moduleSubscriber;
 
-  ReactiveRuntime({required RuntimeBuilder runtimeBuilder}) {
-    _runtime = ValueNotifier(runtimeBuilder);
+  Runtime get runtime => _runtime.value;
+
+  ReactiveRuntime({required this._sink, required this._log}) {
+    _glueSubscriber = GlueSubscriber(subscribe: GlueRequest(_sink));
+    _moduleSubscriber = ModuleSubscriber(
+      subscribe: ModuleRequest(_sink),
+      store: this,
+    );
+    _runtime = ValueNotifier(Runtime.initial(_env));
   }
+
+  void resubscribe() {
+    _glueSubscriber.resubscribeAll();
+    _moduleSubscriber.resubscribeAll();
+  }
+
+  Env get _env => makeEnv(
+    sink: _sink,
+    glueSubscriber: _glueSubscriber,
+    moduleSubscriber: _moduleSubscriber,
+    log: _log,
+  );
 
   @override
   void put(IrDottedSymbol key, ReactiveModule module) {
