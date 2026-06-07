@@ -8,8 +8,11 @@ Widget makeApp({
   required String host,
   required int port,
 }) {
+  final orchestrator = SessionOrchestrator(host: host, port: port);
   return Scope(
-    orchestrator: SessionOrchestrator(host: host, port: port),
+    log: orchestrator.log,
+    runtime: orchestrator.runtime,
+    session: orchestrator.monitor,
     child: VisionApp(title: title),
   );
 }

@@ -2,16 +2,19 @@ import 'package:flutter/widgets.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/session/session_monitor.dart';
-import 'package:vision/session/session_orchestrator.dart';
 
 class Scope extends InheritedWidget {
-  final SessionOrchestrator _orchestrator;
+  final Logger log;
+  final Runtime runtime;
+  final SessionMonitor session;
 
-  const Scope({required this._orchestrator, required super.child, super.key});
-
-  Logger get log => _orchestrator.log;
-  Runtime get runtime => _orchestrator.runtime;
-  SessionMonitor get session => _orchestrator.monitor;
+  const Scope({
+    required this.log,
+    required this.runtime,
+    required this.session,
+    required super.child,
+    super.key,
+  });
 
   static Scope of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<Scope>();
@@ -20,7 +23,8 @@ class Scope extends InheritedWidget {
   }
 
   @override
-  bool updateShouldNotify(Scope oldWidget) {
-    return _orchestrator != oldWidget._orchestrator;
-  }
+  bool updateShouldNotify(Scope oldWidget) =>
+      log != oldWidget.log ||
+      runtime != oldWidget.runtime ||
+      session != oldWidget.session;
 }
