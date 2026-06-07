@@ -32,7 +32,7 @@ class GlueRequest implements Request<String> {
   }
 
   ListAst _one(SymbolAst func, String key) {
-    return ListAst([func, SymbolAst("'$key")]);
+    return ListAst([func, SymbolAst(key)]);
   }
 
   ListAst _many(SymbolAst func, Iterable<String> keys) {
