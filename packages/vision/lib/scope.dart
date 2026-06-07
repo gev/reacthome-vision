@@ -18,7 +18,7 @@ class Scope extends InheritedWidget {
 
   static Scope of(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<Scope>();
-    assert(scope != null, 'No VisionScope found in context');
+    assert(scope != null, 'No Scope found in the context');
     return scope!;
   }
 
