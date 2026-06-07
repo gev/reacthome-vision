@@ -67,6 +67,7 @@ class SessionOrchestrator {
 
   void dispose() {
     monitor.dispose();
+    _reactiveRuntime.dispose();
     _controller.dispose();
     _inbound.close();
     _outbound.close();
