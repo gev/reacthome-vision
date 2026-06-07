@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
 import 'package:vision/scope.dart';
 
@@ -20,7 +21,10 @@ class _GlueWidgetState extends State<GlueWidget> {
   int _currentExecutionId = 0;
 
   // Caches to prevent duplicate evaluation cycles
+  Runtime? _lastEvalatedRuntime;
   Ir? _lastEvaluatedexpression;
+
+  late final Scope _scope;
 
   @override
   void initState() {
@@ -30,42 +34,45 @@ class _GlueWidgetState extends State<GlueWidget> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _executeEvaluation(widget.expression);
+    _scope = Scope.of(context);
+    _scope.runtime.addListener(_executeEvaluation);
+    _executeEvaluation();
   }
 
   @override
   void didUpdateWidget(GlueWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _executeEvaluation(widget.expression);
+    _executeEvaluation();
   }
 
-  void _executeEvaluation(Ir expression) async {
+  void _executeEvaluation() async {
     // Guard against duplicate executions
-    if (_lastEvaluatedexpression == expression) return;
+    if (_lastEvaluatedexpression == widget.expression &&
+        _lastEvalatedRuntime == _scope.runtime.actual) {
+      return;
+    }
 
-    _lastEvaluatedexpression = expression;
-
-    // final scope = VisionScope.of(context);
+    _lastEvalatedRuntime = _scope.runtime.actual;
+    _lastEvaluatedexpression = widget.expression;
 
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
-    final scope = Scope.of(context);
-    final evaluation = eval(expression);
-    final result = await runEval(evaluation, scope.runtime.actual);
+    final evaluation = eval(widget.expression);
+    final result = await runEval(evaluation, _scope.runtime.actual);
 
     if (executionId != _currentExecutionId) return;
 
     result.match(
       (err) {
-        scope.log.error(err);
+        _scope.log.error(err);
       },
       (res) {
         if (mounted) {
           final (val, _) = res;
           final newWidget = extractWidget(val);
           if (newWidget == null) {
-            scope.log.error('$expression \n Widget required');
+            _scope.log.error('${widget.expression} \n Widget required');
           } else {
             setState(() => _cachedWidget = newWidget);
           }
@@ -77,5 +84,11 @@ class _GlueWidgetState extends State<GlueWidget> {
   @override
   Widget build(BuildContext context) {
     return _cachedWidget;
+  }
+
+  @override
+  void dispose() {
+    _scope.runtime.removeListener(_executeEvaluation);
+    super.dispose();
   }
 }

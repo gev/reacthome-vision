@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
 import 'package:vision/scope.dart';
 
@@ -25,19 +26,24 @@ class _GlueListenableState extends State<GlueListenable> {
   int _currentExecutionId = 0;
 
   // Caches to prevent duplicate evaluation cycles
+  Runtime? _lastEvalatedRuntime;
   Ir? _lastEvaluatedLambda;
   Ir? _lastEvaluatedValue;
+
+  late final Scope _scope;
 
   @override
   void initState() {
     super.initState();
-    widget.notifier.addListener(_onNotifierTick);
+    widget.notifier.addListener(_executeEvaluation);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _executeEvaluation(widget.lambda, widget.notifier.value);
+    _scope = Scope.of(context);
+    _scope.runtime.addListener(_executeEvaluation);
+    _executeEvaluation();
   }
 
   @override
@@ -46,51 +52,45 @@ class _GlueListenableState extends State<GlueListenable> {
 
     // Manage notifier subscription lifecycle
     if (oldWidget.notifier != widget.notifier) {
-      oldWidget.notifier.removeListener(_onNotifierTick);
-      widget.notifier.addListener(_onNotifierTick);
+      oldWidget.notifier.removeListener(_executeEvaluation);
+      widget.notifier.addListener(_executeEvaluation);
     }
     // Trigger re-evaluation
-    _executeEvaluation(widget.lambda, widget.notifier.value);
+    _executeEvaluation();
   }
 
-  @override
-  void dispose() {
-    widget.notifier.removeListener(_onNotifierTick);
-    super.dispose();
-  }
-
-  void _onNotifierTick() {
-    _executeEvaluation(widget.lambda, widget.notifier.value);
-  }
-
-  void _executeEvaluation(Ir lambda, Ir value) async {
+  void _executeEvaluation() async {
     // Guard against duplicate executions
-    if (_lastEvaluatedLambda == lambda && _lastEvaluatedValue == value) return;
+    if (_lastEvaluatedLambda == widget.lambda &&
+        _lastEvaluatedValue == widget.notifier.value &&
+        _lastEvalatedRuntime == _scope.runtime.actual) {
+      return;
+    }
 
-    _lastEvaluatedLambda = lambda;
-    _lastEvaluatedValue = value;
-
-    // final scope = VisionScope.of(context);
+    _lastEvalatedRuntime = _scope.runtime.actual;
+    _lastEvaluatedLambda = widget.lambda;
+    _lastEvaluatedValue = widget.notifier.value;
 
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
-    final scope = Scope.of(context);
-    final evaluation = eval(value).flatMap((val) => apply(lambda, [val]));
-    final result = await runEval(evaluation, scope.runtime.actual);
+    final evaluation = eval(
+      widget.notifier.value,
+    ).flatMap((val) => apply(widget.lambda, [val]));
+    final result = await runEval(evaluation, _scope.runtime.actual);
 
     if (executionId != _currentExecutionId) return;
 
     result.match(
       (err) {
-        scope.log.error(err);
+        _scope.log.error(err);
       },
       (res) {
         if (mounted) {
           final (val, _) = res;
           final newWidget = extractWidget(val);
           if (newWidget == null) {
-            scope.log.error('$value \n Widget required');
+            _scope.log.error('${widget.notifier.value} \n Widget required');
           } else {
             setState(() => _cachedWidget = newWidget);
           }
@@ -102,5 +102,12 @@ class _GlueListenableState extends State<GlueListenable> {
   @override
   Widget build(BuildContext context) {
     return _cachedWidget;
+  }
+
+  @override
+  void dispose() {
+    _scope.runtime.removeListener(_executeEvaluation);
+    widget.notifier.removeListener(_executeEvaluation);
+    super.dispose();
   }
 }
