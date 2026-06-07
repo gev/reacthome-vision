@@ -52,7 +52,7 @@ class _GlueWidgetState extends State<GlueWidget> {
 
     final scope = Scope.of(context);
     final evaluation = eval(expression);
-    final result = await runEval(evaluation, scope.runtime);
+    final result = await runEval(evaluation, scope.runtime.actual);
 
     if (executionId != _currentExecutionId) return;
 

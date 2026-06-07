@@ -20,7 +20,7 @@ class ReactiveRuntime implements Put<String, Ir> {
 
   late final ValueNotifier<Runtime> _runtime;
 
-  Runtime get runtime => _runtime.value;
+  Runtime get actual => _runtime.value;
 
   ReactiveRuntime({
     required this._sink,
@@ -39,9 +39,9 @@ class ReactiveRuntime implements Put<String, Ir> {
       case Left(value: final error):
         _log.error(error);
       case Right(value: final module):
-        _runtime.value = runtime.copyWith(
-          registry: reregisterModule(runtime.registry, module),
-          importCache: removeFromCache(runtime.importCache, name),
+        _runtime.value = actual.copyWith(
+          registry: reregisterModule(actual.registry, module),
+          importCache: removeFromCache(actual.importCache, name),
         );
     }
   }

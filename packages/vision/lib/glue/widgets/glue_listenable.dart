@@ -77,7 +77,7 @@ class _GlueListenableState extends State<GlueListenable> {
 
     final scope = Scope.of(context);
     final evaluation = eval(value).flatMap((val) => apply(lambda, [val]));
-    final result = await runEval(evaluation, scope.runtime);
+    final result = await runEval(evaluation, scope.runtime.actual);
 
     if (executionId != _currentExecutionId) return;
 

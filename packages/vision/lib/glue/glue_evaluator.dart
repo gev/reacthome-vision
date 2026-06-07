@@ -2,11 +2,11 @@ import 'package:glue/compile.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/parse.dart';
-import 'package:glue/runtime.dart';
 import 'package:vision/glue/logger.dart';
+import 'package:vision/glue/stores/reactive_runtime.dart';
 
 class GlueEvaluator {
-  late final Runtime _runtime;
+  late final ReactiveRuntime _runtime;
   late final Logger _log;
 
   GlueEvaluator({required this._runtime, required this._log});
@@ -20,7 +20,7 @@ class GlueEvaluator {
       },
       (ast) async {
         final irTree = compile(ast);
-        final evalResult = await runEval(eval(irTree), _runtime);
+        final evalResult = await runEval(eval(irTree), _runtime.actual);
         return evalResult.match(
           (error) {
             _log.error(error);

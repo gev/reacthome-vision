@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:glue/runtime.dart';
 import 'package:vision/glue/logger.dart';
+import 'package:vision/glue/stores/reactive_runtime.dart';
 import 'package:vision/session/session_monitor.dart';
 
 class Scope extends InheritedWidget {
   final Logger log;
-  final Runtime runtime;
+  final ReactiveRuntime runtime;
   final SessionMonitor session;
 
   const Scope({
