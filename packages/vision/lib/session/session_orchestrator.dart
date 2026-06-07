@@ -6,6 +6,8 @@ import 'package:glue/runtime.dart';
 import 'package:vision/controllers/controller.dart';
 import 'package:vision/glue/glue_evaluator.dart';
 import 'package:vision/glue/logger.dart';
+import 'package:vision/glue/pub_sub/glue_request.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/reactive_runtime.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/session/session_monitor.dart';
@@ -18,6 +20,7 @@ class SessionOrchestrator {
   late final Logger log;
 
   late final Controller _controller;
+  late final GlueSubscriber _glueSubscriber;
   late final ReactiveRuntime _reactiveRuntime;
 
   Runtime get runtime => _reactiveRuntime.runtime;
@@ -27,7 +30,12 @@ class SessionOrchestrator {
 
   SessionOrchestrator({required String host, required int port}) {
     log = Logger(sink: _outbound);
-    _reactiveRuntime = ReactiveRuntime(sink: _outbound, log: log);
+    _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
+    _reactiveRuntime = ReactiveRuntime(
+      sink: _outbound,
+      subscriber: _glueSubscriber,
+      log: log,
+    );
     _controller = Controller(
       evaluator: GlueEvaluator(runtime: runtime, log: log),
       source: _inbound.stream,
@@ -53,7 +61,7 @@ class SessionOrchestrator {
   void _onStateChange(SessionState newState) {
     monitor.state = newState;
     if (newState == .connected) {
-      _reactiveRuntime.resubscribe();
+      _glueSubscriber.resubscribeAll();
     }
   }
 

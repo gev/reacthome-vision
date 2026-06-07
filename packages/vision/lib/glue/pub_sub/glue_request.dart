@@ -3,43 +3,40 @@ import 'package:glue/serialize.dart';
 
 import 'package:vision/pub_sub/request.dart';
 
-class GlueRequest extends _Request {
-  GlueRequest(super.sink);
-
-  @override
-  SymbolAst get _func => const SymbolAst('get');
-}
-
-class ModuleRequest extends _Request {
-  ModuleRequest(super.sink);
-
-  @override
-  SymbolAst get _func => const SymbolAst('load');
-}
-
-abstract class _Request implements SubscribeRequest<String> {
+class GlueRequest implements Request<String> {
   final Sink<String> _sink;
 
-  const _Request(this._sink);
+  GlueRequest(this._sink);
 
-  SymbolAst get _func;
+  static const _get = SymbolAst('get');
+  static const _unsubscribe = SymbolAst('unsubscribe');
 
   @override
   void subscribeOne(String key) {
-    _request(_one(key));
+    _request(_one(_get, key));
   }
 
   @override
   void subscribeMany(Iterable<String> keys) {
-    _request(_many(keys));
+    _request(_many(_get, keys));
   }
 
-  ListAst _one(String key) {
-    return ListAst([_func, SymbolAst("'$key")]);
+  @override
+  void unsubscribeOne(String key) {
+    _request(_one(_unsubscribe, key));
   }
 
-  ListAst _many(Iterable<String> keys) {
-    return ListAst(keys.map(_one).toList());
+  @override
+  void unsubscribeMany(Iterable<String> keys) {
+    _request(_many(_unsubscribe, keys));
+  }
+
+  ListAst _one(SymbolAst func, String key) {
+    return ListAst([func, SymbolAst("'$key")]);
+  }
+
+  ListAst _many(SymbolAst func, Iterable<String> keys) {
+    return ListAst(keys.map((key) => _one(func, key)).toList());
   }
 
   void _request(ListAst ast) {
