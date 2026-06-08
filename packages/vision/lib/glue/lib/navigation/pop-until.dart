@@ -11,7 +11,7 @@ final Ir popUntil = IrNativeFunc((Ir predicateIr) {
     case IrClosure():
       return Eval((runtime) {
         // Transform closure evaluation into predicate function
-        predicate(Route<dynamic> route) {
+        predicate(Route route) {
           final result = runEval(
             apply(predicateIr, [IrNativeValue(Value(route))]),
             runtime,
