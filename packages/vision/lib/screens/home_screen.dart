@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   //   (main)
   // )
   final _main = IrList([
-    IrList([IrSymbol('import'), IrDottedSymbol('screen.main')]),
+    IrList([IrSymbol('import'), IrSymbol('main')]),
     IrList([IrSymbol('main')]),
   ]);
 
