@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/runtime.dart';
@@ -59,7 +60,15 @@ class _GlueWidgetState extends State<GlueWidget> {
     final executionId = ++_currentExecutionId;
 
     final evaluation = eval(widget.expression);
-    final result = await runEval(evaluation, _scope.runtime.actual);
+    final result = await runEval(
+      evaluation,
+      _scope.runtime.actual.copyWith(
+        context: putToContext<BuildContext>(
+          _scope.runtime.actual.context,
+          context,
+        ),
+      ),
+    );
 
     if (executionId != _currentExecutionId) return;
 
