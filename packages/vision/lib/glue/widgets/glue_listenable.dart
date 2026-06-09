@@ -77,7 +77,7 @@ class _GlueListenableState extends State<GlueListenable> {
 
     final evaluation = eval(
       widget.notifier.value,
-    ).flatMap((val) => apply(widget.lambda, [val]));
+    ).bind((val) => apply(widget.lambda, [val]));
     final result = await runEval(
       evaluation,
       _scope.runtime.actual.copyWith(

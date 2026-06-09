@@ -6,7 +6,7 @@ import 'package:vision/navigation/app_navigator.dart';
 
 /// Checks if the navigation stack can pop
 final canPop = IrEvaluable(
-  () => getRuntime().flatMap((runtime) {
+  () => getRuntime().bind((runtime) {
     final context = getFromContext<BuildContext>(runtime.context);
     return Eval.pure(
       IrBool(

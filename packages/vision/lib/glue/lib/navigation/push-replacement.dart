@@ -8,7 +8,7 @@ import 'package:vision/navigation/app_navigator.dart';
 /// Replaces the current route with a new Route
 final Ir pushReplacement = IrNativeFunc((Ir routeIr) {
   return switch (routeIr) {
-    IrNativeValue(value: Value(value: Route route)) => getRuntime().flatMap((
+    IrNativeValue(value: Value(value: Route route)) => getRuntime().bind((
       runtime,
     ) {
       final context = getFromContext<BuildContext>(runtime.context);
