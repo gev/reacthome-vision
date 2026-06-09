@@ -6,7 +6,7 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
   // (
-  //   (import screen.main)
+  //   (import main)
   //   (main)
   // )
   final _main = IrList([
