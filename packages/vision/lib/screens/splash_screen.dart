@@ -1,11 +1,43 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:vision/widgets/logo.dart';
 import 'package:vision/widgets/screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   final String title;
 
   const SplashScreen({required this.title, super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  Timer? _splashTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _loop();
+  }
+
+  void _loop() {
+    _splashTimer = Timer(const Duration(seconds: 2), () {
+      if (mounted) {
+        try {
+          Navigator.of(context).pushReplacementNamed('home');
+        } catch (_) {
+          _loop();
+        }
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _splashTimer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +46,11 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Logo(width: 64),
-            SizedBox(height: 16),
-            Text(title),
-            SizedBox(height: 16),
-            CircularProgressIndicator.adaptive(),
+            const Logo(width: 64),
+            const SizedBox(height: 16),
+            Text(widget.title),
+            const SizedBox(height: 16),
+            const CircularProgressIndicator.adaptive(),
           ],
         ),
       ),

@@ -11,7 +11,7 @@ Widget makeApp({
   final orchestrator = SessionOrchestrator(host: host, port: port);
   return Scope(
     log: orchestrator.log,
-    runtime: orchestrator.reactiveRuntime,
+    reactiveRuntime: orchestrator.reactiveRuntime,
     session: orchestrator.monitor,
     child: VisionApp(title: title),
   );

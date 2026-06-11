@@ -8,15 +8,13 @@ import 'package:vision/navigation/app_navigator.dart';
 /// Pushes a Route onto the navigation stack
 final Ir push = IrNativeFunc((Ir routeIr) {
   return switch (routeIr) {
-    IrNativeValue(value: Value(value: Route route)) => getRuntime().bind((
-      runtime,
-    ) {
+    IrSymbol(value: final route) => getRuntime().bind((runtime) {
       final context = getFromContext<BuildContext>(runtime.context);
       return Eval.pure(
         IrNativeValue(
           Value(
             context != null
-                ? Navigator.of(context).push(route)
+                ? Navigator.of(context).pushNamed(route)
                 : AppNavigator.push(route),
           ),
         ),

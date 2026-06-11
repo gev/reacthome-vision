@@ -4,16 +4,16 @@ class AppNavigator {
   static final GlobalKey<NavigatorState> navigatorKey =
       GlobalKey<NavigatorState>();
 
-  static Future<T?> push<T>(Route<T> route) {
-    return navigatorKey.currentState!.push(route);
+  static Future<T?> push<T>(String route) {
+    return navigatorKey.currentState!.pushNamed(route);
   }
 
   static void pop<T>([T? result]) {
     navigatorKey.currentState!.pop(result);
   }
 
-  static Future<T?> pushReplacement<T>(Route<T> route) {
-    return navigatorKey.currentState!.pushReplacement(route);
+  static Future<T?> pushReplacement<T>(String route) {
+    return navigatorKey.currentState!.pushReplacementNamed(route);
   }
 
   static void popUntil(RoutePredicate predicate) {

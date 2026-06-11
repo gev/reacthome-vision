@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:glue/context.dart';
+import 'package:glue/env.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue/runtime.dart';
 import 'package:vision/glue/extract.dart';
 import 'package:vision/scope.dart';
 
 class GlueWidget extends StatefulWidget {
   final Ir expression;
+  final Env env;
 
-  const GlueWidget({required this.expression, super.key});
+  GlueWidget({required this.expression, Env? env, super.key})
+    : env = env ?? emptyEnv();
 
   @override
   State<GlueWidget> createState() => _GlueWidgetState();
@@ -22,7 +24,6 @@ class _GlueWidgetState extends State<GlueWidget> {
   int _currentExecutionId = 0;
 
   // Caches to prevent duplicate evaluation cycles
-  Runtime? _lastEvalatedRuntime;
   Ir? _lastEvaluatedexpression;
 
   late final Scope _scope;
@@ -36,24 +37,25 @@ class _GlueWidgetState extends State<GlueWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scope = Scope.of(context);
-    _scope.runtime.addListener(_executeEvaluation);
-    _executeEvaluation();
+    _scope.reactiveRuntime.addListener(_run);
+    _run();
   }
 
   @override
   void didUpdateWidget(GlueWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _executeEvaluation();
+    _runGuarded();
   }
 
-  void _executeEvaluation() async {
+  void _runGuarded() async {
     // Guard against duplicate executions
-    if (_lastEvaluatedexpression == widget.expression &&
-        _lastEvalatedRuntime == _scope.runtime.actual) {
+    if (_lastEvaluatedexpression == widget.expression) {
       return;
     }
+    _run();
+  }
 
-    _lastEvalatedRuntime = _scope.runtime.actual;
+  void _run() async {
     _lastEvaluatedexpression = widget.expression;
 
     // Increment ID to mark this specific async request batch
@@ -62,9 +64,10 @@ class _GlueWidgetState extends State<GlueWidget> {
     final evaluation = eval(widget.expression);
     final result = await runEval(
       evaluation,
-      _scope.runtime.actual.copyWith(
+      _scope.reactiveRuntime.runtime.copyWith(
+        env: widget.env,
         context: putToContext<BuildContext>(
-          _scope.runtime.actual.context,
+          _scope.reactiveRuntime.runtime.context,
           context,
         ),
       ),
@@ -79,11 +82,13 @@ class _GlueWidgetState extends State<GlueWidget> {
       (res) {
         if (mounted) {
           final (val, _) = res;
-          final newWidget = extractWidget(val);
+          final newWidget = extractLast<Widget>(val);
           if (newWidget == null) {
             _scope.log.error('${widget.expression} \n Widget required');
           } else {
-            setState(() => _cachedWidget = newWidget);
+            setState(() {
+              _cachedWidget = newWidget;
+            });
           }
         }
       },
@@ -97,7 +102,7 @@ class _GlueWidgetState extends State<GlueWidget> {
 
   @override
   void dispose() {
-    _scope.runtime.removeListener(_executeEvaluation);
+    _scope.reactiveRuntime.removeListener(_run);
     super.dispose();
   }
 }

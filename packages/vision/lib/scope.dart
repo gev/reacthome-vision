@@ -5,12 +5,12 @@ import 'package:vision/session/session_monitor.dart';
 
 class Scope extends InheritedWidget {
   final Logger log;
-  final ReactiveRuntime runtime;
+  final ReactiveRuntime reactiveRuntime;
   final SessionMonitor session;
 
   const Scope({
     required this.log,
-    required this.runtime,
+    required this.reactiveRuntime,
     required this.session,
     required super.child,
     super.key,
@@ -25,6 +25,6 @@ class Scope extends InheritedWidget {
   @override
   bool updateShouldNotify(Scope oldWidget) =>
       log != oldWidget.log ||
-      runtime != oldWidget.runtime ||
+      reactiveRuntime != oldWidget.reactiveRuntime ||
       session != oldWidget.session;
 }

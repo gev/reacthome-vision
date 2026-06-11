@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:glue/either.dart';
 import 'package:glue/env.dart';
+import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue/module/cache.dart';
+import 'package:glue/module.dart';
+import 'package:glue/module/import.dart';
 import 'package:glue/module/registration.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
@@ -18,27 +20,18 @@ class ReactiveRuntime extends ChangeNotifier implements Put<String, Ir> {
   final GlueSubscriber _subscriber;
   final Logger _log;
 
-  late Runtime _runtime;
-
-  Runtime get actual => _runtime;
+  late final Runtime runtime;
 
   ReactiveRuntime({
     required this._sink,
     required this._subscriber,
     required this._log,
   }) {
-    _runtime = Runtime.initial(_env);
+    runtime = Runtime.initial(_env);
   }
 
   Env get _env =>
       makeEnv(sink: _sink, subscriber: _subscriber, runtime: this, log: _log);
-
-  void _set(Runtime newRuntime) {
-    if (newRuntime != _runtime) {
-      _runtime = newRuntime;
-      notifyListeners();
-    }
-  }
 
   @override
   void put(String name, Ir ir) {
@@ -46,12 +39,16 @@ class ReactiveRuntime extends ChangeNotifier implements Put<String, Ir> {
       case Left(value: final error):
         _log.error(error);
       case Right(value: final module):
-        _set(
-          actual.copyWith(
-            registry: reregisterModule(actual.registry, module),
-            importCache: removeFromCache(actual.importCache, name),
-          ),
-        );
+        reregisterModule(runtime.registry, module);
+        _cacheModule(module);
     }
+  }
+
+  void _cacheModule(RegisteredModule module) async {
+    final res = await runEval(cacheImortedModule(module), runtime);
+    res.match((error) => _log.error(error), (m) {
+      print(m.$1.exportedValues);
+      notifyListeners();
+    });
   }
 }

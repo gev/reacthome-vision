@@ -3,38 +3,42 @@ import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
+import 'package:vision/navigation/app_navigator.dart';
 import 'package:vision/scope.dart';
+import 'package:vision/widgets/theme.dart';
 
-class GlueListenable extends StatefulWidget {
-  final ValueNotifier<Ir> notifier;
-  final Ir lambda;
+typedef Routes = Map<String, WidgetBuilder>;
 
-  const GlueListenable({
-    required this.notifier,
-    required this.lambda,
+class GlueApp extends StatefulWidget {
+  final String title;
+  final Ir app;
+  final Widget splash;
+
+  const GlueApp({
+    required this.title,
+    required this.app,
+    required this.splash,
     super.key,
   });
 
   @override
-  State<GlueListenable> createState() => _GlueListenableState();
+  State<GlueApp> createState() => _GlueAppState();
 }
 
-class _GlueListenableState extends State<GlueListenable> {
-  Widget _cachedWidget = const SizedBox.shrink();
+class _GlueAppState extends State<GlueApp> {
+  Routes _cachedRoutes = {};
 
   // Tracks execution sequence to prevent async race conditions
   int _currentExecutionId = 0;
 
   // Caches to prevent duplicate evaluation cycles
-  Ir? _lastEvaluatedLambda;
-  Ir? _lastEvaluatedValue;
+  Ir? _lastEvaluatedexpression;
 
   late final Scope _scope;
 
   @override
   void initState() {
     super.initState();
-    widget.notifier.addListener(_run);
   }
 
   @override
@@ -46,36 +50,26 @@ class _GlueListenableState extends State<GlueListenable> {
   }
 
   @override
-  void didUpdateWidget(GlueListenable oldWidget) {
+  void didUpdateWidget(GlueApp oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    // Manage notifier subscription lifecycle
-    if (oldWidget.notifier != widget.notifier) {
-      oldWidget.notifier.removeListener(_runGuarded);
-      widget.notifier.addListener(_runGuarded);
-    }
-    // Trigger re-evaluation
     _runGuarded();
   }
 
   void _runGuarded() async {
     // Guard against duplicate executions
-    if (_lastEvaluatedLambda == widget.lambda &&
-        _lastEvaluatedValue == widget.notifier.value) {
+    if (_lastEvaluatedexpression == widget.app) {
       return;
     }
+    _run();
   }
 
   void _run() async {
-    _lastEvaluatedLambda = widget.lambda;
-    _lastEvaluatedValue = widget.notifier.value;
+    _lastEvaluatedexpression = widget.app;
 
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
-    final evaluation = eval(
-      widget.notifier.value,
-    ).bind((val) => apply(widget.lambda, [val]));
+    final evaluation = eval(widget.app);
     final result = await runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(
@@ -95,28 +89,39 @@ class _GlueListenableState extends State<GlueListenable> {
       (res) {
         if (mounted) {
           final (val, _) = res;
-          final newWidget = extractLast(val);
-          if (newWidget == null) {
-            _scope.log.error('${widget.notifier.value} \n Widget required');
+          final newRoutes = extractLast<Routes>(val);
+          if (newRoutes == null) {
+            _scope.log.error('${widget.app} \n Routes required');
           } else {
-            setState(() {
-              _cachedWidget = newWidget;
-            });
+            _updateRoutes(newRoutes);
           }
         }
       },
     );
   }
 
+  void _updateRoutes(Routes newRoutes) {
+    setState(() {
+      _cachedRoutes = newRoutes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _cachedWidget;
+    return MaterialApp(
+      title: widget.title,
+      navigatorKey: AppNavigator.navigatorKey,
+      themeMode: ThemeMode.system,
+      theme: makeTheme(Colors.blue, Brightness.light),
+      darkTheme: makeTheme(Colors.blue, Brightness.dark),
+      home: widget.splash,
+      routes: _cachedRoutes,
+    );
   }
 
   @override
   void dispose() {
     _scope.reactiveRuntime.removeListener(_run);
-    widget.notifier.removeListener(_runGuarded);
     super.dispose();
   }
 }
