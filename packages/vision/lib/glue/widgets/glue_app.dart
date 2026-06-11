@@ -3,7 +3,6 @@ import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/navigation/app_navigator.dart';
 import 'package:vision/scope.dart';
 import 'package:vision/widgets/theme.dart';
 

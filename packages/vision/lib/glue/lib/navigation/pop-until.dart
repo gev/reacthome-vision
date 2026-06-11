@@ -3,7 +3,6 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/navigation/app_navigator.dart';
 
 /// Pops routes until a predicate closure returns true
 final Ir popUntil = IrNativeFunc((Ir predicateIr) {
@@ -23,7 +22,6 @@ final Ir popUntil = IrNativeFunc((Ir predicateIr) {
           };
         }
 
-        AppNavigator.popUntil(predicate);
         return Right((IrVoid(), runtime));
       });
     default:
