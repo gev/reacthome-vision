@@ -11,19 +11,9 @@ final Ir routes = IrSpecial(
       case [IrObject(properties: final routes)]:
         final res = <String, WidgetBuilder>{};
         for (final route in routes.entries) {
-          switch (route.value) {
-            case (IrSymbol builder):
-              res[route.key] = (_) {
-                return GlueWidget(
-                  expression: IrList([builder, IrList([])]),
-                  env: env,
-                );
-              };
-            default:
-              return throwError(
-                RuntimeException('Builder should be a symbol', route.value),
-              );
-          }
+          res[route.key] = (_) {
+            return GlueWidget(expression: route.value, env: env);
+          };
         }
         return Eval.pure(IrNativeValue(Value(res)));
       default:

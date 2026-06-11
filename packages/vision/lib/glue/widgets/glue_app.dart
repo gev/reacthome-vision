@@ -110,7 +110,7 @@ class _GlueAppState extends State<GlueApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      navigatorKey: AppNavigator.navigatorKey,
+      key: ValueKey(_cachedRoutes),
       themeMode: ThemeMode.system,
       theme: makeTheme(Colors.blue, Brightness.light),
       darkTheme: makeTheme(Colors.blue, Brightness.dark),
