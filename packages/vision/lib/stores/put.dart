@@ -1,3 +1,3 @@
-abstract interface class Put<K, V> {
-  void put(K key, V value);
+abstract interface class Put<K, T> {
+  void put(K key, T value);
 }

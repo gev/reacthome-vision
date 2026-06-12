@@ -1,26 +1,32 @@
 import 'package:flutter/widgets.dart';
-import 'package:vision/stores/store.dart';
+import 'package:vision/stores/lookup.dart';
+import 'package:vision/stores/put.dart';
+import 'package:vision/stores/reactive_entry.dart';
+import 'package:vision/stores/revision.dart';
+import 'package:vision/stores/version.dart';
 
-class ReactiveCache<K, V> implements ReactiveStore<K, V> {
-  final Map<K, ValueNotifier<V>> _cache = {};
+class ReactiveCache<K, P, V>
+    implements ReactiveLookup<K, P>, Version<K, V>, Put<K, Revision<P, V>> {
+  final Map<K, ReactiveEntry<P, V>> _cache = {};
 
   @override
-  ValueNotifier<V> lookup(K key, V defaultValue) {
-    var notifier = _cache[key];
-    if (notifier == null) {
-      notifier = ValueNotifier(defaultValue);
-      _cache[key] = notifier;
+  ValueNotifier<P> lookup(K key, P defaultValue) {
+    var entry = _cache[key];
+    if (entry == null) {
+      entry = ReactiveEntry(defaultValue);
+      _cache[key] = entry;
     }
-    return notifier;
+    return entry.notifier;
   }
 
   @override
-  void put(K key, V value) {
-    final notifier = _cache[key];
-    if (notifier != null) {
-      notifier.value = value;
+  V? version(K key) => _cache[key]?.version;
+
+  @override
+  void put(K key, Revision<P, V> value) {
+    final entry = _cache[key];
+    if (entry != null) {
+      entry.value = value;
     }
   }
-
-  //ToDo: Remove unnecessary notifiers
 }

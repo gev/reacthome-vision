@@ -10,7 +10,7 @@ Ir import(GlueSubscriber subscriber, ReactiveRuntime runtime) {
     switch (args) {
       case [IrSymbol(value: final name)]:
       case [IrDottedSymbol(value: final name)]:
-        subscriber.subscribe(name, runtime);
+        subscriber.subscribe(name, runtime, runtime);
         return importModule(name);
       default:
         return throwError(wrongArgumentType(['module name required']));

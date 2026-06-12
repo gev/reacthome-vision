@@ -14,8 +14,11 @@ import 'package:vision/glue/env.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/stores/put.dart';
+import 'package:vision/stores/revision.dart';
+import 'package:vision/stores/version.dart';
 
-class ReactiveRuntime extends ChangeNotifier implements Put<String, Ir> {
+class ReactiveRuntime extends ChangeNotifier
+    implements Version<String, int>, Put<String, Revision<Ir, int>> {
   final StreamController<String> _sink;
   final GlueSubscriber _subscriber;
   final Logger _log;
@@ -33,21 +36,26 @@ class ReactiveRuntime extends ChangeNotifier implements Put<String, Ir> {
   Env get _env =>
       makeEnv(sink: _sink, subscriber: _subscriber, runtime: this, log: _log);
 
+  final Map<String, int> _versions = {};
+
   @override
-  void put(String name, Ir ir) {
-    switch (parseModule(ir)) {
+  int? version(String name) => _versions[name];
+
+  @override
+  void put(String name, Revision<Ir, int> value) {
+    switch (parseModule(value.payload)) {
       case Left(value: final error):
         _log.error(error);
       case Right(value: final module):
         reregisterModule(runtime.registry, module);
         _cacheModule(module);
+        _versions[name] = value.version;
     }
   }
 
   void _cacheModule(RegisteredModule module) async {
     final res = await runEval(cacheImortedModule(module), runtime);
     res.match((error) => _log.error(error), (m) {
-      print(m.$1.exportedValues);
       notifyListeners();
     });
   }

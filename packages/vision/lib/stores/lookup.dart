@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-abstract interface class Lookup<K, V, R> {
-  R lookup(K key, V defaultValue);
+abstract interface class Lookup<K, T, R> {
+  R lookup(K key, T defaultValue);
 }
 
-typedef ReactiveLookup<K, V> = Lookup<K, V, ValueNotifier<V>>;
+typedef ReactiveLookup<K, T> = Lookup<K, T, ValueNotifier<T>>;
