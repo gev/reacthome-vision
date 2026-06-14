@@ -1,14 +1,17 @@
+import 'dart:io';
+
 import 'package:glue/module.dart';
 import 'package:vision/glue/lib/store/lookup.dart';
 import 'package:vision/glue/lib/store/put.dart';
 import 'package:vision/glue/lib/store/store.dart';
+import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 
 /// Generic store module providing key-value storage
-ModuleInfo storeModule(GlueSubscriber subscriber) {
+ModuleInfo storeModule(Directory path, GlueSubscriber subscriber, Logger log) {
   return nativeModule('ffi.vision.store', [
     ('put', put(subscriber)),
     ('lookup', lookup),
-    ('store', store(subscriber)),
+    ('store', store(path, subscriber, log)),
   ]);
 }

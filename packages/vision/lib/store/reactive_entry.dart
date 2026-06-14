@@ -12,5 +12,5 @@ class ReactiveEntry<P, V> {
     _version = value.version;
   }
 
-  ReactiveEntry(P value) : notifier = ValueNotifier(value);
+  ReactiveEntry(P value, [this._version]) : notifier = ValueNotifier(value);
 }

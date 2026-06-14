@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:vision/controllers/controller.dart';
@@ -24,10 +25,15 @@ class SessionOrchestrator {
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
-  SessionOrchestrator({required String host, required int port}) {
+  SessionOrchestrator({
+    required Directory path,
+    required String host,
+    required int port,
+  }) {
     log = Logger(sink: _outbound);
     _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
     reactiveRuntime = ReactiveRuntime(
+      path: path,
       sink: _outbound,
       subscriber: _glueSubscriber,
       log: log,

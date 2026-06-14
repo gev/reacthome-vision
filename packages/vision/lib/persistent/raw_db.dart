@@ -1,6 +1,7 @@
 import 'package:glue/either.dart';
 import 'package:sqlite3/sqlite3.dart';
-import 'package:vision/storage/db.dart';
+import 'package:vision/persistent/db.dart';
+import 'package:vision/store/revision.dart';
 
 class RawDb implements Db<String, String, int> {
   late final Database _db;
@@ -24,33 +25,37 @@ class RawDb implements Db<String, String, int> {
     ''');
 
     _put = _db.prepare('''
-      REPLACE INTO data (key, value, versio)
+      REPLACE INTO data (key, value, version)
       VALUES (?, ?, ?)
     ''');
   }
 
   @override
-  Either<DbError, Iterable<DbRecord<String, String, int>>> lookup(String key) {
+  Either<DbError, Revision<String, int>> lookup(String key) {
     try {
       final res = _lookup.select([key]);
-      return Right(res.toList().map(_toRecord));
+      if (res.isNotEmpty) {
+        return Right(_toRecord(res.first));
+      } else {
+        return Left(DbError(db: this, message: '$key not found'));
+      }
     } catch (e) {
       return Left(DbError(db: this, message: e.toString()));
     }
   }
 
   @override
-  DbError? store(DbRecord<String, String, int> record) {
+  DbError? store(String key, Revision<String, int> value) {
     try {
-      _put.execute([record.key, record.value, record.version]);
+      _put.execute([key, value.payload, value.version]);
       return null;
     } catch (e) {
       return DbError(db: this, message: e.toString());
     }
   }
 
-  DbRecord<String, String, int> _toRecord(Row row) =>
-      (key: row['key'], value: row['value'], version: row['version']);
+  Revision<String, int> _toRecord(Row row) =>
+      (payload: row['value'], version: row['version']);
 
   void dispose() {
     _lookup.close();

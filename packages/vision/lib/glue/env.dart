@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:glue/env.dart';
 import 'package:glue/lib/bool.dart';
 import 'package:glue/lib/builtin.dart';
@@ -16,6 +18,7 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/reactive_runtime.dart';
 
 Env makeEnv({
+  required Directory path,
   required Sink<String> sink,
   required GlueSubscriber subscriber,
   required ReactiveRuntime runtime,
@@ -32,7 +35,7 @@ Env makeEnv({
     navigationModule,
     stateModule(log),
     moduleModule(subscriber, runtime),
-    storeModule(subscriber),
+    storeModule(path, subscriber, log),
     rpcModule(sink),
   ]);
 }

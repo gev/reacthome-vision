@@ -1,0 +1,13 @@
+import 'package:glue/either.dart';
+import 'package:vision/store/revision.dart';
+
+class DbError {
+  final Db db;
+  final String message;
+  const DbError({required this.db, required this.message});
+}
+
+abstract interface class Db<K, T, V> {
+  Either<DbError, Revision<T, V>> lookup(String key);
+  DbError? store(K key, Revision<T, V> value);
+}
