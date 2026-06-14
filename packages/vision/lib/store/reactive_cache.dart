@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:vision/stores/lookup.dart';
-import 'package:vision/stores/put.dart';
-import 'package:vision/stores/reactive_entry.dart';
-import 'package:vision/stores/revision.dart';
-import 'package:vision/stores/version.dart';
+import 'package:vision/store/lookup.dart';
+import 'package:vision/store/put.dart';
+import 'package:vision/store/reactive_entry.dart';
+import 'package:vision/store/revision.dart';
+import 'package:vision/store/version.dart';
 
 class ReactiveCache<K, P, V>
     implements ReactiveLookup<K, P>, Version<K, V>, Put<K, Revision<P, V>> {

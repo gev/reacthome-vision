@@ -13,9 +13,9 @@ import 'package:glue/runtime.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/stores/put.dart';
-import 'package:vision/stores/revision.dart';
-import 'package:vision/stores/version.dart';
+import 'package:vision/store/put.dart';
+import 'package:vision/store/revision.dart';
+import 'package:vision/store/version.dart';
 
 class ReactiveRuntime extends ChangeNotifier
     implements Version<String, int>, Put<String, Revision<Ir, int>> {

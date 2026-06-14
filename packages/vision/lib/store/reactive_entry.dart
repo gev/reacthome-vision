@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:vision/stores/revision.dart';
+import 'package:vision/store/revision.dart';
 
 class ReactiveEntry<P, V> {
   final ValueNotifier<P> notifier;

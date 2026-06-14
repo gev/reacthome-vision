@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:vision/pub_sub/subscriber.dart';
-import 'package:vision/stores/lookup.dart';
-import 'package:vision/stores/put.dart';
-import 'package:vision/stores/revision.dart';
-import 'package:vision/stores/version.dart';
+import 'package:vision/store/lookup.dart';
+import 'package:vision/store/put.dart';
+import 'package:vision/store/revision.dart';
+import 'package:vision/store/version.dart';
 
 class Subscribable<K, P, V extends Comparable, R> implements Lookup<K, P, R> {
   final Subscriber<K, P, V> _subscriber;

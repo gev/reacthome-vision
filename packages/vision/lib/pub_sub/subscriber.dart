@@ -1,7 +1,7 @@
 import 'package:vision/pub_sub/request.dart';
-import 'package:vision/stores/put.dart';
-import 'package:vision/stores/revision.dart';
-import 'package:vision/stores/version.dart';
+import 'package:vision/store/put.dart';
+import 'package:vision/store/revision.dart';
+import 'package:vision/store/version.dart';
 
 class _Subscription<K, T, V extends Comparable> {
   V? version;
