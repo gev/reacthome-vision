@@ -15,7 +15,7 @@ GlueSubscribable dataStore(
   GlueSubscriber subscriber,
   Logger log,
 ) {
-  final glueDb = _dbStore('code', path, log);
+  final glueDb = _dbStore('data', path, log);
   if (glueDb != null) {
     final store = GlueReactiveDb(db: glueDb, log: log);
     return ReactiveSubscribable(
