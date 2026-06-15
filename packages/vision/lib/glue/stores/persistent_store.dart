@@ -42,11 +42,9 @@ GlueDb? _dbStore(String name, Directory path, Logger log) {
   try {
     path.createSync(recursive: true);
     final pathDb = p.setExtension(p.join(path.absolute.path, name), '.db');
-    print(pathDb);
     final rawDb = RawDb(path: pathDb);
     return GlueDb(db: rawDb);
   } catch (error) {
-    print(error);
     log.error(error);
     return null;
   }
