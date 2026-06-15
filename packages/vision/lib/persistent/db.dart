@@ -5,6 +5,9 @@ class DbError {
   final Db db;
   final String message;
   const DbError({required this.db, required this.message});
+
+  @override
+  String toString() => 'Databasee error $db: $message';
 }
 
 abstract interface class Db<K, T, V> {
