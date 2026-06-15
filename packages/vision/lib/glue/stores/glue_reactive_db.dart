@@ -38,7 +38,20 @@ class GlueReactiveDb
   }
 
   @override
-  int? version(String key) => _cache[key]?.version;
+  int? version(String key) {
+    var entry = _cache[key];
+    if (entry == null) {
+      switch (_db.lookup(key)) {
+        case Left(value: final error):
+          _log.error(error);
+        case Right(:final value):
+          entry = ReactiveEntry(value.payload, value.version);
+          _cache[key] = entry;
+          return entry.version;
+      }
+    }
+    return 0;
+  }
 
   @override
   void put(String key, Revision<Ir, int> value) {
