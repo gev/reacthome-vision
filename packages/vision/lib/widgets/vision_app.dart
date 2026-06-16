@@ -22,7 +22,7 @@ class VisionApp extends StatelessWidget {
     return GlueApp(
       title: title,
       app: _main,
-      splash: SplashScreen(title: title),
+      splash: SplashScreen(title: title, route: 'home'),
     );
   }
 }

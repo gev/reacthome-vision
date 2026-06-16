@@ -4,9 +4,10 @@ import 'package:vision/widgets/logo.dart';
 import 'package:vision/widgets/screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  final String title;
+  final String _title;
+  final String _route;
 
-  const SplashScreen({required this.title, super.key});
+  const SplashScreen({required this._title, required this._route, super.key});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -25,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _splashTimer = Timer(const Duration(seconds: 2), () {
       if (mounted) {
         try {
-          Navigator.of(context).pushReplacementNamed('home');
+          Navigator.of(context).pushReplacementNamed(widget._route);
         } catch (_) {
           _loop();
         }
@@ -48,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             const Logo(width: 64),
             const SizedBox(height: 16),
-            Text(widget.title),
+            Text(widget._title),
             const SizedBox(height: 16),
             const CircularProgressIndicator.adaptive(),
           ],
