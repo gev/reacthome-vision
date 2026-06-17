@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:glue/either.dart';
 import 'package:path/path.dart' as p;
+import 'package:vision/persistent/asset_request.dart';
 import 'package:vision/store/lookup.dart';
 
 typedef ReactiveAsset = ValueNotifier<String>;
@@ -11,10 +12,11 @@ typedef AssetEntry = ({Set<int> chunks, ReactiveAsset asset});
 class Assets implements Lookup<String, String, ReactiveAsset> {
   final Directory _path;
   final Directory _tmp;
+  final AssetRequest _request;
 
   final Map<String, AssetEntry> _cache = {};
 
-  Assets({required this._path, required this._tmp}) {
+  Assets({required this._path, required this._tmp, required this._request}) {
     _path.createSync(recursive: true);
     _tmp.deleteSync(recursive: true);
     _tmp.createSync(recursive: true);
@@ -26,10 +28,12 @@ class Assets implements Lookup<String, String, ReactiveAsset> {
     if (entry == null) {
       final assetPath = _assetFilePath(name);
       final assetFile = File(assetPath);
-      entry = (
-        chunks: {},
-        asset: ValueNotifier(assetFile.existsSync() ? assetPath : defaultValue),
-      );
+      if (assetFile.existsSync()) {
+        entry = (chunks: {}, asset: ValueNotifier(assetPath));
+      } else {
+        entry = (chunks: {}, asset: ValueNotifier(defaultValue));
+        _request.get(name);
+      }
       _cache[name] = entry;
     }
     return entry.asset;
