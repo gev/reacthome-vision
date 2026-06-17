@@ -89,24 +89,29 @@ class Assets implements Lookup<String, String, ReactiveAsset> {
     return null;
   }
 
-  Future<Object?> start({
+  Future<Either<Object, bool>> start({
     required String name,
     required int version,
     required int size,
   }) async {
     try {
       final entry = _cache[name];
-      if (entry != null) {
-        await File(_tmpFilePath(name))
-            .open(mode: FileMode.writeOnly)
-            .then((tmp) => tmp.truncate(size))
-            .then((tmp) => tmp.close());
-        entry.chunks.clear();
+      if (entry == null) {
+        return Right(false);
       }
+      final assetFile = File(_assetFilePath(name));
+      if (await assetFile.exists()) {
+        return Right(false);
+      }
+      await File(_tmpFilePath(name))
+          .open(mode: FileMode.writeOnly)
+          .then((tmp) => tmp.truncate(size))
+          .then((tmp) => tmp.close());
+      entry.chunks.clear();
     } catch (error) {
-      return error;
+      return Left(error);
     }
-    return null;
+    return Right(true);
   }
 
   String _tmpFilePath(String name) => p.join(_tmp.path, name);
