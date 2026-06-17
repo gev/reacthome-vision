@@ -1,95 +1,115 @@
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
+import 'package:glue/either.dart';
 import 'package:path/path.dart' as p;
 import 'package:vision/store/lookup.dart';
-import 'package:vision/store/reactive_entry.dart';
-import 'package:vision/store/revision.dart';
-import 'package:vision/store/version.dart';
 
-class Assets implements ReactiveLookup<String, String>, Version<String, int> {
+typedef ReactiveAsset = ValueNotifier<String>;
+typedef AssetEntry = ({Set<int> chunks, ReactiveAsset asset});
+
+class Assets implements Lookup<String, String, ReactiveAsset> {
   final Directory _path;
+  final Directory _tmp;
 
-  final Map<String, ReactiveEntry<String, int>> _cache = {};
+  final Map<String, AssetEntry> _cache = {};
 
-  Assets({required this._path}) {
+  Assets({required this._path, required this._tmp}) {
     _path.createSync(recursive: true);
+    _tmp.deleteSync(recursive: true);
+    _tmp.createSync(recursive: true);
   }
 
   @override
-  ValueNotifier<String> lookup(String name, String defaultValue) {
+  ReactiveAsset lookup(String name, String defaultValue) {
     var entry = _cache[name];
     if (entry == null) {
-      final asset = p.join(_path.path, name);
-      final stat = FileStat.statSync(asset);
-      if (stat.type != FileSystemEntityType.notFound) {
-        final version = stat.modified.millisecondsSinceEpoch;
-        entry = ReactiveEntry(asset, version);
-      } else {
-        entry = ReactiveEntry(defaultValue);
-      }
+      final assetPath = _assetFilePath(name);
+      final assetFile = File(assetPath);
+      entry = (
+        chunks: {},
+        asset: ValueNotifier(assetFile.existsSync() ? assetPath : defaultValue),
+      );
       _cache[name] = entry;
     }
-    return entry.notifier;
+    return entry.asset;
   }
 
-  @override
-  int? version(String name) {
-    var entry = _cache[name];
-    if (entry == null) {
-      final asset = p.join(_path.path, name);
-      final stat = FileStat.statSync(asset);
-      if (stat.type != FileSystemEntityType.notFound) {
-        final version = stat.modified.millisecondsSinceEpoch;
-        entry = ReactiveEntry(asset, version);
-        _cache[name] = entry;
-        return version;
-      } else {
-        return 0;
-      }
-    }
-    return entry.version;
-  }
-
-  Future<Object?> complete(String name, int miliseconds) async {
+  Future<Either<Object, bool>> complete({
+    required String name,
+    required int miliseconds,
+    required int total,
+  }) async {
     try {
       final entry = _cache[name];
       if (entry != null) {
-        final asset = p.join(_path.path, name);
-        final tmp = File(p.setExtension(asset, '.tmp'));
-        if (await tmp.exists()) {
-          final dst = File(asset);
-          if (await dst.exists()) {
-            await dst.delete();
+        if (entry.chunks.length != total) {
+          return Right(false);
+        }
+        final tmpFile = File(_tmpFilePath(name));
+        if (await tmpFile.exists()) {
+          final assetPath = _assetFilePath(name);
+          final oldAssetFile = File(assetPath);
+          if (await oldAssetFile.exists()) {
+            await oldAssetFile.delete();
           }
-          final file = await tmp.rename(asset);
-          await file.setLastAccessed(
+          final assetFile = await tmpFile.rename(assetPath);
+          await assetFile.setLastModified(
             DateTime.fromMillisecondsSinceEpoch(miliseconds),
           );
-          entry.value = (payload: asset, version: miliseconds);
+          entry.asset.value = assetPath;
         }
       }
     } catch (error) {
-      return error;
+      return Left(error);
     }
-    return null;
+    return Right(true);
   }
 
-  Future<Object?> write(String name, List<int> buffer, int offset) async {
+  Future<Object?> write({
+    required String name,
+    required int version,
+    required int index,
+    required int offset,
+    required List<int> buffer,
+  }) async {
     try {
       final entry = _cache[name];
       if (entry != null) {
-        final asset = p.join(_path.path, name);
-        final file = File(p.setExtension(asset, '.tmp'));
-        await file
+        await File(_tmpFilePath(name))
             .open(mode: FileMode.writeOnly)
             .then((tmp) => tmp.setPosition(offset))
             .then((tmp) => tmp.writeFrom(buffer))
             .then((tmp) => tmp.close());
+        entry.chunks.add(index);
       }
     } catch (error) {
       return error;
     }
     return null;
   }
+
+  Future<Object?> start({
+    required String name,
+    required int version,
+    required int size,
+  }) async {
+    try {
+      final entry = _cache[name];
+      if (entry != null) {
+        await File(_tmpFilePath(name))
+            .open(mode: FileMode.writeOnly)
+            .then((tmp) => tmp.truncate(size))
+            .then((tmp) => tmp.close());
+        entry.chunks.clear();
+      }
+    } catch (error) {
+      return error;
+    }
+    return null;
+  }
+
+  String _tmpFilePath(String name) => p.join(_tmp.path, name);
+
+  String _assetFilePath(String name) => p.join(_path.path, name);
 }
