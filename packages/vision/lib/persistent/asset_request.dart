@@ -1,3 +1,7 @@
+typedef Predicate = String;
+typedef Specification = Iterable<Predicate>;
+
 abstract interface class AssetRequest {
-  void get(String name);
+  void one(Predicate prd);
+  void many(Specification spec);
 }

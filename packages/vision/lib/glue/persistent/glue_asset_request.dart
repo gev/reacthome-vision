@@ -10,7 +10,24 @@ class GlueAssetRequest implements AssetRequest {
   static const _get = SymbolAst('get-asset');
 
   @override
-  void get(String name) {
-    _sink.add(serializeAst(ListAst([_get, SymbolAst(name)])));
+  void one(Predicate pred) {
+    _request(_one(pred));
+  }
+
+  @override
+  void many(Specification spec) {
+    _request(_many(spec));
+  }
+
+  ListAst _one(Predicate pred) {
+    return ListAst([_get, SymbolAst(pred)]);
+  }
+
+  ListAst _many(Specification spec) {
+    return ListAst(spec.map(_one).toList());
+  }
+
+  void _request(ListAst ast) {
+    _sink.add(serializeAst(ast));
   }
 }
