@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:glue/env.dart';
 import 'package:glue/lib/bool.dart';
 import 'package:glue/lib/builtin.dart';
@@ -18,14 +16,15 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/persistent_store.dart';
 import 'package:vision/glue/stores/reactive_runtime.dart';
 import 'package:vision/glue/stores/tmp_store.dart';
+import 'package:vision/persistent/assets.dart';
 
 Env makeEnv({
-  required Directory path,
   required Sink<String> sink,
   required GlueSubscriber subscriber,
   required ReactiveRuntime runtime,
   required TmpStore tmpStore,
   required DataStore dataStore,
+  required Assets assets,
   required Logger log,
 }) {
   return envFromModules([
@@ -35,11 +34,11 @@ Env makeEnv({
     listModule,
     uiCoreModule,
     uiMaterialModule,
-    widgetsModule,
+    widgetsModule(assets),
     navigationModule,
     stateModule(log),
     moduleModule(subscriber, runtime),
-    storeModule(path, subscriber, tmpStore, dataStore, log),
+    storeModule(subscriber, tmpStore, dataStore, log),
     rpcModule(sink),
   ]);
 }

@@ -27,6 +27,7 @@ class SessionOrchestrator {
 
   SessionOrchestrator({
     required Directory path,
+    required Directory tmp,
     required String host,
     required int port,
   }) {
@@ -34,6 +35,7 @@ class SessionOrchestrator {
     _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
     reactiveRuntime = ReactiveRuntime(
       path: path,
+      tmp: tmp,
       sink: _outbound,
       subscriber: _glueSubscriber,
       log: log,

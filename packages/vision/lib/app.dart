@@ -11,6 +11,7 @@ Future<Widget> makeApp({
 }) async {
   final orchestrator = SessionOrchestrator(
     path: await getApplicationSupportDirectory(),
+    tmp: await getTemporaryDirectory(),
     host: host,
     port: port,
   );

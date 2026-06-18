@@ -58,9 +58,7 @@ GlueDb? codeStore(Directory path, Logger log) => _dbStore('code', path, log);
 
 GlueDb? _dbStore(String name, Directory path, Logger log) {
   try {
-    final dbDirectory = Directory(p.join(path.absolute.path, 'db'));
-    final dbPath = p.setExtension(p.join(dbDirectory.path, name), '.db');
-    dbDirectory.createSync(recursive: true);
+    final dbPath = p.setExtension(p.join(path.path, name), '.db');
     return GlueDb(path: dbPath);
   } catch (error) {
     log.error(error);

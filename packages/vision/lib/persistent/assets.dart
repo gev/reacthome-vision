@@ -114,4 +114,10 @@ class Assets {
   String _tmpFilePath(String name) => p.join(_tmp.path, name);
 
   String _assetFilePath(String name) => p.join(_path.path, name);
+
+  void dispose() {
+    for (final entry in _cache.values) {
+      entry.asset.dispose();
+    }
+  }
 }
