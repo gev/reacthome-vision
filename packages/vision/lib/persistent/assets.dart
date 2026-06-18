@@ -60,7 +60,7 @@ class Assets {
   void start({
     required String name,
     required int size,
-    required int tottal,
+    required int total,
     required Stream<Chunk> source,
     required OnError onError,
   }) async {
@@ -92,9 +92,9 @@ class Assets {
         await accessFile.close();
       }
 
-      if (entry.chunks.length != tottal) {
+      if (entry.chunks.length != total) {
         throw StateError(
-          'Stream closed prematurely: received ${entry.chunks.length} out of $tottal chunks.',
+          'Stream closed prematurely: received ${entry.chunks.length} out of $total chunks.',
         );
       }
 
