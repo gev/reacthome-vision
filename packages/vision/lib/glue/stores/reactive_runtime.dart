@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:glue/either.dart';
@@ -13,10 +12,8 @@ import 'package:glue/module/import.dart';
 import 'package:glue/module/registration.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
-import 'package:path/path.dart' as p;
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/logger.dart';
-import 'package:vision/glue/persistent/glue_assets.dart';
 import 'package:vision/glue/persistent/glue_db.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/persistent_store.dart';
@@ -32,31 +29,24 @@ class ReactiveRuntime extends ChangeNotifier
   final GlueSubscriber _subscriber;
   final Logger _log;
 
-  late final GlueDb? _db;
-  late final TmpStore _tmpStore;
-  late final DataStore _dataStore;
-  late final Assets _assets;
+  final GlueDb? _glueDb;
+  final TmpStore _tmpStore;
+  final DataStore _dataStore;
+  final Assets _assets;
 
   late final Runtime runtime;
 
   bool _isDisposed = false;
 
   ReactiveRuntime({
-    required Directory path,
-    required Directory tmp,
+    required this._glueDb,
+    required this._tmpStore,
+    required this._dataStore,
+    required this._assets,
     required this._sink,
     required this._subscriber,
     required this._log,
   }) {
-    tmp.createSync(recursive: true);
-    final dbDirectory = Directory(p.join(path.path, 'db'))
-      ..createSync(recursive: true);
-    final assetsDirectory = Directory(p.join(path.path, 'assets'))
-      ..createSync(recursive: true);
-    _db = codeStore(dbDirectory, _log);
-    _tmpStore = TmpStore(_subscriber);
-    _dataStore = DataStore(dbDirectory, _subscriber, _log);
-    _assets = assets(path: assetsDirectory, tmp: tmp, sink: _sink);
     runtime = Runtime.initial(_env);
   }
 
@@ -78,8 +68,8 @@ class ReactiveRuntime extends ChangeNotifier
   @override
   void put(String name, Revision<Ir, int> value) {
     _registerModule(name, value);
-    if (_db != null) {
-      final error = _db.store(name, value);
+    if (_glueDb != null) {
+      final error = _glueDb.store(name, value);
       if (error != null) {
         _log.error(error);
       }
@@ -87,8 +77,8 @@ class ReactiveRuntime extends ChangeNotifier
   }
 
   void loadModule(String name) {
-    if (_db != null && !isModuleCached(runtime.importCache, name)) {
-      switch (_db.lookup(name)) {
+    if (_glueDb != null && !isModuleCached(runtime.importCache, name)) {
+      switch (_glueDb.lookup(name)) {
         case Right(:final value):
           _registerModule(name, value);
         case Left(value: final error):
@@ -124,9 +114,6 @@ class ReactiveRuntime extends ChangeNotifier
   @override
   void dispose() {
     _isDisposed = true;
-    _tmpStore.dispose();
-    _dataStore.dispose();
-    _assets.dispose();
     super.dispose();
   }
 }
