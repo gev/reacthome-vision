@@ -6,7 +6,9 @@ import 'package:vision/store/version.dart';
 class _Subscription<K, T, V extends Comparable> {
   V? version;
   final Set<Put<K, T>> putStores;
+
   _Subscription(this.version, Put<K, T> store) : putStores = {store};
+
   bool rememberVersion(V incomingVersion) {
     if (version == null || incomingVersion.compareTo(version) > 0) {
       version = incomingVersion;
