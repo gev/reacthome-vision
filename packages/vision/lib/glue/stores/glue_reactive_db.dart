@@ -64,4 +64,10 @@ class GlueReactiveDb
       _log.error(error);
     }
   }
+
+  void dispose() {
+    for (final entry in _cache.values) {
+      entry.notifier.dispose();
+    }
+  }
 }

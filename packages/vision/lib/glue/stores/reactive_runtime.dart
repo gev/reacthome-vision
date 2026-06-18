@@ -6,6 +6,7 @@ import 'package:glue/either.dart';
 import 'package:glue/env.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue/lib/builtin.dart';
 import 'package:glue/module.dart';
 import 'package:glue/module/cache.dart';
 import 'package:glue/module/import.dart';
@@ -17,6 +18,7 @@ import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/persistent/glue_db.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/persistent_store.dart';
+import 'package:vision/glue/stores/tmp_store.dart';
 import 'package:vision/store/put.dart';
 import 'package:vision/store/revision.dart';
 import 'package:vision/store/version.dart';
@@ -29,8 +31,12 @@ class ReactiveRuntime extends ChangeNotifier
   final Logger _log;
 
   late final GlueDb? _db;
+  late final TmpStore _tmpStore;
+  late final DataStore _dataStore;
 
   late final Runtime runtime;
+
+  bool _isDisposed = false;
 
   ReactiveRuntime({
     required this._path,
@@ -39,6 +45,8 @@ class ReactiveRuntime extends ChangeNotifier
     required this._log,
   }) {
     _db = codeStore(_path, _log);
+    _tmpStore = TmpStore(_subscriber);
+    _dataStore = DataStore(_path, _subscriber, _log);
     runtime = Runtime.initial(_env);
   }
 
@@ -47,6 +55,8 @@ class ReactiveRuntime extends ChangeNotifier
     sink: _sink,
     subscriber: _subscriber,
     runtime: this,
+    tmpStore: _tmpStore,
+    dataStore: _dataStore,
     log: _log,
   );
 
@@ -89,9 +99,23 @@ class ReactiveRuntime extends ChangeNotifier
   }
 
   void _cacheModule(RegisteredModule module) async {
-    final res = await runEval(cacheImortedModule(module), runtime);
+    final res = await runEval(
+      cacheImortedModule(module),
+      runtime.copyWith(env: envFromModule(builtinModule)),
+    );
+
+    if (_isDisposed) return;
+
     res.match((error) => _log.error(error), (m) {
       notifyListeners();
     });
+  }
+
+  @override
+  void dispose() {
+    _isDisposed = true;
+    _tmpStore.dispose();
+    _dataStore.dispose();
+    super.dispose();
   }
 }

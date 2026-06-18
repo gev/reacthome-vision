@@ -29,4 +29,10 @@ class ReactiveCache<K, P, V>
       entry.value = value;
     }
   }
+
+  void dispose() {
+    for (final entry in _cache.values) {
+      entry.notifier.dispose();
+    }
+  }
 }

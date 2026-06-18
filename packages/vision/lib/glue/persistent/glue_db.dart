@@ -9,9 +9,11 @@ import 'package:vision/persistent/raw_db.dart';
 import 'package:vision/store/revision.dart';
 
 class GlueDb implements Db<String, Ir, int> {
-  final RawDb _db;
+  late final RawDb _db;
 
-  GlueDb({required this._db});
+  GlueDb({required String path}) {
+    _db = RawDb(path: path);
+  }
 
   @override
   Either<DbError, Revision<Ir, int>> lookup(String key) {
@@ -38,5 +40,9 @@ class GlueDb implements Db<String, Ir, int> {
         final raw = serializeAst(ast);
         return _db.store(key, (payload: raw, version: value.version));
     }
+  }
+
+  void dispose() {
+    _db.dispose();
   }
 }

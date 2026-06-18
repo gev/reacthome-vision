@@ -15,13 +15,17 @@ import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/glue/stores/persistent_store.dart';
 import 'package:vision/glue/stores/reactive_runtime.dart';
+import 'package:vision/glue/stores/tmp_store.dart';
 
 Env makeEnv({
   required Directory path,
   required Sink<String> sink,
   required GlueSubscriber subscriber,
   required ReactiveRuntime runtime,
+  required TmpStore tmpStore,
+  required DataStore dataStore,
   required Logger log,
 }) {
   return envFromModules([
@@ -35,7 +39,7 @@ Env makeEnv({
     navigationModule,
     stateModule(log),
     moduleModule(subscriber, runtime),
-    storeModule(path, subscriber, log),
+    storeModule(path, subscriber, tmpStore, dataStore, log),
     rpcModule(sink),
   ]);
 }
