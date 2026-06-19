@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
 
-import 'package:vision/glue/glue_evaluator.dart';
+import 'package:vision/controllers/glue_controller.dart';
 
 sealed class Header {
   static const heartbeat = 0, glue = 1, file = 2;
@@ -15,14 +15,14 @@ extension type Message(Uint8List message) {
 }
 
 class Controller {
-  late final GlueEvaluator _evaluator;
+  late final GlueController _glueController;
   late final StreamSubscription<Uint8List> _subscription;
 
   Controller({
-    required GlueEvaluator evaluator,
+    required GlueController glueController,
     required Stream<Uint8List> source,
   }) {
-    _evaluator = evaluator;
+    _glueController = glueController;
     _subscription = source.listen(_onData);
   }
 
@@ -47,7 +47,7 @@ class Controller {
   void _handleHeartbeat() {}
 
   void _runGlue(Uint8List body) {
-    _evaluator.evaluate(utf8.decode(body));
+    _glueController.evaluate(utf8.decode(body));
   }
 
   void _acceptFile(Uint8List body) {}

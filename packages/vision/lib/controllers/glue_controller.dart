@@ -5,11 +5,11 @@ import 'package:glue/parse.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/stores/reactive_runtime.dart';
 
-class GlueEvaluator {
+class GlueController {
   late final ReactiveRuntime _runtime;
   late final Logger _log;
 
-  GlueEvaluator({required this._runtime, required this._log});
+  GlueController({required this._runtime, required this._log});
 
   Future<Ir?> evaluate(String code) async {
     final parseResult = parseGlue(code);
