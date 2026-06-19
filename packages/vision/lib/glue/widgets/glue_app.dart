@@ -36,11 +36,6 @@ class _GlueAppState extends State<GlueApp> {
   late final Scope _scope;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _scope = Scope.of(context);
