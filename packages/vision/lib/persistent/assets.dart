@@ -123,4 +123,10 @@ class Assets {
   String _tmpFilePath(String name) => p.join(_tmp.path, name);
 
   String _assetFilePath(String name) => p.join(_path.path, name);
+
+  void dispose() {
+    for (final controller in _controllers.values) {
+      controller.close();
+    }
+  }
 }
