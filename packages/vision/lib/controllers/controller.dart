@@ -15,7 +15,7 @@ extension type Message(Uint8List message) {
 }
 
 class Controller {
-  late final GlueController _glueController;
+  final GlueController _glueController;
   late final StreamSubscription<Uint8List> _subscription;
 
   Controller({
