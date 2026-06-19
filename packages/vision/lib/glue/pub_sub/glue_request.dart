@@ -17,7 +17,7 @@ class GlueRequest implements Request<String, int> {
 
   @override
   void subscribeMany(Specification<String, int> spec) {
-    _request(_many(spec));
+    if (spec.isNotEmpty) _request(_many(spec));
   }
 
   ListAst _one(Predicate<String, int> pred) {

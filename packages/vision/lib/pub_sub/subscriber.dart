@@ -48,13 +48,11 @@ class Subscriber<K, P, V extends Comparable> {
   }
 
   void resubscribeAll() {
-    if (_subscriptions.isNotEmpty) {
-      _request.subscribeMany(
-        _subscriptions.entries.map(
-          (entry) => (key: entry.key, version: entry.value.version),
-        ),
-      );
-    }
+    _request.subscribeMany(
+      _subscriptions.entries.map(
+        (entry) => (key: entry.key, version: entry.value.version),
+      ),
+    );
   }
 
   void publish(K key, Revision<P, V> value) {

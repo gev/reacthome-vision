@@ -16,7 +16,7 @@ class GlueAssetRequest implements AssetRequest {
 
   @override
   void many(Specification spec) {
-    _request(_many(spec));
+    if (spec.isNotEmpty) _request(_many(spec));
   }
 
   ListAst _one(Predicate pred) {
