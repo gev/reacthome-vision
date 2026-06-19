@@ -102,6 +102,7 @@ class Assets {
           if (receivedBytes == size) {
             await tmpFile.rename(assetPath);
             completer.complete(assetPath);
+            controller.close();
           }
         }
       } finally {
@@ -111,11 +112,11 @@ class Assets {
       try {
         await tmpFile.delete();
       } finally {
+        if (!controller.isClosed) controller.close();
         _log.error(error);
       }
     } finally {
       _controllers.remove(name);
-      controller.close();
     }
   }
 
