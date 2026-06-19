@@ -47,7 +47,7 @@ class Controller {
   void _handleHeartbeat() {}
 
   void _runGlue(Uint8List body) {
-    _glueController.evaluate(utf8.decode(body));
+    _glueController.runGlue(utf8.decode(body));
   }
 
   void _acceptFile(Uint8List body) {}

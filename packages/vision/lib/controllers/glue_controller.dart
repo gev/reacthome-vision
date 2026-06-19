@@ -11,7 +11,7 @@ class GlueController {
 
   GlueController({required this._runtime, required this._log});
 
-  Future<Ir?> evaluate(String code) async {
+  Future<Ir?> runGlue(String code) async {
     final parseResult = parseGlue(code);
     return parseResult.match(
       (parseError) {
