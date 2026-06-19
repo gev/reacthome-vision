@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
@@ -41,34 +40,9 @@ class AssetsImage extends ImageProvider<AssetsImage> {
   }
 
   Future<Codec> _loadAsync(AssetsImage key, ImageDecoderCallback decode) async {
-    final reactiveAsset = _assets.lookup(_src);
-    var assetPath = reactiveAsset.value;
-
-    if (assetPath == null) {
-      final pathCompleter = Completer<String>();
-
-      void listener() {
-        final path = reactiveAsset.value;
-        if (path != null && !pathCompleter.isCompleted) {
-          pathCompleter.complete(path);
-        }
-      }
-
-      reactiveAsset.addListener(listener);
-      assetPath = await pathCompleter.future;
-      reactiveAsset.removeListener(listener);
-    }
-
-    final file = File(assetPath);
-    final bytes = await file.readAsBytes();
-
-    if (bytes.lengthInBytes == 0) {
-      throw StateError('AssetsImage failed to load an empty file: $assetPath');
-    }
-
-    final buffer = await ImmutableBuffer.fromUint8List(bytes);
-
-    return decode(buffer);
+    final assetPath = await _assets.lookup(_src);
+    final buffer = await ImmutableBuffer.fromFilePath(assetPath);
+    return await decode(buffer);
   }
 
   @override

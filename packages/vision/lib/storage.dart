@@ -38,6 +38,5 @@ class Storage {
     glueDb?.dispose();
     tmpStore.dispose();
     dataStore.dispose();
-    assets.dispose();
   }
 }
