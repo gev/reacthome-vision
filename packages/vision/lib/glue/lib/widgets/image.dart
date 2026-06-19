@@ -19,8 +19,9 @@ Ir image(Assets assets) {
 class AssetsImage extends ImageProvider<AssetsImage> {
   final String _src;
   final Assets _assets;
+  final double _scale;
 
-  AssetsImage(this._src, this._assets);
+  AssetsImage(this._src, this._assets, [this._scale = 1.0]);
 
   @override
   Future<AssetsImage> obtainKey(ImageConfiguration configuration) {
@@ -31,7 +32,7 @@ class AssetsImage extends ImageProvider<AssetsImage> {
   ImageStreamCompleter loadImage(AssetsImage key, ImageDecoderCallback decode) {
     return MultiFrameImageStreamCompleter(
       codec: _loadAsync(key, decode),
-      scale: 1.0,
+      scale: _scale,
       informationCollector: () => [
         DiagnosticsProperty('Image provider', this),
         DiagnosticsProperty('Image key', key),
