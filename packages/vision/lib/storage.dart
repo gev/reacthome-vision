@@ -31,7 +31,7 @@ class Storage {
     glueDb = codeStore(dbDirectory, log);
     tmpStore = TmpStore(subscriber);
     dataStore = DataStore(dbDirectory, subscriber, log);
-    assets = glueAssets(path: assetsDirectory, tmp: tmp, sink: sink);
+    assets = glueAssets(path: assetsDirectory, tmp: tmp, sink: sink, log: log);
   }
 
   void dispose() {
