@@ -8,10 +8,8 @@ typedef Chunk = ({int offset, List<int> buffer});
 typedef OnError = void Function(Object error);
 
 class _AssetEntry {
-  final Set<int> chunks = {};
   final Completer<String> completer;
   bool isDownloading = false;
-  int total = 0;
 
   _AssetEntry([Completer<String>? completer])
     : completer = completer ?? Completer<String>();
@@ -73,28 +71,28 @@ class Assets {
     final assetPath = _assetFilePath(name);
     final tmpFile = File(_tmpFilePath(name));
 
-    entry.chunks.clear();
-    entry.total = 0;
-
     try {
+      var receivedBytes = 0;
       final accessFile = await tmpFile.open(mode: FileMode.writeOnly);
+
       try {
         await accessFile.truncate(size);
+        final receivedChuncks = <int>{};
         await for (final chunk in source) {
-          if (entry.chunks.contains(chunk.offset)) continue;
+          if (receivedChuncks.contains(chunk.offset)) continue;
           if (!entry.isDownloading) break;
           await accessFile.setPosition(chunk.offset);
           await accessFile.writeFrom(chunk.buffer);
-          entry.chunks.add(chunk.offset);
-          entry.total += chunk.buffer.length;
+          receivedChuncks.add(chunk.offset);
+          receivedBytes += chunk.buffer.length;
         }
       } finally {
         await accessFile.close();
       }
 
-      if (entry.total != size) {
+      if (receivedBytes != size) {
         throw StateError(
-          'Stream closed prematurely: received ${entry.total} out of $size bytes.',
+          'Stream closed prematurely: received $receivedBytes out of $size bytes.',
         );
       }
 
