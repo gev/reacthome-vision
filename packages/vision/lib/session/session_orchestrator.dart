@@ -54,7 +54,7 @@ class SessionOrchestrator {
       log: log,
     );
     _controller = Controller(
-      assetsController: AssetsController(assets: _storage.assets),
+      assetsController: AssetsController(assets: _storage.assets, log: log),
       glueController: GlueController(runtime: reactiveRuntime, log: log),
       source: _inbound.stream,
     );

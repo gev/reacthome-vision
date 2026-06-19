@@ -35,9 +35,9 @@ class Controller {
         case Header.heartbeat:
           _handleHeartbeat();
         case Header.glue:
-          _runGlue(message.body);
+          _glueController.runGlue(message.body);
         case Header.file:
-          _acceptAsset(message.body);
+          _assetsController.acceptAsset(message.body);
         default:
           log("Unknown header: ${message.header}");
       }
@@ -47,14 +47,6 @@ class Controller {
   }
 
   void _handleHeartbeat() {}
-
-  void _runGlue(Uint8List body) {
-    _glueController.runGlue(utf8.decode(body));
-  }
-
-  void _acceptAsset(Uint8List body) {
-    _assetsController.acceptAsset(body);
-  }
 
   void dispose() {
     _subscription.cancel();

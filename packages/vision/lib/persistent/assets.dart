@@ -6,6 +6,7 @@ import 'package:vision/persistent/asset_request.dart';
 
 typedef Chunk = ({int offset, List<int> buffer});
 typedef OnError = void Function(Object error);
+typedef OnDone = void Function();
 
 class _AssetEntry {
   final Completer<String> completer;
@@ -60,9 +61,11 @@ class Assets {
     required int size,
     required Stream<Chunk> source,
     required OnError onError,
+    required OnDone onDone,
   }) async {
     final entry = _cache[name];
     if (entry == null || entry.isDownloading || entry.completer.isCompleted) {
+      onDone();
       return;
     }
 
@@ -78,26 +81,29 @@ class Assets {
       try {
         await accessFile.truncate(size);
         final receivedChuncks = <int>{};
-        await for (final chunk in source) {
+
+        final timedSource = source.timeout(
+          const Duration(seconds: 15),
+          onTimeout: (sink) {
+            sink.addError(TimeoutException('Asset download timed out: $name'));
+          },
+        );
+        await for (final chunk in timedSource) {
           if (receivedChuncks.contains(chunk.offset)) continue;
           if (!entry.isDownloading) break;
           await accessFile.setPosition(chunk.offset);
           await accessFile.writeFrom(chunk.buffer);
           receivedChuncks.add(chunk.offset);
           receivedBytes += chunk.buffer.length;
+          if (receivedBytes == size) {
+            await tmpFile.rename(assetPath);
+            entry.completer.complete(assetPath);
+            onDone();
+          }
         }
       } finally {
         await accessFile.close();
       }
-
-      if (receivedBytes != size) {
-        throw StateError(
-          'Stream closed prematurely: received $receivedBytes out of $size bytes.',
-        );
-      }
-
-      await tmpFile.rename(assetPath);
-      entry.completer.complete(assetPath);
     } catch (error) {
       try {
         await tmpFile.delete();
