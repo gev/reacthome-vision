@@ -39,7 +39,7 @@ class Subscriber<K, P, V extends Comparable> {
     final version = verStore.version(key);
     if (subscription == null) {
       _subscriptions[key] = _Subscription(version, putStore);
-      _request.subscribeOne((key: key, version: version));
+      _request.one((key: key, version: version));
     } else {
       subscription
         ..mergeVersion(version)
@@ -48,7 +48,7 @@ class Subscriber<K, P, V extends Comparable> {
   }
 
   void resubscribeAll() {
-    _request.subscribeMany(
+    _request.many(
       _subscriptions.entries.map(
         (entry) => (key: entry.key, version: entry.value.version),
       ),

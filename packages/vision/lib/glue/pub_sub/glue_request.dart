@@ -11,12 +11,12 @@ class GlueRequest implements Request<String, int> {
   static const _get = SymbolAst('get');
 
   @override
-  void subscribeOne(Predicate<String, int> pred) {
+  void one(Predicate<String, int> pred) {
     _request(_one(pred));
   }
 
   @override
-  void subscribeMany(Specification<String, int> spec) {
+  void many(Specification<String, int> spec) {
     if (spec.isNotEmpty) _request(_many(spec));
   }
 
