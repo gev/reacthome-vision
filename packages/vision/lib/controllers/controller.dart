@@ -19,10 +19,9 @@ class Controller {
   late final StreamSubscription<Uint8List> _subscription;
 
   Controller({
-    required GlueController glueController,
+    required this._glueController,
     required Stream<Uint8List> source,
   }) {
-    _glueController = glueController;
     _subscription = source.listen(_onData);
   }
 
