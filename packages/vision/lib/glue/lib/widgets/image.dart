@@ -24,7 +24,7 @@ class AssetsImage extends ImageProvider<AssetsImage> {
 
   @override
   Future<AssetsImage> obtainKey(ImageConfiguration configuration) {
-    return SynchronousFuture<AssetsImage>(this);
+    return SynchronousFuture(this);
   }
 
   @override
@@ -32,22 +32,22 @@ class AssetsImage extends ImageProvider<AssetsImage> {
     return MultiFrameImageStreamCompleter(
       codec: _loadAsync(key, decode),
       scale: 1.0,
-      informationCollector: () => <DiagnosticsNode>[
-        DiagnosticsProperty<ImageProvider>('Image provider', this),
-        DiagnosticsProperty<AssetsImage>('Image key', key),
+      informationCollector: () => [
+        DiagnosticsProperty('Image provider', this),
+        DiagnosticsProperty('Image key', key),
       ],
     );
   }
 
   Future<Codec> _loadAsync(AssetsImage key, ImageDecoderCallback decode) async {
-    final ValueNotifier<String?> reactiveAsset = _assets.lookup(_src);
-    String? assetPath = reactiveAsset.value;
+    final reactiveAsset = _assets.lookup(_src);
+    var assetPath = reactiveAsset.value;
 
     if (assetPath == null) {
-      final Completer<String> pathCompleter = Completer<String>();
+      final pathCompleter = Completer<String>();
 
       void listener() {
-        final String? path = reactiveAsset.value;
+        final path = reactiveAsset.value;
         if (path != null && !pathCompleter.isCompleted) {
           pathCompleter.complete(path);
         }
@@ -58,14 +58,14 @@ class AssetsImage extends ImageProvider<AssetsImage> {
       reactiveAsset.removeListener(listener);
     }
 
-    final File file = File(assetPath);
-    final Uint8List bytes = await file.readAsBytes();
+    final file = File(assetPath);
+    final bytes = await file.readAsBytes();
 
     if (bytes.lengthInBytes == 0) {
       throw StateError('AssetsImage failed to load an empty file: $assetPath');
     }
 
-    final ImmutableBuffer buffer = await ImmutableBuffer.fromUint8List(bytes);
+    final buffer = await ImmutableBuffer.fromUint8List(bytes);
 
     return decode(buffer);
   }
