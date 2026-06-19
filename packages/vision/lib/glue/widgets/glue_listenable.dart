@@ -37,7 +37,7 @@ class _GlueListenableState extends State<GlueListenable> {
   @override
   void initState() {
     super.initState();
-    widget.notifier.addListener(_run);
+    widget.notifier.addListener(_runGuarded);
   }
 
   @override
@@ -67,6 +67,7 @@ class _GlueListenableState extends State<GlueListenable> {
         _lastEvaluatedValue == widget.notifier.value) {
       return;
     }
+    _run();
   }
 
   void _run() async {
