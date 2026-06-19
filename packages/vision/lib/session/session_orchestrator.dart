@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:vision/controllers/assets_controller.dart';
 import 'package:vision/controllers/controller.dart';
 import 'package:vision/controllers/glue_controller.dart';
 import 'package:vision/glue/logger.dart';
@@ -53,6 +54,7 @@ class SessionOrchestrator {
       log: log,
     );
     _controller = Controller(
+      assetsController: AssetsController(assets: _storage.assets),
       glueController: GlueController(runtime: reactiveRuntime, log: log),
       source: _inbound.stream,
     );

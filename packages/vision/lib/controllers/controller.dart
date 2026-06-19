@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:vision/controllers/assets_controller.dart';
 import 'package:vision/controllers/glue_controller.dart';
 
 sealed class Header {
@@ -16,10 +17,12 @@ extension type Message(Uint8List message) {
 
 class Controller {
   final GlueController _glueController;
+  final AssetsController _assetsController;
   late final StreamSubscription<Uint8List> _subscription;
 
   Controller({
     required this._glueController,
+    required this._assetsController,
     required Stream<Uint8List> source,
   }) {
     _subscription = source.listen(_onData);
@@ -34,7 +37,7 @@ class Controller {
         case Header.glue:
           _runGlue(message.body);
         case Header.file:
-          _acceptFile(message.body);
+          _acceptAsset(message.body);
         default:
           log("Unknown header: ${message.header}");
       }
@@ -49,7 +52,9 @@ class Controller {
     _glueController.runGlue(utf8.decode(body));
   }
 
-  void _acceptFile(Uint8List body) {}
+  void _acceptAsset(Uint8List body) {
+    _assetsController.acceptAsset(body);
+  }
 
   void dispose() {
     _subscription.cancel();
