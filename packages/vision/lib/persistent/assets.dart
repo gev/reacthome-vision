@@ -4,13 +4,14 @@ import 'dart:io';
 import 'package:path/path.dart' as p;
 import 'package:vision/persistent/asset_request.dart';
 
-typedef Chunk = ({int index, int offset, List<int> buffer});
+typedef Chunk = ({int offset, List<int> buffer});
 typedef OnError = void Function(Object error);
 
 class _AssetEntry {
   final Set<int> chunks = {};
   final Completer<String> completer;
   bool isDownloading = false;
+  int total = 0;
 
   _AssetEntry([Completer<String>? completer])
     : completer = completer ?? Completer<String>();
@@ -59,7 +60,6 @@ class Assets {
   void start({
     required String name,
     required int size,
-    required int total,
     required Stream<Chunk> source,
     required OnError onError,
   }) async {
@@ -74,24 +74,27 @@ class Assets {
     final tmpFile = File(_tmpFilePath(name));
 
     entry.chunks.clear();
+    entry.total = 0;
 
     try {
       final accessFile = await tmpFile.open(mode: FileMode.writeOnly);
       try {
         await accessFile.truncate(size);
         await for (final chunk in source) {
+          if (entry.chunks.contains(chunk.offset)) continue;
           if (!entry.isDownloading) break;
           await accessFile.setPosition(chunk.offset);
           await accessFile.writeFrom(chunk.buffer);
-          entry.chunks.add(chunk.index);
+          entry.chunks.add(chunk.offset);
+          entry.total += chunk.buffer.length;
         }
       } finally {
         await accessFile.close();
       }
 
-      if (entry.chunks.length != total) {
+      if (entry.total != size) {
         throw StateError(
-          'Stream closed prematurely: received ${entry.chunks.length} out of $total chunks.',
+          'Stream closed prematurely: received ${entry.total} out of $size bytes.',
         );
       }
 
