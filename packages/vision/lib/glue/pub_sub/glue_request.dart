@@ -8,7 +8,7 @@ class GlueRequest implements Request<String, int> {
 
   GlueRequest(this._sink);
 
-  static const _get = SymbolAst('get');
+  static const _subscribe = SymbolAst('subscribe');
 
   @override
   void one(Predicate<String, int> pred) {
@@ -21,7 +21,11 @@ class GlueRequest implements Request<String, int> {
   }
 
   ListAst _one(Predicate<String, int> pred) {
-    return ListAst([_get, SymbolAst(pred.key), IntegerAst(pred.version ?? 0)]);
+    return ListAst([
+      _subscribe,
+      SymbolAst(pred.key),
+      IntegerAst(pred.version ?? 0),
+    ]);
   }
 
   ListAst _many(Specification<String, int> spec) {

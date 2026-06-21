@@ -7,7 +7,7 @@ class GlueAssetRequest implements AssetRequest {
 
   GlueAssetRequest(this._sink);
 
-  static const _get = SymbolAst('get-asset');
+  static const _download = SymbolAst('download');
 
   @override
   void one(Predicate pred) {
@@ -20,7 +20,7 @@ class GlueAssetRequest implements AssetRequest {
   }
 
   ListAst _one(Predicate pred) {
-    return ListAst([_get, SymbolAst(pred)]);
+    return ListAst([_download, SymbolAst(pred)]);
   }
 
   ListAst _many(Specification spec) {
