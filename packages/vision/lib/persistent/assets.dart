@@ -22,7 +22,6 @@ class Assets {
     required this._request,
     required this._log,
   }) {
-    _path.createSync(recursive: true);
     _tmp.deleteSync(recursive: true);
     _tmp.createSync(recursive: true);
   }
@@ -107,12 +106,17 @@ class Assets {
           }
         }
       } catch (error) {
-        await accessFile.close();
-        _log.error(error);
+        try {
+          await accessFile.close();
+        } catch (_) {}
+        rethrow;
       }
     } catch (error) {
       try {
-        await tmpFile.delete();
+        if (await tmpFile.exists()) {
+          await tmpFile.delete();
+        }
+      } catch (_) {
       } finally {
         if (!controller.isClosed) controller.close();
         _log.error(error);
