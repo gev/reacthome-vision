@@ -84,11 +84,11 @@ class _GlueAppState extends State<GlueApp> {
       (res) {
         if (mounted) {
           final (val, _) = res;
-          final newRoutes = extractLast<Props>(val);
-          if (newRoutes == null) {
+          final newProps = extractLast<Props>(val);
+          if (newProps == null) {
             _scope.log.error('${widget.app} \n Routes required');
           } else {
-            _updateRoutes(newRoutes);
+            _updateRoutes(newProps);
           }
         }
       },
