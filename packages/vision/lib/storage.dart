@@ -17,21 +17,26 @@ class Storage {
 
   Storage({
     required Directory path,
-    required Directory tmp,
     required GlueSubscriber subscriber,
     required Sink<String> sink,
     required Logger log,
   }) {
-    tmp.createSync(recursive: true);
     final dbDirectory = Directory(p.join(path.path, 'db'))
       ..createSync(recursive: true);
     final assetsDirectory = Directory(p.join(path.path, 'assets'))
+      ..createSync(recursive: true);
+    final tmpDirectory = Directory(p.join(path.path, 'tmp'))
       ..createSync(recursive: true);
 
     glueDb = codeStore(dbDirectory, log);
     tmpStore = TmpStore(subscriber);
     dataStore = DataStore(dbDirectory, subscriber, log);
-    assets = glueAssets(path: assetsDirectory, tmp: tmp, sink: sink, log: log);
+    assets = glueAssets(
+      path: assetsDirectory,
+      tmp: tmpDirectory,
+      sink: sink,
+      log: log,
+    );
   }
 
   void dispose() {

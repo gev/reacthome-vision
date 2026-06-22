@@ -31,7 +31,6 @@ class SessionOrchestrator {
 
   SessionOrchestrator({
     required Directory path,
-    required Directory tmp,
     required String host,
     required int port,
   }) {
@@ -41,7 +40,6 @@ class SessionOrchestrator {
 
     _storage = Storage(
       path: path,
-      tmp: tmp,
       subscriber: _glueSubscriber,
       sink: _outbound,
       log: log,
