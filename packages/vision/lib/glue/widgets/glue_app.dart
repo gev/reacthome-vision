@@ -6,6 +6,7 @@ import 'package:vision/glue/extract.dart';
 import 'package:vision/scope.dart';
 import 'package:vision/widgets/theme.dart';
 
+typedef Props = ({Routes routes});
 typedef Routes = Map<String, WidgetBuilder>;
 
 class GlueApp extends StatefulWidget {
@@ -25,7 +26,7 @@ class GlueApp extends StatefulWidget {
 }
 
 class _GlueAppState extends State<GlueApp> {
-  Routes _cachedRoutes = {};
+  Props _cachedProps = (routes: {});
 
   // Tracks execution sequence to prevent async race conditions
   int _currentExecutionId = 0;
@@ -83,7 +84,7 @@ class _GlueAppState extends State<GlueApp> {
       (res) {
         if (mounted) {
           final (val, _) = res;
-          final newRoutes = extractLast<Routes>(val);
+          final newRoutes = extractLast<Props>(val);
           if (newRoutes == null) {
             _scope.log.error('${widget.app} \n Routes required');
           } else {
@@ -94,9 +95,9 @@ class _GlueAppState extends State<GlueApp> {
     );
   }
 
-  void _updateRoutes(Routes newRoutes) {
+  void _updateRoutes(Props newProps) {
     setState(() {
-      _cachedRoutes = newRoutes;
+      _cachedProps = newProps;
     });
   }
 
@@ -104,12 +105,12 @@ class _GlueAppState extends State<GlueApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      key: ValueKey(_cachedRoutes),
+      key: ValueKey(_cachedProps),
       themeMode: ThemeMode.system,
       theme: makeTheme(Colors.blue, Brightness.light),
       darkTheme: makeTheme(Colors.blue, Brightness.dark),
       home: widget.splash,
-      routes: _cachedRoutes,
+      routes: _cachedProps.routes,
     );
   }
 
