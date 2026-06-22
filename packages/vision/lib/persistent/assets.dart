@@ -100,13 +100,15 @@ class Assets {
           receivedChuncks.add(chunk.offset);
           receivedBytes += chunk.buffer.length;
           if (receivedBytes == size) {
+            await accessFile.close();
             await tmpFile.rename(assetPath);
             completer.complete(assetPath);
             controller.close();
           }
         }
-      } finally {
+      } catch (error) {
         await accessFile.close();
+        _log.error(error);
       }
     } catch (error) {
       try {
