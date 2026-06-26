@@ -77,9 +77,7 @@ class _GlueListenableState extends State<GlueListenable> {
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
-    final evaluation = eval(
-      widget.notifier.value,
-    ).bind((val) => apply(widget.lambda, [val]));
+    final evaluation = apply(widget.lambda, [widget.notifier.value]);
     final result = await runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(
