@@ -176,7 +176,7 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: "043904acb89f03cb4272d4f9df85f64b8b7a3e1b"
+      resolved-ref: cbefa31fa470fdfa4c2c8e8293f9f469bd6b989b
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -185,7 +185,7 @@ packages:
     description:
       path: "flutter/glue_flutter"
       ref: HEAD
-      resolved-ref: "043904acb89f03cb4272d4f9df85f64b8b7a3e1b"
+      resolved-ref: cbefa31fa470fdfa4c2c8e8293f9f469bd6b989b
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -377,10 +377,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_linux
-      sha256: f7a1fe3a634fe7734c8d3f2766ad746ae2a2884abe22e241a8b301bf5cac3279
+      sha256: "58c2005f147315b11e9b4a7bc889cd5203e250cba8e3f012dae259b4972b5c16"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
+    version: "2.2.2"
   path_provider_platform_interface:
     dependency: transitive
     description:
