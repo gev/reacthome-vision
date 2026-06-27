@@ -8,6 +8,11 @@ Ir put(GlueSubscriber subscriber) {
   Eval<Ir> putImpl(List<Ir> args) {
     switch (args) {
       case [
+        IrString(value: final key),
+        IrInteger(value: final version),
+        Ir value,
+      ]:
+      case [
         IrSymbol(value: final key),
         IrInteger(value: final version),
         Ir value,

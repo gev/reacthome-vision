@@ -23,7 +23,7 @@ class GlueRequest implements Request<String, int> {
   ListAst _one(Predicate<String, int> pred) {
     return ListAst([
       _subscribe,
-      SymbolAst(pred.key),
+      StringAst(pred.key),
       IntegerAst(pred.version ?? 0),
     ]);
   }

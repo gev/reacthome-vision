@@ -21,6 +21,10 @@ Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
   switch ((store, key)) {
     case (
       IrNativeValue(value: Value(value: GlueSubscribable s)),
+      IrString(value: final key),
+    ):
+    case (
+      IrNativeValue(value: Value(value: GlueSubscribable s)),
       IrSymbol(value: final key),
     ):
     case (

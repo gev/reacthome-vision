@@ -20,7 +20,7 @@ class GlueAssetRequest implements AssetRequest {
   }
 
   ListAst _one(Predicate pred) {
-    return ListAst([_download, SymbolAst(pred)]);
+    return ListAst([_download, StringAst(pred)]);
   }
 
   ListAst _many(Specification spec) {
