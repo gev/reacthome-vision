@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:glue/context.dart';
-import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/lib/navigation/route.dart';
