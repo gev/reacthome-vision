@@ -13,6 +13,7 @@ class Assets {
   final AssetRequest _request;
   final Logger _log;
 
+  final Map<String, Timer> _timers = {};
   final Map<String, Completer<String>> _completers = {};
   final Map<String, StreamController<Chunk>> _controllers = {};
 
@@ -27,19 +28,28 @@ class Assets {
   }
 
   Future<String> lookup(String name) {
-    var comleter = _completers[name];
-    if (comleter == null) {
+    var completer = _completers[name];
+    if (completer == null) {
       final assetPath = _assetFilePath(name);
       final assetFile = File(assetPath);
       if (assetFile.existsSync()) {
-        comleter = Completer()..complete(assetPath);
+        completer = Completer()..complete(assetPath);
       } else {
-        comleter = Completer();
+        final freezedCompleter = Completer<String>();
+        _timers[name] = Timer.periodic(const Duration(seconds: 2), (timer) {
+          if (freezedCompleter.isCompleted) {
+            timer.cancel();
+            _timers.remove(name);
+          } else if (!_controllers.containsKey(name)) {
+            _request.one(name);
+          }
+        });
+        completer = freezedCompleter;
         _request.one(name);
       }
-      _completers[name] = comleter;
+      _completers[name] = completer;
     }
-    return comleter.future;
+    return completer.future;
   }
 
   void reRequestAll() {
@@ -131,6 +141,9 @@ class Assets {
   String _assetFilePath(String name) => p.join(_path.path, name);
 
   void dispose() {
+    for (final timer in _timers.values) {
+      timer.cancel();
+    }
     for (final controller in _controllers.values) {
       controller.close();
     }
