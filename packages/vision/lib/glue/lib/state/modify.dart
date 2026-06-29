@@ -5,8 +5,6 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 
 /// Modifies a reactive state atomically
-/// Takes: state (IrNativeValue), returns function that takes transformation lambda
-/// Returns: IrVoid
 /// Usage: (modify state (lambda (current-value) new-value))
 final modify = IrNativeFunc((Ir stateIr) {
   return Eval.pure(
