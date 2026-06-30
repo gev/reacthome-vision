@@ -1,8 +1,9 @@
-import 'package:glue/eval.dart';
+import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
+import 'package:vision/glue/lib/canvas/handler.dart';
 
-final Ir moveTo = IrNativeFunc(moveToImpl);
-
-Eval<Ir> moveToImpl(Ir ir) {
-  return Eval.pure(IrVoid());
-}
+final Ir moveTo = handleXY(
+  (double x, double y) => (Path path) {
+    path.moveTo(x, y);
+  },
+);
