@@ -5,6 +5,7 @@ import 'package:glue/lib/list.dart';
 import 'package:glue/lib/math/arithmetic.dart';
 import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
+import 'package:vision/glue/lib/canvas.dart';
 import 'package:vision/glue/lib/module.dart';
 import 'package:vision/glue/lib/navigation.dart';
 import 'package:vision/glue/lib/rpc.dart';
@@ -36,5 +37,6 @@ Env makeEnv({
     moduleModule(subscriber, runtime),
     storeModule(subscriber, storage.tmpStore, storage.dataStore, log),
     rpcModule(sink),
+    canvasModule,
   ]);
 }
