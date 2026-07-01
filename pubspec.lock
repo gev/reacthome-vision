@@ -176,7 +176,7 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: "7f8c273c2da65e79e44fdee48c754220aa7486e1"
+      resolved-ref: fa9bd1afd64f0eb4242b48dbe4e59fcc81607927
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -185,7 +185,7 @@ packages:
     description:
       path: "flutter/glue_flutter"
       ref: HEAD
-      resolved-ref: "7f8c273c2da65e79e44fdee48c754220aa7486e1"
+      resolved-ref: fa9bd1afd64f0eb4242b48dbe4e59fcc81607927
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -462,10 +462,10 @@ packages:
     dependency: transitive
     description:
       name: sqlite3
-      sha256: "37356bcb56ce0d9404d602c41e4bdb7765e7e9732a3e47adb3d98c556a6abdad"
+      sha256: "752d9d746052359a2022f588bb979f2e7c4e0f9e4b6a1c3121f7626a1574974b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.3"
+    version: "3.3.4"
   stack_trace:
     dependency: transitive
     description:
