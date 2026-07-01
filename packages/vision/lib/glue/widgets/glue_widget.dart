@@ -8,9 +8,9 @@ import 'package:vision/scope.dart';
 
 class GlueWidget extends StatefulWidget {
   final Ir expression;
-  final Env? env;
+  final Env env;
 
-  const GlueWidget({required this.expression, this.env, super.key});
+  const GlueWidget({required this.expression, required this.env, super.key});
 
   @override
   State<GlueWidget> createState() => _GlueWidgetState();

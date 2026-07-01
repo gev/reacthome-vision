@@ -8,10 +8,21 @@ import 'package:vision/glue/lib/canvas/handler.dart';
 import 'package:vision/scope.dart';
 
 class GlueCanvas extends StatefulWidget {
-  final Ir expression;
-  final Env? env;
+  final Ir? foreground;
+  final Ir? background;
+  final Env env;
+  final Size size;
+  final Widget? child;
 
-  const GlueCanvas({required this.expression, this.env, super.key});
+  GlueCanvas({
+    this.foreground,
+    this.background,
+    this.child,
+    required this.env,
+    super.key,
+    double? width,
+    double? height,
+  }) : size = Size(width ?? 0, height ?? 0);
 
   @override
   State<GlueCanvas> createState() => _GlueCanvasState();
@@ -24,7 +35,7 @@ class _GlueCanvasState extends State<GlueCanvas> {
   int _currentExecutionId = 0;
 
   // Caches to prevent duplicate evaluation cycles
-  Ir? _lastEvaluatedexpression;
+  Ir? _lastEvaluatedExpression;
 
   late final Scope _scope;
   bool _initialized = false;
@@ -49,19 +60,22 @@ class _GlueCanvasState extends State<GlueCanvas> {
 
   void _runGuarded() async {
     // Guard against duplicate executions
-    if (_lastEvaluatedexpression == widget.expression) {
+    if (_lastEvaluatedExpression == widget.foreground) {
       return;
     }
     _run();
   }
 
   void _run() async {
-    _lastEvaluatedexpression = widget.expression;
+    final expression = widget.foreground;
+    if (expression == null) return;
+
+    _lastEvaluatedExpression = widget.foreground;
 
     // Increment ID to mark this specific async request batch
     final executionId = ++_currentExecutionId;
 
-    final evaluation = eval(widget.expression);
+    final evaluation = eval(expression);
     final result = await runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(
@@ -83,7 +97,7 @@ class _GlueCanvasState extends State<GlueCanvas> {
           final (val, _) = res;
           final newCanvasHandler = extractLast<CanvasHandler>(val);
           if (newCanvasHandler == null) {
-            _scope.log.error('${widget.expression} \n Widget required');
+            _scope.log.error('${widget.foreground} \n Widget required');
           } else {
             setState(() {
               _cachedCanvasHandler = newCanvasHandler;
@@ -96,7 +110,11 @@ class _GlueCanvasState extends State<GlueCanvas> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(painter: _Painter(_cachedCanvasHandler));
+    return CustomPaint(
+      size: widget.size,
+      painter: _Painter(_cachedCanvasHandler),
+      child: widget.child,
+    );
   }
 
   @override
