@@ -13,7 +13,10 @@ final Ir theme = IrEvaluable(() {
 });
 
 IrNativeValue themeData(ThemeData data) {
-  final props = {"color-scheme": colorScheme(data.colorScheme)};
+  final props = {
+    "color-scheme": colorScheme(data.colorScheme),
+    "text-theme": textTheme(data.textTheme),
+  };
   return IrNativeValue(Value(data, getters: makeGetters(props)));
 }
 
@@ -65,10 +68,44 @@ IrNativeValue colorScheme(ColorScheme cs) {
   return IrNativeValue(Value(cs, getters: makeGetters(props)));
 }
 
+IrNativeValue textTheme(TextTheme tt) {
+  final props = {
+    "display-large": textStyle(tt.displayLarge),
+    "display-medium": textStyle(tt.displayMedium),
+    "display-small": textStyle(tt.displaySmall),
+    "headline-large": textStyle(tt.headlineLarge),
+    "headline-medium": textStyle(tt.headlineMedium),
+    "headline-small": textStyle(tt.headlineSmall),
+    "title-large": textStyle(tt.titleLarge),
+    "title-medium": textStyle(tt.titleMedium),
+    "title-small": textStyle(tt.titleSmall),
+    "body-large": textStyle(tt.bodyLarge),
+    "body-medium": textStyle(tt.bodyMedium),
+    "body-small": textStyle(tt.bodySmall),
+    "label-large": textStyle(tt.labelLarge),
+    "label-medium": textStyle(tt.labelMedium),
+    "label-small": textStyle(tt.labelSmall),
+  };
+  return IrNativeValue(Value(tt, getters: makeGetters(props)));
+}
+
+IrNativeValue textStyle(TextStyle? ts) {
+  if (ts == null) return IrNativeValue(Value(null));
+  final props = {
+    "color": ts.color,
+    "size": ts.fontSize,
+    "weight": ts.fontWeight?.index,
+    "letter-spacing": ts.letterSpacing,
+    "height": ts.height,
+  };
+  return IrNativeValue(Value(ts, getters: makeGetters(props)));
+}
+
 Map<String, Eval<Ir>> makeGetters(Map<String, dynamic> props) =>
     props.map((key, value) => MapEntry(key, Eval.pure(toIr(value))));
 
 Ir toIr(dynamic value) => switch (value) {
+  null => IrVoid(),
   bool value => IrBool(value),
   int value => IrInteger(value),
   double value => IrFloat(value),
