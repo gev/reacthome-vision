@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:glue/env.dart';
 import 'package:vision/glue/lib/canvas/handler.dart';
 
 class GlueCanvas extends StatelessWidget {
   final Iterable<CanvasHandler> foreground;
   final Iterable<CanvasHandler> background;
-  final Env env;
   final Size size;
   final Widget? child;
 
@@ -13,7 +11,6 @@ class GlueCanvas extends StatelessWidget {
     this.foreground = const [],
     this.background = const [],
     this.child,
-    required this.env,
     super.key,
     double width = 0,
     double height = 0,

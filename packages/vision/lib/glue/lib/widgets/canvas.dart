@@ -9,23 +9,20 @@ import 'package:vision/glue/widgets/glue_canvas.dart';
 final Ir canvas = IrNativeFunc((Ir ir) {
   switch (ir) {
     case IrObject(:final properties):
-      return getEnv().bind((env) {
-        final props = WidgetProperties(properties.unlock);
-        return Eval.pure(
-          IrNativeValue(
-            Value(
-              GlueCanvas(
-                env: env,
-                key: props.key,
-                width: props.width ?? 0,
-                height: props.height ?? 0,
-                foreground: props.getValues<CanvasHandler>('foreground'),
-                background: props.getValues<CanvasHandler>('background'),
-              ),
+      final props = WidgetProperties(properties.unlock);
+      return Eval.pure(
+        IrNativeValue(
+          Value(
+            GlueCanvas(
+              key: props.key,
+              width: props.width ?? 0,
+              height: props.height ?? 0,
+              foreground: props.getValues<CanvasHandler>('foreground'),
+              background: props.getValues<CanvasHandler>('background'),
             ),
           ),
-        );
-      });
+        ),
+      );
     default:
       return throwError(wrongArgumentType(['Required `Canvas` object']));
   }
