@@ -67,15 +67,15 @@ class ReactiveRuntime extends ChangeNotifier
   }
 
   void loadModule(String name) {
-    final db = _storage.glueDb;
-    if (db != null && !isModuleRegistered(runtime.registry, name)) {
-      switch (db.lookup(name)) {
-        case Right(:final value):
-          _registerModule(name, value);
-        case Left(value: final error):
-          _log.error(error.message);
-      }
-    }
+    // final db = _storage.glueDb;
+    // if (db != null && !isModuleRegistered(runtime.registry, name)) {
+    //   switch (db.lookup(name)) {
+    //     case Right(:final value):
+    //       _registerModule(name, value);
+    //     case Left(value: final error):
+    //       _log.error(error.message);
+    //   }
+    // }
   }
 
   void _registerModule(String name, Revision<Ir, int> value) {
@@ -92,7 +92,7 @@ class ReactiveRuntime extends ChangeNotifier
   void _cacheModule(RegisteredModule module) async {
     final res = await runEval(
       cacheImportedModule(module),
-      runtime.copyWith(env: envFromModule(builtinModule)),
+      runtime, //.copyWith(env: envFromModule(builtinModule)),
     );
 
     if (_isDisposed) return;
