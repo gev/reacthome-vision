@@ -40,12 +40,11 @@ class _GlueAppState extends State<GlueApp> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    if (_initialized) return;
-    _initialized = true;
-
-    _scope = Scope.of(context);
-    _scope.reactiveRuntime.addListener(_run);
+    if (!_initialized) {
+      _initialized = true;
+      _scope = Scope.of(context);
+      _scope.reactiveRuntime.addListener(_run);
+    }
     _run();
   }
 
