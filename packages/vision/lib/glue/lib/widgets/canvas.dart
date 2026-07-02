@@ -2,6 +2,7 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
+import 'package:vision/glue/lib/canvas/handler.dart';
 import 'package:vision/glue/widgets/glue_canvas.dart';
 
 /// Creates a Canvas widget
@@ -18,8 +19,8 @@ final Ir canvas = IrNativeFunc((Ir ir) {
                 key: props.key,
                 width: props.width,
                 height: props.height,
-                foreground: props.get('foreground'),
-                background: props.get('background'),
+                foreground: props.getValues<CanvasHandler>('foreground'),
+                background: props.getValues<CanvasHandler>('background'),
               ),
             ),
           ),
