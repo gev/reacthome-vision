@@ -19,6 +19,7 @@ final Ir canvas = IrNativeFunc((Ir ir) {
               height: props.height ?? 0,
               foreground: props.getValues<CanvasHandler>('foreground'),
               background: props.getValues<CanvasHandler>('background'),
+              child: props.child,
             ),
           ),
         ),
