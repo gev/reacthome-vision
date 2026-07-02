@@ -15,9 +15,9 @@ class GlueCanvas extends StatelessWidget {
     this.child,
     required this.env,
     super.key,
-    double? width,
-    double? height,
-  }) : size = Size(width ?? 0, height ?? 0);
+    double width = 0,
+    double height = 0,
+  }) : size = Size(width, height);
 
   @override
   Widget build(BuildContext context) {

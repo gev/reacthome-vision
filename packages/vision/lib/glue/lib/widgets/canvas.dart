@@ -17,8 +17,8 @@ final Ir canvas = IrNativeFunc((Ir ir) {
               GlueCanvas(
                 env: env,
                 key: props.key,
-                width: props.width,
-                height: props.height,
+                width: props.width ?? 0,
+                height: props.height ?? 0,
                 foreground: props.getValues<CanvasHandler>('foreground'),
                 background: props.getValues<CanvasHandler>('background'),
               ),
