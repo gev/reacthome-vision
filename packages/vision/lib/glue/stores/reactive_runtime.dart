@@ -68,7 +68,7 @@ class ReactiveRuntime extends ChangeNotifier
 
   void loadModule(String name) {
     final db = _storage.glueDb;
-    if (db != null && !isModuleCached(runtime.importCache, name)) {
+    if (db != null && !isModuleRegistered(runtime.registry, name)) {
       switch (db.lookup(name)) {
         case Right(:final value):
           _registerModule(name, value);
