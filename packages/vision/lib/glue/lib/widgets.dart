@@ -4,6 +4,7 @@ import 'package:vision/glue/lib/widgets/canvas.dart';
 import 'package:vision/glue/lib/widgets/image.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/screen.dart';
+import 'package:vision/glue/lib/widgets/theme.dart';
 import 'package:vision/persistent/assets.dart';
 
 ModuleInfo widgetsModule(Assets assets) {
@@ -13,5 +14,6 @@ ModuleInfo widgetsModule(Assets assets) {
     ('screen', screen),
     ('image', image(assets)),
     ('canvas', canvas),
+    ('theme', theme),
   ]);
 }
