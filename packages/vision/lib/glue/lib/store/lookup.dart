@@ -10,10 +10,10 @@ Eval<Ir> lookupImpl(Ir store) {
 }
 
 Eval<Ir> Function(Ir) lookupStore(Ir store) {
-  return (Ir key) => Eval.pure(IrNativeFunc(lookupKey(store, key)));
+  return (Ir key) => lookupKey(store, key);
 }
 
-Eval<Ir> Function(Ir) lookupKey(Ir store, Ir key) {
+Eval<Ir> lookupKey(Ir store, Ir key) {
   switch ((store, key)) {
     case (
       IrNativeValue(value: Value(value: GlueSubscribable s)),
@@ -27,7 +27,7 @@ Eval<Ir> Function(Ir) lookupKey(Ir store, Ir key) {
       IrNativeValue(value: Value(value: GlueSubscribable s)),
       IrDottedSymbol(value: final key),
     ):
-      final res = s.lookup(key, defaultValue);
+      final res = s.lookup(key, IrVoid());
       return Eval.pure(IrNativeValue(Value(res)));
     case _:
       return throwError(wrongArgumentType(['store', 'key']));
