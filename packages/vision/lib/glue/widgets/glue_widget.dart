@@ -32,9 +32,9 @@ class _GlueWidgetState extends State<GlueWidget> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!_initialized) {
+      _initialized = true;
       _scope = Scope.of(context);
       _scope.reactiveRuntime.addListener(_run);
-      _initialized = true;
     }
     _run();
   }
