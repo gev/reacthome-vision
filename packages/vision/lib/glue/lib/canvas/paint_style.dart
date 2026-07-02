@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/painting.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
