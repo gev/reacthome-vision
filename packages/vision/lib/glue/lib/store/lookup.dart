@@ -14,10 +14,6 @@ Eval<Ir> Function(Ir) lookupStore(Ir store) {
 }
 
 Eval<Ir> Function(Ir) lookupKey(Ir store, Ir key) {
-  return (Ir defaultValue) => lookupValue(store, key, defaultValue);
-}
-
-Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
   switch ((store, key)) {
     case (
       IrNativeValue(value: Value(value: GlueSubscribable s)),
@@ -34,6 +30,6 @@ Eval<Ir> lookupValue(Ir store, Ir key, Ir defaultValue) {
       final res = s.lookup(key, defaultValue);
       return Eval.pure(IrNativeValue(Value(res)));
     case _:
-      return throwError(wrongArgumentType(['store', 'key', 'defaultValue']));
+      return throwError(wrongArgumentType(['store', 'key']));
   }
 }
