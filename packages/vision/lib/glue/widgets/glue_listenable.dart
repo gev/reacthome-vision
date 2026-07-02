@@ -44,9 +44,10 @@ class _GlueListenableState extends State<GlueListenable> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (_initialized) return;
-    _initialized = true;
-    _scope = Scope.of(context);
+    if (!_initialized) {
+      _initialized = true;
+      _scope = Scope.of(context);
+    }
     _run();
   }
 
