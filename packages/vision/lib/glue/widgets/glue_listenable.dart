@@ -47,6 +47,7 @@ class _GlueListenableState extends State<GlueListenable> {
     if (!_initialized) {
       _initialized = true;
       _scope = Scope.of(context);
+      _scope.reactiveRuntime.addListener(_run);
     }
     _run();
   }
@@ -121,6 +122,7 @@ class _GlueListenableState extends State<GlueListenable> {
 
   @override
   void dispose() {
+    _scope.reactiveRuntime.removeListener(_run);
     widget.notifier.removeListener(_runGuarded);
     super.dispose();
   }
