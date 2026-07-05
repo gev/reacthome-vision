@@ -143,9 +143,9 @@ class _VerticalSliderState extends State<VerticalSlider> {
 
     final double realValue = _fromNormalized(_normalizedValue);
 
-    Widget? centerContent;
+    Widget? valueContent;
     if (widget.displayValue) {
-      centerContent = Text(
+      valueContent = Text(
         widget.valueLabelFormatter?.call(realValue) ??
             realValue.toStringAsFixed(0),
         style: TextStyle(
@@ -213,12 +213,19 @@ class _VerticalSliderState extends State<VerticalSlider> {
               if (widget.icon != null)
                 Positioned(bottom: 12, child: widget.icon!),
 
-              if (centerContent != null)
-                Center(
-                  child: AnimatedOpacity(
-                    duration: widget.animationDuration,
-                    opacity: _isFocused ? 1.0 : 0.0,
-                    child: centerContent,
+              if (valueContent != null)
+                FractionallySizedBox(
+                  heightFactor: _normalizedValue,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: AnimatedOpacity(
+                        duration: widget.animationDuration,
+                        opacity: _isFocused ? 1.0 : 0.0,
+                        child: valueContent,
+                      ),
+                    ),
                   ),
                 ),
             ],
