@@ -28,9 +28,7 @@ class VerticalSlider extends StatefulWidget {
   final Duration animationDuration;
   final Curve animationCurve;
 
-  final Widget? top;
-  final Widget? bottom;
-  final Widget? center;
+  final Widget? icon;
 
   const VerticalSlider({
     super.key,
@@ -53,9 +51,7 @@ class VerticalSlider extends StatefulWidget {
     this.borderRadius = 20.0,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.easeOutBack,
-    this.top,
-    this.bottom,
-    this.center,
+    this.icon,
   });
 
   @override
@@ -147,21 +143,17 @@ class _VerticalSliderState extends State<VerticalSlider> {
 
     final double realValue = _fromNormalized(_normalizedValue);
 
-    // ЛОГИКА: если displayValue = false, ничего не показываем.
-    // Если true — показываем center (если передан) или число (фоллбэк).
     Widget? centerContent;
     if (widget.displayValue) {
-      centerContent =
-          widget.center ??
-          Text(
-            widget.valueLabelFormatter?.call(realValue) ??
-                realValue.toStringAsFixed(0),
-            style: TextStyle(
-              color: colorScheme.onPrimary,
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-            ),
-          );
+      centerContent = Text(
+        widget.valueLabelFormatter?.call(realValue) ??
+            realValue.toStringAsFixed(0),
+        style: TextStyle(
+          color: colorScheme.onPrimary,
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
+      );
     }
 
     return GestureDetector(
@@ -218,9 +210,8 @@ class _VerticalSliderState extends State<VerticalSlider> {
                 child: Container(color: activeColor),
               ),
 
-              if (widget.top != null) Positioned(top: 12, child: widget.top!),
-              if (widget.bottom != null)
-                Positioned(bottom: 12, child: widget.bottom!),
+              if (widget.icon != null)
+                Positioned(bottom: 12, child: widget.icon!),
 
               if (centerContent != null)
                 Center(
