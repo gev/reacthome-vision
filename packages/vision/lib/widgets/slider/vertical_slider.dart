@@ -16,10 +16,11 @@ class VerticalSlider extends StatefulWidget {
   final bool enableHapticOnTap;
   final bool enableHapticOnBounds;
 
-  final double? secondaryTrackValue;
   final Color? activeColor;
   final Color? inactiveColor;
-  final Color? secondaryActiveColor;
+  final Color? displayColor;
+
+  final double? displaySize;
 
   final double width;
   final double focusedWidth;
@@ -41,10 +42,10 @@ class VerticalSlider extends StatefulWidget {
     this.jumpToTap = true,
     this.enableHapticOnTap = true,
     this.enableHapticOnBounds = true,
-    this.secondaryTrackValue,
     this.activeColor,
     this.inactiveColor,
-    this.secondaryActiveColor,
+    this.displayColor,
+    this.displaySize = 16,
     this.width = 40.0,
     this.focusedWidth = 60.0,
     this.height = 250.0,
@@ -126,20 +127,11 @@ class _VerticalSliderState extends State<VerticalSlider> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final sliderTheme = theme.sliderTheme;
 
-    final activeColor =
-        widget.activeColor ??
-        sliderTheme.activeTrackColor ??
-        colorScheme.primary;
+    final activeColor = widget.activeColor ?? colorScheme.primary;
     final inactiveColor =
-        widget.inactiveColor ??
-        sliderTheme.inactiveTrackColor ??
-        colorScheme.surfaceContainerHighest;
-    final secondaryColor =
-        widget.secondaryActiveColor ??
-        sliderTheme.secondaryActiveTrackColor ??
-        colorScheme.primary.withValues(alpha: 0.38);
+        widget.inactiveColor ?? colorScheme.surfaceContainerHighest;
+    final displayColor = widget.displayColor ?? colorScheme.onPrimary;
 
     final double realValue = _fromNormalized(_normalizedValue);
 
@@ -149,9 +141,9 @@ class _VerticalSliderState extends State<VerticalSlider> {
         widget.valueLabelFormatter?.call(realValue) ??
             realValue.toStringAsFixed(0),
         style: TextStyle(
-          color: colorScheme.onPrimary,
+          color: displayColor,
           fontWeight: FontWeight.bold,
-          fontSize: 16,
+          fontSize: widget.displaySize,
         ),
       );
     }
@@ -198,13 +190,6 @@ class _VerticalSliderState extends State<VerticalSlider> {
             alignment: Alignment.bottomCenter,
             children: [
               Container(color: inactiveColor),
-              if (widget.secondaryTrackValue != null)
-                FractionallySizedBox(
-                  heightFactor: _toNormalized(
-                    widget.secondaryTrackValue!.clamp(widget.min, widget.max),
-                  ),
-                  child: Container(color: secondaryColor),
-                ),
               FractionallySizedBox(
                 heightFactor: _normalizedValue,
                 child: Container(color: activeColor),

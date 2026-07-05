@@ -20,7 +20,6 @@ Eval<Ir> _createVerticalSlider(WidgetProperties properties) {
   return getRuntime().bind((runtime) {
     final sliderWidget = VerticalSlider(
       value: properties.getDouble('value') ?? 0,
-      secondaryTrackValue: properties.getDouble('secondary-track-value'),
       min: properties.getDouble('min') ?? 0,
       max: properties.getDouble('max') ?? 1,
       onChanged: (value) {
@@ -28,7 +27,8 @@ Eval<Ir> _createVerticalSlider(WidgetProperties properties) {
       },
       activeColor: properties.getColor('active-color'),
       inactiveColor: properties.getColor('inactive-color'),
-      secondaryActiveColor: properties.getColor('secondary-active-color'),
+      displayColor: properties.getColor('display-color'),
+      displaySize: properties.getDouble('display-size'),
       icon: properties.getWidget('icon'),
       width: properties.getDouble('width') ?? 40.0,
       focusedWidth: properties.getDouble('focused-width') ?? 60.0,
