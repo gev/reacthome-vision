@@ -91,13 +91,25 @@ IrNativeValue textTheme(TextTheme tt) {
 
 IrNativeValue textStyle(TextStyle? ts) {
   if (ts == null) return IrNativeValue(Value(null));
+
   final props = {
     "color": ts.color,
-    "size": ts.fontSize,
-    "weight": ts.fontWeight?.index,
+    "background-color": ts.background,
+    "decoration": ts.decoration,
+    "decoration-color": ts.decorationColor,
+    "decoration-style": ts.decorationStyle,
+    "decoration-thickness": ts.decorationThickness,
+    "font-family": ts.fontFamily,
+    "font-size": ts.fontSize,
+    "font-weight": ts.fontWeight,
+    "font-style": ts.fontStyle,
     "letter-spacing": ts.letterSpacing,
-    "height": ts.height,
+    "word-spacing": ts.wordSpacing,
+    "line-height": ts.height,
+    "shadows": ts.shadows,
+    "font-features": ts.fontFeatures,
   };
+
   return IrNativeValue(Value(ts, getters: makeGetters(props)));
 }
 
