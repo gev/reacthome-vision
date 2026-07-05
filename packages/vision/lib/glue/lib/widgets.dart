@@ -2,6 +2,7 @@ import 'package:glue/module.dart';
 import 'package:vision/glue/lib/widgets/app.dart';
 import 'package:vision/glue/lib/widgets/canvas.dart';
 import 'package:vision/glue/lib/widgets/image.dart';
+import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/screen.dart';
 import 'package:vision/glue/lib/widgets/theme.dart';
@@ -15,5 +16,6 @@ ModuleInfo widgetsModule(Assets assets) {
     ('image', image(assets)),
     ('canvas', canvas),
     ('theme', theme),
+    ('media-query', mediaQuery),
   ]);
 }
