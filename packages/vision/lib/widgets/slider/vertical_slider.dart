@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class VerticalSlider extends StatefulWidget {
   final double value;
   final ValueChanged<double> onChanged;
-  final double? secondaryTrackValue; // Вернул на место
+  final double? secondaryTrackValue;
 
   final Color? activeColor;
   final Color? inactiveColor;
@@ -71,12 +71,10 @@ class _VerticalSliderState extends State<VerticalSlider> {
       1.0,
     );
 
-    setState(() {
-      _value = newProgress;
-    });
-
-    widget.onChanged(newProgress);
-    HapticFeedback.selectionClick();
+    if (_value != newProgress) {
+      setState(() => _value = newProgress);
+      widget.onChanged(newProgress);
+    }
   }
 
   @override
@@ -89,10 +87,12 @@ class _VerticalSliderState extends State<VerticalSlider> {
         widget.activeColor ??
         sliderTheme.activeTrackColor ??
         colorScheme.primary;
+
     final inactiveColor =
         widget.inactiveColor ??
         sliderTheme.inactiveTrackColor ??
         colorScheme.surfaceContainerHighest;
+
     final secondaryColor =
         widget.secondaryActiveColor ??
         sliderTheme.secondaryActiveTrackColor ??
@@ -100,12 +100,16 @@ class _VerticalSliderState extends State<VerticalSlider> {
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onVerticalDragStart: (_) => setState(() => _isFocused = true),
+      onVerticalDragStart: (_) {
+        setState(() => _isFocused = true);
+        HapticFeedback.selectionClick();
+      },
       onVerticalDragEnd: (_) => setState(() => _isFocused = false),
       onVerticalDragCancel: () => setState(() => _isFocused = false),
       onVerticalDragUpdate: (details) => _handleDrag(details.localPosition),
       onTapDown: (details) {
         setState(() => _isFocused = true);
+        HapticFeedback.selectionClick();
         _handleDrag(details.localPosition);
       },
       onTapUp: (_) => setState(() => _isFocused = false),
@@ -120,19 +124,15 @@ class _VerticalSliderState extends State<VerticalSlider> {
             alignment: Alignment.bottomCenter,
             children: [
               Container(color: inactiveColor),
-
-              // ВЕРНУЛ СЕКОНДАРИ ТРЕК
               if (widget.secondaryTrackValue != null)
                 FractionallySizedBox(
                   heightFactor: widget.secondaryTrackValue!.clamp(0.0, 1.0),
                   child: Container(color: secondaryColor),
                 ),
-
               FractionallySizedBox(
                 heightFactor: _value,
                 child: Container(color: activeColor),
               ),
-
               if (widget.topWidget != null)
                 Positioned(top: 12, child: widget.topWidget!),
               if (widget.bottomWidget != null)
