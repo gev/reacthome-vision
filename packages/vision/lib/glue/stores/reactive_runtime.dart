@@ -5,6 +5,7 @@ import 'package:glue/either.dart';
 import 'package:glue/env.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue/lib/builtin.dart';
 import 'package:glue/module.dart';
 import 'package:glue/module/import.dart';
 import 'package:glue/module/registration.dart';
@@ -90,7 +91,7 @@ class ReactiveRuntime extends ChangeNotifier
   void _cacheModule(RegisteredModule module) async {
     final res = await runEval(
       cacheImportedModule(module),
-      runtime, //.copyWith(env: envFromModule(builtinModule)),
+      runtime.copyWith(env: envFromModule(builtinModule)),
     );
 
     if (_isDisposed) return;

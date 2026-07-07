@@ -25,7 +25,7 @@ Ir put(GlueSubscriber subscriber) {
         subscriber.publish(key, (payload: value, version: version));
         return Eval.pure(IrVoid());
       case _:
-        return throwError(wrongArgumentType(['key', 'value']));
+        return throwError(wrongArgumentType(['key', 'version', 'value']));
     }
   }
 
