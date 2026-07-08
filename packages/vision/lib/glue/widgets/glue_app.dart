@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
@@ -111,10 +113,103 @@ class _GlueAppState extends State<GlueApp> {
       title: widget.title,
       key: ValueKey(_cachedProps),
       themeMode: ThemeMode.system,
-      theme: makeTheme(Colors.blue, Brightness.light),
-      darkTheme: makeTheme(Colors.blue, Brightness.dark),
+      theme: makeTheme(
+        Color.from(alpha: 1, red: 1, green: 0.5, blue: 0.5),
+        Brightness.light,
+      ),
+      darkTheme: makeTheme(
+        Color.from(alpha: 1, red: 1, green: 0.5, blue: 0.5),
+        Brightness.dark,
+      ),
       home: widget.splash,
-      routes: _cachedProps.routes,
+      onGenerateRoute: (RouteSettings settings) {
+        final WidgetBuilder? builder = _cachedProps.routes[settings.name];
+
+        if (builder == null) {
+          return MaterialPageRoute(
+            builder: (_) =>
+                const Scaffold(body: Center(child: Text('Route not found'))),
+          );
+        }
+        if (settings.name == 'light-dimmer') {
+          return PageRouteBuilder(
+            settings: settings,
+            opaque: false,
+            pageBuilder: (context, animation, secondaryAnimation) {
+              final navigator = Navigator.of(context);
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => navigator.pop(),
+                onVerticalDragUpdate: (details) {
+                  if (details.delta.dy.abs() > 10) {
+                    navigator.pop();
+                  }
+                },
+                child: Hero(
+                  tag: "123",
+                  flightShuttleBuilder:
+                      (
+                        flightContext,
+                        animation,
+                        direction,
+                        fromContext,
+                        toContext,
+                      ) {
+                        final isPush = direction == HeroFlightDirection.push;
+
+                        final fadeOutWidget = isPush
+                            ? fromContext.widget
+                            : toContext.widget;
+                        final fadeInWidget = isPush
+                            ? toContext.widget
+                            : fromContext.widget;
+
+                        return Stack(
+                          children: [
+                            Positioned.fill(
+                              child: FadeTransition(
+                                opacity: animation.drive(
+                                  Tween(begin: 1.0, end: 0.0),
+                                ),
+                                child: fadeOutWidget,
+                              ),
+                            ),
+                            Positioned.fill(
+                              child: FadeTransition(
+                                opacity: animation,
+                                child: fadeInWidget,
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                  child: AnimatedBuilder(
+                    animation: animation,
+                    builder: (context, _) {
+                      final blur = 50 * animation.value;
+                      final background = Theme.of(context).colorScheme.surface;
+                      return BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: Container(
+                            color: background.withValues(alpha: 0.7),
+                            child: Center(child: builder(context)),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              );
+            },
+            // transitionDuration: Duration(milliseconds: 1000),
+            // reverseTransitionDuration: Duration(milliseconds: 1000),
+          );
+        }
+
+        return MaterialPageRoute(builder: builder, settings: settings);
+      },
     );
   }
 

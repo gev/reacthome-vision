@@ -13,9 +13,8 @@ final Ir app = IrSpecial(
           case IrObject(properties: final routes):
             final builders = <String, WidgetBuilder>{};
             for (final route in routes.entries) {
-              builders[route.key] = (_) {
-                return GlueWidget(expression: route.value, env: env);
-              };
+              builders[route.key] = (_) =>
+                  GlueWidget(expression: route.value, env: env);
             }
             return Eval.pure(IrNativeValue(Value((routes: builders))));
           default:
