@@ -9,7 +9,8 @@ import 'package:vision/scope.dart';
 import 'package:vision/widgets/theme.dart';
 
 typedef Props = ({Routes routes});
-typedef Routes = Map<String, WidgetBuilder>;
+typedef Routes = Map<String, RouteBuilder>;
+typedef RouteBuilder = WidgetBuilder Function(RouteSettings);
 
 class GlueApp extends StatefulWidget {
   final String title;
@@ -123,15 +124,18 @@ class _GlueAppState extends State<GlueApp> {
       ),
       home: widget.splash,
       onGenerateRoute: (RouteSettings settings) {
-        final WidgetBuilder? builder = _cachedProps.routes[settings.name];
+        final RouteBuilder? routeBuilder = _cachedProps.routes[settings.name];
 
-        if (builder == null) {
+        if (routeBuilder == null) {
           return MaterialPageRoute(
             builder: (_) =>
                 const Scaffold(body: Center(child: Text('Route not found'))),
           );
         }
+
         if (settings.name == 'light-dimmer') {
+          final widgetBuilder = routeBuilder(settings);
+          final screen = widgetBuilder(context);
           return PageRouteBuilder(
             settings: settings,
             opaque: false,
@@ -160,6 +164,7 @@ class _GlueAppState extends State<GlueApp> {
                         final fadeOutWidget = isPush
                             ? fromContext.widget
                             : toContext.widget;
+
                         final fadeInWidget = isPush
                             ? toContext.widget
                             : fromContext.widget;
@@ -171,7 +176,10 @@ class _GlueAppState extends State<GlueApp> {
                                 opacity: animation.drive(
                                   Tween(begin: 1.0, end: 0.0),
                                 ),
-                                child: fadeOutWidget,
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: fadeOutWidget,
+                                ),
                               ),
                             ),
                             Positioned.fill(
@@ -188,13 +196,23 @@ class _GlueAppState extends State<GlueApp> {
                     builder: (context, _) {
                       final blur = 50 * animation.value;
                       final background = Theme.of(context).colorScheme.surface;
-                      return BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                        child: Material(
-                          type: MaterialType.transparency,
-                          child: Container(
-                            color: background.withValues(alpha: 0.7),
-                            child: Center(child: builder(context)),
+                      return ClipRRect(
+                        borderRadius: BorderRadiusGeometry.all(
+                          Radius.circular(24 * (1 - animation.value)),
+                        ),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: Container(
+                              color: background.withValues(alpha: 0.75),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: screen,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       );
@@ -203,12 +221,12 @@ class _GlueAppState extends State<GlueApp> {
                 ),
               );
             },
-            // transitionDuration: Duration(milliseconds: 1000),
-            // reverseTransitionDuration: Duration(milliseconds: 1000),
+            transitionDuration: Duration(milliseconds: 5000),
+            reverseTransitionDuration: Duration(milliseconds: 5000),
           );
         }
 
-        return MaterialPageRoute(builder: builder, settings: settings);
+        return MaterialPageRoute(builder: routeBuilder(settings));
       },
     );
   }
