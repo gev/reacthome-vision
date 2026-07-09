@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
@@ -109,6 +108,8 @@ class _GlueAppState extends State<GlueApp> {
     });
   }
 
+  final _key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -143,8 +144,8 @@ class _GlueAppState extends State<GlueApp> {
             pageBuilder: (context, animation, secondaryAnimation) {
               var isClosing = false;
               final navigator = Navigator.of(context);
-              final blur = 50 * animation.value;
-              final background = Theme.of(context).colorScheme.surface;
+              final theme = Theme.of(context);
+              final background = theme.colorScheme.surface;
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
@@ -184,10 +185,7 @@ class _GlueAppState extends State<GlueApp> {
                                 opacity: animation.drive(
                                   Tween(begin: 1.0, end: 0.0),
                                 ),
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: fadeOutWidget,
-                                ),
+                                child: fadeOutWidget,
                               ),
                             ),
                             Positioned.fill(
@@ -199,21 +197,29 @@ class _GlueAppState extends State<GlueApp> {
                           ],
                         );
                       },
-                  child: ClipRRect(
-                    borderRadius: BorderRadiusGeometry.all(
-                      Radius.circular(24 * (1 - animation.value)),
-                    ),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: Container(
-                          padding: EdgeInsets.all(16),
-                          color: background.withValues(alpha: 0.75),
-                          child: Center(
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: screen,
+                  child: AnimatedBuilder(
+                    key: _key,
+                    animation: animation,
+                    builder: (context, _) {
+                      final blur = 50 * animation.value;
+                      final radius = 12 * (1 - animation.value);
+                      return ClipRRect(
+                        borderRadius: BorderRadiusGeometry.all(
+                          Radius.circular(radius),
+                        ),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                          child: Material(
+                            type: MaterialType.transparency,
+                            child: Container(
+                              padding: EdgeInsets.all(16),
+                              color: background.withValues(alpha: 0.75),
+                              child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.contain,
+                                  child: screen,
+                                ),
+                              ),
                             ),
                           ),
                         ),

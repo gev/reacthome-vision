@@ -5,10 +5,10 @@ import 'package:vision/glue/widgets/glue_app.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
 
 /// Creates a Routes from an IrObject
-final Ir app = IrSpecial(
-  (List<Ir> ir) => getEnv().bind((env) {
+final Ir app = IrNativeFunc(
+  (Ir ir) => getEnv().bind((env) {
     switch (ir) {
-      case [IrObject(:final properties)]:
+      case IrObject(:final properties):
         switch (properties['routes']) {
           case IrObject(properties: final routes):
             final builders = <String, RouteBuilder>{};
