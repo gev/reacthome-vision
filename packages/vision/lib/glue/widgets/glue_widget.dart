@@ -19,9 +19,6 @@ class GlueWidget extends StatefulWidget {
 class _GlueWidgetState extends State<GlueWidget> {
   Widget _cachedWidget = const SizedBox.shrink();
 
-  // Tracks execution sequence to prevent async race conditions
-  int _currentExecutionId = 0;
-
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedexpression;
 
@@ -45,7 +42,7 @@ class _GlueWidgetState extends State<GlueWidget> {
     _runGuarded();
   }
 
-  void _runGuarded() async {
+  void _runGuarded() {
     // Guard against duplicate executions
     if (_lastEvaluatedexpression == widget.expression) {
       return;
@@ -53,14 +50,11 @@ class _GlueWidgetState extends State<GlueWidget> {
     _run();
   }
 
-  void _run() async {
+  void _run() {
     _lastEvaluatedexpression = widget.expression;
 
-    // Increment ID to mark this specific async request batch
-    final executionId = ++_currentExecutionId;
-
     final evaluation = eval(widget.expression);
-    final result = await runEval(
+    final result = runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(
         env: widget.env,
@@ -70,7 +64,6 @@ class _GlueWidgetState extends State<GlueWidget> {
         ),
       ),
     );
-    if (executionId != _currentExecutionId) return;
 
     result.match(
       (err) {

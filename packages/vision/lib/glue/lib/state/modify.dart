@@ -9,7 +9,7 @@ import 'package:glue/ir.dart';
 final modify = IrNativeFunc((Ir stateIr) {
   return Eval.pure(
     IrNativeFunc((Ir lambdaIr) {
-      return Eval((runtime) async {
+      return Eval((runtime) {
         final state = switch (stateIr) {
           IrNativeValue(value: final hv) => extractValue<ValueNotifier>(hv),
           _ => null,
@@ -25,7 +25,7 @@ final modify = IrNativeFunc((Ir stateIr) {
             ),
           );
         }
-        final result = await runEval(apply(lambdaIr, [state.value]), runtime);
+        final result = runEval(apply(lambdaIr, [state.value]), runtime);
         return result.match((error) => Left(error), (value) {
           state.value = value.$1;
           return Right((IrVoid(), runtime));

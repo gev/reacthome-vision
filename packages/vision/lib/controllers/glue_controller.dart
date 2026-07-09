@@ -14,18 +14,17 @@ class GlueController {
 
   GlueController({required this._runtime, required this._log});
 
-  void runGlue(Uint8List body) async {
+  void runGlue(Uint8List body) {
     try {
       final code = utf8.decode(body);
       final parseResult = parseGlue(code);
       return parseResult.match(
         (parseError) {
           _log.error(parseError);
-          return null;
         },
-        (ast) async {
+        (ast) {
           final irTree = compile(ast);
-          final evalResult = await runEval(eval(irTree), _runtime.runtime);
+          final evalResult = runEval(eval(irTree), _runtime.runtime);
           if (evalResult case Left(value: final error)) {
             _log.error(error);
           }

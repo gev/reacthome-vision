@@ -25,9 +25,6 @@ class GlueListenable extends StatefulWidget {
 class _GlueListenableState extends State<GlueListenable> {
   Widget _cachedWidget = const SizedBox.shrink();
 
-  // Tracks execution sequence to prevent async race conditions
-  int _currentExecutionId = 0;
-
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedLambda;
   Ir? _lastEvaluatedValue;
@@ -65,7 +62,7 @@ class _GlueListenableState extends State<GlueListenable> {
     _runGuarded();
   }
 
-  void _runGuarded() async {
+  void _runGuarded() {
     // Guard against duplicate executions
     if (_lastEvaluatedLambda == widget.lambda &&
         _lastEvaluatedValue == widget.notifier.value) {
@@ -74,15 +71,12 @@ class _GlueListenableState extends State<GlueListenable> {
     _run();
   }
 
-  void _run() async {
+  void _run() {
     _lastEvaluatedLambda = widget.lambda;
     _lastEvaluatedValue = widget.notifier.value;
 
-    // Increment ID to mark this specific async request batch
-    final executionId = ++_currentExecutionId;
-
     final evaluation = apply(widget.lambda, [widget.notifier.value]);
-    final result = await runEval(
+    final result = runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(
         env: widget.env,
@@ -92,8 +86,6 @@ class _GlueListenableState extends State<GlueListenable> {
         ),
       ),
     );
-
-    if (executionId != _currentExecutionId) return;
 
     result.match(
       (err) {
