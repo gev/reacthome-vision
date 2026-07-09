@@ -88,8 +88,8 @@ class ReactiveRuntime extends ChangeNotifier
     }
   }
 
-  void _cacheModule(RegisteredModule module) async {
-    final res = await runEval(
+  void _cacheModule(RegisteredModule module) {
+    final res = runEval(
       cacheImportedModule(module),
       runtime.copyWith(env: envFromModule(builtinModule)),
     );
