@@ -5,9 +5,9 @@ import 'package:glue/ir.dart';
 
 typedef Props = ({Routes routes});
 
-typedef Routes = Map<String, RouteBuilder>;
+typedef Routes = Map<String, IrClosure>;
 
-typedef RouteBuilder = WidgetBuilder Function(RouteSettings);
+typedef RouteBuilder = Route<Ir> Function(RouteSettings settings);
 
 typedef RouteEntry = ({String route, IrObject args});
 
