@@ -1,7 +1,7 @@
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/widgets/glue_app.dart';
+import 'package:vision/glue/route.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
 
 /// Creates a Routes from an IrObject

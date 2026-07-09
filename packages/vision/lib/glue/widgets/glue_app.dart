@@ -5,12 +5,9 @@ import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
+import 'package:vision/glue/route.dart';
 import 'package:vision/scope.dart';
 import 'package:vision/widgets/theme.dart';
-
-typedef Props = ({Routes routes});
-typedef Routes = Map<String, RouteBuilder>;
-typedef RouteBuilder = WidgetBuilder Function(RouteSettings);
 
 class GlueApp extends StatefulWidget {
   final String title;

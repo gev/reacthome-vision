@@ -1,6 +1,13 @@
+import 'package:flutter/widgets.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+
+typedef Props = ({Routes routes});
+
+typedef Routes = Map<String, RouteBuilder>;
+
+typedef RouteBuilder = WidgetBuilder Function(RouteSettings);
 
 typedef RouteEntry = ({String route, IrObject args});
 
