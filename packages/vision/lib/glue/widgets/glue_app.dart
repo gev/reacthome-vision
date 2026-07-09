@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
@@ -140,17 +141,24 @@ class _GlueAppState extends State<GlueApp> {
             settings: settings,
             opaque: false,
             pageBuilder: (context, animation, secondaryAnimation) {
+              var isClosing = false;
               final navigator = Navigator.of(context);
+              final blur = 50 * animation.value;
+              final background = Theme.of(context).colorScheme.surface;
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
-                onTap: () => navigator.pop(),
+                onTap: () {
+                  isClosing = true;
+                  navigator.pop();
+                },
                 onVerticalDragUpdate: (details) {
-                  if (details.delta.dy.abs() > 10) {
+                  if (!isClosing && details.delta.dy.abs() > 10) {
+                    isClosing = true;
                     navigator.pop();
                   }
                 },
                 child: Hero(
-                  tag: "123",
+                  tag: settings.arguments!,
                   flightShuttleBuilder:
                       (
                         flightContext,
@@ -191,27 +199,21 @@ class _GlueAppState extends State<GlueApp> {
                           ],
                         );
                       },
-                  child: AnimatedBuilder(
-                    animation: animation,
-                    builder: (context, _) {
-                      final blur = 50 * animation.value;
-                      final background = Theme.of(context).colorScheme.surface;
-                      return ClipRRect(
-                        borderRadius: BorderRadiusGeometry.all(
-                          Radius.circular(24 * (1 - animation.value)),
-                        ),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-                          child: Material(
-                            type: MaterialType.transparency,
-                            child: Container(
-                              color: background.withValues(alpha: 0.75),
-                              child: Center(
-                                child: FittedBox(
-                                  fit: BoxFit.contain,
-                                  child: screen,
-                                ),
-                              ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadiusGeometry.all(
+                      Radius.circular(24 * (1 - animation.value)),
+                    ),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: Container(
+                          padding: EdgeInsets.all(16),
+                          color: background.withValues(alpha: 0.75),
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.contain,
+                              child: screen,
                             ),
                           ),
                         ),
@@ -221,8 +223,8 @@ class _GlueAppState extends State<GlueApp> {
                 ),
               );
             },
-            transitionDuration: Duration(milliseconds: 5000),
-            reverseTransitionDuration: Duration(milliseconds: 5000),
+            transitionDuration: Duration(milliseconds: 500),
+            reverseTransitionDuration: Duration(milliseconds: 500),
           );
         }
 
