@@ -30,6 +30,7 @@ Eval<Ir> _createVerticalSlider(WidgetProperties properties) {
       displayColor: properties.getColor('display-color'),
       displaySize: properties.getDouble('display-size'),
       icon: properties.getWidget('icon'),
+      height: properties.getDouble('height') ?? 250,
       width: properties.getDouble('width') ?? 40.0,
       focusedWidth: properties.getDouble('focused-width') ?? 60.0,
       borderRadius: properties.getDouble('border-radius') ?? 20.0,
