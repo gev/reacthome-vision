@@ -112,7 +112,7 @@ class _GlueAppState extends State<GlueApp> {
       ),
       home: widget.splash,
       onGenerateRoute: (RouteSettings settings) {
-        final IrClosure? routeBuilder = _cachedProps.routes[settings.name];
+        final routeBuilder = _cachedProps.routes[settings.name];
 
         if (routeBuilder == null) {
           _scope.log.error('Route `${settings.name}` not found');
