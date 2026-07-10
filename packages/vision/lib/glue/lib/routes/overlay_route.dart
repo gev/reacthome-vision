@@ -31,6 +31,12 @@ Eval<Ir> overlayRouteImpl(Ir ir) {
                 key: GlobalKey(),
                 tag: tag,
                 screen: screen,
+                borderRadius: toDouble(properties['border-radius']) ?? 12,
+                opacity: toDouble(properties['opacity']) ?? 1,
+                blur: toDouble(properties['blur']) ?? 50,
+                duration: Duration(
+                  milliseconds: toInt(properties['duration']) ?? 300,
+                ),
                 env: env,
               ),
             ),
@@ -46,6 +52,10 @@ RouteBuilder makeOverlayRouteBuilder({
   required Key key,
   required Object tag,
   required Ir screen,
+  required double borderRadius,
+  required double opacity,
+  required double blur,
+  required Duration duration,
   required Env env,
 }) =>
     (RouteSettings settings) => PageRouteBuilder(
@@ -102,29 +112,26 @@ RouteBuilder makeOverlayRouteBuilder({
               key: key,
               animation: animation,
               builder: (context, _) {
-                final blur = 50 * animation.value;
-                final radius = 12 * (1 - animation.value);
+                final sigma = blur * animation.value;
+                final radius = borderRadius * (1 - animation.value);
                 return ClipRRect(
                   borderRadius: BorderRadiusGeometry.all(
                     Radius.circular(radius),
                   ),
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                    filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
                     child: Material(
                       type: MaterialType.transparency,
-                      child: Container(
-                        padding: EdgeInsets.all(16),
-                        color: background.withValues(alpha: 0.75),
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: GlueWidget(
-                              expression: IrList([
-                                screen,
-                                toIr(settings.arguments),
-                              ]),
-                              env: env,
-                            ),
+                      color: background.withValues(alpha: opacity),
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.contain,
+                          child: GlueWidget(
+                            expression: IrList([
+                              screen,
+                              toIr(settings.arguments),
+                            ]),
+                            env: env,
                           ),
                         ),
                       ),
@@ -136,6 +143,6 @@ RouteBuilder makeOverlayRouteBuilder({
           ),
         );
       },
-      transitionDuration: Duration(milliseconds: 500),
-      reverseTransitionDuration: Duration(milliseconds: 500),
+      transitionDuration: duration,
+      reverseTransitionDuration: duration,
     );
