@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:glue/either.dart';
 import 'package:glue/env.dart';
@@ -37,10 +35,7 @@ Eval<Ir> overlayRouteImpl(List<Ir> ir) => getRuntime().bind((runtime) {
                     key: GlobalKey(),
                     tag: tag,
                     screen: screen,
-                    background: to<Color>(properties['background']),
-                    borderRadius: toDouble(properties['border-radius']) ?? 12,
                     opacity: toDouble(properties['opacity']) ?? 1,
-                    blur: toDouble(properties['blur']) ?? 50,
                     duration: Duration(
                       milliseconds: toInt(properties['duration']) ?? 300,
                     ),
@@ -65,10 +60,7 @@ Route<Ir> makeOverlayRouteBuilder({
   required Key key,
   required Object tag,
   required Ir screen,
-  Color? background,
-  required double borderRadius,
   required double opacity,
-  required double blur,
   required Duration duration,
   required Env env,
 }) => PageRouteBuilder(
@@ -77,17 +69,11 @@ Route<Ir> makeOverlayRouteBuilder({
     var isClosing = false;
     final navigator = Navigator.of(context);
     final theme = Theme.of(context);
-    final backgroundColor = background ?? theme.colorScheme.surface;
+    final scrimColor = theme.colorScheme.scrim;
     final content = Material(
       key: key,
       type: MaterialType.transparency,
-      child: Card(
-        color: backgroundColor.withValues(alpha: opacity),
-        child: FittedBox(
-          fit: BoxFit.contain,
-          child: GlueWidget(expression: screen, env: env),
-        ),
-      ),
+      child: GlueWidget(expression: screen, env: env),
     );
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -101,16 +87,33 @@ Route<Ir> makeOverlayRouteBuilder({
           navigator.pop();
         }
       },
-      child: Center(
-        child: Hero(
-          tag: tag,
-          flightShuttleBuilder:
-              (flightContext, animation, direction, fromContext, toContext) {
-                final isPush = direction == HeroFlightDirection.push;
-                return isPush ? toContext.widget : fromContext.widget;
-              },
-          child: content,
-        ),
+      child: AnimatedBuilder(
+        animation: animation,
+        builder: (context, _) {
+          return Container(
+            color: scrimColor.withValues(alpha: opacity * animation.value),
+            child: Center(
+              child: Hero(
+                tag: tag,
+                flightShuttleBuilder:
+                    (_, _, direction, fromContext, toContext) {
+                      final isPush = direction == HeroFlightDirection.push;
+                      return isPush ? toContext.widget : fromContext.widget;
+                    },
+                child: AnimatedBuilder(
+                  animation: animation,
+                  builder: (context, _) {
+                    return Card(
+                      clipBehavior: Clip.antiAlias,
+                      elevation: 24 * animation.value,
+                      child: content,
+                    );
+                  },
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   },
