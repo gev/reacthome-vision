@@ -3,8 +3,8 @@ import 'package:glue/context.dart';
 import 'package:glue/either.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:vision/glue/app.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/glue/route.dart';
 import 'package:vision/scope.dart';
 import 'package:vision/widgets/theme.dart';
 
@@ -25,7 +25,7 @@ class GlueApp extends StatefulWidget {
 }
 
 class _GlueAppState extends State<GlueApp> {
-  Props _cachedProps = (routes: {});
+  App _cachedProps = (seedColor: Colors.blue, routes: {});
 
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedexpression;
@@ -79,7 +79,7 @@ class _GlueAppState extends State<GlueApp> {
       (res) {
         if (mounted) {
           final (val, _) = res;
-          final newProps = extractLast<Props>(val);
+          final newProps = extractLast<App>(val);
           if (newProps == null) {
             _scope.log.error('${widget.app} \n Routes required');
           } else {
@@ -90,7 +90,7 @@ class _GlueAppState extends State<GlueApp> {
     );
   }
 
-  void _updateRoutes(Props newProps) {
+  void _updateRoutes(App newProps) {
     setState(() {
       _cachedProps = newProps;
     });

@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/route.dart';
+import 'package:vision/glue/app.dart';
 
 /// Pushes a Route onto the navigation stack
 final Ir push = IrNativeFunc((Ir ir) {
