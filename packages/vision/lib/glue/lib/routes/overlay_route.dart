@@ -36,6 +36,7 @@ Eval<Ir> overlayRouteImpl(List<Ir> ir) => getRuntime().bind((runtime) {
                     tag: tag,
                     screen: screen,
                     opacity: toDouble(properties['opacity']) ?? 1,
+                    elevation: toDouble(properties['elevation']) ?? 24,
                     duration: Duration(
                       milliseconds: toInt(properties['duration']) ?? 300,
                     ),
@@ -61,6 +62,7 @@ Route<Ir> makeOverlayRouteBuilder({
   required Object tag,
   required Ir screen,
   required double opacity,
+  required double elevation,
   required Duration duration,
   required Env env,
 }) => PageRouteBuilder(
@@ -104,7 +106,7 @@ Route<Ir> makeOverlayRouteBuilder({
                   animation: animation,
                   builder: (context, _) {
                     return Card(
-                      elevation: 24 * animation.value,
+                      elevation: elevation * animation.value,
                       clipBehavior: Clip.antiAlias,
                       color: Colors.transparent,
                       margin: EdgeInsets.zero,
