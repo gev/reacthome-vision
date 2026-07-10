@@ -106,6 +106,7 @@ Route<Ir> makeOverlayRouteBuilder({
                     return Card(
                       clipBehavior: Clip.antiAlias,
                       elevation: 24 * animation.value,
+                      margin: EdgeInsets.zero,
                       child: content,
                     );
                   },
