@@ -9,6 +9,7 @@ import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/lib/canvas.dart';
 import 'package:vision/glue/lib/module.dart';
 import 'package:vision/glue/lib/navigation.dart';
+import 'package:vision/glue/lib/routes.dart';
 import 'package:vision/glue/lib/rpc.dart';
 import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/store.dart';
@@ -35,6 +36,7 @@ Env makeEnv({
     uiMaterialModule,
     widgetsModule(storage.assets),
     navigationModule,
+    routesModule,
     stateModule(log),
     moduleModule(subscriber, runtime),
     storeModule(subscriber, storage.tmpStore, storage.dataStore, log),
