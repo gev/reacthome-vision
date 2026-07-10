@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:glue/either.dart';
 import 'package:glue/env.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
@@ -8,45 +9,59 @@ import 'package:glue/ir.dart';
 import 'package:vision/glue/route.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
 
-final Ir overlayRoute = IrNativeFunc(overlayRouteImpl);
+final Ir overlayRoute = IrSpecial(overlayRouteImpl);
 
-Eval<Ir> overlayRouteImpl(Ir ir) {
+Eval<Ir> overlayRouteImpl(List<Ir> ir) => getRuntime().bind((runtime) {
   switch (ir) {
-    case IrObject(:final properties):
+    case [IrObject(:final properties)]:
       final screen = properties['screen'];
-      if (screen is! IrClosure) {
+      if (screen == null) {
         return throwError(
           wrongArgumentType(['`screen` lambda  propery required']),
         );
       }
-      final tag = properties['tag'];
-      if (tag == null) {
-        return throwError(wrongArgumentType(['Hero `tag` required']));
-      }
-      return getEnv().bind((env) {
-        return Eval.pure(
-          IrNativeValue(
-            Value(
-              makeOverlayRouteBuilder(
-                key: GlobalKey(),
-                tag: tag,
-                screen: screen,
-                borderRadius: toDouble(properties['border-radius']) ?? 12,
-                opacity: toDouble(properties['opacity']) ?? 1,
-                blur: toDouble(properties['blur']) ?? 50,
-                duration: Duration(
-                  milliseconds: toInt(properties['duration']) ?? 300,
+
+      final props = runEval(
+        eval(IrObject(properties.remove('screen').unlock)),
+        runtime,
+      );
+
+      return props.match((err) => Eval((_) => Left(err)), (success) {
+        switch (success) {
+          case (IrObject(:final properties), _):
+            final tag = properties['tag'];
+            if (tag == null) {
+              return throwError(wrongArgumentType(['Hero `tag` required']));
+            }
+            return Eval.pure(
+              IrNativeValue(
+                Value(
+                  makeOverlayRouteBuilder(
+                    key: GlobalKey(),
+                    tag: tag,
+                    screen: screen,
+                    borderRadius: toDouble(properties['border-radius']) ?? 12,
+                    opacity: toDouble(properties['opacity']) ?? 1,
+                    blur: toDouble(properties['blur']) ?? 50,
+                    duration: Duration(
+                      milliseconds: toInt(properties['duration']) ?? 300,
+                    ),
+                    env: runtime.env,
+                  ),
                 ),
-                env: env,
               ),
-            ),
-          ),
-        );
+            );
+          default:
+            return throwError(
+              wrongArgumentType(['Properties` oject required']),
+            );
+        }
       });
+
     default:
       return throwError(wrongArgumentType(['Route `Object` required']));
   }
-}
+});
 
 RouteBuilder makeOverlayRouteBuilder({
   required Key key,
@@ -61,6 +76,7 @@ RouteBuilder makeOverlayRouteBuilder({
     (RouteSettings settings) => PageRouteBuilder(
       opaque: false,
       pageBuilder: (context, animation, secondaryAnimation) {
+        print(opacity);
         var isClosing = false;
         final navigator = Navigator.of(context);
         final theme = Theme.of(context);
@@ -122,16 +138,18 @@ RouteBuilder makeOverlayRouteBuilder({
                     filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
                     child: Material(
                       type: MaterialType.transparency,
-                      color: background.withValues(alpha: opacity),
-                      child: Center(
-                        child: FittedBox(
-                          fit: BoxFit.contain,
-                          child: GlueWidget(
-                            expression: IrList([
-                              screen,
-                              toIr(settings.arguments),
-                            ]),
-                            env: env,
+                      child: Container(
+                        color: background.withValues(alpha: opacity),
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: GlueWidget(
+                              expression: IrList([
+                                screen,
+                                toIr(settings.arguments),
+                              ]),
+                              env: env,
+                            ),
                           ),
                         ),
                       ),

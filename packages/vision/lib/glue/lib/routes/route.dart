@@ -6,13 +6,13 @@ import 'package:glue/ir.dart';
 import 'package:vision/glue/route.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
 
-final Ir route = IrNativeFunc(routeImpl);
+final Ir route = IrSpecial(routeImpl);
 
-Eval<Ir> routeImpl(Ir ir) {
+Eval<Ir> routeImpl(List<Ir> ir) {
   switch (ir) {
-    case IrObject(:final properties):
+    case [IrObject(:final properties)]:
       final screen = properties['screen'];
-      if (screen is! IrClosure) {
+      if (screen == null) {
         return throwError(
           wrongArgumentType(['`screen` lambda  propery required']),
         );
