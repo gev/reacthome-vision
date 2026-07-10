@@ -1,13 +1,10 @@
-import 'package:flutter/widgets.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 
 typedef Props = ({Routes routes});
 
-typedef Routes = Map<String, IrClosure>;
-
-typedef RouteBuilder = Route<Ir> Function(RouteSettings settings);
+typedef Routes = Map<String, Ir>;
 
 typedef RouteEntry = ({String route, IrObject args});
 

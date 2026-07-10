@@ -119,7 +119,9 @@ class _GlueAppState extends State<GlueApp> {
           return null;
         }
 
-        final evaluation = apply(routeBuilder, [toIr(settings.arguments)]);
+        final evaluation = eval(
+          IrList([routeBuilder, toIr(settings.arguments)]),
+        );
         final result = runEval(
           evaluation,
           _scope.reactiveRuntime.runtime.copyWith(
@@ -135,12 +137,12 @@ class _GlueAppState extends State<GlueApp> {
             _scope.log.error('Route `${settings.name}` internal error $err');
             return null;
           case Right(:final value):
-            final routeBuilder = to<RouteBuilder>(value.$1);
-            if (routeBuilder == null) {
+            final route = to<Route<Ir>>(value.$1);
+            if (route == null) {
               _scope.log.error('Route `${settings.name}` not found');
               return null;
             }
-            return routeBuilder(settings);
+            return route;
         }
       },
     );
