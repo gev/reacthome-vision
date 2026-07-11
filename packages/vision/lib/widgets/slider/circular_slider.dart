@@ -303,14 +303,7 @@ class _SliderPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_SliderPainter old) =>
-      old.normalizedValue != normalizedValue ||
-      old.startAngle != startAngle ||
-      old.endAngle != endAngle ||
-      old.strokeWidth != strokeWidth ||
-      old.activeColor != activeColor ||
-      old.inactiveColor != inactiveColor ||
-      old.cap != cap;
+  bool shouldRepaint(_SliderPainter old) => true;
 }
 
 class _EagerPanGestureRecognizer extends PanGestureRecognizer {
