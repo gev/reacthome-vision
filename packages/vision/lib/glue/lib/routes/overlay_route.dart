@@ -96,6 +96,11 @@ Route<Ir> makeOverlayRouteBuilder({
             child: Center(
               child: Hero(
                 tag: tag,
+                flightShuttleBuilder:
+                    (_, _, direction, fromContext, toContext) =>
+                        direction == HeroFlightDirection.push
+                        ? FittedBox(fit: BoxFit.fill, child: toContext.widget)
+                        : toContext.widget,
                 child: AnimatedBuilder(
                   animation: animation,
                   builder: (context, _) {
