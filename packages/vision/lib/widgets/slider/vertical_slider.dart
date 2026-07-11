@@ -9,18 +9,12 @@ class VerticalSlider extends StatefulWidget {
   final double min;
   final double max;
 
-  final bool displayValue;
-  final ValueFormatter? valueLabelFormatter;
-
   final bool jumpToTap;
   final bool enableHapticOnTap;
   final bool enableHapticOnBounds;
 
   final Color? activeColor;
   final Color? inactiveColor;
-  final Color? displayColor;
-
-  final double? displaySize;
 
   final double width;
   final double focusedWidth;
@@ -29,30 +23,23 @@ class VerticalSlider extends StatefulWidget {
   final Duration animationDuration;
   final Curve animationCurve;
 
-  final Widget? icon;
-
   const VerticalSlider({
     super.key,
     required this.value,
     required this.onChanged,
     this.min = 0.0,
     this.max = 1.0,
-    this.displayValue = true,
-    this.valueLabelFormatter,
     this.jumpToTap = true,
     this.enableHapticOnTap = true,
     this.enableHapticOnBounds = true,
     this.activeColor,
     this.inactiveColor,
-    this.displayColor,
-    this.displaySize = 16,
     this.width = 40.0,
     this.focusedWidth = 60.0,
     this.height = 250.0,
     this.borderRadius = 20.0,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.easeOutBack,
-    this.icon,
   });
 
   @override
@@ -131,22 +118,6 @@ class _VerticalSliderState extends State<VerticalSlider> {
     final activeColor = widget.activeColor ?? colorScheme.primary;
     final inactiveColor =
         widget.inactiveColor ?? colorScheme.surfaceContainerHighest;
-    final displayColor = widget.displayColor ?? colorScheme.onPrimary;
-
-    final double realValue = _fromNormalized(_normalizedValue);
-
-    Widget? valueContent;
-    if (widget.displayValue) {
-      valueContent = Text(
-        widget.valueLabelFormatter?.call(realValue) ??
-            realValue.toStringAsFixed(0),
-        style: TextStyle(
-          color: displayColor,
-          fontWeight: FontWeight.bold,
-          fontSize: widget.displaySize,
-        ),
-      );
-    }
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -194,25 +165,6 @@ class _VerticalSliderState extends State<VerticalSlider> {
                 heightFactor: _normalizedValue,
                 child: Container(color: activeColor),
               ),
-
-              if (widget.icon != null)
-                Positioned(bottom: 12, child: widget.icon!),
-
-              if (valueContent != null)
-                FractionallySizedBox(
-                  heightFactor: _normalizedValue,
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 12),
-                      child: AnimatedOpacity(
-                        duration: widget.animationDuration,
-                        opacity: _isFocused ? 1.0 : 0.0,
-                        child: valueContent,
-                      ),
-                    ),
-                  ),
-                ),
             ],
           ),
         ),
