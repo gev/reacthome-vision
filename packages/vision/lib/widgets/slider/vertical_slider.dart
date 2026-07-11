@@ -63,7 +63,6 @@ class _VerticalSliderState extends State<VerticalSlider>
     _updateAnimation();
   }
 
-  // Создаем или обновляем анимацию
   void _updateAnimation() {
     _widthAnimation =
         Tween<double>(begin: widget.width, end: widget.focusedWidth).animate(
@@ -78,7 +77,6 @@ class _VerticalSliderState extends State<VerticalSlider>
   void didUpdateWidget(covariant VerticalSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Обновляем value/min/max
     if (oldWidget.value != widget.value ||
         oldWidget.min != widget.min ||
         oldWidget.max != widget.max) {
@@ -87,12 +85,10 @@ class _VerticalSliderState extends State<VerticalSlider>
       );
     }
 
-    // Обновляем duration контроллера
     if (oldWidget.animationDuration != widget.animationDuration) {
       _widthController.duration = widget.animationDuration;
     }
 
-    // Обновляем анимацию, если поменялись размеры или кривая
     if (oldWidget.width != widget.width ||
         oldWidget.focusedWidth != widget.focusedWidth ||
         oldWidget.animationCurve != widget.animationCurve) {
@@ -172,18 +168,25 @@ class _VerticalSliderState extends State<VerticalSlider>
       onTapUp: (_) => _widthController.reverse(),
       child: AnimatedBuilder(
         animation: _widthAnimation,
-        builder: (context, _) => CustomPaint(
-          size: Size(_widthAnimation.value, widget.height),
-          painter: _SliderPainter(
-            normalizedValue: _normalizedValue,
-            min: widget.min,
-            max: widget.max,
-            activeColor: activeColor,
-            inactiveColor: inactiveColor,
-            borderRadius: widget.borderRadius,
-            currentWidth: _widthAnimation.value,
-            height: widget.height,
-          ),
+        builder: (context, _) => TweenAnimationBuilder<double>(
+          // ПРАВИЛЬНАЯ АНИМАЦИЯ: задаем только end,
+          // билдер сам интерполирует от текущего значения к новому
+          tween: Tween<double>(end: _normalizedValue),
+          duration: widget.animationDuration,
+          curve: widget.animationCurve,
+          builder: (context, animatedNormalized, _) {
+            return CustomPaint(
+              size: Size(_widthAnimation.value, widget.height),
+              painter: _SliderPainter(
+                normalizedValue: animatedNormalized,
+                activeColor: activeColor,
+                inactiveColor: inactiveColor,
+                borderRadius: widget.borderRadius,
+                currentWidth: _widthAnimation.value,
+                height: widget.height,
+              ),
+            );
+          },
         ),
       ),
     );
@@ -192,8 +195,6 @@ class _VerticalSliderState extends State<VerticalSlider>
 
 class _SliderPainter extends CustomPainter {
   final double normalizedValue;
-  final double min;
-  final double max;
   final Color activeColor;
   final Color inactiveColor;
   final double borderRadius;
@@ -202,8 +203,6 @@ class _SliderPainter extends CustomPainter {
 
   _SliderPainter({
     required this.normalizedValue,
-    required this.min,
-    required this.max,
     required this.activeColor,
     required this.inactiveColor,
     required this.borderRadius,
@@ -216,9 +215,10 @@ class _SliderPainter extends CustomPainter {
     final rect = Offset.zero & size;
     final rrect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
 
+    // Фон (неактивная часть)
     canvas.drawRRect(rrect, Paint()..color = inactiveColor);
-    canvas.clipRRect(rrect);
 
+    // Активная часть
     final activeHeight = size.height * normalizedValue;
     final activeRect = Rect.fromLTWH(
       0,
@@ -226,14 +226,17 @@ class _SliderPainter extends CustomPainter {
       size.width,
       activeHeight,
     );
+
+    // Обрезаем активную часть по радиусу, чтобы углы совпадали с фоном
+    canvas.save();
+    canvas.clipRRect(rrect);
     canvas.drawRect(activeRect, Paint()..color = activeColor);
+    canvas.restore();
   }
 
   @override
   bool shouldRepaint(_SliderPainter old) {
     return old.normalizedValue != normalizedValue ||
-        old.min != min ||
-        old.max != max ||
         old.activeColor != activeColor ||
         old.inactiveColor != inactiveColor ||
         old.borderRadius != borderRadius ||
