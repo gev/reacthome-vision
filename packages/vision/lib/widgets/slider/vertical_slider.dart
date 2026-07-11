@@ -1,20 +1,14 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class VerticalSlider extends StatefulWidget {
   final double value;
   final ValueChanged<double> onChanged;
-  final double min;
-  final double max;
-  final bool jumpToTap;
-  final bool enableHapticOnTap;
-  final bool enableHapticOnBounds;
-  final Color? activeColor;
-  final Color? inactiveColor;
-  final double width;
-  final double focusedWidth;
-  final double height;
-  final double borderRadius;
+  final double min, max;
+  final bool jumpToTap, enableHapticOnTap, enableHapticOnBounds;
+  final Color? activeColor, inactiveColor;
+  final double width, focusedWidth, height, borderRadius;
   final Duration animationDuration;
   final Curve animationCurve;
 
@@ -44,91 +38,67 @@ class VerticalSlider extends StatefulWidget {
 class _VerticalSliderState extends State<VerticalSlider>
     with SingleTickerProviderStateMixin {
   late double _normalizedValue;
-  late AnimationController _widthController;
-  late Animation<double> _widthAnimation;
+  late AnimationController _controller;
+  late Animation<double> _animation;
 
-  double? _dragStartNormalized;
-  double? _dragStartDy;
+  double? _dragStartValue;
+  double? _dragStartPos;
+  bool _dragHapticTriggered = false;
 
   @override
   void initState() {
     super.initState();
-    _normalizedValue = _toNormalized(
-      widget.value.clamp(widget.min, widget.max),
-    );
-    _widthController = AnimationController(
+    _controller = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
     );
-    _updateAnimation();
-  }
-
-  void _updateAnimation() {
-    _widthAnimation =
-        Tween<double>(begin: widget.width, end: widget.focusedWidth).animate(
-          CurvedAnimation(
-            parent: _widthController,
-            curve: widget.animationCurve,
-          ),
-        );
+    _updateInternals();
   }
 
   @override
   void didUpdateWidget(covariant VerticalSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.value != widget.value ||
-        oldWidget.min != widget.min ||
-        oldWidget.max != widget.max) {
-      _normalizedValue = _toNormalized(
-        widget.value.clamp(widget.min, widget.max),
-      );
-    }
-
-    if (oldWidget.animationDuration != widget.animationDuration) {
-      _widthController.duration = widget.animationDuration;
-    }
-
-    if (oldWidget.width != widget.width ||
-        oldWidget.focusedWidth != widget.focusedWidth ||
-        oldWidget.animationCurve != widget.animationCurve) {
-      _updateAnimation();
-    }
+    _controller.duration = widget.animationDuration;
+    _updateInternals();
   }
 
-  @override
-  void dispose() {
-    _widthController.dispose();
-    super.dispose();
+  void _updateInternals() {
+    _normalizedValue = _toNormalized(
+      widget.value.clamp(widget.min, widget.max),
+    );
+    _animation = Tween<double>(begin: widget.width, end: widget.focusedWidth)
+        .animate(
+          CurvedAnimation(parent: _controller, curve: widget.animationCurve),
+        );
+    if (mounted) setState(() {});
   }
 
-  double _toNormalized(double val) => widget.max == widget.min
+  double _toNormalized(double v) => widget.max == widget.min
       ? 0.0
-      : ((val - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
+      : ((v - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
+  double _fromNormalized(double v) =>
+      widget.min + (v * (widget.max - widget.min));
 
-  double _fromNormalized(double val) =>
-      widget.min + (val * (widget.max - widget.min));
-
-  void _handleDrag(Offset localPosition, Size currentSize) {
+  void _handleInput(Offset localPosition, {bool isDrag = false}) {
     double newNormalized;
-    if (widget.jumpToTap) {
-      newNormalized = (1.0 - (localPosition.dy / currentSize.height)).clamp(
+    if (isDrag &&
+        !widget.jumpToTap &&
+        _dragStartValue != null &&
+        _dragStartPos != null) {
+      double delta = (_dragStartPos! - localPosition.dy) / widget.height;
+      newNormalized = (_dragStartValue! + delta).clamp(0.0, 1.0);
+    } else {
+      newNormalized = (1.0 - (localPosition.dy / widget.height)).clamp(
         0.0,
         1.0,
       );
-    } else {
-      if (_dragStartNormalized == null || _dragStartDy == null) return;
-      double deltaDy = _dragStartDy! - localPosition.dy;
-      newNormalized = (_dragStartNormalized! + (deltaDy / currentSize.height))
-          .clamp(0.0, 1.0);
     }
 
     if ((_normalizedValue - newNormalized).abs() > 0.0001) {
       if (widget.enableHapticOnBounds &&
           ((newNormalized == 0.0 && _normalizedValue > 0.0) ||
-              (newNormalized == 1.0 && _normalizedValue < 1.0))) {
+              (newNormalized == 1.0 && _normalizedValue < 1.0)))
         HapticFeedback.heavyImpact();
-      }
       setState(() => _normalizedValue = newNormalized);
       widget.onChanged(_fromNormalized(newNormalized));
     }
@@ -137,56 +107,56 @@ class _VerticalSliderState extends State<VerticalSlider>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final activeColor = widget.activeColor ?? theme.colorScheme.primary;
-    final inactiveColor =
-        widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest;
-
-    return GestureDetector(
+    return RawGestureDetector(
       behavior: HitTestBehavior.opaque,
-      onVerticalDragStart: (details) {
-        _widthController.forward();
-        _dragStartNormalized = _normalizedValue;
-        _dragStartDy = details.localPosition.dy;
-        if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
+      gestures: {
+        _EagerVerticalDragGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<
+              _EagerVerticalDragGestureRecognizer
+            >(() => _EagerVerticalDragGestureRecognizer(), (instance) {
+              instance.onDown = (d) {
+                _dragHapticTriggered = false;
+                _controller.forward();
+                _dragStartValue = _normalizedValue;
+                _dragStartPos = d.localPosition.dy;
+                if (widget.jumpToTap)
+                  _handleInput(d.localPosition, isDrag: false);
+                if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
+              };
+              instance.onStart = (d) {
+                _handleInput(d.localPosition, isDrag: true);
+              };
+              instance.onUpdate = (d) {
+                if (!_dragHapticTriggered && widget.enableHapticOnTap) {
+                  HapticFeedback.selectionClick();
+                  _dragHapticTriggered = true;
+                }
+                _handleInput(d.localPosition, isDrag: true);
+              };
+              instance.onEnd = (_) {
+                _controller.reverse();
+              };
+              instance.onCancel = () {
+                _controller.reverse();
+              };
+            }),
       },
-      onVerticalDragUpdate: (details) => _handleDrag(
-        details.localPosition,
-        Size(_widthAnimation.value, widget.height),
-      ),
-      onVerticalDragEnd: (_) => _widthController.reverse(),
-      onVerticalDragCancel: () => _widthController.reverse(),
-      onTapDown: (details) {
-        _widthController.forward();
-        _dragStartNormalized = _normalizedValue;
-        _dragStartDy = details.localPosition.dy;
-        if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
-        _handleDrag(
-          details.localPosition,
-          Size(_widthAnimation.value, widget.height),
-        );
-      },
-      onTapUp: (_) => _widthController.reverse(),
       child: AnimatedBuilder(
-        animation: _widthAnimation,
-        builder: (context, _) => TweenAnimationBuilder<double>(
-          // ПРАВИЛЬНАЯ АНИМАЦИЯ: задаем только end,
-          // билдер сам интерполирует от текущего значения к новому
+        animation: _animation,
+        builder: (c, _) => TweenAnimationBuilder<double>(
           tween: Tween<double>(end: _normalizedValue),
           duration: widget.animationDuration,
           curve: widget.animationCurve,
-          builder: (context, animatedNormalized, _) {
-            return CustomPaint(
-              size: Size(_widthAnimation.value, widget.height),
-              painter: _SliderPainter(
-                normalizedValue: animatedNormalized,
-                activeColor: activeColor,
-                inactiveColor: inactiveColor,
-                borderRadius: widget.borderRadius,
-                currentWidth: _widthAnimation.value,
-                height: widget.height,
-              ),
-            );
-          },
+          builder: (c, val, _) => CustomPaint(
+            size: Size(_animation.value, widget.height),
+            painter: _SliderPainter(
+              val,
+              widget.activeColor ?? theme.colorScheme.primary,
+              widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
+              widget.borderRadius,
+              false,
+            ),
+          ),
         ),
       ),
     );
@@ -194,53 +164,47 @@ class _VerticalSliderState extends State<VerticalSlider>
 }
 
 class _SliderPainter extends CustomPainter {
-  final double normalizedValue;
-  final Color activeColor;
-  final Color inactiveColor;
-  final double borderRadius;
-  final double currentWidth;
-  final double height;
-
-  _SliderPainter({
-    required this.normalizedValue,
-    required this.activeColor,
-    required this.inactiveColor,
-    required this.borderRadius,
-    required this.currentWidth,
-    required this.height,
-  });
-
+  final double val;
+  final Color active, inactive;
+  final double radius;
+  final bool horizontal;
+  _SliderPainter(
+    this.val,
+    this.active,
+    this.inactive,
+    this.radius,
+    this.horizontal,
+  );
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Offset.zero & size;
-    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
-
-    // Фон (неактивная часть)
-    canvas.drawRRect(rrect, Paint()..color = inactiveColor);
-
-    // Активная часть
-    final activeHeight = size.height * normalizedValue;
-    final activeRect = Rect.fromLTWH(
-      0,
-      size.height - activeHeight,
-      size.width,
-      activeHeight,
+    final rrect = RRect.fromRectAndRadius(
+      Offset.zero & size,
+      Radius.circular(radius),
     );
-
-    // Обрезаем активную часть по радиусу, чтобы углы совпадали с фоном
+    canvas.drawRRect(rrect, Paint()..color = inactive);
+    final rect = horizontal
+        ? Rect.fromLTWH(0, 0, size.width * val, size.height)
+        : Rect.fromLTWH(
+            0,
+            size.height - (size.height * val),
+            size.width,
+            size.height * val,
+          );
     canvas.save();
     canvas.clipRRect(rrect);
-    canvas.drawRect(activeRect, Paint()..color = activeColor);
+    canvas.drawRect(rect, Paint()..color = active);
     canvas.restore();
   }
 
   @override
-  bool shouldRepaint(_SliderPainter old) {
-    return old.normalizedValue != normalizedValue ||
-        old.activeColor != activeColor ||
-        old.inactiveColor != inactiveColor ||
-        old.borderRadius != borderRadius ||
-        old.currentWidth != currentWidth ||
-        old.height != height;
+  bool shouldRepaint(covariant _SliderPainter old) => true;
+}
+
+class _EagerVerticalDragGestureRecognizer
+    extends VerticalDragGestureRecognizer {
+  @override
+  void addAllowedPointer(PointerDownEvent event) {
+    super.addAllowedPointer(event);
+    resolve(GestureDisposition.accepted);
   }
 }
