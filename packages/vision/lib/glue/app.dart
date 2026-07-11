@@ -1,9 +1,16 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 
-typedef App = ({Color seedColor, Routes routes});
+class App {
+  final Color? seedColor;
+  final DynamicSchemeVariant? dynamicSchemeVariant;
+  final Routes routes;
+  const App({this.seedColor, this.dynamicSchemeVariant, required this.routes});
+}
+
+App defaultApp = App(routes: {});
 
 typedef Routes = Map<String, Ir>;
 

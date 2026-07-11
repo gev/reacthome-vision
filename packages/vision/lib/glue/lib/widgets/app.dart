@@ -1,6 +1,10 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:vision/glue/app.dart';
 
 /// Creates a Routes from an IrObject
 final Ir app = IrNativeFunc(appImpl);
@@ -8,9 +12,23 @@ final Ir app = IrNativeFunc(appImpl);
 Eval<Ir> appImpl(Ir ir) {
   switch (ir) {
     case IrObject(:final properties):
+      final seedColor = to<Color>(properties['seed-color']);
+      final dynamicSchemeVariant = to<DynamicSchemeVariant>(
+        properties['dynamic-scheme-variant'],
+      );
       switch (properties['routes']) {
-        case IrObject routes:
-          return extractRoutes(routes);
+        case IrObject(properties: final routes):
+          return Eval.pure(
+            IrNativeValue(
+              Value(
+                App(
+                  seedColor: seedColor,
+                  dynamicSchemeVariant: dynamicSchemeVariant,
+                  routes: routes.unlock,
+                ),
+              ),
+            ),
+          );
         default:
           return throwError(wrongArgumentType(['Required routers map']));
       }

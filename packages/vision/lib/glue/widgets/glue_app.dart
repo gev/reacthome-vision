@@ -25,7 +25,7 @@ class GlueApp extends StatefulWidget {
 }
 
 class _GlueAppState extends State<GlueApp> {
-  App _cachedProps = (seedColor: Colors.blue, routes: {});
+  App _cachedApp = defaultApp;
 
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedexpression;
@@ -79,20 +79,20 @@ class _GlueAppState extends State<GlueApp> {
       (res) {
         if (mounted) {
           final (val, _) = res;
-          final newProps = extractLast<App>(val);
-          if (newProps == null) {
-            _scope.log.error('${widget.app} \n Routes required');
+          final newApp = extractLast<App>(val);
+          if (newApp == null) {
+            _scope.log.error('${widget.app} \n App required');
           } else {
-            _updateRoutes(newProps);
+            _updateApp(newApp);
           }
         }
       },
     );
   }
 
-  void _updateRoutes(App newProps) {
+  void _updateApp(App newApp) {
     setState(() {
-      _cachedProps = newProps;
+      _cachedApp = newApp;
     });
   }
 
@@ -100,19 +100,13 @@ class _GlueAppState extends State<GlueApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      key: ValueKey(_cachedProps),
+      key: ValueKey(_cachedApp),
       themeMode: ThemeMode.system,
-      theme: makeTheme(
-        Color.from(alpha: 1, red: 1, green: 0.5, blue: 0.5),
-        Brightness.light,
-      ),
-      darkTheme: makeTheme(
-        Color.from(alpha: 1, red: 1, green: 0.5, blue: 0.5),
-        Brightness.dark,
-      ),
+      theme: makeTheme(_cachedApp, Brightness.light),
+      darkTheme: makeTheme(_cachedApp, Brightness.dark),
       home: widget.splash,
       onGenerateRoute: (RouteSettings settings) {
-        final routeBuilder = _cachedProps.routes[settings.name];
+        final routeBuilder = _cachedApp.routes[settings.name];
 
         if (routeBuilder == null) {
           _scope.log.error('Route `${settings.name}` not found');
