@@ -54,7 +54,8 @@ class _CircularSliderState extends State<CircularSlider>
   late Animation<double> _widthAnimation;
 
   late double _pureNormalizedValue;
-  bool _dragHapticTriggered = false; // Добавили флаг для отслеживания свайпа
+  double? _lastRawAngle;
+  bool _dragHapticTriggered = false;
 
   @override
   void initState() {
@@ -117,7 +118,12 @@ class _CircularSliderState extends State<CircularSlider>
     return widget.min + normalized.clamp(0.0, 1.0) * (widget.max - widget.min);
   }
 
-  void _handleInput(Offset localPosition, {bool isTap = false}) {
+  void _handleInput(
+    Offset localPosition, {
+    bool isTap = false,
+    bool resetLastAngle = false,
+  }) {
+    if (resetLastAngle) _lastRawAngle = null;
     if (isTap && !widget.jumpToTap) return;
 
     final center = Offset(widget.diameter / 2, widget.diameter / 2);
@@ -125,6 +131,17 @@ class _CircularSliderState extends State<CircularSlider>
     final dy = localPosition.dy - center.dy;
 
     double touchAngle = math.atan2(dy, dx);
+
+    // Логика компенсации скачка при прохождении центра (разреза)
+    if (!isTap && _lastRawAngle != null) {
+      double delta = touchAngle - _lastRawAngle!;
+      if (delta > math.pi) {
+        touchAngle -= 2 * math.pi;
+      } else if (delta < -math.pi) {
+        touchAngle += 2 * math.pi;
+      }
+    }
+    _lastRawAngle = touchAngle;
 
     double relativeAngle = touchAngle - widget.startAngle;
     relativeAngle = relativeAngle % (2 * math.pi);
@@ -154,7 +171,6 @@ class _CircularSliderState extends State<CircularSlider>
       widget.onChanged(_fromNormalized(newNormalized));
     }
 
-    // Хаптик для первичного касания отрабатывает здесь
     if (isTap && widget.enableHapticOnTap) {
       HapticFeedback.selectionClick();
     }
@@ -183,22 +199,23 @@ class _CircularSliderState extends State<CircularSlider>
                     ) {
                       instance
                         ..onDown = (d) {
-                          _dragHapticTriggered =
-                              false; // Сбрасываем флаг при новом касании
+                          _dragHapticTriggered = false;
                           _widthController.forward();
                           if (widget.jumpToTap) {
-                            _handleInput(d.localPosition, isTap: true);
+                            _handleInput(
+                              d.localPosition,
+                              isTap: true,
+                              resetLastAngle: true,
+                            );
                           } else {
-                            if (widget.enableHapticOnTap) {
+                            if (widget.enableHapticOnTap)
                               HapticFeedback.selectionClick();
-                            }
                           }
                         }
                         ..onStart = (d) {
-                          _handleInput(d.localPosition);
+                          _handleInput(d.localPosition, resetLastAngle: true);
                         }
                         ..onUpdate = (d) {
-                          // Как только палец реально сдвинулся - делаем хаптик свайпа один раз
                           if (!_dragHapticTriggered &&
                               widget.enableHapticOnTap) {
                             HapticFeedback.selectionClick();
