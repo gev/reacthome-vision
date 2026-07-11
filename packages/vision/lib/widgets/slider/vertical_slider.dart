@@ -97,8 +97,9 @@ class _VerticalSliderState extends State<VerticalSlider>
     if ((_normalizedValue - newNormalized).abs() > 0.0001) {
       if (widget.enableHapticOnBounds &&
           ((newNormalized == 0.0 && _normalizedValue > 0.0) ||
-              (newNormalized == 1.0 && _normalizedValue < 1.0)))
+              (newNormalized == 1.0 && _normalizedValue < 1.0))) {
         HapticFeedback.heavyImpact();
+      }
       setState(() => _normalizedValue = newNormalized);
       widget.onChanged(_fromNormalized(newNormalized));
     }
@@ -119,8 +120,9 @@ class _VerticalSliderState extends State<VerticalSlider>
                 _controller.forward();
                 _dragStartValue = _normalizedValue;
                 _dragStartPos = d.localPosition.dy;
-                if (widget.jumpToTap)
+                if (widget.jumpToTap) {
                   _handleInput(d.localPosition, isDrag: false);
+                }
                 if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
               };
               instance.onStart = (d) {

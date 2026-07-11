@@ -208,8 +208,9 @@ class _CircularSliderState extends State<CircularSlider>
                               resetLastAngle: true,
                             );
                           } else {
-                            if (widget.enableHapticOnTap)
+                            if (widget.enableHapticOnTap) {
                               HapticFeedback.selectionClick();
+                            }
                           }
                         }
                         ..onStart = (d) {
