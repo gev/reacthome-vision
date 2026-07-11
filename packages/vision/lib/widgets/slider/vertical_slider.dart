@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-typedef ValueFormatter = String Function(double value);
-
 class VerticalSlider extends StatefulWidget {
   final double value;
   final ValueChanged<double> onChanged;
   final double min;
   final double max;
-
   final bool jumpToTap;
   final bool enableHapticOnTap;
   final bool enableHapticOnBounds;
-
   final Color? activeColor;
   final Color? inactiveColor;
-
   final double width;
   final double focusedWidth;
   final double height;
@@ -46,9 +41,11 @@ class VerticalSlider extends StatefulWidget {
   State<VerticalSlider> createState() => _VerticalSliderState();
 }
 
-class _VerticalSliderState extends State<VerticalSlider> {
+class _VerticalSliderState extends State<VerticalSlider>
+    with SingleTickerProviderStateMixin {
   late double _normalizedValue;
-  bool _isFocused = false;
+  late AnimationController _widthController;
+  late Animation<double> _widthAnimation;
 
   double? _dragStartNormalized;
   double? _dragStartDy;
@@ -59,11 +56,29 @@ class _VerticalSliderState extends State<VerticalSlider> {
     _normalizedValue = _toNormalized(
       widget.value.clamp(widget.min, widget.max),
     );
+    _widthController = AnimationController(
+      vsync: this,
+      duration: widget.animationDuration,
+    );
+    _updateAnimation();
+  }
+
+  // Создаем или обновляем анимацию
+  void _updateAnimation() {
+    _widthAnimation =
+        Tween<double>(begin: widget.width, end: widget.focusedWidth).animate(
+          CurvedAnimation(
+            parent: _widthController,
+            curve: widget.animationCurve,
+          ),
+        );
   }
 
   @override
   void didUpdateWidget(covariant VerticalSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    // Обновляем value/min/max
     if (oldWidget.value != widget.value ||
         oldWidget.min != widget.min ||
         oldWidget.max != widget.max) {
@@ -71,39 +86,52 @@ class _VerticalSliderState extends State<VerticalSlider> {
         widget.value.clamp(widget.min, widget.max),
       );
     }
+
+    // Обновляем duration контроллера
+    if (oldWidget.animationDuration != widget.animationDuration) {
+      _widthController.duration = widget.animationDuration;
+    }
+
+    // Обновляем анимацию, если поменялись размеры или кривая
+    if (oldWidget.width != widget.width ||
+        oldWidget.focusedWidth != widget.focusedWidth ||
+        oldWidget.animationCurve != widget.animationCurve) {
+      _updateAnimation();
+    }
   }
 
-  double _toNormalized(double val) {
-    if (widget.max == widget.min) return 0.0;
-    return ((val - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
+  @override
+  void dispose() {
+    _widthController.dispose();
+    super.dispose();
   }
+
+  double _toNormalized(double val) => widget.max == widget.min
+      ? 0.0
+      : ((val - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
 
   double _fromNormalized(double val) =>
       widget.min + (val * (widget.max - widget.min));
 
-  void _handleDrag(Offset localPosition) {
-    final RenderBox? box = context.findRenderObject() as RenderBox?;
-    if (box == null) return;
-
+  void _handleDrag(Offset localPosition, Size currentSize) {
     double newNormalized;
     if (widget.jumpToTap) {
-      newNormalized = (1.0 - (localPosition.dy / box.size.height)).clamp(
+      newNormalized = (1.0 - (localPosition.dy / currentSize.height)).clamp(
         0.0,
         1.0,
       );
     } else {
       if (_dragStartNormalized == null || _dragStartDy == null) return;
       double deltaDy = _dragStartDy! - localPosition.dy;
-      double progressDelta = deltaDy / box.size.height;
-      newNormalized = (_dragStartNormalized! + progressDelta).clamp(0.0, 1.0);
+      newNormalized = (_dragStartNormalized! + (deltaDy / currentSize.height))
+          .clamp(0.0, 1.0);
     }
 
-    if (_normalizedValue != newNormalized) {
-      if (widget.enableHapticOnBounds) {
-        if ((newNormalized == 0.0 && _normalizedValue > 0.0) ||
-            (newNormalized == 1.0 && _normalizedValue < 1.0)) {
-          HapticFeedback.heavyImpact();
-        }
+    if ((_normalizedValue - newNormalized).abs() > 0.0001) {
+      if (widget.enableHapticOnBounds &&
+          ((newNormalized == 0.0 && _normalizedValue > 0.0) ||
+              (newNormalized == 1.0 && _normalizedValue < 1.0))) {
+        HapticFeedback.heavyImpact();
       }
       setState(() => _normalizedValue = newNormalized);
       widget.onChanged(_fromNormalized(newNormalized));
@@ -113,62 +141,103 @@ class _VerticalSliderState extends State<VerticalSlider> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
-    final activeColor = widget.activeColor ?? colorScheme.primary;
+    final activeColor = widget.activeColor ?? theme.colorScheme.primary;
     final inactiveColor =
-        widget.inactiveColor ?? colorScheme.surfaceContainerHighest;
+        widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onVerticalDragStart: (details) {
-        setState(() {
-          _isFocused = true;
-          _dragStartNormalized = _normalizedValue;
-          _dragStartDy = details.localPosition.dy;
-        });
+        _widthController.forward();
+        _dragStartNormalized = _normalizedValue;
+        _dragStartDy = details.localPosition.dy;
         if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
       },
-      onVerticalDragUpdate: (details) => _handleDrag(details.localPosition),
-      onVerticalDragEnd: (_) {
-        setState(() => _isFocused = false);
-        _dragStartNormalized = null;
-        _dragStartDy = null;
-      },
-      onVerticalDragCancel: () {
-        setState(() => _isFocused = false);
-        _dragStartNormalized = null;
-        _dragStartDy = null;
-      },
+      onVerticalDragUpdate: (details) => _handleDrag(
+        details.localPosition,
+        Size(_widthAnimation.value, widget.height),
+      ),
+      onVerticalDragEnd: (_) => _widthController.reverse(),
+      onVerticalDragCancel: () => _widthController.reverse(),
       onTapDown: (details) {
-        setState(() {
-          _isFocused = true;
-          _dragStartNormalized = _normalizedValue;
-          _dragStartDy = details.localPosition.dy;
-        });
+        _widthController.forward();
+        _dragStartNormalized = _normalizedValue;
+        _dragStartDy = details.localPosition.dy;
         if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
-        _handleDrag(details.localPosition);
+        _handleDrag(
+          details.localPosition,
+          Size(_widthAnimation.value, widget.height),
+        );
       },
-      onTapUp: (_) => setState(() => _isFocused = false),
-      child: AnimatedContainer(
-        duration: widget.animationDuration,
-        curve: widget.animationCurve,
-        width: _isFocused ? widget.focusedWidth : widget.width,
-        height: widget.height,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(widget.borderRadius),
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Container(color: inactiveColor),
-              FractionallySizedBox(
-                heightFactor: _normalizedValue,
-                child: Container(color: activeColor),
-              ),
-            ],
+      onTapUp: (_) => _widthController.reverse(),
+      child: AnimatedBuilder(
+        animation: _widthAnimation,
+        builder: (context, _) => CustomPaint(
+          size: Size(_widthAnimation.value, widget.height),
+          painter: _SliderPainter(
+            normalizedValue: _normalizedValue,
+            min: widget.min,
+            max: widget.max,
+            activeColor: activeColor,
+            inactiveColor: inactiveColor,
+            borderRadius: widget.borderRadius,
+            currentWidth: _widthAnimation.value,
+            height: widget.height,
           ),
         ),
       ),
     );
+  }
+}
+
+class _SliderPainter extends CustomPainter {
+  final double normalizedValue;
+  final double min;
+  final double max;
+  final Color activeColor;
+  final Color inactiveColor;
+  final double borderRadius;
+  final double currentWidth;
+  final double height;
+
+  _SliderPainter({
+    required this.normalizedValue,
+    required this.min,
+    required this.max,
+    required this.activeColor,
+    required this.inactiveColor,
+    required this.borderRadius,
+    required this.currentWidth,
+    required this.height,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final rect = Offset.zero & size;
+    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+
+    canvas.drawRRect(rrect, Paint()..color = inactiveColor);
+    canvas.clipRRect(rrect);
+
+    final activeHeight = size.height * normalizedValue;
+    final activeRect = Rect.fromLTWH(
+      0,
+      size.height - activeHeight,
+      size.width,
+      activeHeight,
+    );
+    canvas.drawRect(activeRect, Paint()..color = activeColor);
+  }
+
+  @override
+  bool shouldRepaint(_SliderPainter old) {
+    return old.normalizedValue != normalizedValue ||
+        old.min != min ||
+        old.max != max ||
+        old.activeColor != activeColor ||
+        old.inactiveColor != inactiveColor ||
+        old.borderRadius != borderRadius ||
+        old.currentWidth != currentWidth ||
+        old.height != height;
   }
 }
