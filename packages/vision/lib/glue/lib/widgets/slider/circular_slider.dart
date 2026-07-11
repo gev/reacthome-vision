@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
@@ -28,7 +30,9 @@ Eval<Ir> _createCircularSlider(WidgetProperties properties) {
       },
       activeColor: properties.getColor('active-color'),
       inactiveColor: properties.getColor('inactive-color'),
-      diameter: properties.getDouble('height') ?? 150,
+      startAngle: properties.getDouble('start-angle') ?? -5 * pi / 4,
+      endAngle: properties.getDouble('end-angle') ?? pi / 4,
+      diameter: properties.getDouble('diameter') ?? 150,
       width: properties.getDouble('width') ?? 10.0,
       focusedWidth: properties.getDouble('focused-width') ?? 20.0,
       cap: properties.getValue<StrokeCap>('border-radius') ?? StrokeCap.round,
