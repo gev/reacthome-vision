@@ -73,7 +73,6 @@ Route<Ir> makeOverlayRouteBuilder({
     final theme = Theme.of(context);
     final scrimColor = theme.colorScheme.scrim;
     final content = Material(
-      key: key,
       type: MaterialType.transparency,
       child: GlueWidget(expression: screen, env: env),
     );
@@ -101,6 +100,7 @@ Route<Ir> makeOverlayRouteBuilder({
                   animation: animation,
                   builder: (context, _) {
                     return Card(
+                      key: key,
                       elevation: elevation * animation.value,
                       clipBehavior: Clip.antiAlias,
                       color: Colors.transparent,
