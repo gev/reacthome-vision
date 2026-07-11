@@ -6,6 +6,7 @@ import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/screen.dart';
 import 'package:vision/glue/lib/widgets/slider/circular_slider.dart';
+import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
 import 'package:vision/glue/lib/widgets/theme.dart';
 import 'package:vision/persistent/assets.dart';
@@ -16,6 +17,7 @@ ModuleInfo widgetsModule(Assets assets) {
     ('image', image(assets)),
     ('canvas', canvas),
     ('screen', screen),
+    ('horizontal-slider', horizontalSlider),
     ('vertical-slider', verticalSlider),
     ('circular-slider', circularSlider),
     ('app', app),
