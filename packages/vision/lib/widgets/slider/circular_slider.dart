@@ -1,4 +1,6 @@
-import 'dart:math';
+import 'dart:math' as math;
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,40 +9,40 @@ class CircularSlider extends StatefulWidget {
   final ValueChanged<double> onChanged;
   final double min;
   final double max;
+  final double diameter;
+  final double width;
+  final double focusedWidth;
+  final double startAngle;
+  final double endAngle;
+  final Color? activeColor;
+  final Color? inactiveColor;
+  final StrokeCap cap;
+  final Duration animationDuration;
+  final Curve animationCurve;
   final bool jumpToTap;
   final bool enableHapticOnTap;
   final bool enableHapticOnBounds;
-  final Color? activeColor;
-  final Color? inactiveColor;
-  final double width;
-  final double focusedWidth;
-  final double diameter; // Заменяет height
-  final StrokeCap cap; // Заменяет borderRadius
-  final double startAngle; // В радианах
-  final double endAngle; // В радианах
-  final Duration animationDuration;
-  final Curve animationCurve;
 
   const CircularSlider({
     super.key,
     required this.value,
     required this.onChanged,
+    required this.diameter,
     this.min = 0.0,
     this.max = 1.0,
+    this.width = 24.0,
+    this.focusedWidth = 36.0,
+    this.startAngle = -math.pi * 1.25,
+    this.endAngle = math.pi * 0.25,
+    this.activeColor,
+    this.inactiveColor,
+    this.cap = StrokeCap.round,
+    this.animationDuration = const Duration(milliseconds: 300),
+    this.animationCurve = Curves.easeOutBack,
     this.jumpToTap = true,
     this.enableHapticOnTap = true,
     this.enableHapticOnBounds = true,
-    this.activeColor,
-    this.inactiveColor,
-    this.width = 10.0,
-    this.focusedWidth = 20.0,
-    required this.diameter,
-    this.cap = StrokeCap.round,
-    this.startAngle = -5 * pi / 4,
-    this.endAngle = pi / 4,
-    this.animationDuration = const Duration(milliseconds: 300),
-    this.animationCurve = Curves.easeOutBack,
-  });
+  }) : assert(startAngle < endAngle, 'startAngle must be less than endAngle');
 
   @override
   State<CircularSlider> createState() => _CircularSliderState();
@@ -48,24 +50,26 @@ class CircularSlider extends StatefulWidget {
 
 class _CircularSliderState extends State<CircularSlider>
     with SingleTickerProviderStateMixin {
-  late double _normalizedValue;
   late AnimationController _widthController;
   late Animation<double> _widthAnimation;
+
+  late double _pureNormalizedValue;
+  bool _dragHapticTriggered = false; // Добавили флаг для отслеживания свайпа
 
   @override
   void initState() {
     super.initState();
-    _normalizedValue = _toNormalized(
-      widget.value.clamp(widget.min, widget.max),
-    );
+    _pureNormalizedValue = _toNormalized(widget.value);
+
     _widthController = AnimationController(
       vsync: this,
       duration: widget.animationDuration,
     );
-    _updateAnimation();
+
+    _updateWidthAnimation();
   }
 
-  void _updateAnimation() {
+  void _updateWidthAnimation() {
     _widthAnimation =
         Tween<double>(begin: widget.width, end: widget.focusedWidth).animate(
           CurvedAnimation(
@@ -78,20 +82,21 @@ class _CircularSliderState extends State<CircularSlider>
   @override
   void didUpdateWidget(covariant CircularSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
+
     if (oldWidget.value != widget.value ||
         oldWidget.min != widget.min ||
         oldWidget.max != widget.max) {
-      _normalizedValue = _toNormalized(
-        widget.value.clamp(widget.min, widget.max),
-      );
+      setState(() {
+        _pureNormalizedValue = _toNormalized(widget.value);
+      });
     }
-    if (oldWidget.animationDuration != widget.animationDuration) {
-      _widthController.duration = widget.animationDuration;
-    }
+
     if (oldWidget.width != widget.width ||
         oldWidget.focusedWidth != widget.focusedWidth ||
+        oldWidget.animationDuration != widget.animationDuration ||
         oldWidget.animationCurve != widget.animationCurve) {
-      _updateAnimation();
+      _widthController.duration = widget.animationDuration;
+      _updateWidthAnimation();
     }
   }
 
@@ -101,149 +106,203 @@ class _CircularSliderState extends State<CircularSlider>
     super.dispose();
   }
 
-  double _toNormalized(double val) => widget.max == widget.min
-      ? 0.0
-      : ((val - widget.min) / (widget.max - widget.min)).clamp(0.0, 1.0);
+  double _toNormalized(double val) {
+    if (widget.max == widget.min) return 0.0;
+    return ((val.clamp(widget.min, widget.max) - widget.min) /
+            (widget.max - widget.min))
+        .clamp(0.0, 1.0);
+  }
 
-  double _fromNormalized(double val) =>
-      widget.min + (val * (widget.max - widget.min));
+  double _fromNormalized(double normalized) {
+    return widget.min + normalized.clamp(0.0, 1.0) * (widget.max - widget.min);
+  }
 
-  void _handleInput(Offset localPosition, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
+  void _handleInput(Offset localPosition, {bool isTap = false}) {
+    if (isTap && !widget.jumpToTap) return;
+
+    final center = Offset(widget.diameter / 2, widget.diameter / 2);
     final dx = localPosition.dx - center.dx;
     final dy = localPosition.dy - center.dy;
 
-    // Получаем угол от -pi до pi
-    double angle = atan2(dy, dx);
+    double touchAngle = math.atan2(dy, dx);
 
-    // Нормализуем угол относительно startAngle
-    double start = widget.startAngle;
+    double relativeAngle = touchAngle - widget.startAngle;
+    relativeAngle = relativeAngle % (2 * math.pi);
+    if (relativeAngle < 0) relativeAngle += 2 * math.pi;
+
     double sweep = widget.endAngle - widget.startAngle;
 
-    // Сдвигаем текущий угол, чтобы начало было в 0
-    double relativeAngle = angle - start;
+    double newNormalized;
+    if (relativeAngle > sweep) {
+      newNormalized = (relativeAngle - sweep) < (2 * math.pi - relativeAngle)
+          ? 1.0
+          : 0.0;
+    } else {
+      newNormalized = (relativeAngle / sweep).clamp(0.0, 1.0);
+    }
 
-    // Приводим к диапазону [0, 2*pi] для удобства расчетов
-    while (relativeAngle < 0) relativeAngle += 2 * pi;
-    while (relativeAngle >= 2 * pi) relativeAngle -= 2 * pi;
-
-    // Ограничиваем с учетом sweep (дуги)
-    double newNormalized = (relativeAngle / sweep).clamp(0.0, 1.0);
-
-    if ((_normalizedValue - newNormalized).abs() > 0.001) {
+    if ((_pureNormalizedValue - newNormalized).abs() > 0.001) {
       if (widget.enableHapticOnBounds &&
-          ((newNormalized == 0.0 && _normalizedValue > 0.0) ||
-              (newNormalized == 1.0 && _normalizedValue < 1.0))) {
+          ((newNormalized == 0.0 && _pureNormalizedValue > 0.0) ||
+              (newNormalized == 1.0 && _pureNormalizedValue < 1.0))) {
         HapticFeedback.heavyImpact();
       }
-      setState(() => _normalizedValue = newNormalized);
+
+      setState(() {
+        _pureNormalizedValue = newNormalized;
+      });
       widget.onChanged(_fromNormalized(newNormalized));
+    }
+
+    // Хаптик для первичного касания отрабатывает здесь
+    if (isTap && widget.enableHapticOnTap) {
+      HapticFeedback.selectionClick();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final activeColor = widget.activeColor ?? theme.colorScheme.primary;
-    final inactiveColor =
-        widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest;
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onPanStart: (details) {
-        _widthController.forward();
-        if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
-        _handleInput(
-          details.localPosition,
-          Size(widget.diameter, widget.diameter),
+    return AnimatedBuilder(
+      animation: _widthAnimation,
+      builder: (context, child) {
+        return TweenAnimationBuilder<double>(
+          tween: Tween<double>(end: _pureNormalizedValue),
+          duration: widget.animationDuration,
+          curve: widget.animationCurve,
+          builder: (context, animatedValue, _) {
+            return RawGestureDetector(
+              behavior: HitTestBehavior.opaque,
+              gestures: {
+                _EagerPanGestureRecognizer:
+                    GestureRecognizerFactoryWithHandlers<
+                      _EagerPanGestureRecognizer
+                    >(() => _EagerPanGestureRecognizer(), (
+                      _EagerPanGestureRecognizer instance,
+                    ) {
+                      instance
+                        ..onDown = (d) {
+                          _dragHapticTriggered =
+                              false; // Сбрасываем флаг при новом касании
+                          _widthController.forward();
+                          if (widget.jumpToTap) {
+                            _handleInput(d.localPosition, isTap: true);
+                          } else {
+                            if (widget.enableHapticOnTap) {
+                              HapticFeedback.selectionClick();
+                            }
+                          }
+                        }
+                        ..onStart = (d) {
+                          _handleInput(d.localPosition);
+                        }
+                        ..onUpdate = (d) {
+                          // Как только палец реально сдвинулся - делаем хаптик свайпа один раз
+                          if (!_dragHapticTriggered &&
+                              widget.enableHapticOnTap) {
+                            HapticFeedback.selectionClick();
+                            _dragHapticTriggered = true;
+                          }
+                          _handleInput(d.localPosition);
+                        }
+                        ..onEnd = (_) {
+                          _widthController.reverse();
+                        }
+                        ..onCancel = () {
+                          _widthController.reverse();
+                        };
+                    }),
+              },
+              child: CustomPaint(
+                size: Size(widget.diameter, widget.diameter),
+                painter: _SliderPainter(
+                  normalizedValue: animatedValue,
+                  startAngle: widget.startAngle,
+                  endAngle: widget.endAngle,
+                  strokeWidth: _widthAnimation.value,
+                  activeColor: widget.activeColor ?? theme.colorScheme.primary,
+                  inactiveColor:
+                      widget.inactiveColor ??
+                      theme.colorScheme.surfaceContainerHighest,
+                  cap: widget.cap,
+                ),
+              ),
+            );
+          },
         );
       },
-      onPanUpdate: (details) => _handleInput(
-        details.localPosition,
-        Size(widget.diameter, widget.diameter),
-      ),
-      onPanEnd: (_) => _widthController.reverse(),
-      onPanCancel: () => _widthController.reverse(),
-      child: AnimatedBuilder(
-        animation: _widthAnimation,
-        builder: (context, _) => CustomPaint(
-          size: Size(widget.diameter, widget.diameter),
-          painter: _CircularSliderPainter(
-            normalizedValue: _normalizedValue,
-            activeColor: activeColor,
-            inactiveColor: inactiveColor,
-            strokeWidth: _widthAnimation.value,
-            cap: widget.cap,
-            startAngle: widget.startAngle,
-            endAngle: widget.endAngle,
-          ),
-        ),
-      ),
     );
   }
 }
 
-class _CircularSliderPainter extends CustomPainter {
+class _SliderPainter extends CustomPainter {
   final double normalizedValue;
-  final Color activeColor;
-  final Color inactiveColor;
-  final double strokeWidth;
-  final StrokeCap cap;
   final double startAngle;
   final double endAngle;
+  final double strokeWidth;
+  final Color activeColor;
+  final Color inactiveColor;
+  final StrokeCap cap;
 
-  _CircularSliderPainter({
+  _SliderPainter({
     required this.normalizedValue,
-    required this.activeColor,
-    required this.inactiveColor,
-    required this.strokeWidth,
-    required this.cap,
     required this.startAngle,
     required this.endAngle,
+    required this.strokeWidth,
+    required this.activeColor,
+    required this.inactiveColor,
+    required this.cap,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    // Радиус с учетом толщины линии, чтобы не вылезать за границы diameter
-    final radius = (size.width / 2) - (strokeWidth / 2);
-    final rect = Rect.fromCircle(center: center, radius: radius);
 
-    final paintInactive = Paint()
+    final maxPossibleWidth = math.max(strokeWidth, 36.0);
+    final radius = (size.width / 2) - (maxPossibleWidth / 2);
+
+    final rect = Rect.fromCircle(center: center, radius: radius);
+    final sweep = endAngle - startAngle;
+
+    final pBg = Paint()
       ..color = inactiveColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = cap;
-
-    final paintActive = Paint()
+    final pAc = Paint()
       ..color = activeColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
       ..strokeCap = cap;
 
-    final sweep = endAngle - startAngle;
+    canvas.drawArc(rect, startAngle, sweep, false, pBg);
 
-    // Фон (Inactive)
-    canvas.drawArc(rect, startAngle, sweep, false, paintInactive);
+    double activeSweep = sweep * normalizedValue.clamp(0.0, 1.0);
 
-    // Активная часть (Active)
-    canvas.drawArc(
-      rect,
-      startAngle,
-      sweep * normalizedValue,
-      false,
-      paintActive,
-    );
+    if (activeSweep.abs() > 0.0001) {
+      canvas.drawArc(rect, startAngle, activeSweep, false, pAc);
+    }
   }
 
   @override
-  bool shouldRepaint(_CircularSliderPainter old) {
-    return old.normalizedValue != normalizedValue ||
-        old.activeColor != activeColor ||
-        old.inactiveColor != inactiveColor ||
-        old.strokeWidth != strokeWidth ||
-        old.cap != cap ||
-        old.startAngle != startAngle ||
-        old.endAngle != endAngle;
+  bool shouldRepaint(_SliderPainter old) =>
+      old.normalizedValue != normalizedValue ||
+      old.startAngle != startAngle ||
+      old.endAngle != endAngle ||
+      old.strokeWidth != strokeWidth ||
+      old.activeColor != activeColor ||
+      old.inactiveColor != inactiveColor ||
+      old.cap != cap;
+}
+
+class _EagerPanGestureRecognizer extends PanGestureRecognizer {
+  @override
+  void addAllowedPointer(PointerDownEvent event) {
+    super.addAllowedPointer(event);
+    resolve(GestureDisposition.accepted);
   }
+
+  @override
+  String get debugDescription => 'eagerPan';
 }
