@@ -36,8 +36,8 @@ class CircularSlider extends StatefulWidget {
     this.focusedWidth = 20.0,
     required this.diameter,
     this.cap = StrokeCap.round,
-    this.startAngle = -pi / 2, // По умолчанию 12 часов
-    this.endAngle = 3 * pi / 2, // Полный круг
+    this.startAngle = -5 * pi / 4,
+    this.endAngle = pi / 4,
     this.animationDuration = const Duration(milliseconds: 300),
     this.animationCurve = Curves.easeOutBack,
   });
