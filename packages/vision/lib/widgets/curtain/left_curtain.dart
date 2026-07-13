@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 class LeftCurtain extends StatefulWidget {
   final double value;
   final ValueChanged<double> onChanged;
-  final bool jumpToTap, enableHapticOnTap, enableHapticOnBounds;
+  final bool translucent, jumpToTap, enableHapticOnTap, enableHapticOnBounds;
   final Color? activeColor, inactiveColor;
   final double width, height;
   final double frameRadius, edgeRadius, focusedRadius;
@@ -16,6 +16,7 @@ class LeftCurtain extends StatefulWidget {
     super.key,
     required this.value,
     required this.onChanged,
+    this.translucent = false,
     this.jumpToTap = true,
     this.enableHapticOnTap = true,
     this.enableHapticOnBounds = true,
@@ -100,7 +101,9 @@ class _LeftCurtainState extends State<LeftCurtain>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return RawGestureDetector(
-      behavior: HitTestBehavior.opaque,
+      behavior: widget.translucent
+          ? HitTestBehavior.deferToChild
+          : HitTestBehavior.opaque,
       gestures: {
         _EagerHorizontalDragGestureRecognizer:
             GestureRecognizerFactoryWithHandlers<
@@ -110,7 +113,7 @@ class _LeftCurtainState extends State<LeftCurtain>
                 _dragHapticTriggered = false;
                 _controller.forward();
                 _dragStartValue = _normalizedValue;
-                _dragStartPos = d.localPosition.dx; // Берем координату X
+                _dragStartPos = d.localPosition.dx;
                 if (widget.jumpToTap) {
                   _handleInput(d.localPosition, isDrag: false);
                 }
@@ -126,8 +129,12 @@ class _LeftCurtainState extends State<LeftCurtain>
                 }
                 _handleInput(d.localPosition, isDrag: true);
               };
-              instance.onEnd = (_) => _controller.reverse();
-              instance.onCancel = () => _controller.reverse();
+              instance.onEnd = (_) {
+                _controller.reverse();
+              };
+              instance.onCancel = () {
+                _controller.reverse();
+              };
             }),
       },
       child: AnimatedBuilder(
@@ -142,8 +149,11 @@ class _LeftCurtainState extends State<LeftCurtain>
               val,
               widget.activeColor ?? theme.colorScheme.primary,
               widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
+              widget.height,
+              widget.width,
               widget.frameRadius,
               _animation.value,
+              widget.translucent,
             ),
           ),
         ),
@@ -155,20 +165,22 @@ class _LeftCurtainState extends State<LeftCurtain>
 class _LeftCurtainPainter extends CustomPainter {
   final double val;
   final Color active, inactive;
-  final double frameRadius, edgeRadius;
+  final double height, width, frameRadius, edgeRadius;
+  final bool translucent;
 
   _LeftCurtainPainter(
     this.val,
     this.active,
     this.inactive,
+    this.height,
+    this.width,
     this.frameRadius,
     this.edgeRadius,
+    this.translucent,
   );
 
   @override
   void paint(Canvas canvas, Size size) {
-    // 1. Форма задника (направляющие)
-    // 3 жестких угла и 1 мягкий (нижний правый)
     final bgRRect = RRect.fromRectAndCorners(
       Offset.zero & size,
       topLeft: Radius.circular(frameRadius),
@@ -177,7 +189,9 @@ class _LeftCurtainPainter extends CustomPainter {
       bottomRight: Radius.circular(edgeRadius),
     );
 
-    canvas.drawRRect(bgRRect, Paint()..color = inactive);
+    if (!translucent) {
+      canvas.drawRRect(bgRRect, Paint()..color = inactive);
+    }
 
     final minWidth = frameRadius + edgeRadius;
     final activeWidth = minWidth + (size.width - minWidth) * val;
@@ -202,6 +216,15 @@ class _LeftCurtainPainter extends CustomPainter {
     );
 
     canvas.drawRRect(corniceRRect, Paint()..color = active);
+  }
+
+  @override
+  bool hitTest(Offset localPosition) {
+    if (!translucent) return true;
+
+    final minWidth = frameRadius + edgeRadius;
+    final activeWidth = minWidth + (width - minWidth) * val;
+    return localPosition.dx <= activeWidth && localPosition.dy <= height;
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 class DoubleHorizontalCurtain extends StatefulWidget {
   final double value;
   final ValueChanged<double> onChanged;
-  final bool jumpToTap, enableHapticOnTap, enableHapticOnBounds;
+  final bool translucent, jumpToTap, enableHapticOnTap, enableHapticOnBounds;
   final Color? activeColor, inactiveColor;
   final double width, height;
   final double frameRadius, edgeRadius, focusedRadius;
@@ -16,6 +16,7 @@ class DoubleHorizontalCurtain extends StatefulWidget {
     super.key,
     required this.value,
     required this.onChanged,
+    this.translucent = false,
     this.jumpToTap = true,
     this.enableHapticOnTap = true,
     this.enableHapticOnBounds = true,
@@ -122,7 +123,9 @@ class _DoubleHorizontalCurtainState extends State<DoubleHorizontalCurtain>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return RawGestureDetector(
-      behavior: HitTestBehavior.opaque,
+      behavior: widget.translucent
+          ? HitTestBehavior.deferToChild
+          : HitTestBehavior.opaque,
       gestures: {
         _EagerHorizontalDragGestureRecognizer:
             GestureRecognizerFactoryWithHandlers<
@@ -133,7 +136,6 @@ class _DoubleHorizontalCurtainState extends State<DoubleHorizontalCurtain>
                 _controller.forward();
                 _dragStartValue = _normalizedValue;
                 _dragStartPos = d.localPosition.dx;
-                // Центр виджета делит зоны ответственности пополам
                 _isLeftHalf = _dragStartPos! < (widget.width / 2);
 
                 if (widget.jumpToTap) {
@@ -151,8 +153,12 @@ class _DoubleHorizontalCurtainState extends State<DoubleHorizontalCurtain>
                 }
                 _handleInput(d.localPosition, isDrag: true);
               };
-              instance.onEnd = (_) => _controller.reverse();
-              instance.onCancel = () => _controller.reverse();
+              instance.onEnd = (_) {
+                _controller.reverse();
+              };
+              instance.onCancel = () {
+                _controller.reverse();
+              };
             }),
       },
       child: AnimatedBuilder(
@@ -167,8 +173,11 @@ class _DoubleHorizontalCurtainState extends State<DoubleHorizontalCurtain>
               val,
               widget.activeColor ?? theme.colorScheme.primary,
               widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
+              widget.height,
+              widget.width,
               widget.frameRadius,
               _animation.value,
+              widget.translucent,
             ),
           ),
         ),
@@ -180,19 +189,22 @@ class _DoubleHorizontalCurtainState extends State<DoubleHorizontalCurtain>
 class _DoubleCurtainPainter extends CustomPainter {
   final double val;
   final Color active, inactive;
-  final double frameRadius, edgeRadius;
+  final double height, width, frameRadius, edgeRadius;
+  final bool translucent;
 
   _DoubleCurtainPainter(
     this.val,
     this.active,
     this.inactive,
+    this.height,
+    this.width,
     this.frameRadius,
     this.edgeRadius,
+    this.translucent,
   );
 
   @override
   void paint(Canvas canvas, Size size) {
-    // 1. Форма задника (оконный проем)
     final bgRRect = RRect.fromRectAndCorners(
       Offset.zero & size,
       topLeft: Radius.circular(frameRadius),
@@ -201,16 +213,16 @@ class _DoubleCurtainPainter extends CustomPainter {
       bottomRight: Radius.circular(frameRadius),
     );
 
-    canvas.drawRRect(bgRRect, Paint()..color = inactive);
+    if (!translucent) {
+      canvas.drawRRect(bgRRect, Paint()..color = inactive);
+    }
 
-    // 2. Расчет ширины штор с учетом зазора (gap)
     double gap = frameRadius;
     double maxActiveWidth = (size.width - gap) / 2;
 
     final minWidth = frameRadius + edgeRadius;
     final activeWidth = minWidth + (maxActiveWidth - minWidth) * val;
 
-    // Левая штора
     final leftActiveRRect = RRect.fromRectAndCorners(
       Rect.fromLTWH(0, 0, activeWidth, size.height),
       topLeft: Radius.circular(frameRadius),
@@ -219,7 +231,6 @@ class _DoubleCurtainPainter extends CustomPainter {
       bottomRight: Radius.circular(edgeRadius),
     );
 
-    // Правая штора
     final rightActiveRRect = RRect.fromRectAndCorners(
       Rect.fromLTWH(size.width - activeWidth, 0, activeWidth, size.height),
       topRight: Radius.circular(frameRadius),
@@ -234,7 +245,6 @@ class _DoubleCurtainPainter extends CustomPainter {
     canvas.drawRRect(rightActiveRRect, Paint()..color = active);
     canvas.restore();
 
-    // 3. Карниз (остается сплошным на всю ширину)
     final corniceRRect = RRect.fromRectAndCorners(
       Rect.fromLTWH(0, 0, size.width, frameRadius),
       topLeft: Radius.circular(frameRadius),
@@ -242,6 +252,21 @@ class _DoubleCurtainPainter extends CustomPainter {
     );
 
     canvas.drawRRect(corniceRRect, Paint()..color = active);
+  }
+
+  @override
+  bool hitTest(Offset localPosition) {
+    if (!translucent) return true;
+
+    double gap = frameRadius;
+    double maxActiveWidth = (width - gap) / 2;
+    double minWidth = frameRadius + edgeRadius;
+    double activeWidth = minWidth + (maxActiveWidth - minWidth) * val;
+
+    bool leftHit = localPosition.dx <= activeWidth;
+    bool rightHit = localPosition.dx >= (width - activeWidth);
+
+    return (leftHit || rightHit) && localPosition.dy <= height;
   }
 
   @override

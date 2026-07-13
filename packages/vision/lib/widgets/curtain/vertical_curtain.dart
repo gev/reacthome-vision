@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 class VerticalCurtain extends StatefulWidget {
   final double value;
   final ValueChanged<double> onChanged;
-  final bool jumpToTap, enableHapticOnTap, enableHapticOnBounds;
+  final bool translucent, jumpToTap, enableHapticOnTap, enableHapticOnBounds;
   final Color? activeColor, inactiveColor;
   final double width, height;
   final double frameRadius, edgeRadius, focusedRadius;
@@ -16,6 +16,7 @@ class VerticalCurtain extends StatefulWidget {
     super.key,
     required this.value,
     required this.onChanged,
+    this.translucent = false,
     this.jumpToTap = true,
     this.enableHapticOnTap = true,
     this.enableHapticOnBounds = true,
@@ -100,7 +101,9 @@ class _VerticalCurtainState extends State<VerticalCurtain>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return RawGestureDetector(
-      behavior: HitTestBehavior.opaque,
+      behavior: widget.translucent
+          ? HitTestBehavior.deferToChild
+          : HitTestBehavior.opaque,
       gestures: {
         _EagerVerticalDragGestureRecognizer:
             GestureRecognizerFactoryWithHandlers<
@@ -126,8 +129,12 @@ class _VerticalCurtainState extends State<VerticalCurtain>
                 }
                 _handleInput(d.localPosition, isDrag: true);
               };
-              instance.onEnd = (_) => _controller.reverse();
-              instance.onCancel = () => _controller.reverse();
+              instance.onEnd = (_) {
+                _controller.reverse();
+              };
+              instance.onCancel = () {
+                _controller.reverse();
+              };
             }),
       },
       child: AnimatedBuilder(
@@ -142,8 +149,11 @@ class _VerticalCurtainState extends State<VerticalCurtain>
               val,
               widget.activeColor ?? theme.colorScheme.primary,
               widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
+              widget.height,
+              widget.width,
               widget.frameRadius,
               _animation.value,
+              widget.translucent,
             ),
           ),
         ),
@@ -155,14 +165,18 @@ class _VerticalCurtainState extends State<VerticalCurtain>
 class _VerticalCurtainPainter extends CustomPainter {
   final double val;
   final Color active, inactive;
-  final double frameRadius, edgeRadius;
+  final double height, width, frameRadius, edgeRadius;
+  final bool translucent;
 
   _VerticalCurtainPainter(
     this.val,
     this.active,
     this.inactive,
+    this.height,
+    this.width,
     this.frameRadius,
     this.edgeRadius,
+    this.translucent,
   );
 
   @override
@@ -175,7 +189,9 @@ class _VerticalCurtainPainter extends CustomPainter {
       bottomRight: Radius.circular(edgeRadius),
     );
 
-    canvas.drawRRect(bgRRect, Paint()..color = inactive);
+    if (!translucent) {
+      canvas.drawRRect(bgRRect, Paint()..color = inactive);
+    }
 
     final minHeight = frameRadius + edgeRadius;
     final activeHeight = minHeight + (size.height - minHeight) * val;
@@ -200,6 +216,15 @@ class _VerticalCurtainPainter extends CustomPainter {
     );
 
     canvas.drawRRect(corniceRRect, Paint()..color = active);
+  }
+
+  @override
+  bool hitTest(Offset localPosition) {
+    if (!translucent) return true;
+
+    final minHeight = frameRadius + edgeRadius;
+    final activeHeight = minHeight + (height - minHeight) * val;
+    return localPosition.dy <= activeHeight && localPosition.dx <= width;
   }
 
   @override

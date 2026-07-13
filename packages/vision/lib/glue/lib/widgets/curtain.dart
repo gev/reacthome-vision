@@ -71,6 +71,7 @@ Eval<Ir> _createCurtain({
       frameRadius: properties.getDouble('frame-radius') ?? 4.0,
       edgeRadius: properties.getDouble('edge-radius') ?? 16.0,
       focusedRadius: properties.getDouble('focused-radius') ?? 32.0,
+      translucent: properties.getBool('translucent') ?? false,
       jumpToTap: properties.getBool('jump-to-tap') ?? true,
       enableHapticOnTap: properties.getBool('enable-haptic-on-tap') ?? true,
       enableHapticOnBounds:
