@@ -3,11 +3,14 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/widgets/closures/double_curtain.dart';
+import 'package:vision/widgets/closures/double_gate.dart';
 import 'package:vision/widgets/closures/left_curtain.dart';
+import 'package:vision/widgets/closures/left_gate.dart';
 import 'package:vision/widgets/closures/right_curtain.dart';
+import 'package:vision/widgets/closures/right_gate.dart';
 import 'package:vision/widgets/closures/shutter.dart';
 
-/// DoubleHorizontalCurtain widget function
+/// DoubleCurtain widget function
 final Ir doubleCurtain = IrNativeFunc(
   curtainImpl(
     curtain: DoubleCurtain.new,
@@ -16,14 +19,29 @@ final Ir doubleCurtain = IrNativeFunc(
   ),
 );
 
+/// DoubleGate widget function
+final Ir doubleGate = IrNativeFunc(
+  curtainImpl(curtain: DoubleGate.new, defaultHeight: 160, defaultWidth: 320),
+);
+
 /// LeftCurtain widget function
 final Ir leftCurtain = IrNativeFunc(
   curtainImpl(curtain: LeftCurtain.new, defaultHeight: 160, defaultWidth: 250),
 );
 
+/// LeftGate widget function
+final Ir leftGate = IrNativeFunc(
+  curtainImpl(curtain: LeftGate.new, defaultHeight: 160, defaultWidth: 250),
+);
+
 /// RightCurtain widget function
 final Ir rightCurtain = IrNativeFunc(
   curtainImpl(curtain: RightCurtain.new, defaultHeight: 160, defaultWidth: 250),
+);
+
+/// RightGate widget function
+final Ir rightGate = IrNativeFunc(
+  curtainImpl(curtain: RightGate.new, defaultHeight: 160, defaultWidth: 250),
 );
 
 /// VerticalCurtain widget function
