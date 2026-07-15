@@ -2,15 +2,15 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
-import 'package:vision/widgets/curtain/double_horizontal_curtain.dart';
-import 'package:vision/widgets/curtain/left_curtain.dart';
-import 'package:vision/widgets/curtain/right_curtain.dart';
-import 'package:vision/widgets/curtain/vertical_curtain.dart';
+import 'package:vision/widgets/closures/double_curtain.dart';
+import 'package:vision/widgets/closures/left_curtain.dart';
+import 'package:vision/widgets/closures/right_curtain.dart';
+import 'package:vision/widgets/closures/shutter.dart';
 
 /// DoubleHorizontalCurtain widget function
-final Ir doubleHorizontalCurtain = IrNativeFunc(
+final Ir doubleCurtain = IrNativeFunc(
   curtainImpl(
-    curtain: DoubleHorizontalCurtain.new,
+    curtain: DoubleCurtain.new,
     defaultHeight: 160,
     defaultWidth: 320,
   ),
@@ -27,12 +27,8 @@ final Ir rightCurtain = IrNativeFunc(
 );
 
 /// VerticalCurtain widget function
-final Ir verticalCurtain = IrNativeFunc(
-  curtainImpl(
-    curtain: VerticalCurtain.new,
-    defaultHeight: 250,
-    defaultWidth: 160,
-  ),
+final Ir shutter = IrNativeFunc(
+  curtainImpl(curtain: Shutter.new, defaultHeight: 250, defaultWidth: 160),
 );
 
 /// Curtain implementation

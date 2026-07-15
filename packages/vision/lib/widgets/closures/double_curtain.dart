@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class DoubleHorizontalCurtain extends StatefulWidget {
+class DoubleCurtain extends StatefulWidget {
   final double value;
   final ValueChanged<double> onChanged;
   final bool translucent, jumpToTap, enableHapticOnTap, enableHapticOnBounds;
@@ -12,7 +12,7 @@ class DoubleHorizontalCurtain extends StatefulWidget {
   final Duration animationDuration;
   final Curve animationCurve;
 
-  const DoubleHorizontalCurtain({
+  const DoubleCurtain({
     super.key,
     required this.value,
     required this.onChanged,
@@ -32,11 +32,10 @@ class DoubleHorizontalCurtain extends StatefulWidget {
   });
 
   @override
-  State<DoubleHorizontalCurtain> createState() =>
-      _DoubleHorizontalCurtainState();
+  State<DoubleCurtain> createState() => _DoubleCurtainState();
 }
 
-class _DoubleHorizontalCurtainState extends State<DoubleHorizontalCurtain>
+class _DoubleCurtainState extends State<DoubleCurtain>
     with SingleTickerProviderStateMixin {
   late double _normalizedValue;
   late AnimationController _controller;
@@ -58,7 +57,7 @@ class _DoubleHorizontalCurtainState extends State<DoubleHorizontalCurtain>
   }
 
   @override
-  void didUpdateWidget(covariant DoubleHorizontalCurtain oldWidget) {
+  void didUpdateWidget(covariant DoubleCurtain oldWidget) {
     super.didUpdateWidget(oldWidget);
     _controller.duration = widget.animationDuration;
     _updateInternals();
