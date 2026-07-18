@@ -14,6 +14,7 @@ import 'package:glue/runtime.dart';
 import 'package:vision/glue/env.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/session/session_monitor.dart';
 import 'package:vision/storage.dart';
 import 'package:vision/store/put.dart';
 import 'package:vision/store/revision.dart';
@@ -23,6 +24,7 @@ class ReactiveRuntime extends ChangeNotifier
     implements Version<String, int>, Put<String, Revision<Ir, int>> {
   final StreamController<String> _sink;
   final GlueSubscriber _subscriber;
+  final SessionMonitor _monitor;
   final Logger _log;
 
   final Storage _storage;
@@ -35,6 +37,7 @@ class ReactiveRuntime extends ChangeNotifier
     required this._storage,
     required this._sink,
     required this._subscriber,
+    required this._monitor,
     required this._log,
   }) {
     runtime = Runtime.initial(_env);
@@ -45,6 +48,7 @@ class ReactiveRuntime extends ChangeNotifier
     subscriber: _subscriber,
     runtime: this,
     storage: _storage,
+    monitor: _monitor,
     log: _log,
   );
 

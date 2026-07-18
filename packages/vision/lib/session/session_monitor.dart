@@ -1,15 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:vision/session/session_state.dart';
 
-class SessionMonitor extends ChangeNotifier {
-  var _state = SessionState.disconnected;
+typedef SessionMonitor = ValueNotifier<SessionState>;
 
-  SessionState get state => _state;
-
-  set state(SessionState newState) {
-    if (newState != _state) {
-      _state = newState;
-      notifyListeners();
-    }
-  }
-}
+SessionMonitor sessionMonitor() => SessionMonitor(SessionState.disconnected);

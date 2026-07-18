@@ -7,7 +7,7 @@ import 'package:vision/glue/extract.dart';
 import 'package:vision/scope.dart';
 
 class GlueListenable extends StatefulWidget {
-  final ValueNotifier<Ir> notifier;
+  final ValueNotifier notifier;
   final Ir lambda;
   final Env? env;
 
@@ -27,7 +27,7 @@ class _GlueListenableState extends State<GlueListenable> {
 
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedLambda;
-  Ir? _lastEvaluatedValue;
+  dynamic _lastEvaluatedValue;
 
   late final Scope _scope;
   bool _initialized = false;
@@ -75,7 +75,9 @@ class _GlueListenableState extends State<GlueListenable> {
     _lastEvaluatedLambda = widget.lambda;
     _lastEvaluatedValue = widget.notifier.value;
 
-    final evaluation = apply(widget.lambda, [widget.notifier.value]);
+    print(toIr(widget.notifier.value));
+
+    final evaluation = apply(widget.lambda, [toIr(widget.notifier.value)]);
     final result = runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(

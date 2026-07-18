@@ -18,7 +18,7 @@ import 'package:vision/websocket/resilient_websocket.dart';
 
 class SessionOrchestrator {
   late final Logger log;
-  final monitor = SessionMonitor();
+  final _monitor = sessionMonitor();
   late final ReactiveRuntime reactiveRuntime;
 
   late final Controller _controller;
@@ -49,6 +49,7 @@ class SessionOrchestrator {
       storage: _storage,
       sink: _outbound,
       subscriber: _glueSubscriber,
+      monitor: _monitor,
       log: log,
     );
     _controller = Controller(
@@ -75,7 +76,7 @@ class SessionOrchestrator {
   );
 
   void _onStateChange(SessionState newState) {
-    monitor.state = newState;
+    _monitor.value = newState;
     if (newState == .connected) {
       _glueSubscriber.resubscribeAll();
       _storage.assets.reRequestAll();
@@ -85,7 +86,7 @@ class SessionOrchestrator {
   void dispose() {
     _controller.dispose();
     _inbound.close();
-    monitor.dispose();
+    _monitor.dispose();
     reactiveRuntime.dispose();
     _storage.dispose();
     _outbound.close();
