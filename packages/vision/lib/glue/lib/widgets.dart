@@ -5,7 +5,7 @@ import 'package:vision/glue/lib/widgets/closures.dart';
 import 'package:vision/glue/lib/widgets/image.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
-import 'package:vision/glue/lib/widgets/screen.dart';
+import 'package:vision/glue/lib/widgets/scaffold.dart';
 import 'package:vision/glue/lib/widgets/slider/circular_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
@@ -17,7 +17,7 @@ ModuleInfo widgetsModule(Assets assets) {
     ('placeholder', placeholder),
     ('image', image(assets)),
     ('canvas', canvas),
-    ('screen', screen),
+    ('scaffold', scaffold),
     ('horizontal-slider', horizontalSlider),
     ('vertical-slider', verticalSlider),
     ('circular-slider', circularSlider),

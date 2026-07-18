@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:vision/widgets/logo.dart';
-import 'package:vision/widgets/screen.dart';
 
 class SplashScreen extends StatefulWidget {
   final String _title;
@@ -42,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Screen(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

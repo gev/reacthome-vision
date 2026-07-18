@@ -1,11 +1,11 @@
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
-import 'package:vision/widgets/screen.dart';
+import 'package:vision/widgets/vision_scaffold.dart';
 
-final screen = IrNativeFunc(screenImpl);
+final scaffold = IrNativeFunc(scaffoldImpl);
 
-Eval<Ir> screenImpl(Ir props) => switch (props) {
+Eval<Ir> scaffoldImpl(Ir props) => switch (props) {
   IrObject(:final properties) => _createScreen(
     WidgetProperties(properties.unlock),
   ),
@@ -13,7 +13,7 @@ Eval<Ir> screenImpl(Ir props) => switch (props) {
 };
 
 Eval<Ir> _createScreen(WidgetProperties properties) {
-  final widget = Screen(
+  final widget = VisionScaffold(
     key: properties.key,
     appBar: properties.getValue('app-bar'),
     body: properties.getWidget('body'),
