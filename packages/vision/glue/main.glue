@@ -1,0 +1,19 @@
+(module main
+    (export main)
+
+    (def (home-route args)
+        (route
+            :screen (screen
+                (text :content "Welcome!")
+            )
+        )
+    )
+
+    (def main
+        (app
+            :routes (
+                :home home-route
+            )
+        )
+    )
+)

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vision/widgets/statusbar.dart';
 
 class Screen extends StatelessWidget {
   final Widget? body;
@@ -11,14 +10,6 @@ class Screen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _appBar,
-      body: Column(
-        children: [
-          Expanded(child: body ?? SizedBox()),
-          Statusbar(),
-        ],
-      ),
-    );
+    return Scaffold(appBar: _appBar, body: body ?? SizedBox());
   }
 }
