@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:vision/mode/live/session/session_state.dart';
 import 'package:vision/retry/retry.dart';
-import 'package:vision/session/session_state.dart';
 
 class RetryableWebSocket implements Retryable {
   final String url;

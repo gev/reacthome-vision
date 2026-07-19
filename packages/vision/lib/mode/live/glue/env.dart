@@ -7,8 +7,6 @@ import 'package:glue/lib/math/utility.dart';
 import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/lib/canvas.dart';
-import 'package:vision/glue/lib/connectivity.dart';
-import 'package:vision/glue/lib/module.dart';
 import 'package:vision/glue/lib/navigation.dart';
 import 'package:vision/glue/lib/routes.dart';
 import 'package:vision/glue/lib/rpc.dart';
@@ -17,14 +15,16 @@ import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/glue/stores/reactive_runtime.dart';
-import 'package:vision/session/session_monitor.dart';
+import 'package:vision/mode/live/glue/lib/connectivity.dart';
+import 'package:vision/mode/live/glue/lib/module.dart';
+import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
+import 'package:vision/mode/live/session/session_monitor.dart';
 import 'package:vision/storage.dart';
 
 Env makeEnv({
   required Sink<String> sink,
   required GlueSubscriber subscriber,
-  required ReactiveRuntime runtime,
+  required LiveReactiveRuntime runtime,
   required Storage storage,
   required SessionMonitor monitor,
   required Logger log,

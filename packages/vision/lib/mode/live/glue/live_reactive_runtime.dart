@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:glue/either.dart';
 import 'package:glue/env.dart';
 import 'package:glue/eval.dart';
@@ -11,16 +10,17 @@ import 'package:glue/module/import.dart';
 import 'package:glue/module/registration.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
-import 'package:vision/glue/env.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/session/session_monitor.dart';
+import 'package:vision/glue/reactive_runtime.dart';
+import 'package:vision/mode/live/glue/env.dart';
+import 'package:vision/mode/live/session/session_monitor.dart';
 import 'package:vision/storage.dart';
 import 'package:vision/store/put.dart';
 import 'package:vision/store/revision.dart';
 import 'package:vision/store/version.dart';
 
-class ReactiveRuntime extends ChangeNotifier
+class LiveReactiveRuntime extends ReactiveRuntime
     implements Version<String, int>, Put<String, Revision<Ir, int>> {
   final StreamController<String> _sink;
   final GlueSubscriber _subscriber;
@@ -29,18 +29,18 @@ class ReactiveRuntime extends ChangeNotifier
 
   final Storage _storage;
 
-  late final Runtime runtime;
+  late final Runtime _runtime;
 
   bool _isDisposed = false;
 
-  ReactiveRuntime({
+  LiveReactiveRuntime({
     required this._storage,
     required this._sink,
     required this._subscriber,
     required this._monitor,
     required this._log,
   }) {
-    runtime = Runtime.initial(_env);
+    _runtime = Runtime.initial(_env);
   }
 
   Env get _env => makeEnv(
@@ -53,6 +53,9 @@ class ReactiveRuntime extends ChangeNotifier
   );
 
   final Map<String, int> _versions = {};
+
+  @override
+  Runtime get runtime => _runtime;
 
   @override
   int? version(String name) => _versions[name];

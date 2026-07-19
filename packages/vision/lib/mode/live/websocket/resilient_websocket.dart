@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:vision/mode/live/session/session_state.dart';
+import 'package:vision/mode/live/websocket/retryable_websocket.dart';
 import 'package:vision/retry/retry.dart';
-import 'package:vision/session/session_state.dart';
-import 'package:vision/websocket/retryable_websocket.dart';
 
 class ResilientWebSocket {
   late final Retry _retry;

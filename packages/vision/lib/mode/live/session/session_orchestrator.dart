@@ -3,23 +3,23 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:vision/controllers/assets_controller.dart';
-import 'package:vision/controllers/controller.dart';
-import 'package:vision/controllers/glue_controller.dart';
+import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/glue/stores/reactive_runtime.dart';
+import 'package:vision/mode/live/controllers/assets_controller.dart';
+import 'package:vision/mode/live/controllers/controller.dart';
+import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
+import 'package:vision/mode/live/session/session_monitor.dart';
+import 'package:vision/mode/live/session/session_state.dart';
+import 'package:vision/mode/live/websocket/resilient_websocket.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
-import 'package:vision/session/session_monitor.dart';
-import 'package:vision/session/session_state.dart';
 import 'package:vision/storage.dart';
-import 'package:vision/websocket/resilient_websocket.dart';
 
 class SessionOrchestrator {
   late final Logger log;
   final _monitor = sessionMonitor();
-  late final ReactiveRuntime reactiveRuntime;
+  late final LiveReactiveRuntime reactiveRuntime;
 
   late final Controller _controller;
   late final GlueSubscriber _glueSubscriber;
@@ -45,7 +45,7 @@ class SessionOrchestrator {
       log: log,
     );
 
-    reactiveRuntime = ReactiveRuntime(
+    reactiveRuntime = LiveReactiveRuntime(
       storage: _storage,
       sink: _outbound,
       subscriber: _glueSubscriber,

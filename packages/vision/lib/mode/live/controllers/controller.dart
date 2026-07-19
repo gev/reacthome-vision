@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:typed_data';
 
-import 'package:vision/controllers/assets_controller.dart';
-import 'package:vision/controllers/glue_controller.dart';
+import 'package:vision/glue/glue_controller.dart';
+import 'package:vision/mode/live/controllers/assets_controller.dart';
 
 sealed class Header {
   static const heartbeat = 0, glue = 1, file = 2;
