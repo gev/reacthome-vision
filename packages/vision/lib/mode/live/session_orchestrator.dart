@@ -7,6 +7,7 @@ import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/mode/live/assets_controller.dart';
 import 'package:vision/mode/live/controller.dart';
 import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
@@ -19,7 +20,7 @@ import 'package:vision/websocket/session_state.dart';
 class SessionOrchestrator {
   late final Logger log;
   final _monitor = sessionMonitor();
-  late final LiveReactiveRuntime reactiveRuntime;
+  late final ReactiveRuntime reactiveRuntime;
 
   late final Controller _controller;
   late final GlueSubscriber _glueSubscriber;
