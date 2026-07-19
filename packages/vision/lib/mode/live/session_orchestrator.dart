@@ -10,11 +10,11 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/mode/live/controllers/assets_controller.dart';
 import 'package:vision/mode/live/controllers/controller.dart';
 import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
-import 'package:vision/mode/live/session/session_monitor.dart';
-import 'package:vision/mode/live/session/session_state.dart';
-import 'package:vision/mode/live/websocket/resilient_websocket.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/storage.dart';
+import 'package:vision/websocket/resilient_websocket.dart';
+import 'package:vision/websocket/session_monitor.dart';
+import 'package:vision/websocket/session_state.dart';
 
 class SessionOrchestrator {
   late final Logger log;

@@ -14,11 +14,11 @@ import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/mode/live/glue/env.dart';
-import 'package:vision/mode/live/session/session_monitor.dart';
 import 'package:vision/storage.dart';
 import 'package:vision/store/put.dart';
 import 'package:vision/store/revision.dart';
 import 'package:vision/store/version.dart';
+import 'package:vision/websocket/session_monitor.dart';
 
 class LiveReactiveRuntime extends ReactiveRuntime
     implements Version<String, int>, Put<String, Revision<Ir, int>> {
