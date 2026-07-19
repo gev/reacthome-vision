@@ -18,6 +18,7 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/mode/live/glue/lib/connectivity.dart';
 import 'package:vision/mode/live/glue/lib/module.dart';
 import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
+import 'package:vision/mode/remote/glue/lib/widgets/image.dart';
 import 'package:vision/storage.dart';
 import 'package:vision/websocket/session_monitor.dart';
 
@@ -37,10 +38,10 @@ Env makeEnv({
     listModule,
     uiCoreModule,
     uiMaterialModule,
-    widgetsModule(storage.assets),
     navigationModule,
     routesModule,
     stateModule(log),
+    widgetsModule(image: image(storage.assets)),
     moduleModule(subscriber, runtime),
     storeModule(subscriber, storage.tmpStore, storage.dataStore, log),
     rpcModule(sink),

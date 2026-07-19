@@ -1,9 +1,9 @@
+import 'package:glue/ir.dart';
 import 'package:glue/module.dart';
 import 'package:vision/glue/lib/widgets/activity.dart';
 import 'package:vision/glue/lib/widgets/app.dart';
 import 'package:vision/glue/lib/widgets/canvas.dart';
 import 'package:vision/glue/lib/widgets/closures.dart';
-import 'package:vision/glue/lib/widgets/image.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/scaffold.dart';
@@ -11,13 +11,12 @@ import 'package:vision/glue/lib/widgets/slider/circular_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
 import 'package:vision/glue/lib/widgets/theme.dart';
-import 'package:vision/persistent/assets.dart';
 
-ModuleInfo widgetsModule(Assets assets) {
+ModuleInfo widgetsModule({required Ir image}) {
   return nativeModule('ffi.vision.widgets', [
     ('activity', activity),
     ('placeholder', placeholder),
-    ('image', image(assets)),
+    ('image', image),
     ('canvas', canvas),
     ('scaffold', scaffold),
     ('horizontal-slider', horizontalSlider),
