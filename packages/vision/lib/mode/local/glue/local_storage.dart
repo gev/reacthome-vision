@@ -9,13 +9,13 @@ import 'package:vision/glue/stores/tmp_store.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
 
-class Storage {
+class LocalStorage {
   late final GlueDb? glueDb;
   late final TmpStore tmpStore;
   late final DataStore dataStore;
   late final Assets assets;
 
-  Storage({
+  LocalStorage({
     required Directory path,
     required GlueSubscriber subscriber,
     required Sink<String> sink,

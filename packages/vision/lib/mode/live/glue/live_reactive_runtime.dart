@@ -14,7 +14,7 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/mode/live/glue/live_env.dart';
-import 'package:vision/storage.dart';
+import 'package:vision/mode/live/live_storage.dart';
 import 'package:vision/store/revision.dart';
 import 'package:vision/websocket/session_monitor.dart';
 
@@ -24,7 +24,7 @@ class LiveReactiveRuntime extends ReactiveRuntime {
   final SessionMonitor _monitor;
   final Logger _log;
 
-  final Storage _storage;
+  final LiveStorage _storage;
 
   late final Runtime _runtime;
 

@@ -14,7 +14,7 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/mode/local/glue/local_env.dart';
-import 'package:vision/storage.dart';
+import 'package:vision/mode/local/glue/local_storage.dart';
 import 'package:vision/store/revision.dart';
 
 class LocalReactiveRuntime extends ReactiveRuntime {
@@ -22,7 +22,7 @@ class LocalReactiveRuntime extends ReactiveRuntime {
   final GlueSubscriber _subscriber;
   final Logger _log;
 
-  final Storage _storage;
+  final LocalStorage _storage;
 
   late final Runtime _runtime;
 

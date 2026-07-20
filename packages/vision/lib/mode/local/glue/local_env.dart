@@ -18,13 +18,13 @@ import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/mode/live/glue/lib/module.dart';
 import 'package:vision/mode/local/glue/lib/widgets/local_image.dart';
-import 'package:vision/storage.dart';
+import 'package:vision/mode/local/glue/local_storage.dart';
 
 Env makeLocalEnv({
   required Sink<String> sink,
   required GlueSubscriber subscriber,
   required ReactiveRuntime runtime,
-  required Storage storage,
+  required LocalStorage storage,
   required Logger log,
 }) {
   return envFromModules([

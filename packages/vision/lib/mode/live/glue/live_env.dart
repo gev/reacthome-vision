@@ -19,14 +19,14 @@ import 'package:vision/mode/live/glue/lib/connectivity.dart';
 import 'package:vision/mode/live/glue/lib/module.dart';
 import 'package:vision/mode/live/glue/lib/widgets/live_image.dart';
 import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
-import 'package:vision/storage.dart';
+import 'package:vision/mode/live/live_storage.dart';
 import 'package:vision/websocket/session_monitor.dart';
 
 Env makeLiveEnv({
   required Sink<String> sink,
   required GlueSubscriber subscriber,
   required LiveReactiveRuntime runtime,
-  required Storage storage,
+  required LiveStorage storage,
   required SessionMonitor monitor,
   required Logger log,
 }) {

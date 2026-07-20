@@ -8,7 +8,7 @@ import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/mode/local/glue/local_logger.dart';
 import 'package:vision/mode/local/glue/local_reactive_runtime.dart';
-import 'package:vision/storage.dart';
+import 'package:vision/mode/local/glue/local_storage.dart';
 
 class FileOrchestrator {
   late final Logger log;
@@ -16,7 +16,7 @@ class FileOrchestrator {
 
   late final GlueSubscriber _glueSubscriber;
 
-  late final Storage _storage;
+  late final LocalStorage _storage;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
@@ -26,7 +26,7 @@ class FileOrchestrator {
 
     _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
 
-    _storage = Storage(
+    _storage = LocalStorage(
       path: path,
       subscriber: _glueSubscriber,
       sink: _outbound,

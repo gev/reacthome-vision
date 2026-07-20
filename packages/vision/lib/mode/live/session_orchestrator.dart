@@ -12,8 +12,8 @@ import 'package:vision/mode/live/assets_controller.dart';
 import 'package:vision/mode/live/controller.dart';
 import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
 import 'package:vision/mode/live/live_logger.dart';
+import 'package:vision/mode/live/live_storage.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
-import 'package:vision/storage.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 import 'package:vision/websocket/session_monitor.dart';
 import 'package:vision/websocket/session_state.dart';
@@ -26,7 +26,7 @@ class SessionOrchestrator {
   late final Controller _controller;
   late final GlueSubscriber _glueSubscriber;
 
-  late final Storage _storage;
+  late final LiveStorage _storage;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
@@ -40,7 +40,7 @@ class SessionOrchestrator {
 
     _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
 
-    _storage = Storage(
+    _storage = LiveStorage(
       path: path,
       subscriber: _glueSubscriber,
       sink: _outbound,
