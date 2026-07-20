@@ -75,8 +75,6 @@ class _GlueListenableState extends State<GlueListenable> {
     _lastEvaluatedLambda = widget.lambda;
     _lastEvaluatedValue = widget.notifier.value;
 
-    print(toIr(widget.notifier.value));
-
     final evaluation = apply(widget.lambda, [toIr(widget.notifier.value)]);
     final result = runEval(
       evaluation,
