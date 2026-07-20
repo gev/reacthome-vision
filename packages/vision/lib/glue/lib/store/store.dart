@@ -1,8 +1,8 @@
 import 'package:glue/ir.dart';
-import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/persistent_store.dart';
 import 'package:vision/glue/stores/tmp_store.dart';
+import 'package:vision/logger.dart';
 
 IrObject store(
   GlueSubscriber subscriber,

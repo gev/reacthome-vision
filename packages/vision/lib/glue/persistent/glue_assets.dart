@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/persistent/glue_asset_request.dart';
+import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
 
 Assets glueAssets({

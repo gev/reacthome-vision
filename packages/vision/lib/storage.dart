@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
-import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/persistent/glue_assets.dart';
 import 'package:vision/glue/persistent/glue_db.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/persistent_store.dart';
 import 'package:vision/glue/stores/tmp_store.dart';
+import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
 
 class Storage {

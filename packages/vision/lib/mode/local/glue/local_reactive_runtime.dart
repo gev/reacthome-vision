@@ -10,10 +10,10 @@ import 'package:glue/module/import.dart';
 import 'package:glue/module/registration.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
-import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/reactive_runtime.dart';
-import 'package:vision/mode/local/glue/env.dart';
+import 'package:vision/logger.dart';
+import 'package:vision/mode/local/glue/local_env.dart';
 import 'package:vision/storage.dart';
 import 'package:vision/store/revision.dart';
 
@@ -37,7 +37,7 @@ class LocalReactiveRuntime extends ReactiveRuntime {
     _runtime = Runtime.initial(_env);
   }
 
-  Env get _env => makeEnv(
+  Env get _env => makeLocalEnv(
     sink: _sink,
     subscriber: _subscriber,
     runtime: this,

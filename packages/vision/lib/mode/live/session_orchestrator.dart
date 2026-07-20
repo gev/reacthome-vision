@@ -4,13 +4,14 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:vision/glue/glue_controller.dart';
-import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/reactive_runtime.dart';
+import 'package:vision/logger.dart';
 import 'package:vision/mode/live/assets_controller.dart';
 import 'package:vision/mode/live/controller.dart';
 import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
+import 'package:vision/mode/live/live_logger.dart';
 import 'package:vision/retry/exponentinal_backoff_policy.dart';
 import 'package:vision/storage.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
@@ -35,7 +36,7 @@ class SessionOrchestrator {
     required String host,
     required int port,
   }) {
-    log = Logger(sink: _outbound);
+    log = LiveLogger(sink: _outbound);
 
     _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
 

@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/persistent/glue_db.dart';
+import 'package:vision/logger.dart';
 import 'package:vision/store/lookup.dart';
 import 'package:vision/store/put.dart';
 import 'package:vision/store/reactive_entry.dart';

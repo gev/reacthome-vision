@@ -3,12 +3,12 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
 import 'package:path/path.dart' as p;
-import 'package:vision/glue/logger.dart';
 import 'package:vision/glue/persistent/glue_db.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/glue_reactive_cache.dart';
 import 'package:vision/glue/stores/glue_reactive_db.dart';
 import 'package:vision/glue/stores/glue_subscribable.dart';
+import 'package:vision/logger.dart';
 import 'package:vision/store/subscribable.dart';
 
 class DataStore implements GlueSubscribable {

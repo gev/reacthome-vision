@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:vision/glue/logger.dart';
+import 'package:vision/logger.dart';
 
 import 'glue/reactive_runtime.dart';
 
