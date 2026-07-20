@@ -38,7 +38,7 @@ Env makeLocalEnv({
     navigationModule,
     routesModule,
     stateModule(log),
-    widgetsModule(image: localImage(storage.assets)),
+    widgetsModule(image: localImage),
     moduleModule(subscriber, runtime),
     storeModule(subscriber, storage.tmpStore, storage.dataStore, log),
     rpcModule(sink),
