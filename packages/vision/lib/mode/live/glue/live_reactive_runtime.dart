@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:glue/either.dart';
-import 'package:glue/env.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
