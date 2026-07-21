@@ -18,7 +18,7 @@ import 'package:vision/websocket/resilient_websocket.dart';
 import 'package:vision/websocket/session_monitor.dart';
 import 'package:vision/websocket/session_state.dart';
 
-class SessionOrchestrator {
+class LiveOrchestrator {
   late final Logger log;
   final _monitor = sessionMonitor();
   late final ReactiveRuntime reactiveRuntime;
@@ -31,7 +31,7 @@ class SessionOrchestrator {
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
-  SessionOrchestrator({
+  LiveOrchestrator({
     required Directory path,
     required String host,
     required int port,
