@@ -6,12 +6,14 @@ import 'package:vision/mode/local/glue/local_logger.dart';
 import 'package:vision/mode/local/glue/local_reactive_runtime.dart';
 
 class FileOrchestrator {
+  final String _path;
+
   late final Logger log;
   late final ReactiveRuntime reactiveRuntime;
 
-  FileOrchestrator({required Directory path}) {
+  FileOrchestrator({required this._path}) {
     log = LocalLogger();
-    reactiveRuntime = LocalReactiveRuntime(log: log);
+    reactiveRuntime = LocalReactiveRuntime(path: _path, log: log);
   }
 
   void dispose() {

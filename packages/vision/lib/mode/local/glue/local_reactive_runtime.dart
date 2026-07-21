@@ -1,11 +1,18 @@
+import 'dart:io';
+
+import 'package:glue/compile.dart';
+import 'package:glue/module/registry.dart';
+import 'package:glue/parse.dart';
 import 'package:glue/runtime.dart';
+import 'package:path/path.dart' as p;
 import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/mode/local/glue/local_env.dart';
 
 class LocalReactiveRuntime extends ReactiveRuntime {
   late final Runtime _runtime;
+  late final String _path;
 
-  LocalReactiveRuntime({required super.log}) {
+  LocalReactiveRuntime({required this._path, required super.log}) {
     _runtime = Runtime.initial(makeLocalEnv(runtime: this, log: log));
   }
 
@@ -14,14 +21,25 @@ class LocalReactiveRuntime extends ReactiveRuntime {
 
   @override
   void loadModule(String name) {
-    // final db = _storage.glueDb;
-    // if (db != null && !isModuleRegistered(runtime.registry, name)) {
-    //   switch (db.lookup(name)) {
-    //     case Right(:final value):
-    //       _registerModule(name, value);
-    //     case Left(value: final error):
-    //       _log.error(error.message);
-    //   }
-    // }
+    if (!isModuleRegistered(runtime.registry, name)) {
+      final file = File(
+        p.setExtension(p.joinAll([_path, ...name.split('.')]), 'glue'),
+      );
+      file
+          .readAsString()
+          .then((glue) {
+            parseGlue(glue).match(
+              (error) {
+                log.error(error.message);
+              },
+              (ast) {
+                tryRegisterModule(name, compile(ast));
+              },
+            );
+          })
+          .catchError((error) {
+            log.error(error.message);
+          });
+    }
   }
 }
