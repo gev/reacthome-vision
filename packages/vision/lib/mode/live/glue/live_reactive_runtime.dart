@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:glue/either.dart';
 import 'package:glue/env.dart';
 import 'package:glue/ir.dart';
+import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/reactive_runtime.dart';
@@ -65,14 +67,17 @@ class LiveReactiveRuntime extends ReactiveRuntime
 
   @override
   void loadModule(String name) {
-    // final db = _storage.glueDb;
-    // if (db != null && !isModuleRegistered(runtime.registry, name)) {
-    //   switch (db.lookup(name)) {
-    //     case Right(:final value):
-    //       _registerModule(name, value);
-    //     case Left(value: final error):
-    //       _log.error(error.message);
-    //   }
-    // }
+    final db = _storage.glueDb;
+    if (db != null && !isModuleRegistered(runtime.registry, name)) {
+      switch (db.lookup(name)) {
+        case Right(:final value):
+          final registered = tryRegisterModule(name, value.payload);
+          if (registered) {
+            _versions[name] = value.version;
+          }
+        case Left(value: final error):
+          log.error(error.message);
+      }
+    }
   }
 }
