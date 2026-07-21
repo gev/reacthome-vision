@@ -4,7 +4,7 @@ import 'package:vision/mode/live/session_orchestrator.dart';
 import 'package:vision/scope.dart';
 import 'package:vision/widgets/vision_app.dart';
 
-Future<Widget> makeApp({
+Future<Widget> makeLiveApp({
   required String title,
   required String host,
   required int port,

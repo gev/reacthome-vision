@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vision/app.dart';
+import 'package:vision/mode/live/live_app.dart';
 
 Future<Widget> makeStudioApp() =>
-    makeApp(title: 'Studio', host: '127.0.0.1', port: 3005);
+    makeLiveApp(title: 'Studio', host: '127.0.0.1', port: 3005);
