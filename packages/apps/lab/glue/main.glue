@@ -1,11 +1,11 @@
 (module main
     (export main)
 
+    (import screen.home)
+
     (def (home-route args)
         (route
-            :screen (scaffold
-                :body (text :content "Welcome!")
-            )
+            :screen (home-screen :title "Welcome World!")
         )
     )
 

@@ -1,0 +1,9 @@
+(module screen.home
+    (export home-screen)
+
+    (def (home-screen props)
+        (scaffold
+            :body (text :content props.title)
+        )
+    )
+)
