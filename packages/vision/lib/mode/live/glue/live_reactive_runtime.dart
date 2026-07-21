@@ -17,8 +17,9 @@ class LiveReactiveRuntime extends ReactiveRuntime
   final StreamController<String> _sink;
   final GlueSubscriber _subscriber;
   final SessionMonitor _monitor;
-
   final LiveStorage _storage;
+
+  final Map<String, int> _versions = {};
 
   late final Runtime _runtime;
 
@@ -29,19 +30,17 @@ class LiveReactiveRuntime extends ReactiveRuntime
     required this._monitor,
     required super.log,
   }) {
-    _runtime = Runtime.initial(_env);
+    _runtime = Runtime.initial(
+      makeLiveEnv(
+        sink: _sink,
+        subscriber: _subscriber,
+        runtime: this,
+        storage: _storage,
+        monitor: _monitor,
+        log: log,
+      ),
+    );
   }
-
-  Env get _env => makeLiveEnv(
-    sink: _sink,
-    subscriber: _subscriber,
-    runtime: this,
-    storage: _storage,
-    monitor: _monitor,
-    log: log,
-  );
-
-  final Map<String, int> _versions = {};
 
   @override
   Runtime get runtime => _runtime;

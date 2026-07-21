@@ -7,10 +7,8 @@ class LocalReactiveRuntime extends ReactiveRuntime {
   late final Runtime _runtime;
 
   LocalReactiveRuntime({required super.log}) {
-    _runtime = Runtime.initial(_env);
+    _runtime = Runtime.initial(makeLocalEnv(runtime: this, log: log));
   }
-
-  Env get _env => makeLocalEnv(runtime: this, log: log);
 
   @override
   Runtime get runtime => _runtime;
