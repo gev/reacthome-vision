@@ -3,8 +3,8 @@
 
     (def (home-route args)
         (route
-            :screen (screen
-                (text :content "Welcome!")
+            :screen (scaffold
+                :body (text :content "Welcome!")
             )
         )
     )
