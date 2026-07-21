@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/logger.dart';
-import 'package:vision/mode/local/glue/local_logger.dart';
 import 'package:vision/mode/local/glue/local_reactive_runtime.dart';
+import 'package:vision/mode/local/local_logger.dart';
 
 class FileOrchestrator {
   final String _path;
