@@ -10,24 +10,14 @@ import 'package:vision/glue/lib/canvas.dart';
 import 'package:vision/glue/lib/module.dart';
 import 'package:vision/glue/lib/navigation.dart';
 import 'package:vision/glue/lib/routes.dart';
-import 'package:vision/glue/lib/rpc.dart';
 import 'package:vision/glue/lib/state.dart';
-import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
-import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/mode/local/glue/lib/module/local_import.dart';
 import 'package:vision/mode/local/glue/lib/widgets/local_image.dart';
 import 'package:vision/mode/local/glue/local_reactive_runtime.dart';
-import 'package:vision/mode/local/glue/local_storage.dart';
 
-Env makeLocalEnv({
-  required Sink<String> sink,
-  required GlueSubscriber subscriber,
-  required LocalReactiveRuntime runtime,
-  required LocalStorage storage,
-  required Logger log,
-}) {
+Env makeLocalEnv({required LocalReactiveRuntime runtime, required Logger log}) {
   return envFromModules([
     builtinModule,
     boolModule,
@@ -41,8 +31,6 @@ Env makeLocalEnv({
     stateModule(log),
     widgetsModule(image: localImage),
     moduleModule(import: localImport(runtime)),
-    storeModule(subscriber, storage.tmpStore, storage.dataStore, log),
-    rpcModule(sink),
     canvasModule,
   ]);
 }
