@@ -19,6 +19,7 @@ abstract class ReactiveRuntime extends ChangeNotifier {
 
   void loadModule(String name);
 
+  /// ToDo: Add module name verification
   bool tryRegisterModule(String name, Ir value) {
     switch (parseModule(value)) {
       case Left(value: final error):
