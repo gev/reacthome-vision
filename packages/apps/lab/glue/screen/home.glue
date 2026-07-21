@@ -1,9 +1,44 @@
 (module screen.home
     (export home-screen)
 
+    (import iconic.curtain)
+    (import iconic.heater)
+    (import iconic.light)
+    (import iconic.sign)
+
+    (import widget.iconic)
+
+    (def size 120)
+    (def spacing 60)
+
+    (def iconics (
+            'iconic-curtain
+            'iconic-heater
+            'iconic-lamp
+            'iconic-cross
+            'iconic-plus
+        ))
+
+    (def (show i)
+        (iconic
+            :icon i
+            :size size
+        )
+    )
+
     (def (home-screen props)
         (scaffold
-            :body (text :content props.title)
+            :app-bar (app-bar :title (text :content props.title))
+            :body (single-child-scroll-view
+                :child (sized-box
+                    :width media-query.width
+                    :child (wrap
+                        :spacing spacing
+                        :run-spacing spacing
+                        :children (map show iconics)
+                    )
+                )
+            )
         )
     )
 )

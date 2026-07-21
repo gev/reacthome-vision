@@ -5,7 +5,7 @@
 
     (def (home-route args)
         (route
-            :screen (home-screen :title "Welcome World!")
+            :screen (home-screen :title "Iconic Lab")
         )
     )
 
