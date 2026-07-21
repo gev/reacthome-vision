@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:vision/mode/live/live_app.dart';
+import 'dart:io';
 
-Future<Widget> makeLabApp() =>
-    makeLiveApp(title: 'Lab', host: '192.168.11.210', port: 3005);
+import 'package:flutter/material.dart';
+import 'package:vision/mode/local/local_app.dart';
+
+Future<Widget> makeLabApp() {
+  final path = Platform.environment['GLUE_PATH'] ?? "";
+  return makeLocalApp(title: 'Lab', path: path);
+}

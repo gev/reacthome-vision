@@ -23,7 +23,7 @@ class LocalReactiveRuntime extends ReactiveRuntime {
   void loadModule(String name) {
     if (!isModuleRegistered(runtime.registry, name)) {
       final file = File(
-        p.setExtension(p.joinAll([_path, ...name.split('.')]), 'glue'),
+        p.setExtension(p.joinAll([_path, ...name.split('.')]), '.glue'),
       );
       file
           .readAsString()
