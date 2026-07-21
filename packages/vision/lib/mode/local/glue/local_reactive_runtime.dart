@@ -22,24 +22,29 @@ class LocalReactiveRuntime extends ReactiveRuntime {
   @override
   void loadModule(String name) {
     if (!isModuleRegistered(runtime.registry, name)) {
-      final file = File(
-        p.setExtension(p.joinAll([_path, ...name.split('.')]), '.glue'),
+      loadModuleFromFile(
+        name: name,
+        path: p.setExtension(p.joinAll([_path, ...name.split('.')]), '.glue'),
       );
-      file
-          .readAsString()
-          .then((glue) {
-            parseGlue(glue).match(
-              (error) {
-                log.error(error.message);
-              },
-              (ast) {
-                tryRegisterModule(name, compile(ast));
-              },
-            );
-          })
-          .catchError((error) {
-            log.error(error.message);
-          });
     }
+  }
+
+  void loadModuleFromFile({required String name, required String path}) {
+    final file = File(path);
+    file
+        .readAsString()
+        .then((glue) {
+          parseGlue(glue).match(
+            (error) {
+              log.error(error.message);
+            },
+            (ast) {
+              tryRegisterModule(name, compile(ast));
+            },
+          );
+        })
+        .catchError((error) {
+          log.error(error.message);
+        });
   }
 }
