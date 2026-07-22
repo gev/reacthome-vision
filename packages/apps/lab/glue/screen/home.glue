@@ -6,12 +6,9 @@
     (import iconic.light)
     (import iconic.sign)
 
+    (import state.home)
+
     (import widget.iconic)
-
-    (def min 32)
-    (def max 256)
-
-    (def size (state 120))
 
     (def iconics (
             'iconic-curtain
@@ -28,20 +25,20 @@
         )
     )
 
-    (def (layout size')
-        (def spacing (/ size' 2))
+    (def (layout size)
+        (def spacing (/ size 2))
         (column
             :children (
                 (slider
-                    :min min
-                    :max max
-                    :value size'
-                    :on-changed (\ (s) (write size s))
+                    :min min-icon-size
+                    :max max-icon-size
+                    :value size
+                    :on-changed (\ (s) (write icon-size s))
                 )
                 (wrap
                     :spacing spacing
                     :run-spacing spacing
-                    :children (map (show size') iconics)
+                    :children (map (show size) iconics)
                 )
             )
         )
@@ -56,7 +53,7 @@
                 :child (container
                     :padding (edge-insets-symmetric :horizontal 16)
                     :width media-query.width
-                    :child (listen size layout)
+                    :child (listen icon-size layout)
                 )
             )
         )
