@@ -7,6 +7,7 @@ import 'package:vision/glue/lib/canvas/paint_style.dart';
 import 'package:vision/glue/lib/canvas/path.dart';
 import 'package:vision/glue/lib/canvas/relative_arc_to_point.dart';
 import 'package:vision/glue/lib/canvas/relative_line_to.dart';
+import 'package:vision/glue/lib/canvas/relative_move_to.dart';
 
 final ModuleInfo canvasModule = nativeModule('ffi.vision.canvas', [
   ('group', group),
@@ -15,6 +16,7 @@ final ModuleInfo canvasModule = nativeModule('ffi.vision.canvas', [
   ('move-to', moveTo),
   ('line-to', lineTo),
   ('relative-arc-to-point', relativeArcToPoint),
+  ('relative-move-to', relativeMoveTo),
   ('relative-line-to', relativeLineTo),
 
   ('blend-mode', blendMode),
