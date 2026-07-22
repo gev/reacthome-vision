@@ -28,7 +28,9 @@
 
     (def (home-screen props)
         (scaffold
-            :app-bar (app-bar :title (text :content props.title))
+            :app-bar (app-bar
+                :title (text :content props.title)
+            )
             :body (single-child-scroll-view
                 :child (sized-box
                     :width media-query.width
