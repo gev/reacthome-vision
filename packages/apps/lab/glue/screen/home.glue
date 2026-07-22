@@ -8,7 +8,8 @@
 
     (import widget.iconic)
 
-    (def spacing 60)
+    (def min 32)
+    (def max 256)
 
     (def size (state 120))
 
@@ -28,11 +29,12 @@
     )
 
     (def (layout size')
+        (def spacing (/ size' 2))
         (column
             :children (
                 (slider
-                    :min 32
-                    :max 256
+                    :min min
+                    :max max
                     :value size'
                     :on-changed (\ (s) (write size s))
                 )
