@@ -15,6 +15,7 @@
     (def (iconic props)
         (def offset (/ props.size 2))
         (canvas
+            :key props.key
             :width props.size
             :height props.size
             :background (props.icon

@@ -20,6 +20,7 @@
 
     (def (show s i)
         (iconic
+            :key i
             :icon i
             :size s
         )
