@@ -1,25 +1,28 @@
 (module iconics
     (export iconics)
 
+    (import iconic.arrow)
+    (import iconic.bar)
     (import iconic.curtain)
     (import iconic.heater)
     (import iconic.light)
     (import iconic.sign)
-    (import iconic.arrow)
-    (import iconic.bar)
 
     (def iconics (#
-            iconic-curtain
-            iconic-heater
-            iconic-lamp
-            iconic-cross
-            iconic-plus
             iconic-right-arrow
             iconic-left-arrow
             iconic-up-arrow
             iconic-down-arrow
+
             iconic-horizontal-bar
             iconic-vertical-bar
+
+            iconic-curtain
+            iconic-heater
+            iconic-lamp
+            
+            iconic-cross
+            iconic-plus
         ))
 
 )
