@@ -32,7 +32,8 @@
                 :title (text :content props.title)
             )
             :body (single-child-scroll-view
-                :child (sized-box
+                :child (container
+                    :padding (edge-insets-symmetric :horizontal 16)
                     :width media-query.width
                     :child (wrap
                         :spacing spacing
