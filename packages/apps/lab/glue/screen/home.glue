@@ -5,6 +5,8 @@
     (import iconic.heater)
     (import iconic.light)
     (import iconic.sign)
+    (import iconic.arrow)
+    (import iconic.bar)
 
     (import state.home)
 
@@ -16,6 +18,12 @@
             'iconic-lamp
             'iconic-cross
             'iconic-plus
+            'iconic-right-arrow
+            'iconic-left-arrow
+            'iconic-up-arrow
+            'iconic-down-arrow
+            'iconic-horizontal-bar
+            'iconic-vertical-bar
         ))
 
     (def (show s i)
