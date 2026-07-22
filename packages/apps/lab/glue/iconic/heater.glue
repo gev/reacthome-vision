@@ -1,7 +1,7 @@
 (module iconic.heater
     (export iconic-heater)
 
-    (def weight 0.8)
+    (def weight 0.9)
     (def k-heater-height 0.4)
     (def k-arc-radius (/ k-heater-height 2))
 

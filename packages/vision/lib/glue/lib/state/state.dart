@@ -6,5 +6,5 @@ import 'package:glue/ir.dart';
 /// Returns IrNativeValue(Value(StateNotifier))
 final state = IrNativeFunc((Ir initialValue) {
   final notifier = ValueNotifier(initialValue);
-  return Eval.pure(IrNativeValue(hostValue(notifier)));
+  return Eval.pure(IrNativeValue(Value(notifier)));
 });

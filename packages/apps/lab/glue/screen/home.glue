@@ -8,8 +8,9 @@
 
     (import widget.iconic)
 
-    (def size 120)
     (def spacing 60)
+
+    (def size (state 120))
 
     (def iconics (
             'iconic-curtain
@@ -19,10 +20,28 @@
             'iconic-plus
         ))
 
-    (def (show i)
+    (def (show s i)
         (iconic
             :icon i
-            :size size
+            :size s
+        )
+    )
+
+    (def (layout size')
+        (column
+            :children (
+                (slider
+                    :min 32
+                    :max 256
+                    :value size'
+                    :on-changed (\ (s) (write size s))
+                )
+                (wrap
+                    :spacing spacing
+                    :run-spacing spacing
+                    :children (map (show size') iconics)
+                )
+            )
         )
     )
 
@@ -35,11 +54,7 @@
                 :child (container
                     :padding (edge-insets-symmetric :horizontal 16)
                     :width media-query.width
-                    :child (wrap
-                        :spacing spacing
-                        :run-spacing spacing
-                        :children (map show iconics)
-                    )
+                    :child (listen size layout)
                 )
             )
         )
