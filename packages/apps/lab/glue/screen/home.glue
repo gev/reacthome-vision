@@ -12,18 +12,18 @@
 
     (import widget.iconic)
 
-    (def iconics (
-            'iconic-curtain
-            'iconic-heater
-            'iconic-lamp
-            'iconic-cross
-            'iconic-plus
-            'iconic-right-arrow
-            'iconic-left-arrow
-            'iconic-up-arrow
-            'iconic-down-arrow
-            'iconic-horizontal-bar
-            'iconic-vertical-bar
+    (def iconics (#
+            iconic-curtain
+            iconic-heater
+            iconic-lamp
+            iconic-cross
+            iconic-plus
+            iconic-right-arrow
+            iconic-left-arrow
+            iconic-up-arrow
+            iconic-down-arrow
+            iconic-horizontal-bar
+            iconic-vertical-bar
         ))
 
     (def (show s i)
