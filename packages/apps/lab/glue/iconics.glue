@@ -3,7 +3,9 @@
 
     (import iconic.arrow)
     (import iconic.bar)
+    (import iconic.blinds)
     (import iconic.curtain)
+    (import iconic.delay)
     (import iconic.heater)
     (import iconic.light)
     (import iconic.sign)
@@ -17,10 +19,11 @@
             iconic-horizontal-bar
             iconic-vertical-bar
 
+            iconic-blinds
             iconic-curtain
+            iconic-delay
             iconic-heater
             iconic-lamp
-            
             iconic-cross
             iconic-plus
         ))
