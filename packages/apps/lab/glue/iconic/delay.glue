@@ -1,0 +1,31 @@
+(module iconic.delay
+    (export iconic-delay)
+
+    (def weight 0.75)
+    (def k-delay-position 0.1)
+    (def k-delay-height 0.2)
+
+    (def (ajust props)
+        (def size (* props.size weight))
+        (def delay-position (* size k-delay-position))
+        (def delay-height (* size k-delay-height))
+        (
+            :dx props.dx
+            :dy props.dy
+            :size size
+            :delay-position delay-position
+            :delay-height delay-height
+        )
+    )
+
+    (def (iconic-delay props)
+        (def p (ajust props))
+        (path props.style
+            (move-to (- p.dx (/ p.size 2)) (+ p.dy p.delay-position))
+            (relative-line-to p.size 0)
+            (relative-line-to 0 (- 0 p.delay-height))
+        )
+    )
+)
+
+  
