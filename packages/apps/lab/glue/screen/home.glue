@@ -7,6 +7,9 @@
     (import iconic.sign)
     (import iconic.arrow)
     (import iconic.bar)
+    (import iconic.blinds)
+    (import iconic.delay)
+
 
     (import state.home)
 
@@ -24,6 +27,8 @@
             'iconic-down-arrow
             'iconic-horizontal-bar
             'iconic-vertical-bar
+            'iconic-blinds
+            'iconic-delay
         ))
 
     (def (show s i)
