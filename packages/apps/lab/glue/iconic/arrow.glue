@@ -22,11 +22,21 @@
     (def (iconic-right-arrow props)
         (def p (ajust props))
         (path props.style
-            (move-to (- p.dx p.arrow-length) p.dy)
-            (line-to (+ p.dx p.arrow-length) p.dy)
-            (move-to p.dx (- p.dy p.arrow-length))
-            (line-to (+ p.dx p.arrow-length) p.dy)
-            (line-to p.dx (+ p.dy p.arrow-length)
+            (move-to
+                :x (- p.dx p.arrow-length)
+                :y p.dy)
+            (line-to
+                :x (+ p.dx p.arrow-length)
+                :y p.dy)
+            (move-to
+                :x p.dx
+                :y (- p.dy p.arrow-length))
+            (line-to
+                :x (+ p.dx p.arrow-length)
+                :y p.dy)
+            (line-to
+                :x p.dx
+                :y (+ p.dy p.arrow-length)
             )
         )
     )
