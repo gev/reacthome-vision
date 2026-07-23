@@ -28,9 +28,9 @@ Env makeLocalEnv({required LocalReactiveRuntime runtime, required Logger log}) {
     uiMaterialModule,
     navigationModule,
     routesModule,
-    stateModule(log),
+    canvasModule,
+    localStateModule(log),
     widgetsModule(image: localImage),
     moduleModule(import: localImport(runtime)),
-    canvasModule,
   ]);
 }
