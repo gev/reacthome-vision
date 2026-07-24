@@ -7,13 +7,20 @@ import 'package:glue/runtime.dart';
 import 'package:path/path.dart' as p;
 import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/mode/local/glue/local_env.dart';
+import 'package:vision/mode/local/local_storage.dart';
 
 class LocalReactiveRuntime extends ReactiveRuntime {
   late final Runtime _runtime;
   late final String _path;
 
-  LocalReactiveRuntime({required this._path, required super.log}) {
-    _runtime = Runtime.initial(makeLocalEnv(runtime: this, log: log));
+  LocalReactiveRuntime({
+    required this._path,
+    required LocalStorage storage,
+    required super.log,
+  }) {
+    _runtime = Runtime.initial(
+      makeLocalEnv(runtime: this, storage: storage, log: log),
+    );
   }
 
   @override

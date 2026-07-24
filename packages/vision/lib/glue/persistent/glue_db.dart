@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:glue/compile.dart';
 import 'package:glue/decompile.dart';
 import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/parse.dart';
 import 'package:glue/serialize.dart';
+import 'package:path/path.dart' as p;
+import 'package:vision/logger.dart';
 import 'package:vision/persistent/db.dart';
 import 'package:vision/persistent/raw_db.dart';
 import 'package:vision/store/revision.dart';
@@ -44,5 +48,17 @@ class GlueDb implements Db<String, Ir, int> {
 
   void dispose() {
     _db.dispose();
+  }
+}
+
+GlueDb? codeStore(Directory path, Logger log) => makeGlueDb('code', path, log);
+
+GlueDb? makeGlueDb(String name, Directory path, Logger log) {
+  try {
+    final dbPath = p.setExtension(p.join(path.path, name), '.db');
+    return GlueDb(path: dbPath);
+  } catch (error) {
+    log.error(error);
+    return null;
   }
 }

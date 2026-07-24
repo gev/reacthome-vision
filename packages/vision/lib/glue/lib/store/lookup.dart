@@ -1,9 +1,9 @@
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/stores/glue_subscribable.dart';
+import 'package:vision/glue/stores/glue_store.dart';
 
-Ir lookup(GlueSubscribable store) {
+Ir lookup(GlueReactiveLookup store) {
   return IrNativeFunc((Ir key) {
     switch (key) {
       case IrString(value: final key):

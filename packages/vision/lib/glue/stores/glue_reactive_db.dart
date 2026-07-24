@@ -2,18 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/persistent/glue_db.dart';
+import 'package:vision/glue/stores/glue_store.dart';
 import 'package:vision/logger.dart';
-import 'package:vision/store/lookup.dart';
-import 'package:vision/store/put.dart';
 import 'package:vision/store/reactive_entry.dart';
 import 'package:vision/store/revision.dart';
 import 'package:vision/store/version.dart';
 
 class GlueReactiveDb
-    implements
-        ReactiveLookup<String, Ir>,
-        Version<String, int>,
-        Put<String, Revision<Ir, int>> {
+    implements GlueReactiveLookup, Version<String, int>, GluePut {
   final GlueDb _db;
   final Logger _log;
 

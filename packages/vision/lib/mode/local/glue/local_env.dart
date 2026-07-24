@@ -12,12 +12,18 @@ import 'package:vision/glue/lib/navigation.dart';
 import 'package:vision/glue/lib/routes.dart';
 import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/widgets.dart';
+import 'package:vision/glue/stores/glue_reactive_db.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/mode/local/glue/lib/module/local_import.dart';
 import 'package:vision/mode/local/glue/lib/widgets/local_image.dart';
 import 'package:vision/mode/local/glue/local_reactive_runtime.dart';
+import 'package:vision/mode/local/local_storage.dart';
 
-Env makeLocalEnv({required LocalReactiveRuntime runtime, required Logger log}) {
+Env makeLocalEnv({
+  required LocalReactiveRuntime runtime,
+  required LocalStorage storage,
+  required Logger log,
+}) {
   return envFromModules([
     builtinModule,
     boolModule,
@@ -29,7 +35,7 @@ Env makeLocalEnv({required LocalReactiveRuntime runtime, required Logger log}) {
     navigationModule,
     routesModule,
     canvasModule,
-    localStateModule(log),
+    localStateModule(storage, log),
     widgetsModule(image: localImage),
     moduleModule(import: localImport(runtime)),
   ]);

@@ -42,7 +42,7 @@ Env makeLiveEnv({
     navigationModule,
     routesModule,
     canvasModule,
-    liveStateModule(log),
+    liveStateModule(storage, log),
     widgetsModule(image: liveImage(storage.assets)),
     moduleModule(import: liveImport(subscriber, runtime)),
     storeModule(subscriber),

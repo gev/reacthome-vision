@@ -4,11 +4,11 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/glue_reactive_cache.dart';
 import 'package:vision/glue/stores/glue_subscribable.dart';
 
-class TmpStore implements GlueSubscribable {
+class RemoteStore implements GlueSubscribable {
   late final GlueReactiveCache _store;
   late final GlueSubscribable _subscribable;
 
-  TmpStore(GlueSubscriber subscriber) {
+  RemoteStore(GlueSubscriber subscriber) {
     _store = GlueReactiveCache();
     _subscribable = GlueSubscribable(
       subscriber: subscriber,

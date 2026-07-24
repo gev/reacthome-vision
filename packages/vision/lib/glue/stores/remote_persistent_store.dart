@@ -11,15 +11,15 @@ import 'package:vision/glue/stores/glue_subscribable.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/store/subscribable.dart';
 
-class DataStore implements GlueSubscribable {
+class RemotePersistentStore implements GlueSubscribable {
   GlueDb? _glueDb;
   GlueReactiveDb? _db;
   GlueReactiveCache? _cache;
 
   late final GlueSubscribable _subscribable;
 
-  DataStore(Directory path, GlueSubscriber subscriber, Logger log) {
-    final glueDb = _dbStore('data', path, log);
+  RemotePersistentStore(Directory path, GlueSubscriber subscriber, Logger log) {
+    final glueDb = makeGlueDb('data', path, log);
     if (glueDb != null) {
       _glueDb = glueDb;
       final db = GlueReactiveDb(db: glueDb, log: log);
@@ -51,17 +51,5 @@ class DataStore implements GlueSubscribable {
     _cache?.dispose();
     _glueDb?.dispose();
     _db?.dispose();
-  }
-}
-
-GlueDb? codeStore(Directory path, Logger log) => _dbStore('code', path, log);
-
-GlueDb? _dbStore(String name, Directory path, Logger log) {
-  try {
-    final dbPath = p.setExtension(p.join(path.path, name), '.db');
-    return GlueDb(path: dbPath);
-  } catch (error) {
-    log.error(error);
-    return null;
   }
 }
