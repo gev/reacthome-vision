@@ -8,5 +8,5 @@
     (def min-icon-size 32)
     (def max-icon-size 256)
 
-    (def icon-size (state 144))
+    (def icon-size (local-state 144))
 )
