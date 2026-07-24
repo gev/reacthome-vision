@@ -4,6 +4,7 @@ import 'package:path/path.dart' as p;
 import 'package:vision/glue/persistent/glue_assets.dart';
 import 'package:vision/glue/persistent/glue_db.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/glue/stores/local_persistent_store.dart';
 import 'package:vision/glue/stores/remote_persistent_store.dart';
 import 'package:vision/glue/stores/remote_store.dart';
 import 'package:vision/logger.dart';
@@ -13,6 +14,7 @@ class LiveStorage {
   late final GlueDb? codeDb;
   late final RemoteStore remoteStore;
   late final RemotePersistentStore remotePersistentStore;
+  late final LocalPersistentStore localPersistentStore;
   late final Assets assets;
 
   LiveStorage({
@@ -31,6 +33,7 @@ class LiveStorage {
     codeDb = makeCodeDb(dbDirectory, log);
     remoteStore = RemoteStore(subscriber);
     remotePersistentStore = RemotePersistentStore(dbDirectory, subscriber, log);
+    localPersistentStore = LocalPersistentStore(dbDirectory, log);
     assets = glueAssets(
       path: assetsDirectory,
       tmp: tmpDirectory,
@@ -43,6 +46,7 @@ class LiveStorage {
     codeDb?.dispose();
     remoteStore.dispose();
     remotePersistentStore.dispose();
+    localPersistentStore.dispose();
     assets.dispose();
   }
 }
