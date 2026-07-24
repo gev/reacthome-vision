@@ -11,17 +11,17 @@ import 'package:vision/logger.dart';
 import 'package:vision/store/subscribable.dart';
 
 class RemotePersistentStore implements GlueSubscribable {
-  GlueDb? _glueDb;
+  GlueDb? _remote;
   GlueReactiveDb? _db;
   GlueReactiveCache? _cache;
 
   late final GlueSubscribable _subscribable;
 
   RemotePersistentStore(Directory path, GlueSubscriber subscriber, Logger log) {
-    final glueDb = makeGlueDb('data', path, log);
-    if (glueDb != null) {
-      _glueDb = glueDb;
-      final db = GlueReactiveDb(db: glueDb, log: log);
+    final remote = makeGlueDb('remote', path, log);
+    if (remote != null) {
+      _remote = remote;
+      final db = GlueReactiveDb(db: remote, log: log);
       _db = db;
       _subscribable = ReactiveSubscribable(
         subscriber: subscriber,
@@ -48,7 +48,7 @@ class RemotePersistentStore implements GlueSubscribable {
 
   void dispose() {
     _cache?.dispose();
-    _glueDb?.dispose();
+    _remote?.dispose();
     _db?.dispose();
   }
 }
