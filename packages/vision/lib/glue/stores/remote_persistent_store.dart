@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
-import 'package:path/path.dart' as p;
 import 'package:vision/glue/persistent/glue_db.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/glue_reactive_cache.dart';
