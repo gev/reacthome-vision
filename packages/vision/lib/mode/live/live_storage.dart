@@ -10,9 +10,9 @@ import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
 
 class LiveStorage {
-  late final GlueDb? glueDb;
-  late final RemoteStore tmpStore;
-  late final RemotePersistentStore dataStore;
+  late final GlueDb? codeDb;
+  late final RemoteStore remoteStore;
+  late final RemotePersistentStore remotePersistentStore;
   late final Assets assets;
 
   LiveStorage({
@@ -28,9 +28,9 @@ class LiveStorage {
     final tmpDirectory = Directory(p.join(path.path, 'tmp'))
       ..createSync(recursive: true);
 
-    glueDb = codeStore(dbDirectory, log);
-    tmpStore = RemoteStore(subscriber);
-    dataStore = RemotePersistentStore(dbDirectory, subscriber, log);
+    codeDb = makeCodeDb(dbDirectory, log);
+    remoteStore = RemoteStore(subscriber);
+    remotePersistentStore = RemotePersistentStore(dbDirectory, subscriber, log);
     assets = glueAssets(
       path: assetsDirectory,
       tmp: tmpDirectory,
@@ -40,9 +40,9 @@ class LiveStorage {
   }
 
   void dispose() {
-    glueDb?.dispose();
-    tmpStore.dispose();
-    dataStore.dispose();
+    codeDb?.dispose();
+    remoteStore.dispose();
+    remotePersistentStore.dispose();
     assets.dispose();
   }
 }

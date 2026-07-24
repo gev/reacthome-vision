@@ -53,7 +53,7 @@ class LiveReactiveRuntime extends ReactiveRuntime
   void put(String name, Revision<Ir, int> value) {
     final registered = tryRegisterModule(name, value.payload);
     if (registered) {
-      final db = _storage.glueDb;
+      final db = _storage.codeDb;
       if (db != null) {
         final error = db.store(name, value);
         if (error != null) {
@@ -66,7 +66,7 @@ class LiveReactiveRuntime extends ReactiveRuntime
 
   @override
   void loadModule(String name) {
-    final db = _storage.glueDb;
+    final db = _storage.codeDb;
     if (db != null && !isModuleRegistered(runtime.registry, name)) {
       switch (db.lookup(name)) {
         case Right(:final value):

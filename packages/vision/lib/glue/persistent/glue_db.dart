@@ -51,7 +51,7 @@ class GlueDb implements Db<String, Ir, int> {
   }
 }
 
-GlueDb? codeStore(Directory path, Logger log) => makeGlueDb('code', path, log);
+GlueDb? makeCodeDb(Directory path, Logger log) => makeGlueDb('code', path, log);
 
 GlueDb? makeGlueDb(String name, Directory path, Logger log) {
   try {

@@ -12,7 +12,6 @@ import 'package:vision/glue/lib/navigation.dart';
 import 'package:vision/glue/lib/routes.dart';
 import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/widgets.dart';
-import 'package:vision/glue/stores/glue_reactive_db.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/mode/local/glue/lib/module/local_import.dart';
 import 'package:vision/mode/local/glue/lib/widgets/local_image.dart';
