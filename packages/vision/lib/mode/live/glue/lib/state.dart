@@ -12,9 +12,18 @@ import 'package:vision/mode/live/live_storage.dart';
 ModuleInfo liveStateModule(LiveStorage storage, Logger log) =>
     nativeModule('ffi.vision.state', [
       ('local-state', localState),
-      ('local-persistent-state', lookup(storage.localPersistentStore)),
-      ('remote-state', lookup(storage.remoteStore)),
-      ('remote-persistent-state', lookup(storage.remotePersistentStore)),
+      (
+        'local-persistent-state',
+        lookupReadWrite(
+          lookup: storage.localPersistentStore,
+          put: storage.localPersistentStore,
+        ),
+      ),
+      ('remote-state', lookupReadOnly(lookup: storage.remoteStore)),
+      (
+        'remote-persistent-state',
+        lookupReadOnly(lookup: storage.remotePersistentStore),
+      ),
       ('listen', listen(log)),
       ('read', read),
       ('write', write),

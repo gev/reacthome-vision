@@ -12,7 +12,13 @@ import 'package:vision/mode/local/local_storage.dart';
 ModuleInfo localStateModule(LocalStorage storage, Logger log) =>
     nativeModule('ffi.vision.state', [
       ('local-state', localState),
-      ('local-persistent-state', lookup(storage.localPersistentStore)),
+      (
+        'local-persistent-state',
+        lookupReadWrite(
+          lookup: storage.localPersistentStore,
+          put: storage.localPersistentStore,
+        ),
+      ),
       ('listen', listen(log)),
       ('read', read),
       ('write', write),
