@@ -1,29 +1,39 @@
 import 'package:flutter/widgets.dart';
-import 'package:vision/store/put.dart';
 
-abstract interface class WriteNotifier<T> {
-  void write(T newValue);
-}
+class WriteNotifier<T> extends ValueNotifier<T> {
+  final ValueNotifier<T> _notifier;
+  final void Function(T newValue) _write;
 
-class WriteValueNotifier<T> extends ValueNotifier<T>
-    implements WriteNotifier<T> {
-  WriteValueNotifier(super.value);
+  WriteNotifier.wrap(this._notifier, this._write) : super(_notifier.value);
 
   @override
-  void write(T newValue) {
-    value = newValue;
+  T get value => _notifier.value;
+
+  @override
+  set value(T newValue) {
+    _notifier.value = newValue;
   }
-}
-
-class PutValueNotifier<K, T> extends ValueNotifier<T>
-    implements WriteNotifier<T> {
-  final K _key;
-  final Put<K, T> _put;
-
-  PutValueNotifier(super.value, {required this._key, required this._put});
 
   @override
+  bool get hasListeners => _notifier.hasListeners;
+
+  @override
+  void addListener(VoidCallback listener) {
+    _notifier.addListener(listener);
+  }
+
+  @override
+  void removeListener(VoidCallback listener) {
+    _notifier.removeListener(listener);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _notifier.dispose();
+  }
+
   void write(T newValue) {
-    _put.put(_key, newValue);
+    _write(newValue);
   }
 }
