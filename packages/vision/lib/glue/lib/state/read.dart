@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
@@ -10,7 +10,7 @@ import 'package:glue/ir.dart';
 final read = IrNativeFunc((Ir stateIr) {
   return Eval((runtime) {
     final state = switch (stateIr) {
-      IrNativeValue(value: final hv) => extractValue<ValueNotifier>(hv),
+      IrNativeValue(value: final hv) => extractValue<ValueNotifier<Ir>>(hv),
       _ => null,
     };
     if (state == null) {
