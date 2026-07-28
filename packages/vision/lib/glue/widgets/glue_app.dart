@@ -30,7 +30,7 @@ class _GlueAppState extends State<GlueApp> with WidgetsBindingObserver {
   Locale _currentLocale = WidgetsBinding.instance.platformDispatcher.locale;
 
   // Caches to prevent duplicate evaluation cycles
-  Ir? _lastEvaluatedexpression;
+  Ir? _lastEvaluatedExpression;
 
   late final Scope _scope;
   bool _initialized = false;
@@ -69,14 +69,14 @@ class _GlueAppState extends State<GlueApp> with WidgetsBindingObserver {
 
   void _runGuarded() {
     // Guard against duplicate executions
-    if (_lastEvaluatedexpression == widget.app) {
+    if (_lastEvaluatedExpression == widget.app) {
       return;
     }
     _run();
   }
 
   void _run() {
-    _lastEvaluatedexpression = widget.app;
+    _lastEvaluatedExpression = widget.app;
 
     final evaluation = eval(widget.app);
     final result = runEval(
