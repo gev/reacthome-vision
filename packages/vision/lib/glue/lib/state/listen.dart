@@ -13,7 +13,7 @@ IrNativeFunc listen(Logger log) => IrNativeFunc((Ir notifierIr) {
       // return Eval((runtime) {
       // Evaluate the notifier argument to get the actual StateNotifier object
       final notifier = switch (notifierIr) {
-        IrNativeValue(value: final hv) => extractValue<ValueNotifier<Ir>>(hv),
+        IrNativeValue(value: final hv) => extractValue<ValueNotifier>(hv),
         _ => null,
       };
 

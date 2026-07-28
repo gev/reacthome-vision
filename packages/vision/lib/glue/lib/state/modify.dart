@@ -11,7 +11,7 @@ final modify = IrNativeFunc((Ir stateIr) {
     IrNativeFunc((Ir lambdaIr) {
       return Eval((runtime) {
         final state = switch (stateIr) {
-          IrNativeValue(value: final hv) => extractValue<WriteNotifier<Ir>>(hv),
+          IrNativeValue(value: final hv) => extractValue<WriteNotifier>(hv),
           _ => null,
         };
         if (state == null) {

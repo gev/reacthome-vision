@@ -10,7 +10,7 @@ import 'package:glue/ir.dart';
 final read = IrNativeFunc((Ir stateIr) {
   return Eval((runtime) {
     final state = switch (stateIr) {
-      IrNativeValue(value: final hv) => extractValue<ValueNotifier<Ir>>(hv),
+      IrNativeValue(value: final hv) => extractValue<ValueNotifier>(hv),
       _ => null,
     };
     if (state == null) {
