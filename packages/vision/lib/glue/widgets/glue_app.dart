@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:glue/context.dart';
 import 'package:glue/either.dart';
 import 'package:glue/eval.dart';
@@ -24,14 +25,21 @@ class GlueApp extends StatefulWidget {
   State<GlueApp> createState() => _GlueAppState();
 }
 
-class _GlueAppState extends State<GlueApp> {
+class _GlueAppState extends State<GlueApp> with WidgetsBindingObserver {
   App _cachedApp = defaultApp;
+  Locale _currentLocale = WidgetsBinding.instance.platformDispatcher.locale;
 
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedexpression;
 
   late final Scope _scope;
   bool _initialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
 
   @override
   void didChangeDependencies() {
@@ -48,6 +56,15 @@ class _GlueAppState extends State<GlueApp> {
   void didUpdateWidget(GlueApp oldWidget) {
     super.didUpdateWidget(oldWidget);
     _runGuarded();
+  }
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    super.didChangeLocales(locales);
+    final newLocale = WidgetsBinding.instance.platformDispatcher.locale;
+    setState(() {
+      _currentLocale = newLocale;
+    });
   }
 
   void _runGuarded() {
@@ -100,10 +117,17 @@ class _GlueAppState extends State<GlueApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: widget.title,
-      key: ValueKey(_cachedApp),
+      key: ValueKey((_currentLocale, _cachedApp)),
       themeMode: ThemeMode.system,
       theme: makeTheme(_cachedApp, Brightness.light),
       darkTheme: makeTheme(_cachedApp, Brightness.dark),
+      locale: _currentLocale,
+      supportedLocales: WidgetsBinding.instance.platformDispatcher.locales,
+      localizationsDelegates: const [
+        GlobalCupertinoLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       home: widget.splash,
       onGenerateRoute: (RouteSettings settings) {
         final routeBuilder = _cachedApp.routes[settings.name];
@@ -144,6 +168,7 @@ class _GlueAppState extends State<GlueApp> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _scope.reactiveRuntime.removeListener(_run);
     super.dispose();
   }
