@@ -19,7 +19,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('placeholder', placeholder),
     ('image', image),
     ('canvas', canvas),
-    ('scaffold', scaffold),
+    // ('scaffold', scaffold),
     ('horizontal-slider', horizontalSlider),
     ('vertical-slider', verticalSlider),
     ('circular-slider', circularSlider),
