@@ -34,8 +34,8 @@
 
     (def (home-screen props)
         (scaffold
-            :app-bar (app-bar
-                :title (text :content props.title)
+            (app-bar
+                :title (text :content (@ props.title locale.language-code))
             )
             :body (single-child-scroll-view
                 :child (container
