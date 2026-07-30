@@ -17,7 +17,7 @@ import 'package:vision/glue/lib/widgets/theme.dart';
 ModuleInfo widgetsModule({required Ir image}) {
   return nativeModule('ffi.vision.widgets', [
     ('activity', activity),
-    ('back-drop', backdrop),
+    ('backdrop', backdrop),
     ('blur', blur),
     ('placeholder', placeholder),
     ('image', image),
