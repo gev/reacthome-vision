@@ -24,27 +24,40 @@ IrNativeValue themeData(ThemeData data) {
 
 IrNativeValue colorScheme(ColorScheme cs) {
   final props = {
-    // Primary colors
+    // Primary
     "primary": makeColor(cs.primary),
     "on-primary": makeColor(cs.onPrimary),
     "primary-container": makeColor(cs.primaryContainer),
     "on-primary-container": makeColor(cs.onPrimaryContainer),
+    "primary-fixed": makeColor(cs.primaryFixed),
+    "primary-fixed-dim": makeColor(cs.primaryFixedDim),
+    "on-primary-fixed": makeColor(cs.onPrimaryFixed),
+    "on-primary-fixed-variant": makeColor(cs.onPrimaryFixedVariant),
 
-    // Secondary colors
+    // Secondary
     "secondary": makeColor(cs.secondary),
     "on-secondary": makeColor(cs.onSecondary),
     "secondary-container": makeColor(cs.secondaryContainer),
     "on-secondary-container": makeColor(cs.onSecondaryContainer),
+    "secondary-fixed": makeColor(cs.secondaryFixed),
+    "secondary-fixed-dim": makeColor(cs.secondaryFixedDim),
+    "on-secondary-fixed": makeColor(cs.onSecondaryFixed),
+    "on-secondary-fixed-variant": makeColor(cs.onSecondaryFixedVariant),
 
-    // Tertiary colors
+    // Tertiary
     "tertiary": makeColor(cs.tertiary),
     "on-tertiary": makeColor(cs.onTertiary),
     "tertiary-container": makeColor(cs.tertiaryContainer),
     "on-tertiary-container": makeColor(cs.onTertiaryContainer),
+    "tertiary-fixed": makeColor(cs.tertiaryFixed),
+    "tertiary-fixed-dim": makeColor(cs.tertiaryFixedDim),
+    "on-tertiary-fixed": makeColor(cs.onTertiaryFixed),
+    "on-tertiary-fixed-variant": makeColor(cs.onTertiaryFixedVariant),
 
-    // Surface and background variants
+    // Surface & Background
     "surface": makeColor(cs.surface),
     "on-surface": makeColor(cs.onSurface),
+    "on-surface-variant": makeColor(cs.onSurfaceVariant),
     "surface-dim": makeColor(cs.surfaceDim),
     "surface-bright": makeColor(cs.surfaceBright),
     "surface-container-lowest": makeColor(cs.surfaceContainerLowest),
@@ -52,19 +65,27 @@ IrNativeValue colorScheme(ColorScheme cs) {
     "surface-container": makeColor(cs.surfaceContainer),
     "surface-container-high": makeColor(cs.surfaceContainerHigh),
     "surface-container-highest": makeColor(cs.surfaceContainerHighest),
-    "on-surface-variant": makeColor(cs.onSurfaceVariant),
+    "surface-tint": makeColor(cs.surfaceTint),
 
-    // Error colors
+    // Error
     "error": makeColor(cs.error),
     "on-error": makeColor(cs.onError),
     "error-container": makeColor(cs.errorContainer),
     "on-error-container": makeColor(cs.onErrorContainer),
 
-    // Outlines, shadows, and overlays
+    // Outline, Shadows & Overlays
     "outline": makeColor(cs.outline),
     "outline-variant": makeColor(cs.outlineVariant),
     "shadow": makeColor(cs.shadow),
     "scrim": makeColor(cs.scrim),
+
+    // Inverse Roles
+    "inverse-surface": makeColor(cs.inverseSurface),
+    "on-inverse-surface": makeColor(cs.onInverseSurface),
+    "inverse-primary": makeColor(cs.inversePrimary),
+
+    // Meta & State
+    "brightness": cs.brightness,
   };
 
   return IrNativeValue(Value(cs, getters: makeGetters(props)));
