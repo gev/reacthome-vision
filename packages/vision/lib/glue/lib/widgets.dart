@@ -12,6 +12,7 @@ import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/slider/circular_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
+import 'package:vision/glue/lib/widgets/symbol.dart';
 import 'package:vision/glue/lib/widgets/theme.dart';
 
 ModuleInfo widgetsModule({required Ir image}) {
@@ -35,6 +36,9 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('app', app),
     ('locale', locale),
     ('media-query', mediaQuery),
+    ('symbol', symbol),
+    ('sharp-symbol', sharpSymbol),
+    ('rounded-symbol', roundedSymbol),
     ('theme', theme),
   ]);
 }
