@@ -12,8 +12,6 @@ final Ir blur = IrNativeFunc((props) {
           ImageFilter.blur(
             sigmaX: toDouble(properties['sigma-x']) ?? 0,
             sigmaY: toDouble(properties['sigma-y']) ?? 0,
-            tileMode: to<TileMode>(properties['tile-mode']),
-            bounds: to<Rect>(properties['bounds']),
           ),
         ),
       ),
