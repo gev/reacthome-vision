@@ -6,6 +6,7 @@ import 'package:vision/glue/lib/widgets/back_drop.dart';
 import 'package:vision/glue/lib/widgets/blur.dart';
 import 'package:vision/glue/lib/widgets/canvas.dart';
 import 'package:vision/glue/lib/widgets/closures.dart';
+import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
@@ -40,5 +41,6 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('sharp-symbol', sharpSymbol),
     ('rounded-symbol', roundedSymbol),
     ('theme', theme),
+    ('image-filtered', imageFiltered),
   ]);
 }
