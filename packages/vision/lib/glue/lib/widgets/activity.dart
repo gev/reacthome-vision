@@ -10,8 +10,13 @@ final activity = IrNativeFunc(
         Value(
           CircularProgressIndicator.adaptive(
             value: toDouble(properties['value']),
+            padding: to<EdgeInsetsGeometry>(properties['padding']),
+            strokeWidth: toDouble(properties['stroke-width']),
+            strokeCap: to<StrokeCap>(properties['stroke-cap']),
+            strokeAlign: toDouble(properties['stroke-align']),
             valueColor: to<Animation<Color?>>(properties['value-color']),
             backgroundColor: to<Color>(properties['background-color']),
+            constraints: to<BoxConstraints>(properties['constraints']),
           ),
         ),
       ),
