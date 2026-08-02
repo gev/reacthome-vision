@@ -6,7 +6,7 @@ import 'package:glue/ir.dart';
 final activity = IrNativeFunc((Ir ir) {
   switch (ir) {
     case IrObject(:final properties):
-      final color = to<Color>(properties['value-color']);
+      final color = to<Color>(properties['color']);
       final animatedColor = color != null
           ? AlwaysStoppedAnimation(color)
           : null;
