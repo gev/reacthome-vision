@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:glue/context.dart';
 import 'package:glue/env.dart';
@@ -7,12 +8,12 @@ import 'package:vision/glue/extract.dart';
 import 'package:vision/scope.dart';
 
 class GlueListenable extends StatefulWidget {
-  final ValueNotifier notifier;
+  final List<ValueNotifier> notifiers;
   final Ir lambda;
   final Env? env;
 
   const GlueListenable({
-    required this.notifier,
+    required this.notifiers,
     required this.lambda,
     this.env,
     super.key,
@@ -27,7 +28,7 @@ class _GlueListenableState extends State<GlueListenable> {
 
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedLambda;
-  dynamic _lastEvaluatedValue;
+  List _lastEvaluatedValues = [];
 
   late final Scope _scope;
   bool _initialized = false;
@@ -35,7 +36,9 @@ class _GlueListenableState extends State<GlueListenable> {
   @override
   void initState() {
     super.initState();
-    widget.notifier.addListener(_runGuarded);
+    for (final notifier in widget.notifiers) {
+      notifier.addListener(_runGuarded);
+    }
   }
 
   @override
@@ -54,9 +57,13 @@ class _GlueListenableState extends State<GlueListenable> {
     super.didUpdateWidget(oldWidget);
 
     // Manage notifier subscription lifecycle
-    if (oldWidget.notifier != widget.notifier) {
-      oldWidget.notifier.removeListener(_runGuarded);
-      widget.notifier.addListener(_runGuarded);
+    if (oldWidget.notifiers != widget.notifiers) {
+      for (final notifier in oldWidget.notifiers) {
+        notifier.removeListener(_runGuarded);
+      }
+      for (final notifier in widget.notifiers) {
+        notifier.addListener(_runGuarded);
+      }
     }
     // Trigger re-evaluation
     _runGuarded();
@@ -65,17 +72,25 @@ class _GlueListenableState extends State<GlueListenable> {
   void _runGuarded() {
     // Guard against duplicate executions
     if (_lastEvaluatedLambda == widget.lambda &&
-        _lastEvaluatedValue == widget.notifier.value) {
+        listEquals(_lastEvaluatedValues, _values)) {
       return;
     }
     _run();
   }
 
+  List get _values =>
+      widget.notifiers.map((notifier) => notifier.value).toList();
+
+  Ir _toIr(ValueNotifier notifier) => toIr(notifier.value);
+
   void _run() {
     _lastEvaluatedLambda = widget.lambda;
-    _lastEvaluatedValue = widget.notifier.value;
+    _lastEvaluatedValues = _values;
 
-    final evaluation = apply(widget.lambda, [toIr(widget.notifier.value)]);
+    final evaluation = apply(
+      widget.lambda,
+      widget.notifiers.map(_toIr).toList(),
+    );
     final result = runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(
@@ -96,7 +111,7 @@ class _GlueListenableState extends State<GlueListenable> {
           final (val, _) = res;
           final newWidget = extractLast(val);
           if (newWidget == null) {
-            _scope.log.error('${widget.notifier.value} \n Widget required');
+            _scope.log.error('Widget required');
           } else {
             setState(() {
               _cachedWidget = newWidget;
@@ -115,7 +130,9 @@ class _GlueListenableState extends State<GlueListenable> {
   @override
   void dispose() {
     _scope.reactiveRuntime.removeListener(_run);
-    widget.notifier.removeListener(_runGuarded);
+    for (final notifier in widget.notifiers) {
+      notifier.removeListener(_runGuarded);
+    }
     super.dispose();
   }
 }

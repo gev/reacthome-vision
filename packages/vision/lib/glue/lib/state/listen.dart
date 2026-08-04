@@ -18,17 +18,12 @@ IrNativeFunc listen(Logger log) => IrNativeFunc((Ir lambda) {
       };
 
       if (notifier == null) {
-        return throwError(
-          RuntimeException(
-            'invalid-argument',
-            IrString('Expected ValueNotifier'),
-          ),
-        );
+        return throwError(wrongArgumentType(['`function`', '`ValueNotifier`']));
       }
 
       // Create reactive widget that calls the lambda with current value
       final reactiveContainer = GlueListenable(
-        notifier: notifier,
+        notifiers: [notifier],
         lambda: lambda,
       );
 
