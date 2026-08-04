@@ -7,9 +7,9 @@ import 'package:vision/logger.dart';
 
 /// Creates a ListenableWidget that rebuilds when dependencies change
 /// Takes a StateNotifier and a lambda function that receives the current value
-IrNativeFunc listen(Logger log) => IrNativeFunc((Ir notifierIr) {
+IrNativeFunc listen(Logger log) => IrNativeFunc((Ir lambda) {
   return Eval.pure(
-    IrNativeFunc((Ir lambda) {
+    IrNativeFunc((Ir notifierIr) {
       // return Eval((runtime) {
       // Evaluate the notifier argument to get the actual StateNotifier object
       final notifier = switch (notifierIr) {
