@@ -5,9 +5,9 @@ import 'package:glue/ir.dart';
 import 'package:vision/glue/widgets/glue_listenable.dart';
 import 'package:vision/logger.dart';
 
-/// Creates a ListenableWidget that rebuilds when dependencies change
+/// Creates a GlueListenable that rebuilds when dependencies change
 /// Takes a lambda function that receives the current value and list of ValueNotifiers
-IrNativeFunc listen(Logger log) => IrNativeFunc((Ir lambda) {
+IrNativeFunc render(Logger log) => IrNativeFunc((Ir lambda) {
   return Eval.pure(
     IrSpecial((List<Ir> rawArgs) {
       return sequenceAll(rawArgs.map(eval).toList()).bind((List<Ir> args) {

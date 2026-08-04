@@ -1,8 +1,8 @@
 import 'package:glue/module.dart';
-import 'package:vision/glue/lib/state/listen.dart';
 import 'package:vision/glue/lib/state/local_state.dart';
 import 'package:vision/glue/lib/state/modify.dart';
 import 'package:vision/glue/lib/state/read.dart';
+import 'package:vision/glue/lib/state/render.dart';
 import 'package:vision/glue/lib/state/write.dart';
 import 'package:vision/glue/lib/store/lookup.dart';
 import 'package:vision/logger.dart';
@@ -19,7 +19,7 @@ ModuleInfo localStateModule(LocalStorage storage, Logger log) =>
           put: storage.localPersistentStore,
         ),
       ),
-      ('listen', listen(log)),
+      ('render', render(log)),
       ('read', read),
       ('write', write),
       ('modify', modify),
