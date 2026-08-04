@@ -34,7 +34,7 @@ Env makeLocalEnv({
     navigationModule,
     routesModule,
     canvasModule,
-    localStateModule(storage, log),
+    localStateModule(runtime, storage, log),
     widgetsModule(image: localImage),
     moduleModule(import: localImport(runtime)),
   ]);
