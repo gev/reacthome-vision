@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:glue/context.dart';
-import 'package:glue/env.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
@@ -10,12 +9,10 @@ import 'package:vision/scope.dart';
 class GlueListenable extends StatefulWidget {
   final List<ValueNotifier> notifiers;
   final Ir lambda;
-  final Env? env;
 
   const GlueListenable({
     required this.notifiers,
     required this.lambda,
-    this.env,
     super.key,
   });
 
@@ -94,7 +91,6 @@ class _GlueListenableState extends State<GlueListenable> {
     final result = runEval(
       evaluation,
       _scope.reactiveRuntime.runtime.copyWith(
-        env: widget.env,
         context: putToContext<BuildContext>(
           _scope.reactiveRuntime.runtime.context,
           context,
