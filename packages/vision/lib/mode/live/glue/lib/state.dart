@@ -24,7 +24,7 @@ ModuleInfo liveStateModule(LiveStorage storage, Logger log) =>
         'remote-persistent-state',
         lookupReadOnly(lookup: storage.remotePersistentStore),
       ),
-      ('render', render(log)),
+      ('render', render),
       ('read', read),
       ('write', write),
       ('modify', modify),

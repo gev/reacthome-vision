@@ -19,7 +19,7 @@ ModuleInfo localStateModule(LocalStorage storage, Logger log) =>
           put: storage.localPersistentStore,
         ),
       ),
-      ('render', render(log)),
+      ('render', render),
       ('read', read),
       ('write', write),
       ('modify', modify),
