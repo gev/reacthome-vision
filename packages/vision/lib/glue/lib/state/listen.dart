@@ -13,9 +13,19 @@ IrNativeFunc listen(Logger log) => IrNativeFunc((Ir lambda) {
       return sequenceAll(rawArgs.map(eval).toList()).bind((List<Ir> args) {
         final notifiers = <ValueNotifier>[];
         for (final arg in args) {
-          final notifier = to<ValueNotifier>(arg);
-          if (notifier != null) {
-            notifiers.add(notifier);
+          switch (arg) {
+            case IrList(:final elements):
+              for (final item in elements) {
+                final notifier = to<ValueNotifier>(item);
+                if (notifier != null) {
+                  notifiers.add(notifier);
+                }
+              }
+            default:
+              final notifier = to<ValueNotifier>(arg);
+              if (notifier != null) {
+                notifiers.add(notifier);
+              }
           }
         }
         if (notifiers.isEmpty) {
