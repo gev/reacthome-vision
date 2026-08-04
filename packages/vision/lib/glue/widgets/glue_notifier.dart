@@ -4,7 +4,7 @@ import 'package:glue/ir.dart';
 import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 
-class GlueValueNotifier extends ValueNotifier<dynamic> {
+class GlueNotifier extends ValueNotifier<dynamic> {
   final List<ValueNotifier> notifiers;
   final Ir lambda;
   final ReactiveRuntime reactiveRuntime;
@@ -12,7 +12,7 @@ class GlueValueNotifier extends ValueNotifier<dynamic> {
 
   List _lastEvaluatedValues = [];
 
-  GlueValueNotifier({
+  GlueNotifier({
     required this.notifiers,
     required this.lambda,
     required this.reactiveRuntime,
