@@ -6,28 +6,29 @@ import 'package:vision/glue/widgets/glue_listenable.dart';
 import 'package:vision/logger.dart';
 
 /// Creates a ListenableWidget that rebuilds when dependencies change
-/// Takes a StateNotifier and a lambda function that receives the current value
+/// Takes a lambda function that receives the current value and list of ValueNotifiers
 IrNativeFunc listen(Logger log) => IrNativeFunc((Ir lambda) {
   return Eval.pure(
-    IrNativeFunc((Ir notifierIr) {
-      // return Eval((runtime) {
-      // Evaluate the notifier argument to get the actual StateNotifier object
-      final notifier = switch (notifierIr) {
-        IrNativeValue(value: final hv) => extractValue<ValueNotifier>(hv),
-        _ => null,
-      };
-
-      if (notifier == null) {
-        return throwError(wrongArgumentType(['`function`', '`ValueNotifier`']));
-      }
-
-      // Create reactive widget that calls the lambda with current value
-      final reactiveContainer = GlueListenable(
-        notifiers: [notifier],
-        lambda: lambda,
-      );
-
-      return Eval.pure(IrNativeValue(Value(reactiveContainer)));
+    IrSpecial((List<Ir> rawArgs) {
+      return sequenceAll(rawArgs.map(eval).toList()).bind((List<Ir> args) {
+        final notifiers = <ValueNotifier>[];
+        for (final arg in args) {
+          final notifier = to<ValueNotifier>(arg);
+          if (notifier != null) {
+            notifiers.add(notifier);
+          }
+        }
+        if (notifiers.isEmpty) {
+          return throwError(
+            wrongArgumentType(['`function`', 'list of `ValueNotifier`']),
+          );
+        }
+        final reactiveContainer = GlueListenable(
+          notifiers: notifiers,
+          lambda: lambda,
+        );
+        return Eval.pure(IrNativeValue(Value(reactiveContainer)));
+      });
     }),
   );
 });
