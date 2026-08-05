@@ -1,6 +1,7 @@
 import 'package:glue/env.dart';
 import 'package:glue/lib/bool.dart';
 import 'package:glue/lib/builtin.dart';
+import 'package:glue/lib/io.dart';
 import 'package:glue/lib/list.dart';
 import 'package:glue/lib/math/arithmetic.dart';
 import 'package:glue/lib/math/utility.dart';
@@ -42,6 +43,7 @@ Env makeLiveEnv({
     navigationModule,
     routesModule,
     canvasModule,
+    ioModule,
     liveStateModule(runtime, storage, log),
     widgetsModule(image: liveImage(storage.assets)),
     moduleModule(import: liveImport(subscriber, runtime)),
