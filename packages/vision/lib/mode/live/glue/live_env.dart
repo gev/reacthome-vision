@@ -15,7 +15,6 @@ import 'package:vision/glue/lib/rpc.dart';
 import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/logger.dart';
 import 'package:vision/mode/live/glue/lib/connectivity.dart';
 import 'package:vision/mode/live/glue/lib/module/live_import.dart';
 import 'package:vision/mode/live/glue/lib/state.dart';
@@ -30,7 +29,6 @@ Env makeLiveEnv({
   required LiveReactiveRuntime runtime,
   required LiveStorage storage,
   required SessionMonitor monitor,
-  required Logger log,
 }) {
   return envFromModules([
     builtinModule,
@@ -44,7 +42,7 @@ Env makeLiveEnv({
     routesModule,
     canvasModule,
     ioModule,
-    liveStateModule(runtime, storage, log),
+    liveStateModule(storage),
     widgetsModule(image: liveImage(storage.assets)),
     moduleModule(import: liveImport(subscriber, runtime)),
     storeModule(subscriber),

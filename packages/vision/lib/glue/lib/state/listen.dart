@@ -6,7 +6,7 @@ import 'package:vision/glue/widgets/glue_listenable.dart';
 
 /// Creates a GlueListenable that rebuilds when dependencies change
 /// Takes a lambda function that receives the current value and list of ValueNotifiers
-final render = IrNativeFunc((Ir lambda) {
+final listen = IrNativeFunc((Ir lambda) {
   return Eval.pure(
     IrSpecial((List<Ir> rawArgs) {
       return sequenceAll(rawArgs.map(eval).toList()).bind((List<Ir> args) {

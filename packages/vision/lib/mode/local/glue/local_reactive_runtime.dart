@@ -18,9 +18,7 @@ class LocalReactiveRuntime extends ReactiveRuntime {
     required LocalStorage storage,
     required super.log,
   }) {
-    _runtime = Runtime.initial(
-      makeLocalEnv(runtime: this, storage: storage, log: log),
-    );
+    _runtime = Runtime.initial(makeLocalEnv(runtime: this, storage: storage));
   }
 
   @override
