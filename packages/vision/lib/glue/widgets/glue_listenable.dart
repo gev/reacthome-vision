@@ -7,12 +7,14 @@ import 'package:vision/glue/extract.dart';
 import 'package:vision/scope.dart';
 
 class GlueListenable extends StatefulWidget {
-  final List<ValueNotifier> notifiers;
-  final Ir lambda;
+  final List<ValueNotifier> _notifiers;
+  final Ir _lambda;
+  final bool _isList;
 
   const GlueListenable({
-    required this.notifiers,
-    required this.lambda,
+    required this._notifiers,
+    required this._lambda,
+    required this._isList,
     super.key,
   });
 
@@ -33,7 +35,7 @@ class _GlueListenableState extends State<GlueListenable> {
   @override
   void initState() {
     super.initState();
-    for (final notifier in widget.notifiers) {
+    for (final notifier in widget._notifiers) {
       notifier.addListener(_runGuarded);
     }
   }
@@ -54,11 +56,11 @@ class _GlueListenableState extends State<GlueListenable> {
     super.didUpdateWidget(oldWidget);
 
     // Manage notifier subscription lifecycle
-    if (oldWidget.notifiers != widget.notifiers) {
-      for (final notifier in oldWidget.notifiers) {
+    if (oldWidget._notifiers != widget._notifiers) {
+      for (final notifier in oldWidget._notifiers) {
         notifier.removeListener(_runGuarded);
       }
-      for (final notifier in widget.notifiers) {
+      for (final notifier in widget._notifiers) {
         notifier.addListener(_runGuarded);
       }
     }
@@ -68,7 +70,7 @@ class _GlueListenableState extends State<GlueListenable> {
 
   void _runGuarded() {
     // Guard against duplicate executions
-    if (_lastEvaluatedLambda == widget.lambda &&
+    if (_lastEvaluatedLambda == widget._lambda &&
         listEquals(_lastEvaluatedValues, _values)) {
       return;
     }
@@ -76,17 +78,18 @@ class _GlueListenableState extends State<GlueListenable> {
   }
 
   List get _values =>
-      widget.notifiers.map((notifier) => notifier.value).toList();
+      widget._notifiers.map((notifier) => notifier.value).toList();
 
   Ir _toIr(ValueNotifier notifier) => toIr(notifier.value);
 
   void _run() {
-    _lastEvaluatedLambda = widget.lambda;
+    _lastEvaluatedLambda = widget._lambda;
     _lastEvaluatedValues = _values;
 
+    final notifiers = widget._notifiers.map(_toIr).toList();
     final evaluation = apply(
-      widget.lambda,
-      widget.notifiers.map(_toIr).toList(),
+      widget._lambda,
+      widget._isList ? [IrList(notifiers)] : notifiers,
     );
     final result = runEval(
       evaluation,
@@ -126,7 +129,7 @@ class _GlueListenableState extends State<GlueListenable> {
   @override
   void dispose() {
     _scope.reactiveRuntime.removeListener(_run);
-    for (final notifier in widget.notifiers) {
+    for (final notifier in widget._notifiers) {
       notifier.removeListener(_runGuarded);
     }
     super.dispose();

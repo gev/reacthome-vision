@@ -5,27 +5,29 @@ import 'package:vision/glue/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 
 class GlueNotifier extends ValueNotifier<dynamic> {
-  final List<ValueNotifier> notifiers;
-  final Ir lambda;
-  final ReactiveRuntime reactiveRuntime;
-  final Logger log;
+  final Ir _lambda;
+  final List<ValueNotifier> _notifiers;
+  final bool _isList;
+  final ReactiveRuntime _reactiveRuntime;
+  final Logger _log;
 
   List _lastEvaluatedValues = [];
 
   GlueNotifier({
-    required this.notifiers,
-    required this.lambda,
-    required this.reactiveRuntime,
-    required this.log,
+    required this._lambda,
+    required this._notifiers,
+    required this._isList,
+    required this._reactiveRuntime,
+    required this._log,
   }) : super(null) {
-    for (final notifier in notifiers) {
+    for (final notifier in _notifiers) {
       notifier.addListener(_runGuarded);
     }
-    reactiveRuntime.addListener(_run);
+    _reactiveRuntime.addListener(_run);
     _run();
   }
 
-  List get _values => notifiers.map((notifier) => notifier.value).toList();
+  List get _values => _notifiers.map((notifier) => notifier.value).toList();
 
   Ir _toIr(ValueNotifier notifier) => toIr(notifier.value);
 
@@ -38,11 +40,15 @@ class GlueNotifier extends ValueNotifier<dynamic> {
 
   void _run() {
     _lastEvaluatedValues = _values;
-    final evaluation = apply(lambda, notifiers.map(_toIr).toList());
-    final result = runEval(evaluation, reactiveRuntime.runtime);
+    final notifiers = _notifiers.map(_toIr).toList();
+    final evaluation = apply(
+      _lambda,
+      _isList ? [IrList(notifiers)] : notifiers,
+    );
+    final result = runEval(evaluation, _reactiveRuntime.runtime);
     result.match(
       (err) {
-        log.error(err);
+        _log.error(err);
       },
       (res) {
         final (val, _) = res;
@@ -53,8 +59,8 @@ class GlueNotifier extends ValueNotifier<dynamic> {
 
   @override
   void dispose() {
-    reactiveRuntime.removeListener(_run);
-    for (final notifier in notifiers) {
+    _reactiveRuntime.removeListener(_run);
+    for (final notifier in _notifiers) {
       notifier.removeListener(_runGuarded);
     }
     super.dispose();

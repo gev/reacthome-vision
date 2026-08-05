@@ -10,34 +10,44 @@ final render = IrNativeFunc((Ir lambda) {
   return Eval.pure(
     IrSpecial((List<Ir> rawArgs) {
       return sequenceAll(rawArgs.map(eval).toList()).bind((List<Ir> args) {
-        final notifiers = <ValueNotifier>[];
-        for (final arg in args) {
-          switch (arg) {
-            case IrList(:final elements):
-              for (final item in elements) {
-                final notifier = to<ValueNotifier>(item);
-                if (notifier != null) {
-                  notifiers.add(notifier);
-                }
-              }
-            default:
-              final notifier = to<ValueNotifier>(arg);
-              if (notifier != null) {
-                notifiers.add(notifier);
-              }
-          }
+        switch (args) {
+          case [IrList(:final elements)]:
+            return _makeGlueListenable(lambda, elements.unlock, true);
+          default:
+            return _makeGlueListenable(lambda, args, false);
         }
-        if (notifiers.isEmpty) {
-          return throwError(
-            wrongArgumentType(['`function`', 'list of `ValueNotifier`']),
-          );
-        }
-        final reactiveContainer = GlueListenable(
-          notifiers: notifiers,
-          lambda: lambda,
-        );
-        return Eval.pure(IrNativeValue(Value(reactiveContainer)));
       });
     }),
   );
 });
+
+Eval<Ir> _makeGlueListenable(Ir lambda, List<Ir> args, bool isList) {
+  final notifiers = <ValueNotifier>[];
+  for (final arg in args) {
+    switch (arg) {
+      case IrList(:final elements):
+        for (final item in elements) {
+          final notifier = to<ValueNotifier>(item);
+          if (notifier != null) {
+            notifiers.add(notifier);
+          }
+        }
+      default:
+        final notifier = to<ValueNotifier>(arg);
+        if (notifier != null) {
+          notifiers.add(notifier);
+        }
+    }
+  }
+  if (notifiers.isEmpty) {
+    return throwError(
+      wrongArgumentType(['`function`', 'list of `ValueNotifier`']),
+    );
+  }
+  final reactiveContainer = GlueListenable(
+    lambda: lambda,
+    notifiers: notifiers,
+    isList: isList,
+  );
+  return Eval.pure(IrNativeValue(Value(reactiveContainer)));
+}

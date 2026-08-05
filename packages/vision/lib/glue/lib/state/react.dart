@@ -11,40 +11,70 @@ import 'package:vision/logger.dart';
 IrNativeFunc react({
   required ReactiveRuntime reactiveRuntime,
   required Logger log,
-}) => IrNativeFunc((Ir lambda) {
-  return Eval.pure(
-    IrSpecial((List<Ir> rawArgs) {
-      return sequenceAll(rawArgs.map(eval).toList()).bind((List<Ir> args) {
-        final notifiers = <ValueNotifier>[];
-        for (final arg in args) {
-          switch (arg) {
-            case IrList(:final elements):
-              for (final item in elements) {
-                final notifier = to<ValueNotifier>(item);
-                if (notifier != null) {
-                  notifiers.add(notifier);
-                }
-              }
+}) {
+  return IrNativeFunc((Ir lambda) {
+    return Eval.pure(
+      IrSpecial((List<Ir> rawArgs) {
+        return sequenceAll(rawArgs.map(eval).toList()).bind((List<Ir> args) {
+          switch (args) {
+            case [IrList(:final elements)]:
+              return _makeGlueNotifier(
+                lambda,
+                elements.unlock,
+                true,
+                reactiveRuntime,
+                log,
+              );
             default:
-              final notifier = to<ValueNotifier>(arg);
-              if (notifier != null) {
-                notifiers.add(notifier);
-              }
+              return _makeGlueNotifier(
+                lambda,
+                args,
+                false,
+                reactiveRuntime,
+                log,
+              );
+          }
+        });
+      }),
+    );
+  });
+}
+
+Eval<Ir> _makeGlueNotifier(
+  Ir lambda,
+  List<Ir> args,
+  bool isList,
+  ReactiveRuntime reactiveRuntime,
+  Logger log,
+) {
+  final notifiers = <ValueNotifier>[];
+  for (final arg in args) {
+    switch (arg) {
+      case IrList(:final elements):
+        for (final item in elements) {
+          final notifier = to<ValueNotifier>(item);
+          if (notifier != null) {
+            notifiers.add(notifier);
           }
         }
-        if (notifiers.isEmpty) {
-          return throwError(
-            wrongArgumentType(['`function`', 'list of `ValueNotifier`']),
-          );
+      default:
+        final notifier = to<ValueNotifier>(arg);
+        if (notifier != null) {
+          notifiers.add(notifier);
         }
-        final reactiveContainer = GlueNotifier(
-          notifiers: notifiers,
-          lambda: lambda,
-          reactiveRuntime: reactiveRuntime,
-          log: log,
-        );
-        return Eval.pure(IrNativeValue(Value(reactiveContainer)));
-      });
-    }),
+    }
+  }
+  if (notifiers.isEmpty) {
+    return throwError(
+      wrongArgumentType(['`function`', 'list of `ValueNotifier`']),
+    );
+  }
+  final reactiveContainer = GlueNotifier(
+    lambda: lambda,
+    notifiers: notifiers,
+    isList: isList,
+    reactiveRuntime: reactiveRuntime,
+    log: log,
   );
-});
+  return Eval.pure(IrNativeValue(Value(reactiveContainer)));
+}
