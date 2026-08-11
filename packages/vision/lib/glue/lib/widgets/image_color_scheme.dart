@@ -3,6 +3,7 @@ import 'package:glue/context.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:vision/glue/lib/widgets/current_theme.dart';
 
 final Ir imageColorScheme = IrNativeFunc(_imageColorSchemeImpl);
 
@@ -16,17 +17,23 @@ Eval<Ir> _imageColorSchemeImpl(Ir ir) {
             wrongArgumentType(['Required ImageProvider as `provider`']),
           );
         }
+        print(imageProvider);
         final brightness = to<Brightness>(properties['brightness']);
         final context = getFromContext<BuildContext>(runtime.context);
         final notifier = context != null
-            ? ValueNotifier(Theme.of(context).colorScheme)
-            : ValueNotifier(null);
+            ? ValueNotifier(colorScheme(Theme.of(context).colorScheme))
+            : ValueNotifier(IrVoid());
         ColorScheme.fromImageProvider(
-          provider: imageProvider,
-          brightness: brightness ?? Brightness.light,
-        ).then((colorScheme) {
-          notifier.value = colorScheme;
-        });
+              provider: imageProvider,
+              brightness: brightness ?? Brightness.light,
+            )
+            .then((cs) {
+              print(cs.primary);
+              notifier.value = colorScheme(cs);
+            })
+            .catchError((e) {
+              print(e);
+            });
         return Eval.pure(IrNativeValue(Value(notifier)));
 
       default:
