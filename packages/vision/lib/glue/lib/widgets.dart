@@ -6,6 +6,7 @@ import 'package:vision/glue/lib/widgets/back_drop.dart';
 import 'package:vision/glue/lib/widgets/blur.dart';
 import 'package:vision/glue/lib/widgets/canvas.dart';
 import 'package:vision/glue/lib/widgets/closures.dart';
+import 'package:vision/glue/lib/widgets/current_theme.dart';
 import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
@@ -14,7 +15,6 @@ import 'package:vision/glue/lib/widgets/slider/circular_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
 import 'package:vision/glue/lib/widgets/symbol.dart';
-import 'package:vision/glue/lib/widgets/theme.dart';
 
 ModuleInfo widgetsModule({required Ir image}) {
   return nativeModule('ffi.vision.widgets', [
@@ -40,7 +40,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('symbol', symbol),
     ('sharp-symbol', sharpSymbol),
     ('rounded-symbol', roundedSymbol),
-    ('theme', theme),
     ('image-filtered', imageFiltered),
+    ('current-theme', currentTheme),
   ]);
 }

@@ -5,7 +5,7 @@ import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/lib/widgets/getters.dart';
 
-final Ir theme = IrEvaluable(() {
+final Ir currentTheme = IrEvaluable(() {
   return getRuntime().bind((runtime) {
     final context = getFromContext<BuildContext>(runtime.context);
     return Eval.pure(
