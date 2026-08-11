@@ -2,25 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue_flutter/glue_flutter.dart';
 
 final Ir seedColorScheme = IrNativeFunc(_seedColorSchemeImpl);
 
 Eval<Ir> _seedColorSchemeImpl(Ir ir) {
   switch (ir) {
-    case IrObject(:final properties):
-      final seedColor = to<Color>(properties['seed']);
+    case IrObject obj:
+      final properties = WidgetProperties(obj.properties.unlock);
+      final seedColor = properties.getColor('seed');
       if (seedColor == null) {
         return throwError(
           wrongArgumentType(['Color `seed` property required']),
         );
       }
-
       final colorScheme = ColorScheme.fromSeed(
         seedColor: seedColor,
         brightness:
-            to<Brightness>(properties['brightness']) ?? Brightness.light,
+            properties.getValue<Brightness>('brightness') ?? Brightness.light,
         dynamicSchemeVariant:
-            to<DynamicSchemeVariant>(properties['dynamic-scheme-variant']) ??
+            properties.getValue<DynamicSchemeVariant>(
+              'dynamic-scheme-variant',
+            ) ??
             DynamicSchemeVariant.tonalSpot,
       );
 
