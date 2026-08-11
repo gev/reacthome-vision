@@ -4,6 +4,7 @@ import 'package:glue/lib/builtin.dart';
 import 'package:glue/lib/io.dart';
 import 'package:glue/lib/list.dart';
 import 'package:glue/lib/math/arithmetic.dart';
+import 'package:glue/lib/math/const.dart';
 import 'package:glue/lib/math/utility.dart';
 import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
@@ -35,6 +36,7 @@ Env makeLiveEnv({
     boolModule,
     arithmeticModule,
     utilityModule,
+    constModule,
     listModule,
     uiCoreModule,
     uiMaterialModule,
