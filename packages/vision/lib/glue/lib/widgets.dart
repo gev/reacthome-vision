@@ -15,6 +15,7 @@ import 'package:vision/glue/lib/widgets/slider/circular_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
 import 'package:vision/glue/lib/widgets/symbol.dart';
+import 'package:vision/glue/lib/widgets/with_theme.dart';
 
 ModuleInfo widgetsModule({required Ir image}) {
   return nativeModule('ffi.vision.widgets', [
@@ -42,5 +43,6 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('rounded-symbol', roundedSymbol),
     ('image-filtered', imageFiltered),
     ('current-theme', currentTheme),
+    ('with-theme', withTheme),
   ]);
 }
