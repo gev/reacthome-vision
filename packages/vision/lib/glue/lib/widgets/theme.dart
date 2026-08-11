@@ -19,11 +19,11 @@ Eval<Ir> _createTheme(WidgetProperties properties) {
   if (colorScheme == null) {
     return throwError(wrongArgumentType(['`color-scheme` property required']));
   }
-  final themeData = ThemeData.from(
+  final theme = ThemeData.from(
     useMaterial3: true,
     colorScheme: colorScheme,
     textTheme: properties.getValue('text-theme'),
   );
 
-  return Eval.pure(IrNativeValue(Value(themeData)));
+  return Eval.pure(themeData(theme));
 }
