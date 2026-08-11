@@ -17,14 +17,17 @@ Eval<Ir> _imageColorSchemeImpl(Ir ir) {
             wrongArgumentType(['Required ImageProvider as `provider`']),
           );
         }
-        final brightness = to<Brightness>(properties['brightness']);
         final context = getFromContext<BuildContext>(runtime.context);
         final notifier = context != null
             ? ValueNotifier(colorScheme(Theme.of(context).colorScheme))
             : ValueNotifier(IrVoid());
         ColorScheme.fromImageProvider(
           provider: imageProvider,
-          brightness: brightness ?? Brightness.light,
+          brightness:
+              to<Brightness>(properties['brightness']) ?? Brightness.light,
+          dynamicSchemeVariant:
+              to<DynamicSchemeVariant>(properties['dynamic-scheme-variant']) ??
+              DynamicSchemeVariant.tonalSpot,
         ).then((cs) {
           notifier.value = colorScheme(cs);
         });
