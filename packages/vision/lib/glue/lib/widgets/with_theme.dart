@@ -21,7 +21,13 @@ Eval<Ir> withThemeImpl(Ir ir) {
           wrongArgumentType(['Widget `child` property required']),
         );
       }
-      return Eval.pure(IrNativeValue(Value(Theme(data: data, child: child))));
+      final key = properties['key'];
+      final theme = Theme(
+        key: key != null ? ValueKey(key) : null,
+        data: data,
+        child: child,
+      );
+      return Eval.pure(IrNativeValue(Value(theme)));
 
     default:
       return throwError(
