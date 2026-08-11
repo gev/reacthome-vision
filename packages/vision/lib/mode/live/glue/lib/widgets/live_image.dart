@@ -12,7 +12,7 @@ import 'package:vision/persistent/assets.dart';
 Ir liveImage(Assets assets) {
   ImageProvider assetsImage(String src) => AssetsImage(src, assets);
 
-  return IrNativeFunc(imageImpl(assetsImage));
+  return IrNativeFunc(imageProviderImpl(assetsImage));
 }
 
 class AssetsImage extends ImageProvider<AssetsImage> {

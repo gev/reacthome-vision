@@ -22,7 +22,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('backdrop', backdrop),
     ('blur', blur),
     ('placeholder', placeholder),
-    ('image', image),
+    ('load-image', image),
     ('canvas', canvas),
     ('horizontal-slider', horizontalSlider),
     ('vertical-slider', verticalSlider),
