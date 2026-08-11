@@ -7,6 +7,7 @@ import 'package:vision/glue/lib/widgets/blur.dart';
 import 'package:vision/glue/lib/widgets/canvas.dart';
 import 'package:vision/glue/lib/widgets/closures.dart';
 import 'package:vision/glue/lib/widgets/current_theme.dart';
+import 'package:vision/glue/lib/widgets/image_color_scheme.dart';
 import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
@@ -44,5 +45,6 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('image-filtered', imageFiltered),
     ('current-theme', currentTheme),
     ('with-theme', withTheme),
+    ('image-color-scheme', imageColorScheme),
   ]);
 }
