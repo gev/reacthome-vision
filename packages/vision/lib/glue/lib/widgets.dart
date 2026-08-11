@@ -12,6 +12,7 @@ import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
+import 'package:vision/glue/lib/widgets/seed_color_scheme.dart';
 import 'package:vision/glue/lib/widgets/slider/circular_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
@@ -48,5 +49,6 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('with-theme', withTheme),
     ('theme', theme),
     ('image-color-scheme', imageColorScheme),
+    ('seed-color-scheme', seedColorScheme),
   ]);
 }
