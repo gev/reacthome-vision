@@ -20,6 +20,7 @@ class _GlueWidgetState extends State<GlueWidget> {
   Widget _cachedWidget = const SizedBox.shrink();
 
   // Caches to prevent duplicate evaluation cycles
+  Env? _lastEnv;
   Ir? _lastEvaluatedExpression;
 
   late final Scope _scope;
@@ -44,7 +45,8 @@ class _GlueWidgetState extends State<GlueWidget> {
 
   void _runGuarded() {
     // Guard against duplicate executions
-    if (_lastEvaluatedExpression == widget.expression) {
+    if (_lastEvaluatedExpression == widget.expression &&
+        _lastEnv == widget.env) {
       return;
     }
     _run();
@@ -52,6 +54,7 @@ class _GlueWidgetState extends State<GlueWidget> {
 
   void _run() {
     _lastEvaluatedExpression = widget.expression;
+    _lastEnv = widget.env;
 
     final evaluation = eval(widget.expression);
     final result = runEval(
