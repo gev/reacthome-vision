@@ -70,7 +70,6 @@ class _VerticalSliderState extends State<VerticalSlider>
         .animate(
           CurvedAnimation(parent: _controller, curve: widget.animationCurve),
         );
-    if (mounted) setState(() {});
   }
 
   double _toNormalized(double v) => widget.max == widget.min
@@ -100,7 +99,6 @@ class _VerticalSliderState extends State<VerticalSlider>
               (newNormalized == 1.0 && _normalizedValue < 1.0))) {
         HapticFeedback.heavyImpact();
       }
-      setState(() => _normalizedValue = newNormalized);
       widget.onChanged(_fromNormalized(newNormalized));
     }
   }

@@ -70,7 +70,6 @@ class _ShutterState extends State<Shutter> with SingleTickerProviderStateMixin {
         ).animate(
           CurvedAnimation(parent: _controller, curve: widget.animationCurve),
         );
-    if (mounted) setState(() {});
   }
 
   void _handleInput(Offset localPosition, {bool isDrag = false}) {
@@ -91,7 +90,6 @@ class _ShutterState extends State<Shutter> with SingleTickerProviderStateMixin {
               (newNormalized == 1.0 && _normalizedValue < 1.0))) {
         HapticFeedback.heavyImpact();
       }
-      setState(() => _normalizedValue = newNormalized);
       widget.onChanged(newNormalized);
     }
   }

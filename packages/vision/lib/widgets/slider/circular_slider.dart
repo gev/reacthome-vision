@@ -86,11 +86,7 @@ class _CircularSliderState extends State<CircularSlider>
 
     if (oldWidget.value != widget.value ||
         oldWidget.min != widget.min ||
-        oldWidget.max != widget.max) {
-      setState(() {
-        _pureNormalizedValue = _toNormalized(widget.value);
-      });
-    }
+        oldWidget.max != widget.max) {}
 
     if (oldWidget.width != widget.width ||
         oldWidget.focusedWidth != widget.focusedWidth ||
@@ -165,9 +161,6 @@ class _CircularSliderState extends State<CircularSlider>
         HapticFeedback.heavyImpact();
       }
 
-      setState(() {
-        _pureNormalizedValue = newNormalized;
-      });
       widget.onChanged(_fromNormalized(newNormalized));
     }
 

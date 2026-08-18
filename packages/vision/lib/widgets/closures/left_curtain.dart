@@ -71,7 +71,6 @@ class _LeftCurtainState extends State<LeftCurtain>
         ).animate(
           CurvedAnimation(parent: _controller, curve: widget.animationCurve),
         );
-    if (mounted) setState(() {});
   }
 
   void _handleInput(Offset localPosition, {bool isDrag = false}) {
@@ -92,7 +91,6 @@ class _LeftCurtainState extends State<LeftCurtain>
               (newNormalized == 1.0 && _normalizedValue < 1.0))) {
         HapticFeedback.heavyImpact();
       }
-      setState(() => _normalizedValue = newNormalized);
       widget.onChanged(newNormalized);
     }
   }
