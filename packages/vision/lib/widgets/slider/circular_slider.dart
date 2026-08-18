@@ -181,65 +181,71 @@ class _CircularSliderState extends State<CircularSlider>
           duration: widget.animationDuration,
           curve: widget.animationCurve,
           builder: (context, animatedValue, _) {
-            return RawGestureDetector(
-              behavior: HitTestBehavior.opaque,
-              gestures: {
-                _EagerPanGestureRecognizer:
-                    GestureRecognizerFactoryWithHandlers<
-                      _EagerPanGestureRecognizer
-                    >(() => _EagerPanGestureRecognizer(), (
-                      _EagerPanGestureRecognizer instance,
-                    ) {
-                      instance
-                        ..onDown = (d) {
-                          _dragHapticTriggered = false;
-                          _widthController.forward();
-                          if (widget.jumpToTap) {
-                            _handleInput(
-                              d.localPosition,
-                              isTap: true,
-                              resetLastAngle: true,
-                            );
-                          } else {
-                            if (widget.enableHapticOnTap) {
-                              HapticFeedback.selectionClick();
-                            }
-                          }
-                        }
-                        ..onStart = (d) {
-                          _handleInput(d.localPosition, resetLastAngle: true);
-                        }
-                        ..onUpdate = (d) {
-                          if (!_dragHapticTriggered &&
-                              widget.enableHapticOnTap) {
-                            HapticFeedback.selectionClick();
-                            _dragHapticTriggered = true;
-                          }
-                          _handleInput(d.localPosition);
-                        }
-                        ..onEnd = (_) {
-                          _widthController.reverse();
-                        }
-                        ..onCancel = () {
-                          _widthController.reverse();
-                        };
-                    }),
-              },
-              child: CustomPaint(
-                size: Size(widget.diameter, widget.diameter),
-                painter: _SliderPainter(
-                  normalizedValue: animatedValue,
-                  startAngle: widget.startAngle,
-                  endAngle: widget.endAngle,
-                  strokeWidth: _widthAnimation.value,
-                  activeColor: widget.activeColor ?? theme.colorScheme.primary,
-                  inactiveColor:
-                      widget.inactiveColor ??
-                      theme.colorScheme.surfaceContainerHighest,
-                  cap: widget.cap,
-                ),
+            final slider = CustomPaint(
+              size: Size(widget.diameter, widget.diameter),
+              painter: _SliderPainter(
+                normalizedValue: animatedValue,
+                startAngle: widget.startAngle,
+                endAngle: widget.endAngle,
+                strokeWidth: _widthAnimation.value,
+                activeColor: widget.activeColor ?? theme.colorScheme.primary,
+                inactiveColor:
+                    widget.inactiveColor ??
+                    theme.colorScheme.surfaceContainerHighest,
+                cap: widget.cap,
               ),
             );
+            return widget.onChanged == null
+                ? slider
+                : RawGestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    gestures: {
+                      _EagerPanGestureRecognizer:
+                          GestureRecognizerFactoryWithHandlers<
+                            _EagerPanGestureRecognizer
+                          >(() => _EagerPanGestureRecognizer(), (
+                            _EagerPanGestureRecognizer instance,
+                          ) {
+                            instance
+                              ..onDown = (d) {
+                                _dragHapticTriggered = false;
+                                _widthController.forward();
+                                if (widget.jumpToTap) {
+                                  _handleInput(
+                                    d.localPosition,
+                                    isTap: true,
+                                    resetLastAngle: true,
+                                  );
+                                } else {
+                                  if (widget.enableHapticOnTap) {
+                                    HapticFeedback.selectionClick();
+                                  }
+                                }
+                              }
+                              ..onStart = (d) {
+                                _handleInput(
+                                  d.localPosition,
+                                  resetLastAngle: true,
+                                );
+                              }
+                              ..onUpdate = (d) {
+                                if (!_dragHapticTriggered &&
+                                    widget.enableHapticOnTap) {
+                                  HapticFeedback.selectionClick();
+                                  _dragHapticTriggered = true;
+                                }
+                                _handleInput(d.localPosition);
+                              }
+                              ..onEnd = (_) {
+                                _widthController.reverse();
+                              }
+                              ..onCancel = () {
+                                _widthController.reverse();
+                              };
+                          }),
+                    },
+                    child: slider,
+                  );
           },
         );
       },

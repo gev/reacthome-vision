@@ -119,67 +119,72 @@ class _DoubleGateState extends State<DoubleGate>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return RawGestureDetector(
-      behavior: widget.translucent
-          ? HitTestBehavior.deferToChild
-          : HitTestBehavior.opaque,
-      gestures: {
-        _EagerHorizontalDragGestureRecognizer:
-            GestureRecognizerFactoryWithHandlers<
-              _EagerHorizontalDragGestureRecognizer
-            >(() => _EagerHorizontalDragGestureRecognizer(), (instance) {
-              instance.onDown = (d) {
-                _dragHapticTriggered = false;
-                _controller.forward();
-                _dragStartValue = _normalizedValue;
-                _dragStartPos = d.localPosition.dx;
-                _isLeftHalf = _dragStartPos! < (widget.width / 2);
-
-                if (widget.jumpToTap) {
-                  _handleInput(d.localPosition, isDrag: false);
-                }
-                if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
-              };
-              instance.onStart = (d) {
-                _handleInput(d.localPosition, isDrag: true);
-              };
-              instance.onUpdate = (d) {
-                if (!_dragHapticTriggered && widget.enableHapticOnTap) {
-                  HapticFeedback.selectionClick();
-                  _dragHapticTriggered = true;
-                }
-                _handleInput(d.localPosition, isDrag: true);
-              };
-              instance.onEnd = (_) {
-                _controller.reverse();
-              };
-              instance.onCancel = () {
-                _controller.reverse();
-              };
-            }),
-      },
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (c, _) => TweenAnimationBuilder<double>(
-          tween: Tween<double>(end: _normalizedValue),
-          duration: widget.animationDuration,
-          curve: widget.animationCurve,
-          builder: (c, val, _) => CustomPaint(
-            size: Size(widget.width, widget.height),
-            painter: _DoubleCurtainPainter(
-              val,
-              widget.activeColor ?? theme.colorScheme.primary,
-              widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
-              widget.height,
-              widget.width,
-              widget.frameRadius,
-              _animation.value,
-              widget.translucent,
-            ),
+    final slider = AnimatedBuilder(
+      animation: _animation,
+      builder: (c, _) => TweenAnimationBuilder<double>(
+        tween: Tween<double>(end: _normalizedValue),
+        duration: widget.animationDuration,
+        curve: widget.animationCurve,
+        builder: (c, val, _) => CustomPaint(
+          size: Size(widget.width, widget.height),
+          painter: _DoubleCurtainPainter(
+            val,
+            widget.activeColor ?? theme.colorScheme.primary,
+            widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
+            widget.height,
+            widget.width,
+            widget.frameRadius,
+            _animation.value,
+            widget.translucent,
           ),
         ),
       ),
     );
+    return widget.onChanged == null
+        ? slider
+        : RawGestureDetector(
+            behavior: widget.translucent
+                ? HitTestBehavior.deferToChild
+                : HitTestBehavior.opaque,
+            gestures: {
+              _EagerHorizontalDragGestureRecognizer:
+                  GestureRecognizerFactoryWithHandlers<
+                    _EagerHorizontalDragGestureRecognizer
+                  >(() => _EagerHorizontalDragGestureRecognizer(), (instance) {
+                    instance.onDown = (d) {
+                      _dragHapticTriggered = false;
+                      _controller.forward();
+                      _dragStartValue = _normalizedValue;
+                      _dragStartPos = d.localPosition.dx;
+                      _isLeftHalf = _dragStartPos! < (widget.width / 2);
+
+                      if (widget.jumpToTap) {
+                        _handleInput(d.localPosition, isDrag: false);
+                      }
+                      if (widget.enableHapticOnTap) {
+                        HapticFeedback.selectionClick();
+                      }
+                    };
+                    instance.onStart = (d) {
+                      _handleInput(d.localPosition, isDrag: true);
+                    };
+                    instance.onUpdate = (d) {
+                      if (!_dragHapticTriggered && widget.enableHapticOnTap) {
+                        HapticFeedback.selectionClick();
+                        _dragHapticTriggered = true;
+                      }
+                      _handleInput(d.localPosition, isDrag: true);
+                    };
+                    instance.onEnd = (_) {
+                      _controller.reverse();
+                    };
+                    instance.onCancel = () {
+                      _controller.reverse();
+                    };
+                  }),
+            },
+            child: slider,
+          );
   }
 }
 

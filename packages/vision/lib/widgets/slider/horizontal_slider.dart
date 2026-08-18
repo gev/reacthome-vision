@@ -103,60 +103,65 @@ class _HorizontalSliderState extends State<HorizontalSlider>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return RawGestureDetector(
-      behavior: HitTestBehavior.opaque,
-      gestures: {
-        _EagerHorizontalDragGestureRecognizer:
-            GestureRecognizerFactoryWithHandlers<
-              _EagerHorizontalDragGestureRecognizer
-            >(() => _EagerHorizontalDragGestureRecognizer(), (instance) {
-              instance.onDown = (d) {
-                _dragHapticTriggered = false;
-                _controller.forward();
-                _dragStartValue = _normalizedValue;
-                _dragStartPos = d.localPosition.dx;
-                if (widget.jumpToTap) {
-                  _handleInput(d.localPosition, isDrag: false);
-                }
-                if (widget.enableHapticOnTap) HapticFeedback.selectionClick();
-              };
-              instance.onStart = (d) {
-                _handleInput(d.localPosition, isDrag: true);
-              };
-              instance.onUpdate = (d) {
-                if (!_dragHapticTriggered && widget.enableHapticOnTap) {
-                  HapticFeedback.selectionClick();
-                  _dragHapticTriggered = true;
-                }
-                _handleInput(d.localPosition, isDrag: true);
-              };
-              instance.onEnd = (_) {
-                _controller.reverse();
-              };
-              instance.onCancel = () {
-                _controller.reverse();
-              };
-            }),
-      },
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (c, _) => TweenAnimationBuilder<double>(
-          tween: Tween<double>(end: _normalizedValue),
-          duration: widget.animationDuration,
-          curve: widget.animationCurve,
-          builder: (c, val, _) => CustomPaint(
-            size: Size(widget.width, _animation.value),
-            painter: _SliderPainter(
-              val,
-              widget.activeColor ?? theme.colorScheme.primary,
-              widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
-              widget.borderRadius,
-              true,
-            ),
+    final slider = AnimatedBuilder(
+      animation: _animation,
+      builder: (c, _) => TweenAnimationBuilder<double>(
+        tween: Tween<double>(end: _normalizedValue),
+        duration: widget.animationDuration,
+        curve: widget.animationCurve,
+        builder: (c, val, _) => CustomPaint(
+          size: Size(widget.width, _animation.value),
+          painter: _SliderPainter(
+            val,
+            widget.activeColor ?? theme.colorScheme.primary,
+            widget.inactiveColor ?? theme.colorScheme.surfaceContainerHighest,
+            widget.borderRadius,
+            true,
           ),
         ),
       ),
     );
+    return widget.onChanged == null
+        ? slider
+        : RawGestureDetector(
+            behavior: HitTestBehavior.opaque,
+            gestures: {
+              _EagerHorizontalDragGestureRecognizer:
+                  GestureRecognizerFactoryWithHandlers<
+                    _EagerHorizontalDragGestureRecognizer
+                  >(() => _EagerHorizontalDragGestureRecognizer(), (instance) {
+                    instance.onDown = (d) {
+                      _dragHapticTriggered = false;
+                      _controller.forward();
+                      _dragStartValue = _normalizedValue;
+                      _dragStartPos = d.localPosition.dx;
+                      if (widget.jumpToTap) {
+                        _handleInput(d.localPosition, isDrag: false);
+                      }
+                      if (widget.enableHapticOnTap) {
+                        HapticFeedback.selectionClick();
+                      }
+                    };
+                    instance.onStart = (d) {
+                      _handleInput(d.localPosition, isDrag: true);
+                    };
+                    instance.onUpdate = (d) {
+                      if (!_dragHapticTriggered && widget.enableHapticOnTap) {
+                        HapticFeedback.selectionClick();
+                        _dragHapticTriggered = true;
+                      }
+                      _handleInput(d.localPosition, isDrag: true);
+                    };
+                    instance.onEnd = (_) {
+                      _controller.reverse();
+                    };
+                    instance.onCancel = () {
+                      _controller.reverse();
+                    };
+                  }),
+            },
+            child: slider,
+          );
   }
 }
 
