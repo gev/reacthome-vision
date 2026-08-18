@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class RightGate extends StatefulWidget {
   final double value;
-  final ValueChanged<double> onChanged;
+  final ValueChanged<double>? onChanged;
   final bool translucent, jumpToTap, enableHapticOnTap, enableHapticOnBounds;
   final Color? activeColor, inactiveColor;
   final double width, height;
@@ -15,7 +15,7 @@ class RightGate extends StatefulWidget {
   const RightGate({
     super.key,
     required this.value,
-    required this.onChanged,
+    this.onChanged,
     this.translucent = false,
     this.jumpToTap = true,
     this.enableHapticOnTap = true,
@@ -91,7 +91,7 @@ class _RightGateState extends State<RightGate>
               (newNormalized == 1.0 && _normalizedValue < 1.0))) {
         HapticFeedback.heavyImpact();
       }
-      widget.onChanged(newNormalized);
+      widget.onChanged?.call(newNormalized);
     }
   }
 

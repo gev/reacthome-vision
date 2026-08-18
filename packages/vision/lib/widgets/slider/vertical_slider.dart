@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class VerticalSlider extends StatefulWidget {
   final double value;
-  final ValueChanged<double> onChanged;
+  final ValueChanged<double>? onChanged;
   final double min, max;
   final bool jumpToTap, enableHapticOnTap, enableHapticOnBounds;
   final Color? activeColor, inactiveColor;
@@ -15,7 +15,7 @@ class VerticalSlider extends StatefulWidget {
   const VerticalSlider({
     super.key,
     required this.value,
-    required this.onChanged,
+    this.onChanged,
     this.min = 0.0,
     this.max = 1.0,
     this.jumpToTap = true,
@@ -99,7 +99,7 @@ class _VerticalSliderState extends State<VerticalSlider>
               (newNormalized == 1.0 && _normalizedValue < 1.0))) {
         HapticFeedback.heavyImpact();
       }
-      widget.onChanged(_fromNormalized(newNormalized));
+      widget.onChanged?.call(_fromNormalized(newNormalized));
     }
   }
 

@@ -75,9 +75,7 @@ Eval<Ir> _createCurtain({
   return getRuntime().bind((runtime) {
     final curtainWidget = curtain(
       value: properties.getDouble('value') ?? 0,
-      onChanged: (value) {
-        properties.getCallback<double>('on-changed')?.call(runtime).call(value);
-      },
+      onChanged: properties.getCallback<double>('on-changed')?.call(runtime),
       activeColor: properties.getColor('active-color'),
       inactiveColor: properties.getColor('inactive-color'),
       height: properties.getDouble('height') ?? defaultHeight,

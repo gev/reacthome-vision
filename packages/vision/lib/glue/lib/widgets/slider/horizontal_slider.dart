@@ -22,9 +22,7 @@ Eval<Ir> _createHorizontalSlider(WidgetProperties properties) {
       value: properties.getDouble('value') ?? 0,
       min: properties.getDouble('min') ?? 0,
       max: properties.getDouble('max') ?? 1,
-      onChanged: (value) {
-        properties.getCallback<double>('on-changed')?.call(runtime).call(value);
-      },
+      onChanged: properties.getCallback<double>('on-changed')?.call(runtime),
       activeColor: properties.getColor('active-color'),
       inactiveColor: properties.getColor('inactive-color'),
       width: properties.getDouble('width') ?? 250.0,

@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 
 class CircularSlider extends StatefulWidget {
   final double value;
-  final ValueChanged<double> onChanged;
+  final ValueChanged<double>? onChanged;
   final double min;
   final double max;
   final double diameter;
@@ -26,8 +26,8 @@ class CircularSlider extends StatefulWidget {
   const CircularSlider({
     super.key,
     required this.value,
-    required this.onChanged,
     required this.diameter,
+    this.onChanged,
     this.min = 0.0,
     this.max = 1.0,
     this.width = 24.0,
@@ -161,7 +161,7 @@ class _CircularSliderState extends State<CircularSlider>
         HapticFeedback.heavyImpact();
       }
 
-      widget.onChanged(_fromNormalized(newNormalized));
+      widget.onChanged?.call(_fromNormalized(newNormalized));
     }
 
     if (isTap && widget.enableHapticOnTap) {
