@@ -8,6 +8,7 @@ Future<Widget> makeLocalApp({
   required String title,
   required String codePath,
 }) async {
+  WidgetsFlutterBinding.ensureInitialized();
   final orchestrator = LocalOrchestrator(
     path: await getApplicationSupportDirectory(),
     codePath: codePath,

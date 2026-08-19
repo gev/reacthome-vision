@@ -9,6 +9,7 @@ Future<Widget> makeLiveApp({
   required String host,
   required int port,
 }) async {
+  WidgetsFlutterBinding.ensureInitialized();
   final orchestrator = LiveOrchestrator(
     path: await getApplicationSupportDirectory(),
     host: host,
