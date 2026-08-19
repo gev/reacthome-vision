@@ -56,9 +56,8 @@ class _VerticalSliderState extends State<VerticalSlider>
   }
 
   @override
-  void didUpdateWidget(covariant VerticalSlider oldWidget) {
+  void didUpdateWidget(VerticalSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.duration = widget.animationDuration;
     _updateInternals();
   }
 

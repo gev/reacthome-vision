@@ -58,7 +58,6 @@ class _LeftCurtainState extends State<LeftCurtain>
   @override
   void didUpdateWidget(covariant LeftCurtain oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.duration = widget.animationDuration;
     _updateInternals();
   }
 

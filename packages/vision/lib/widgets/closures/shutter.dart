@@ -57,7 +57,6 @@ class _ShutterState extends State<Shutter> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(covariant Shutter oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.duration = widget.animationDuration;
     _updateInternals();
   }
 

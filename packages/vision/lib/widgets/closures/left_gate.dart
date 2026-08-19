@@ -58,7 +58,6 @@ class _LeftGateState extends State<LeftGate>
   @override
   void didUpdateWidget(covariant LeftGate oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.duration = widget.animationDuration;
     _updateInternals();
   }
 

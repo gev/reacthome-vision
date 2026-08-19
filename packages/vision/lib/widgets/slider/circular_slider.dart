@@ -71,6 +71,9 @@ class _CircularSliderState extends State<CircularSlider>
   }
 
   void _updateWidthAnimation() {
+    _pureNormalizedValue = _toNormalized(
+      widget.value.clamp(widget.min, widget.max),
+    );
     _widthAnimation =
         Tween<double>(begin: widget.width, end: widget.focusedWidth).animate(
           CurvedAnimation(
@@ -83,18 +86,7 @@ class _CircularSliderState extends State<CircularSlider>
   @override
   void didUpdateWidget(covariant CircularSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
-
-    if (oldWidget.value != widget.value ||
-        oldWidget.min != widget.min ||
-        oldWidget.max != widget.max) {}
-
-    if (oldWidget.width != widget.width ||
-        oldWidget.focusedWidth != widget.focusedWidth ||
-        oldWidget.animationDuration != widget.animationDuration ||
-        oldWidget.animationCurve != widget.animationCurve) {
-      _widthController.duration = widget.animationDuration;
-      _updateWidthAnimation();
-    }
+    _updateWidthAnimation();
   }
 
   @override

@@ -58,7 +58,6 @@ class _RightCurtainState extends State<RightCurtain>
   @override
   void didUpdateWidget(covariant RightCurtain oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.duration = widget.animationDuration;
     _updateInternals();
   }
 

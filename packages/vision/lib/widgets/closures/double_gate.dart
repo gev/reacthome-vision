@@ -59,7 +59,6 @@ class _DoubleGateState extends State<DoubleGate>
   @override
   void didUpdateWidget(covariant DoubleGate oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.duration = widget.animationDuration;
     _updateInternals();
   }
 

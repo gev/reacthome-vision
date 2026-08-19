@@ -56,9 +56,8 @@ class _HorizontalSliderState extends State<HorizontalSlider>
   }
 
   @override
-  void didUpdateWidget(covariant HorizontalSlider oldWidget) {
+  void didUpdateWidget(HorizontalSlider oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _controller.duration = widget.animationDuration;
     _updateInternals();
   }
 
