@@ -3,6 +3,7 @@ import 'package:glue/env.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
 
 final Ir withSeedColor = IrSpecial(withSeedColorImpl);
@@ -30,7 +31,7 @@ Eval<Ir> withSeedColorImpl(List<Ir> ir) {
           },
           (val) {
             final ((seedIr, dynamicSchemeVariantIr), _) = val;
-            final seed = extr(seedIr);
+            final seed = extractColor(seedIr);
             if (seed == null) {
               return throwError(
                 wrongArgumentType(['Property `seed-color` should be Color']),
