@@ -30,7 +30,7 @@ Eval<Ir> withSeedColorImpl(List<Ir> ir) {
           },
           (val) {
             final ((seedIr, dynamicSchemeVariantIr), _) = val;
-            final seed = to<Color>(seedIr);
+            final seed = extr(seedIr);
             if (seed == null) {
               return throwError(
                 wrongArgumentType(['Property `seed-color` should be Color']),
