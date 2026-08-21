@@ -5,20 +5,19 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
 
-final Ir withPalette = IrSpecial(withPaletteImpl);
+final Ir withSeedColor = IrSpecial(withSeedColorImpl);
 
-Eval<Ir> withPaletteImpl(List<Ir> ir) {
+Eval<Ir> withSeedColorImpl(List<Ir> ir) {
   return getRuntime().bind((runtime) {
     switch (ir) {
       case [IrObject(:final properties)]
-          when properties.containsKey('seed') &&
+          when properties.containsKey('seed-color') &&
               properties.containsKey('child'):
-        final seed = properties['seed']!;
+        final seed = properties['seed-color']!;
         final dynamicSchemeVariant =
             properties['dynamic-scheme-variant'] ?? IrVoid();
         final childIr = properties['child']!;
         final key = properties['key'];
-
         final dataRes = runEval(
           sequence(eval(seed), eval(dynamicSchemeVariant)),
           runtime,
@@ -26,7 +25,7 @@ Eval<Ir> withPaletteImpl(List<Ir> ir) {
         return dataRes.match(
           (err) {
             return throwError(
-              wrongArgumentType(['Property `data` should be ThemeData']),
+              wrongArgumentType(['Property `seed-color` should be Color']),
             );
           },
           (val) {
@@ -34,7 +33,7 @@ Eval<Ir> withPaletteImpl(List<Ir> ir) {
             final seed = to<Color>(seedIr);
             if (seed == null) {
               return throwError(
-                wrongArgumentType(['Property `seed` should be Color']),
+                wrongArgumentType(['Property `seed-color` should be Color']),
               );
             }
             final dynamicSchemeVariant =

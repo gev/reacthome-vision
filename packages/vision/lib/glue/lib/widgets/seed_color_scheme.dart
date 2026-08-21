@@ -10,10 +10,10 @@ Eval<Ir> _seedColorSchemeImpl(Ir ir) {
   switch (ir) {
     case IrObject obj:
       final properties = WidgetProperties(obj.properties.unlock);
-      final seedColor = properties.getColor('seed');
+      final seedColor = properties.getColor('seed-color');
       if (seedColor == null) {
         return throwError(
-          wrongArgumentType(['Color `seed` property required']),
+          wrongArgumentType(['Color `seed-color` property required']),
         );
       }
       final colorScheme = ColorScheme.fromSeed(
@@ -30,6 +30,6 @@ Eval<Ir> _seedColorSchemeImpl(Ir ir) {
       return Eval.pure(IrNativeValue(Value(colorScheme)));
 
     default:
-      return throwError(wrongArgumentType(['Required property: seed']));
+      return throwError(wrongArgumentType(['Required property: seed-color']));
   }
 }

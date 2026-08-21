@@ -18,7 +18,7 @@ import 'package:vision/glue/lib/widgets/slider/horizontal_slider.dart';
 import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
 import 'package:vision/glue/lib/widgets/symbol.dart';
 import 'package:vision/glue/lib/widgets/theme.dart';
-import 'package:vision/glue/lib/widgets/with_palette.dart';
+import 'package:vision/glue/lib/widgets/with_seed_color.dart';
 import 'package:vision/glue/lib/widgets/with_theme.dart';
 
 ModuleInfo widgetsModule({required Ir image}) {
@@ -47,7 +47,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('rounded-symbol', roundedSymbol),
     ('image-filtered', imageFiltered),
     ('current-theme', currentTheme),
-    ('with-palette', withPalette),
+    ('with-palette', withSeedColor),
     ('with-theme', withTheme),
     ('theme', theme),
     ('image-color-scheme', imageColorScheme),
