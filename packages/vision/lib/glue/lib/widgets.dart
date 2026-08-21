@@ -47,7 +47,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('rounded-symbol', roundedSymbol),
     ('image-filtered', imageFiltered),
     ('current-theme', currentTheme),
-    ('with-palette', withSeedColor),
+    ('with-seed-color', withSeedColor),
     ('with-theme', withTheme),
     ('theme', theme),
     ('image-color-scheme', imageColorScheme),
