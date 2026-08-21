@@ -5,9 +5,9 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/widgets/glue_widget.dart';
 
-final Ir withTheme = IrSpecial(withThemeImpl);
+final Ir withPalette = IrSpecial(withPaletteImpl);
 
-Eval<Ir> withThemeImpl(List<Ir> ir) {
+Eval<Ir> withPaletteImpl(List<Ir> ir) {
   return getRuntime().bind((runtime) {
     switch (ir) {
       case [IrObject(:final properties)]
