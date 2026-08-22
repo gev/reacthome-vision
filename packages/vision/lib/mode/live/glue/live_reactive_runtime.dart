@@ -54,10 +54,11 @@ class LiveReactiveRuntime extends ReactiveRuntime
     if (registered) {
       final db = _storage.codeDb;
       if (db != null) {
-        final error = db.store(name, value);
-        if (error != null) {
-          log.error(error);
-        }
+        db.store(name, value).then((error) {
+          if (error != null) {
+            log.error(error);
+          }
+        });
       }
       _versions[name] = value.version;
     }
@@ -67,15 +68,17 @@ class LiveReactiveRuntime extends ReactiveRuntime
   void loadModule(String name) {
     final db = _storage.codeDb;
     if (db != null && !isModuleRegistered(runtime.registry, name)) {
-      switch (db.lookup(name)) {
-        case Right(:final value):
-          final registered = tryRegisterModule(name, value.payload);
-          if (registered) {
-            _versions[name] = value.version;
-          }
-        case Left(value: final error):
-          log.error(error.message);
-      }
+      db.lookup(name).then((value) {
+        switch (value) {
+          case Right(:final value):
+            final registered = tryRegisterModule(name, value.payload);
+            if (registered) {
+              _versions[name] = value.version;
+            }
+          case Left(value: final error):
+            log.error(error.message);
+        }
+      });
     }
   }
 }

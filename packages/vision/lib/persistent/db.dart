@@ -11,6 +11,6 @@ class DbError {
 }
 
 abstract interface class Db<K, T, V> {
-  Either<DbError, Revision<T, V>> lookup(String key);
-  DbError? store(K key, Revision<T, V> value);
+  Future<Either<DbError, Revision<T, V>>> lookup(String key);
+  Future<DbError?> store(K key, Revision<T, V> value);
 }

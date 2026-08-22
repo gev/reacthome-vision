@@ -17,46 +17,44 @@ class GlueReactiveDb implements GlueReactiveLookup, GlueVersion, GluePut {
 
   @override
   ValueNotifier<Ir> lookup(String key, Ir defaultValue) {
-    var entry = _cache[key];
-    if (entry == null) {
-      switch (_db.lookup(key)) {
+    final cached = _cache[key];
+    if (cached != null) {
+      return cached.notifier;
+    }
+
+    final entry = ReactiveEntry(defaultValue, 0);
+    _db.lookup(key).then((value) {
+      switch (value) {
         case Left(value: final error):
-          entry = ReactiveEntry(defaultValue);
           _log.error(error);
         case Right(:final value):
-          entry = ReactiveEntry(value.payload, value.version);
+          entry.value = value;
       }
-      _cache[key] = entry;
-    }
+    });
+    _cache[key] = entry;
     return entry.notifier;
   }
 
   @override
   int? version(String key) {
-    var entry = _cache[key];
-    if (entry == null) {
-      switch (_db.lookup(key)) {
-        case Left(value: final error):
-          _log.error(error);
-        case Right(:final value):
-          entry = ReactiveEntry(value.payload, value.version);
-          _cache[key] = entry;
-          return entry.version;
-      }
+    final cached = _cache[key];
+    if (cached != null) {
+      return cached.version;
     }
     return 0;
   }
 
   @override
   void put(String key, Revision<Ir, int> value) {
-    final entry = _cache[key];
-    if (entry != null) {
-      entry.value = value;
+    final cached = _cache[key];
+    if (cached != null) {
+      cached.value = value;
     }
-    final error = _db.store(key, value);
-    if (error != null) {
-      _log.error(error);
-    }
+    _db.store(key, value).then((error) {
+      if (error != null) {
+        _log.error(error);
+      }
+    });
   }
 
   void dispose() {

@@ -20,8 +20,8 @@ class GlueDb implements Db<String, Ir, int> {
   }
 
   @override
-  Either<DbError, Revision<Ir, int>> lookup(String key) {
-    switch (_db.lookup(key)) {
+  Future<Either<DbError, Revision<Ir, int>>> lookup(String key) async {
+    switch (await _db.lookup(key)) {
       case Left(value: final error):
         return Left(error);
       case Right(:final value):
@@ -36,7 +36,7 @@ class GlueDb implements Db<String, Ir, int> {
   }
 
   @override
-  DbError? store(String key, Revision<Ir, int> value) {
+  Future<DbError?> store(String key, Revision<Ir, int> value) async {
     switch (decompile(value.payload)) {
       case Left(value: final error):
         return DbError(db: this, message: error);

@@ -31,7 +31,7 @@ class RawDb implements Db<String, String, int> {
   }
 
   @override
-  Either<DbError, Revision<String, int>> lookup(String key) {
+  Future<Either<DbError, Revision<String, int>>> lookup(String key) async {
     try {
       final res = _lookup.select([key]);
       if (res.isNotEmpty) {
@@ -45,7 +45,7 @@ class RawDb implements Db<String, String, int> {
   }
 
   @override
-  DbError? store(String key, Revision<String, int> value) {
+  Future<DbError?> store(String key, Revision<String, int> value) async {
     try {
       _put.execute([key, value.payload, value.version]);
       return null;
