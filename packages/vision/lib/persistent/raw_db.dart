@@ -1,65 +1,73 @@
+// raw_db.dart
+import 'dart:async';
+import 'dart:isolate';
 import 'package:glue/either.dart';
-import 'package:sqlite3/sqlite3.dart';
 import 'package:vision/persistent/db.dart';
+import 'package:vision/persistent/db_command.dart';
+import 'package:vision/persistent/raw_db_isolate.dart';
 import 'package:vision/store/revision.dart';
 
 class RawDb implements Db<String, String, int> {
-  late final Database _db;
-  late final PreparedStatement _lookup;
-  late final PreparedStatement _put;
+  final Completer<SendPort> _sendPortCompleter = Completer<SendPort>();
+  late final Isolate _isolate;
+  final ReceivePort _receivePort = ReceivePort();
+
+  final List<DbCommand> _pendingCommands = [];
 
   RawDb({required String path}) {
-    _db = sqlite3.open(path);
+    _initIsolate(path);
+  }
 
-    _db.execute('''
-      CREATE TABLE IF NOT EXISTS data (
-        key TEXT NOT NULL PRIMARY KEY,
-        value TEXT NOT NULL,
-        version INTEGER NOT NULL
-        );
-      ''');
+  Future<void> _initIsolate(String path) async {
+    _isolate = await Isolate.spawn(rawDbIsolate, (
+      path: path,
+      port: _receivePort.sendPort,
+    ));
 
-    _lookup = _db.prepare('''
-      SELECT key, value, version
-      FROM data WHERE key = ?
-    ''');
+    _receivePort.listen((message) {
+      if (!_sendPortCompleter.isCompleted) {
+        // Первое сообщение от изолята — это его SendPort
+        final sendPort = message as SendPort;
+        _sendPortCompleter.complete(sendPort);
+        _receivePort.close();
 
-    _put = _db.prepare('''
-      REPLACE INTO data (key, value, version)
-      VALUES (?, ?, ?)
-    ''');
+        for (final cmd in _pendingCommands) {
+          sendPort.send(cmd);
+        }
+        _pendingCommands.clear();
+      }
+    });
+  }
+
+  Future<void> _sendOrQueue(DbCommand command) async {
+    if (_sendPortCompleter.isCompleted) {
+      final sendPort = await _sendPortCompleter.future;
+      sendPort.send(command);
+    } else {
+      _pendingCommands.add(command);
+    }
   }
 
   @override
   Future<Either<DbError, Revision<String, int>>> lookup(String key) async {
-    try {
-      final res = _lookup.select([key]);
-      if (res.isNotEmpty) {
-        return Right(_toRecord(res.first));
-      } else {
-        return Left(DbError(db: this, message: '$key not found'));
-      }
-    } catch (e) {
-      return Left(DbError(db: this, message: e.toString()));
-    }
+    final replyPort = ReceivePort();
+    await _sendOrQueue(LookupCmd(key, replyPort.sendPort));
+    final result = await replyPort.first;
+    replyPort.close();
+    return result as Either<DbError, Revision<String, int>>;
   }
 
   @override
   Future<DbError?> store(String key, Revision<String, int> value) async {
-    try {
-      _put.execute([key, value.payload, value.version]);
-      return null;
-    } catch (e) {
-      return DbError(db: this, message: e.toString());
-    }
+    final replyPort = ReceivePort();
+    await _sendOrQueue(StoreCmd(key, value, replyPort.sendPort));
+    final result = await replyPort.first;
+    replyPort.close();
+    return result as DbError?;
   }
 
-  Revision<String, int> _toRecord(Row row) =>
-      (payload: row['value'], version: row['version']);
-
   void dispose() {
-    _lookup.close();
-    _put.close();
-    _db.close();
+    _sendOrQueue(DisposeCmd());
+    _isolate.kill(priority: Isolate.immediate);
   }
 }

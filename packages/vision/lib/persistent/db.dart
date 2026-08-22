@@ -2,7 +2,7 @@ import 'package:glue/either.dart';
 import 'package:vision/store/revision.dart';
 
 class DbError {
-  final Db db;
+  final dynamic db;
   final String message;
   const DbError({required this.db, required this.message});
 
