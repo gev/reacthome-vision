@@ -5,7 +5,7 @@ class Throttler {
   final Duration delay;
   bool _isRunning = false;
 
-  Throttler({required this.delay});
+  Throttler(this.delay);
 
   void call(VoidCallback action) {
     if (_isRunning) return;
