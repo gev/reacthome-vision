@@ -38,6 +38,7 @@ class LiveReactiveRuntime extends ReactiveRuntime
         runtime: this,
         storage: _storage,
         monitor: _monitor,
+        log: log,
       ),
     );
   }
