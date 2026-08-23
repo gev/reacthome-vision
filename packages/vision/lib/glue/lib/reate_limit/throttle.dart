@@ -13,16 +13,15 @@ Ir throttle(Logger log) => IrNativeFunc((Ir delayIr) {
   final throttler = Throttler(delay);
   return Eval.pure(
     IrSpecial((List<Ir> expr) {
-      throttler.call(() {
-        getRuntime().bind((runtime) {
+      return getRuntime().bind((runtime) {
+        throttler.call(() {
           final res = runEval(sequenceAll(expr.map(eval).toList()), runtime);
           if (res case Left e) {
             log.error(e);
           }
-          return Eval.pure(IrVoid());
         });
+        return Eval.pure(IrVoid());
       });
-      return Eval.pure(IrVoid());
     }),
   );
 });

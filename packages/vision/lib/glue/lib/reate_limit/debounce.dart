@@ -13,16 +13,15 @@ Ir debounce(Logger log) => IrNativeFunc((Ir delayIr) {
   final debouncer = Debouncer(delay);
   return Eval.pure(
     IrSpecial((List<Ir> expr) {
-      debouncer.call(() {
-        getRuntime().bind((runtime) {
+      return getRuntime().bind((runtime) {
+        debouncer.call(() {
           final res = runEval(sequenceAll(expr.map(eval).toList()), runtime);
           if (res case Left e) {
             log.error(e);
           }
-          return Eval.pure(IrVoid());
         });
+        return Eval.pure(IrVoid());
       });
-      return Eval.pure(IrVoid());
     }),
   );
 });
