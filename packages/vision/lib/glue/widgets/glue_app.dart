@@ -137,9 +137,7 @@ class _GlueAppState extends State<GlueApp> with WidgetsBindingObserver {
           return null;
         }
 
-        final evaluation = eval(
-          IrList([routeBuilder, toIr(settings.arguments)]),
-        );
+        final evaluation = apply(routeBuilder, [toIr(settings.arguments)]);
         final result = runEval(
           evaluation,
           _scope.reactiveRuntime.runtime.copyWith(
