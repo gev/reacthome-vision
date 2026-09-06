@@ -38,10 +38,10 @@ class RawDbWorker {
       if (res.isNotEmpty) {
         return Right(_toRecord(res.first));
       } else {
-        return Left(DbError(db: this, message: '$key not found'));
+        return Left(DbError('$key not found'));
       }
     } catch (e) {
-      return Left(DbError(db: this, message: e.toString()));
+      return Left(DbError(e.toString()));
     }
   }
 
@@ -51,7 +51,7 @@ class RawDbWorker {
       _put.execute([key, value.payload, value.version]);
       return null;
     } catch (e) {
-      return DbError(db: this, message: e.toString());
+      return DbError(e.toString());
     }
   }
 

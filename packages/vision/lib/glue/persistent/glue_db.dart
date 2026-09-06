@@ -27,7 +27,7 @@ class GlueDb implements Db<String, Ir, int> {
       case Right(:final value):
         switch (parseGlue(value.payload)) {
           case Left(value: final error):
-            return Left(DbError(db: this, message: error.toString()));
+            return Left(DbError(error.toString()));
           case (Right(value: final ast)):
             final ir = compile(ast);
             return Right((payload: ir, version: value.version));
@@ -39,7 +39,7 @@ class GlueDb implements Db<String, Ir, int> {
   Future<DbError?> store(String key, Revision<Ir, int> value) async {
     switch (decompile(value.payload)) {
       case Left(value: final error):
-        return DbError(db: this, message: error);
+        return DbError(error);
       case Right(value: final ast):
         final raw = serializeAst(ast);
         return _db.store(key, (payload: raw, version: value.version));

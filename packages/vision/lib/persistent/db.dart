@@ -2,12 +2,11 @@ import 'package:glue/either.dart';
 import 'package:vision/store/revision.dart';
 
 class DbError {
-  final dynamic db;
   final String message;
-  const DbError({required this.db, required this.message});
+  const DbError(this.message);
 
   @override
-  String toString() => 'Databasee error $db: $message';
+  String toString() => 'Databasee error: $message';
 }
 
 abstract interface class Db<K, T, V> {
