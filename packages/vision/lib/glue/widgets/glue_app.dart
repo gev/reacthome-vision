@@ -116,6 +116,7 @@ class _GlueAppState extends State<GlueApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: widget.title,
       key: ValueKey((_currentLocale, _cachedApp)),
       themeMode: ThemeMode.system,
