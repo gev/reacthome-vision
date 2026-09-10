@@ -10,6 +10,7 @@ import 'package:vision/glue/lib/widgets/current_theme.dart';
 import 'package:vision/glue/lib/widgets/image_color_scheme.dart';
 import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
+import 'package:vision/glue/lib/widgets/logo.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/seed_color_scheme.dart';
@@ -41,6 +42,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('shutter', shutter),
     ('app', app),
     ('locale', locale),
+    ('logo', logo),
     ('media-query', mediaQuery),
     ('symbol', symbol),
     ('sharp-symbol', sharpSymbol),
