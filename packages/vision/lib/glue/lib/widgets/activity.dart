@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue_flutter/glue_flutter.dart';
 
 final activity = IrNativeFunc((Ir ir) {
   switch (ir) {
     case IrObject(:final properties):
-      final color = to<Color>(properties['color']);
+      final color = extractColor(properties['color']);
       final animatedColor = color != null
           ? AlwaysStoppedAnimation(color)
           : null;
@@ -21,7 +22,7 @@ final activity = IrNativeFunc((Ir ir) {
               strokeCap: to<StrokeCap>(properties['stroke-cap']),
               strokeAlign: toDouble(properties['stroke-align']),
               valueColor: valueColor ?? animatedColor,
-              backgroundColor: to<Color>(properties['background-color']),
+              backgroundColor: extractColor(properties['background-color']),
               constraints: to<BoxConstraints>(properties['constraints']),
             ),
           ),

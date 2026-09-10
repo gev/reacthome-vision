@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue_flutter/glue_flutter.dart';
 
 final Ir paintStyle = IrNativeFunc(paintStyleImpl);
 
@@ -24,7 +25,7 @@ Eval<Ir> paintStyleImpl(Ir ir) {
             case "blend-mode":
               apply(to<BlendMode>, (value) => paint.blendMode = value);
             case "color":
-              apply(to<Color>, (value) => paint.color = value);
+              apply(extractColor, (value) => paint.color = value);
             case "color-filter":
               apply(to<ColorFilter>, (value) => paint.colorFilter = value);
             case "filter-quality":

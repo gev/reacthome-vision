@@ -1,9 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/app.dart';
 
 /// Creates a Routes from an IrObject
@@ -12,7 +11,7 @@ final Ir app = IrNativeFunc(appImpl);
 Eval<Ir> appImpl(Ir ir) {
   switch (ir) {
     case IrObject(:final properties):
-      final seedColor = to<Color>(properties['seed-color']);
+      final seedColor = extractColor(properties['seed-color']);
       final dynamicSchemeVariant = to<DynamicSchemeVariant>(
         properties['dynamic-scheme-variant'],
       );
