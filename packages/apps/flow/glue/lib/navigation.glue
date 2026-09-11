@@ -1,0 +1,14 @@
+(module lib.navigation
+    (export back go)
+
+    (def back
+        (\ ()
+            (pop _)
+        )
+    )
+ 
+    (def (go route)
+        (\ () (push route)
+        )
+    )
+)
