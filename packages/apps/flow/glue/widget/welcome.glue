@@ -1,0 +1,26 @@
+(module widget.welcome
+    (export welcome)
+
+    (import i18n.home)
+
+    (import lib.i18n)
+    (import lib.navigation)
+
+    (def (welcome props)
+        (center
+            :child (hero
+                :tag "add-home"
+                :child (elevated-button
+                    :child (text
+                        :content (select-locale i18n-add-home)
+                    )
+                    :style (button-style
+                        :padding (edge-insets-all 32)
+                        :text-style current-theme.text-theme.headline-medium
+                    )
+                    :on-pressed (go (:route 'add-home :tag "add-home"))
+                )
+            )
+        )
+    )
+)
