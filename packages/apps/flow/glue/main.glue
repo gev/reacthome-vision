@@ -1,0 +1,32 @@
+(module main
+    (export main)
+
+    (import screen.home)
+    (import screen.add-home)
+
+    (def (home-route args)
+        (route
+            :screen (home-screen _)
+        )
+    )
+
+    (def (add-home-route args)
+        (overlay-route
+            :tag args.tag
+            :screen (add-home-screen args)
+            :duration 300
+            :opacity 0.5
+        )
+    )
+
+    (def main
+        (app
+            :seed-color "#007bff"
+            :dynamic-scheme-variant dynamic-scheme-variant.content
+            :routes (
+                :home home-route
+                :add-home add-home-route
+            )
+        )
+    )
+)
