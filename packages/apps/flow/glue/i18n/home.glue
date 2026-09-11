@@ -1,0 +1,10 @@
+(module i18n.home
+    (export
+        i18n-add-home
+    )
+
+    (def i18n-add-home (
+            :en "Add a home"
+            :ru "Добавить дом"
+        ))
+)
