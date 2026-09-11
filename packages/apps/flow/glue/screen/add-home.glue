@@ -1,0 +1,35 @@
+(module screen.add-home
+    (export add-home-screen)
+
+    (import i18n.home)
+
+    (import lib.i18n)
+    (import lib.navigation)
+
+    (import widget.modal)
+
+    (def (add-home-screen props)
+        (modal
+            :color current-theme.color-scheme.surface-container
+            :child (column
+                :spacing 16
+                :main-axis-size main-axis-size.min
+                :children (
+                    (text-field
+                        :decoration (input-decoration
+                            :filled true
+                            :label-text "Home name"
+                        )
+                    )
+                    (text-field _)
+                    (filled-button
+                        :child (text
+                            :content (select-locale i18n-add-home)
+                        )
+                        :on-pressed back
+                    )
+                )
+            )
+        )
+    )
+)
