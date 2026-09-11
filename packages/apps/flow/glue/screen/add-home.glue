@@ -8,20 +8,43 @@
 
     (import widget.modal)
 
+    (def (txt-field-border props)
+        (outline-input-border
+            :border-radius (border-radius-circular 12.0)
+            :border-side (border-side
+                :color props.color
+            )
+        )
+    )
+
+    (def (txt-field props)
+        (text-field
+            :decoration (input-decoration
+                :filled true
+                :label-text props.label
+                :focused-border (txt-field-border
+                    :color current-theme.color-scheme.primary
+                )
+                :enabled-border (txt-field-border
+                    :color current-theme.color-scheme.outline
+                )
+            )
+        )
+    )
+
     (def (add-home-screen props)
         (modal
             :color current-theme.color-scheme.surface-container
             :child (column
-                :spacing 16
+                :spacing 24
                 :main-axis-size main-axis-size.min
                 :children (
-                    (text-field
-                        :decoration (input-decoration
-                            :filled true
-                            :label-text "Home name"
-                        )
+                    (txt-field
+                        :label "Home name"
                     )
-                    (text-field _)
+                    (txt-field
+                        :label "Home UID"
+                    )
                     (filled-button
                         :child (text
                             :content (select-locale i18n-add-home)
