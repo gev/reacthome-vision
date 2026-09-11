@@ -1,0 +1,17 @@
+(module screen.home
+    (export home-screen)
+
+    (import i18n.home)
+
+    (import lib.i18n)
+    (import lib.navigation)
+
+    (import widget.welcome)
+
+    (def (home-screen props)
+        (material
+            :color current-theme.color-scheme.surface
+            :child (welcome _)
+        )
+    )
+)
