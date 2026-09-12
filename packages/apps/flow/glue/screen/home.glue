@@ -3,15 +3,24 @@
 
     (import i18n.home)
 
+    (import lib.home)
     (import lib.i18n)
     (import lib.navigation)
 
     (import widget.welcome)
 
+    (def (show homes)
+        (print homes)
+        (if (empty? homes)
+            (welcome _)
+            (welcome _)
+        )
+    )
+
     (def (home-screen props)
         (material
             :color current-theme.color-scheme.surface
-            :child (welcome _)
+            :child (listen-homes show)
         )
     )
 )
