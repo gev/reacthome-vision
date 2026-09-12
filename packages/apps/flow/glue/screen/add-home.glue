@@ -30,7 +30,7 @@
                     :color current-theme.color-scheme.outline
                 )
             )
-            :on-changed props.on-changed
+            :on-changed (write props.state)
         )
     )
 
@@ -63,15 +63,15 @@
                 :children (
                     (txt-field
                         :label "Home ID"
-                        :on-changed (write home-id)
+                        :state home-id
                     )
                     (txt-field
                         :label "Home name"
-                        :on-changed (write home-name)
+                        :state home-name
                     )
                     (txt-field
                         :label "Host"
-                        :on-changed (write home-host)
+                        :state home-host
                     )
                     (listen submit-button home-host home-name home-id)
                 )
