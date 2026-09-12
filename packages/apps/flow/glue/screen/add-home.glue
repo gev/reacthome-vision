@@ -34,25 +34,25 @@
         )
     )
 
-    (def (submit-home host name uid)
+    (def (submit-home host name id)
         (\ ()
-            (def home (:id uid :name name :host host))
+            (def home (:id id :name name :host host))
             (add-home home)
             (back _)
         )
     )
 
-    (def (submit-button host name uid)
+    (def (submit-button host name id)
         (filled-button
             :child (text
                 :content (select-locale i18n-add-home)
             )
-            :on-pressed (?> (submit-home host name) uid)
+            :on-pressed (?> (submit-home host name) id)
         )
     )
 
     (def (add-home-screen props)
-        (def home-uid (local-state _))
+        (def home-id (local-state _))
         (def home-name (local-state _))
         (def home-host (local-state _))
         (modal
@@ -62,8 +62,8 @@
                 :main-axis-size main-axis-size.min
                 :children (
                     (txt-field
-                        :label "Home UID"
-                        :on-changed (write home-uid)
+                        :label "Home ID"
+                        :on-changed (write home-id)
                     )
                     (txt-field
                         :label "Home name"
@@ -73,7 +73,7 @@
                         :label "Host"
                         :on-changed (write home-host)
                     )
-                    (listen submit-button home-host home-name home-uid)
+                    (listen submit-button home-host home-name home-id)
                 )
             )
         )
