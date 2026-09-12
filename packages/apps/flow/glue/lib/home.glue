@@ -18,12 +18,7 @@
 
     (def (add-home home)
         (def old-homes (get-homes all-homes))
-        (def new-homes
-            (if (contains? old-homes home)
-                (update old-homes home)
-                (append old-homes home)
-            )
-        )
+        (def new-homes (add old-homes home))
         (write all-homes new-homes)
     )
 

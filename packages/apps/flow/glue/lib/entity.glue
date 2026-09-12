@@ -28,6 +28,13 @@
         (map (replace entity) collection)
     )
 
+    (def (add collection entity)
+        (if (contains? collection entity)
+            (update collection entity)
+            (append collection entity)
+        )
+    )
+
     (def (remove collection entity)
         (filter (not-same? entity) collection)
     )
