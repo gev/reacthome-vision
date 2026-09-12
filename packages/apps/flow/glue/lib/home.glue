@@ -8,12 +8,12 @@
 
     (import lib.entity)
 
-    (def all-homes
-        (local-persistent-state 'all-homes)
+    (def my-homes
+        (local-persistent-state 'my-homes)
     )
 
     (def (modify-homes handle)
-        (modify all-homes
+        (modify my-homes
             (\ (homes)
                 (handle (?? homes ()))
             )
@@ -33,6 +33,6 @@
     )
 
     (def (listen-homes handle)
-        (listen handle all-homes)
+        (listen handle my-homes)
     )
 )
