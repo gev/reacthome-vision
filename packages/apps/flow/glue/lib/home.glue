@@ -21,15 +21,15 @@
     )
 
     (def (add-home home)
-        (modify-homes (add home))
+        (modify-homes (add-entity home))
     )
 
     (def (update-home home)
-        (modify-homes (update home))
+        (modify-homes (update-entity home))
     )
 
     (def (remove-home home)
-        (modify-homes (remove home))
+        (modify-homes (remove-entity home))
     )
 
     (def (listen-homes handle)
