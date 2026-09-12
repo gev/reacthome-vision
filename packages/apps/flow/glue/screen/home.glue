@@ -7,12 +7,13 @@
     (import lib.i18n)
     (import lib.navigation)
 
+    (import widget.my-homes)
     (import widget.welcome)
 
     (def (show homes)
         (if (empty? homes)
             (welcome _)
-            (welcome _)
+            (my-homes homes)
         )
     )
 
