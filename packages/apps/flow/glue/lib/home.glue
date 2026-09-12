@@ -2,6 +2,7 @@
     (export
         add-home
         update-home
+        remove-home
         listen-homes
     )
 
@@ -11,6 +12,10 @@
 
     (def (same? home1 home2)
         (== home1.id home2.id)
+    )
+
+    (def (not-same? home1 home2)
+        (!= home1.id home2.id)
     )
 
     (def (contains? homes home)
@@ -23,6 +28,10 @@
 
     (def (update homes home)
         (map (replace home) homes)
+    )
+
+    (def (remove homes home)
+        (filter (not-same? home) homes)
     )
 
     (def (get-homes homes)
@@ -42,14 +51,14 @@
 
     (def (update-home home)
         (def old-homes (get-homes all-homes))
-        (if (contains? old-homes home)
-            (let
-                (def new-homes
-                    (update old-homes home)
-                )
-                (write all-homes new-homes)
-            )
-        )
+        (def new-homes (update old-homes home))
+        (write all-homes new-homes)
+    )
+
+    (def (remove-home home)
+        (def old-homes (get-homes all-homes))
+        (def new-homes (remove old-homes home))
+        (write all-homes new-homes)
     )
 
     (def (listen-homes handle)
