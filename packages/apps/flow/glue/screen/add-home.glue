@@ -3,6 +3,7 @@
 
     (import i18n.home)
 
+    (import lib.home)
     (import lib.i18n)
     (import lib.navigation)
 
@@ -29,10 +30,31 @@
                     :color current-theme.color-scheme.outline
                 )
             )
+            :on-changed props.on-changed
+        )
+    )
+
+    (def (submit-home host name uid)
+        (\ ()
+            (def home (:id uid :name name :host host))
+            (add-home home)
+            (back _)
+        )
+    )
+
+    (def (submit-button host name uid)
+        (filled-button
+            :child (text
+                :content (select-locale i18n-add-home)
+            )
+            :on-pressed (?> (submit-home host name) uid)
         )
     )
 
     (def (add-home-screen props)
+        (def home-uid (local-state _))
+        (def home-name (local-state _))
+        (def home-host (local-state _))
         (modal
             :color current-theme.color-scheme.surface-container
             :child (column
@@ -40,17 +62,18 @@
                 :main-axis-size main-axis-size.min
                 :children (
                     (txt-field
-                        :label "Home name"
+                        :label "Home UID"
+                        :on-changed (write home-uid)
                     )
                     (txt-field
-                        :label "Home UID"
+                        :label "Home name"
+                        :on-changed (write home-name)
                     )
-                    (filled-button
-                        :child (text
-                            :content (select-locale i18n-add-home)
-                        )
-                        :on-pressed back
+                    (txt-field
+                        :label "Host"
+                        :on-changed (write home-host)
                     )
+                    (listen submit-button home-host home-name home-uid)
                 )
             )
         )
