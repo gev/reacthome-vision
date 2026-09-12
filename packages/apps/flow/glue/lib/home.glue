@@ -1,0 +1,58 @@
+(module lib.home
+    (export
+        add-home
+        update-home
+        listen-homes
+    )
+
+    (def all-homes
+        (local-persistent-state 'all-homes)
+    )
+
+    (def (same? home1 home2)
+        (== home1.id home2.id)
+    )
+
+    (def (contains? homes home)
+        (exists? (find (same? home) homes))
+    )
+
+    (def (replace dst src)
+        (if (same? dst src) dst src)
+    )
+
+    (def (update homes home)
+        (map (replace home) homes)
+    )
+
+    (def (get-homes homes)
+        (?? (read homes) ())
+    )
+
+    (def (add-home home)
+        (def old-homes (get-homes all-homes))
+        (def new-homes
+            (if (contains? old-homes home)
+                (update old-homes home)
+                (append old-homes home)
+            )
+        )
+        (write all-homes new-homes)
+    )
+
+    (def (update-home home)
+        (def old-homes (get-homes all-homes))
+        (if (contains? old-homes home)
+            (let
+                (def new-homes
+                    (update old-homes home)
+                )
+                (write all-homes new-homes)
+            )
+        )
+    )
+
+    (def (listen-homes handle)
+        (listen handle all-homes)
+    )
+)
