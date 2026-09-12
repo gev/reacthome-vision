@@ -1,0 +1,100 @@
+(module widget.my-homes
+    (export my-homes)
+
+    (import i18n.home)
+
+    (import lib.i18n)
+    (import lib.navigation)
+
+    (def (section props)
+        (padding
+            :padding (edge-insets-symmetric
+                :horizontal 16
+                :vertical 32
+            )
+            :child props.child
+        )
+    )
+
+    (def (title props)
+        (section
+            :child (column
+                :cross-axis-alignment cross-axis-alignment.start
+                :children (
+                    (logo :width 64)
+                    (text
+                        :content "My homes"
+                        :style current-theme.text-theme.display-medium
+                    )
+                )
+            )
+        )
+    )
+
+    (def (home-title props)
+        (text
+            :content props.text
+            :style (text-style
+                :font-size current-theme.text-theme.title-large.font-size
+                :color current-theme.color-scheme.on-surface
+            )
+        )
+    )
+
+    (def (home-subtitle props)
+        (text
+            :content props.text
+            :style (text-style
+                :font-size current-theme.text-theme.label-small.font-size
+                :color (current-theme.color-scheme.on-surface.with :a 0.3)
+            )
+        )
+    )
+
+    (def (home-tile home)
+        (card
+            :child (list-tile
+                :title (column
+                    :cross-axis-alignment cross-axis-alignment.start
+                    :children (
+                        (home-title :text home.name)
+                        (home-subtitle :text home.id)
+                        (home-subtitle :text home.host)
+                    )
+                )
+            )
+        )
+    )
+
+    (def (add-home props)
+        (section
+            :child (hero
+                :tag "add-home"
+                :child (elevated-button
+                    :child (text
+                        :content (select-locale i18n-add-home)
+                    )
+                    :on-pressed (go (:route 'add-home :tag "add-home"))
+                )
+            )
+        )
+    )
+
+    (def (home-list homes)
+        (column
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (map home-tile homes)
+        )
+    )
+
+    (def (my-homes homes)
+        (column
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (
+                (title _)
+                (home-list homes)
+                (add-home _)
+            )
+        )
+    )
+)
