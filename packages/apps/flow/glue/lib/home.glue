@@ -6,32 +6,10 @@
         listen-homes
     )
 
+    (import lib.entity)
+
     (def all-homes
         (local-persistent-state 'all-homes)
-    )
-
-    (def (same? home1 home2)
-        (== home1.id home2.id)
-    )
-
-    (def (not-same? home1 home2)
-        (!= home1.id home2.id)
-    )
-
-    (def (contains? homes home)
-        (exists? (find (same? home) homes))
-    )
-
-    (def (replace dst src)
-        (if (same? dst src) dst src)
-    )
-
-    (def (update homes home)
-        (map (replace home) homes)
-    )
-
-    (def (remove homes home)
-        (filter (not-same? home) homes)
     )
 
     (def (get-homes homes)
