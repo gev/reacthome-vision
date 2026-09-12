@@ -12,26 +12,24 @@
         (local-persistent-state 'all-homes)
     )
 
-    (def (get-homes homes)
-        (?? (read homes) ())
+    (def (modify-homes handle)
+        (modify all-homes
+            (\ (homes)
+                (handle (?? homes ()))
+            )
+        )
     )
 
     (def (add-home home)
-        (def old-homes (get-homes all-homes))
-        (def new-homes (add old-homes home))
-        (write all-homes new-homes)
+        (modify-homes (add home))
     )
 
     (def (update-home home)
-        (def old-homes (get-homes all-homes))
-        (def new-homes (update old-homes home))
-        (write all-homes new-homes)
+        (modify-homes (update home))
     )
 
     (def (remove-home home)
-        (def old-homes (get-homes all-homes))
-        (def new-homes (remove old-homes home))
-        (write all-homes new-homes)
+        (modify-homes (remove home))
     )
 
     (def (listen-homes handle)

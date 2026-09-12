@@ -16,26 +16,26 @@
         (!= entity1.id entity2.id)
     )
 
-    (def (contains? collection entity)
-        (exists? (find (same? entity) collection))
-    )
-
     (def (replace dst src)
         (if (same? dst src) dst src)
     )
 
-    (def (update collection entity)
+    (def (contains? entity collection)
+        (exists? (find (same? entity) collection))
+    )
+
+    (def (update entity collection)
         (map (replace entity) collection)
     )
 
-    (def (add collection entity)
+    (def (add entity collection)
         (if (contains? collection entity)
             (update collection entity)
             (append collection entity)
         )
     )
 
-    (def (remove collection entity)
+    (def (remove entity collection)
         (filter (not-same? entity) collection)
     )
 )
