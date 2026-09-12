@@ -1,0 +1,34 @@
+(module lib.entity
+    (export
+        same?
+        not-same?
+        contains?
+        replace
+        update
+        remove
+    )
+
+    (def (same? entity1 entity2)
+        (== entity1.id entity2.id)
+    )
+
+    (def (not-same? entity1 entity2)
+        (!= entity1.id entity2.id)
+    )
+
+    (def (contains? collection entity)
+        (exists? (find (same? entity) collection))
+    )
+
+    (def (replace dst src)
+        (if (same? dst src) dst src)
+    )
+
+    (def (update collection entity)
+        (map (replace entity) collection)
+    )
+
+    (def (remove collection entity)
+        (filter (not-same? entity) collection)
+    )
+)
