@@ -52,14 +52,22 @@
     )
 
     (def (home-tile home)
-        (card
-            :child (list-tile
-                :title (column
-                    :cross-axis-alignment cross-axis-alignment.start
-                    :children (
-                        (home-title :text home.name)
-                        (home-subtitle :text home.id)
-                        (home-subtitle :text home.host)
+        (hero
+            :tag home.id
+            :child (card
+                :child (ink-well
+                    :on-tap (\ () ())
+                    :on-long-press (go :route 'edit-home :id home.id :tag home.id)
+                    :child (adopt props.child)
+                    :child (list-tile
+                        :title (column
+                            :cross-axis-alignment cross-axis-alignment.start
+                            :children (
+                                (home-title :text home.name)
+                                (home-subtitle :text home.id)
+                                (home-subtitle :text home.host)
+                            )
+                        )
                     )
                 )
             )
