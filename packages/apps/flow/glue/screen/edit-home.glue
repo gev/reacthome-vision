@@ -1,0 +1,92 @@
+(module screen.edit-home
+    (export edit-home-screen)
+
+    (import i18n.home)
+
+    (import lib.home)
+    (import lib.i18n)
+    (import lib.navigation)
+
+    (import widget.modal)
+
+    (def (txt-field-border props)
+        (outline-input-border
+            :border-radius (border-radius-circular 12.0)
+            :border-side (border-side
+                :color props.color
+            )
+        )
+    )
+
+    (def (txt-field props)
+        (text-field
+            :decoration (input-decoration
+                :filled true
+                :label-text props.label
+                :focused-border (txt-field-border
+                    :color current-theme.color-scheme.primary
+                )
+                :enabled-border (txt-field-border
+                    :color current-theme.color-scheme.outline
+                )
+            )
+            :on-changed (write props.state)
+        )
+    )
+
+    (def (submit-home name id)
+        (\ ()
+            (def home (:id id :name name :host host))
+            (edit-home home)
+            (back _)
+        )
+    )
+
+    (def (submit-button name)
+        (filled-button
+            :child (text
+                :content (select-locale i18n-apply)
+            )
+            :on-pressed (submit-home name)
+        )
+    )
+
+    (def (edit-home-screen props)
+        (def home-name (local-state _))
+        (modal
+            :color current-theme.color-scheme.surface-container
+            :child (column
+                :spacing 48
+                :main-axis-size main-axis-size.min
+                :children (
+                    (column
+                        :spacing 24
+                        :children (
+                            (text
+                                :content (select-locale i18n-add-home)
+                                :style current-theme.text-theme.title-medium
+                            )
+                            
+                            (txt-field
+                                :label (select-locale i18n-name)
+                                :state home-name
+                            )
+                        )
+                    )
+                    (row
+                        :main-axis-alignment main-axis-alignment.space-around
+                        :children (
+                            (outlined-button
+                                :child (text
+                                    :content (select-locale i18n-cancel)
+                                )
+                                :on-pressed (\ () (back _))
+                            )
+                            (listen submit-button home-name)
+                        )
+                    )
+                )
+            )
+        )
+    )
+)
