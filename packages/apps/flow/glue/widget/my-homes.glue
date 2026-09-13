@@ -77,11 +77,12 @@
     (def (add-home props)
         (section
             :child (hero
+                :tag "add-home"
                 :child (elevated-button
                     :child (text
                         :content (select-locale i18n-add-home)
                     )
-                    :on-pressed (go :route 'add-home)
+                    :on-pressed (go :route 'add-home :tag "add-home")
                 )
             )
         )
