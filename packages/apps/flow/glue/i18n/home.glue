@@ -1,10 +1,64 @@
 (module i18n.home
     (export
+        i18n-home
+        i18n-home-id
+        i18n-name
+        i18n-host
+        i18n-my-home
         i18n-add-home
+        i18n-add
+        i18n-apply
+        i18n-cancel
+        i18n-close
     )
+
+    (def i18n-home (
+            :en "Home"
+            :ru "Дом"
+        ))
+
+    (def i18n-home-id (
+            :en "Home ID"
+            :ru "ID дома"
+        ))
+
+    (def i18n-name (
+            :en "Name"
+            :ru "Название"
+        ))
+
+    (def i18n-host (
+            :en "Host"
+            :ru "Хост"
+        ))
+
+    (def i18n-my-homes (
+            :en "My homes"
+            :ru "Мои дома"
+        ))
 
     (def i18n-add-home (
             :en "Add a home"
             :ru "Добавить дом"
+        ))
+
+    (def i18n-add (
+            :en "Add"
+            :ru "Добавить"
+        ))
+
+    (def i18n-apply (
+            :en "Apply"
+            :ru "Применить"
+        ))
+
+    (def i18n-cancel (
+            :en "Cancel"
+            :ru "Отменить"
+        ))
+
+    (def i18n-close (
+            :en "Close"
+            :ru "Закрыть"
         ))
 )
