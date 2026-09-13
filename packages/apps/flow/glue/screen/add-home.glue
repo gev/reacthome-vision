@@ -45,7 +45,7 @@
     (def (submit-button host name id)
         (filled-button
             :child (text
-                :content (select-locale i18n-add-home)
+                :content (select-locale i18n-add)
             )
             :on-pressed (?> (submit-home host name) id)
         )
@@ -58,22 +58,42 @@
         (modal
             :color current-theme.color-scheme.surface-container
             :child (column
-                :spacing 24
+                :spacing 48
                 :main-axis-size main-axis-size.min
                 :children (
-                    (txt-field
-                        :label "Home ID"
-                        :state home-id
+                    (column
+                        :spacing 24
+                        :children (
+                            (text
+                                :content (select-locale i18n-add-home)
+                                :style current-theme.text-theme.title-medium
+                            )
+                            (txt-field
+                                :label (select-locale i18n-home-id)
+                                :state home-id
+                            )
+                            (txt-field
+                                :label (select-locale i18n-name)
+                                :state home-name
+                            )
+                            (txt-field
+                                :label (select-locale i18n-host)
+                                :state home-host
+                            )
+                        )
                     )
-                    (txt-field
-                        :label "Home name"
-                        :state home-name
+                    (row
+                        :main-axis-alignment main-axis-alignment.space-around
+                        :children (
+                            (outlined-button
+                                :child (text
+                                    :content (select-locale i18n-cancel)
+                                )
+                                :on-pressed (\ () (back _))
+                            )
+                            (listen submit-button home-host home-name home-id)
+                        )
                     )
-                    (txt-field
-                        :label "Host"
-                        :state home-host
-                    )
-                    (listen submit-button home-host home-name home-id)
                 )
             )
         )
