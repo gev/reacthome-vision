@@ -9,3 +9,5 @@ final mainEntryPoint = IrList([
   IrList([IrSymbol('import'), IrSymbol('main')]),
   IrSymbol('main'),
 ]);
+
+const defaultRoute = 'index';
