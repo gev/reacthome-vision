@@ -1,0 +1,26 @@
+(module screen.homes
+    (export homes-screen)
+
+    (import i18n.home)
+
+    (import lib.home)
+    (import lib.i18n)
+    (import lib.navigation)
+
+    (import widget.my-homes)
+    (import widget.welcome)
+
+    (def (show homes)
+        (if (empty? homes)
+            (welcome _)
+            (my-homes homes)
+        )
+    )
+
+    (def (homes-screen props)
+        (material
+            :color current-theme.color-scheme.surface
+            :child (listen-homes show)
+        )
+    )
+)
