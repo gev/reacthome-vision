@@ -23,7 +23,8 @@ class LocalOrchestrator {
     _storage = LocalStorage(path: path, log: log);
 
     reactiveRuntime = LocalReactiveRuntime(
-      path: _codePath,
+      path: path,
+      codePath: _codePath,
       storage: _storage,
       log: log,
     );
