@@ -1,0 +1,176 @@
+import 'package:flutter/material.dart';
+import 'package:glue/context.dart';
+import 'package:glue/either.dart';
+import 'package:glue/eval.dart';
+import 'package:glue/ir.dart';
+import 'package:vision/glue/app.dart';
+import 'package:vision/glue/extract.dart';
+import 'package:vision/scope.dart';
+import 'package:vision/widgets/theme.dart';
+
+class GlueApplet extends StatefulWidget {
+  final String title;
+  final Ir app;
+  final Widget splash;
+
+  const GlueApplet({
+    required this.title,
+    required this.app,
+    required this.splash,
+    super.key,
+  });
+
+  @override
+  State<GlueApplet> createState() => _GlueAppletState();
+}
+
+class _GlueAppletState extends State<GlueApplet> with WidgetsBindingObserver {
+  App _cachedApp = defaultApp;
+  Locale _currentLocale = WidgetsBinding.instance.platformDispatcher.locale;
+
+  // Caches to prevent duplicate evaluation cycles
+  Ir? _lastEvaluatedExpression;
+
+  late final Scope _scope;
+  bool _initialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _scope = Scope.of(context);
+      _scope.reactiveRuntime.addListener(_run);
+    }
+    _run();
+  }
+
+  @override
+  void didUpdateWidget(GlueApplet oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _runGuarded();
+  }
+
+  @override
+  void didChangeLocales(List<Locale>? locales) {
+    super.didChangeLocales(locales);
+    final newLocale = WidgetsBinding.instance.platformDispatcher.locale;
+    setState(() {
+      _currentLocale = newLocale;
+    });
+  }
+
+  void _runGuarded() {
+    // Guard against duplicate executions
+    if (_lastEvaluatedExpression == widget.app) {
+      return;
+    }
+    _run();
+  }
+
+  void _run() {
+    _lastEvaluatedExpression = widget.app;
+
+    final evaluation = eval(widget.app);
+    final result = runEval(
+      evaluation,
+      _scope.reactiveRuntime.runtime.copyWith(
+        context: putToContext<BuildContext>(
+          _scope.reactiveRuntime.runtime.context,
+          context,
+        ),
+      ),
+    );
+
+    result.match(
+      (err) {
+        _scope.log.error(err);
+      },
+      (res) {
+        if (mounted) {
+          final (val, _) = res;
+          final newApp = extractLast<App>(val);
+          if (newApp == null) {
+            _scope.log.error('${widget.app} \n App required');
+          } else {
+            _updateApp(newApp);
+          }
+        }
+      },
+    );
+  }
+
+  void _updateApp(App newApp) {
+    setState(() {
+      _cachedApp = newApp;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final themeData = makeTheme(_cachedApp, theme.brightness);
+    return Theme(
+      data: themeData ?? theme,
+      child: Material(
+        child: Navigator(
+          initialRoute: 'splash',
+          onGenerateRoute: (RouteSettings settings) {
+            if (settings.name == 'splash') {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (_) => widget.splash,
+              );
+            }
+
+            final routeBuilder = _cachedApp.routes[settings.name];
+
+            if (routeBuilder == null) {
+              _scope.log.error('Route `${settings.name}` not found');
+              return null;
+            }
+
+            final evaluation = apply(routeBuilder, [toIr(settings.arguments)]);
+            final result = runEval(
+              evaluation,
+              _scope.reactiveRuntime.runtime.copyWith(
+                context: putToContext<BuildContext>(
+                  _scope.reactiveRuntime.runtime.context,
+                  context,
+                ),
+              ),
+            );
+
+            switch (result) {
+              case Left(value: final err):
+                _scope.log.error(
+                  'Route `${settings.name}` internal error $err',
+                );
+                return null;
+              case Right(:final value):
+                final route = to<Route<Ir>>(value.$1);
+                if (route == null) {
+                  _scope.log.error('Route `${settings.name}` not found');
+                  return null;
+                }
+                return route;
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _scope.reactiveRuntime.removeListener(_run);
+    super.dispose();
+  }
+}
