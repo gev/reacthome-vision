@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/app.dart';
-import 'package:vision/glue/widgets/glue_route.dart';
-import 'package:vision/glue/widgets/glue_runtime_mixin.dart';
+import 'package:vision/glue/widgets/glue_app_base_state.dart';
 import 'package:vision/widgets/theme.dart';
 
 class GlueApp extends StatefulWidget {
@@ -22,15 +20,12 @@ class GlueApp extends StatefulWidget {
   State<GlueApp> createState() => _GlueAppState();
 }
 
-class _GlueAppState extends State<GlueApp>
-    with WidgetsBindingObserver, GlueRuntimeMixin<GlueApp> {
+class _GlueAppState extends GlueAppBaseState<GlueApp>
+    with WidgetsBindingObserver {
   Locale _currentLocale = WidgetsBinding.instance.platformDispatcher.locale;
 
   @override
   Ir get widgetApp => widget.app;
-
-  @override
-  void updateApp(App newApp) => setState(() => cachedApp = newApp);
 
   @override
   void initState() {
@@ -63,26 +58,13 @@ class _GlueAppState extends State<GlueApp>
         GlobalWidgetsLocalizations.delegate,
       ],
       home: widget.splash,
-      onGenerateRoute: (settings) => generateGlueRoute(
-        settings,
-        cachedApp: cachedApp,
-        scope: scope,
-        context: context,
-        splashWidget: widget.splash,
-      ),
+      onGenerateRoute: generateRoute,
     );
-  }
-
-  @override
-  void didUpdateWidget(GlueApp oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    didUpdateWidgetRuntime();
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    disposeRuntime();
     super.dispose();
   }
 }
