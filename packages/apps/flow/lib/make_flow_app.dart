@@ -1,10 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:vision/mode/local/local_app.dart';
+import 'package:vision/mode/live/live_scope.dart';
+import 'package:vision/widgets/vision_app.dart';
 
 Future<Widget> makeFlowApp() {
-  final path = Platform.environment['GLUE_PATH'] ?? "";
-  return makeLocalApp(title: 'Flow', codePath: path);
-  // return makeLiveApp(title: 'Flow', host: '192.168.11.101', port: 3005);
+  return makeLiveScope(
+    host: '192.168.11.101',
+    port: 3005,
+    child: VisionApp(title: 'Flow'),
+  );
 }
