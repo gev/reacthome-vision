@@ -1,10 +1,10 @@
 (module screen.home
     (export home-screen)
 
-    (def (home-screen home)
+    (def (home-screen args)
         (live-applet
-            :host home.host
-            :title home.name
+            :host args.home.host
+            :title args.home.name
         )
     )
 )
