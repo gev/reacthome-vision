@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:vision/widgets/logo.dart';
 
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _loop() {
-    _splashTimer = Timer(const Duration(seconds: 2), () {
+    _splashTimer = Timer(const Duration(seconds: 1), () {
       if (mounted) {
         try {
           Navigator.of(context).pushReplacementNamed(widget._route);
