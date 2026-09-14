@@ -23,7 +23,7 @@
                 :children (
                     (logo :width 64)
                     (text
-                        :content "My homes"
+                        :text "My homes"
                         :style current-theme.text-theme.display-medium
                     )
                 )
@@ -33,7 +33,7 @@
 
     (def (home-title props)
         (text
-            :content props.text
+            :text props.text
             :style (text-style
                 :font-size current-theme.text-theme.title-large.font-size
                 :color current-theme.color-scheme.on-surface
@@ -43,7 +43,7 @@
 
     (def (home-subtitle props)
         (text
-            :content props.text
+            :text props.text
             :style (text-style
                 :font-size current-theme.text-theme.label-small.font-size
                 :color (current-theme.color-scheme.on-surface.with :a 0.3)
@@ -80,7 +80,7 @@
                 :tag "add-home"
                 :child (elevated-button
                     :child (text
-                        :content (select-locale i18n-add-home)
+                        :text (select-locale i18n-add-home)
                     )
                     :on-pressed (go :route 'add-home :tag "add-home")
                 )

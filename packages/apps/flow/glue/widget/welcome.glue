@@ -12,7 +12,7 @@
                 :tag "add-home"
                 :child (elevated-button
                     :child (text
-                        :content (select-locale i18n-add-home)
+                        :text (select-locale i18n-add-home)
                     )
                     :style (button-style
                         :padding (edge-insets-all 32)

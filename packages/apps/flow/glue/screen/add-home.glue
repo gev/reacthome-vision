@@ -45,7 +45,7 @@
     (def (submit-button host name id)
         (filled-button
             :child (text
-                :content (select-locale i18n-add)
+                :text (select-locale i18n-add)
             )
             :on-pressed (?> (submit-home host name) id)
         )
@@ -65,7 +65,7 @@
                         :spacing 24
                         :children (
                             (text
-                                :content (select-locale i18n-add-home)
+                                :text (select-locale i18n-add-home)
                                 :style current-theme.text-theme.title-medium
                             )
                             (txt-field
@@ -87,7 +87,7 @@
                         :children (
                             (outlined-button
                                 :child (text
-                                    :content (select-locale i18n-cancel)
+                                    :text (select-locale i18n-cancel)
                                 )
                                 :on-pressed (\ () (back _))
                             )

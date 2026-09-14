@@ -45,7 +45,7 @@
     (def (submit-button name)
         (filled-button
             :child (text
-                :content (select-locale i18n-apply)
+                :text (select-locale i18n-apply)
             )
             :on-pressed (submit-home name)
         )
@@ -63,7 +63,7 @@
                         :spacing 24
                         :children (
                             (text
-                                :content (select-locale i18n-add-home)
+                                :text (select-locale i18n-add-home)
                                 :style current-theme.text-theme.title-medium
                             )
                             
@@ -78,7 +78,7 @@
                         :children (
                             (outlined-button
                                 :child (text
-                                    :content (select-locale i18n-remove)
+                                    :text (select-locale i18n-remove)
                                 )
                                 :style (button-style
                                     :foreground-color current-theme.color-scheme.error
