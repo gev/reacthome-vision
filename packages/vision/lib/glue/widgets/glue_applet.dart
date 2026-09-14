@@ -4,16 +4,10 @@ import 'package:vision/glue/widgets/glue_app_base_state.dart';
 import 'package:vision/widgets/theme.dart';
 
 class GlueApplet extends StatefulWidget {
-  final String title;
   final Ir app;
   final Widget splash;
 
-  const GlueApplet({
-    required this.title,
-    required this.app,
-    required this.splash,
-    super.key,
-  });
+  const GlueApplet({required this.app, required this.splash, super.key});
 
   @override
   State<GlueApplet> createState() => _GlueAppletState();

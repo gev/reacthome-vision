@@ -11,7 +11,6 @@ class VisionApplet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlueApplet(
-      title: title,
       app: mainEntryPoint,
       splash: SplashScreen(title: title, route: 'index'),
     );
