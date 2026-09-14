@@ -56,7 +56,7 @@
             :tag home.id
             :child (card
                 :child (ink-well
-                    :on-tap (\ () ())
+                    :on-tap (go :route 'home :home home)
                     :on-long-press (go :route 'edit-home :id home.id :tag home.id)
                     :child (adopt props.child)
                     :child (list-tile
