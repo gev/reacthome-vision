@@ -11,15 +11,16 @@ import 'package:vision/mode/local/local_storage.dart';
 
 class LocalReactiveRuntime extends ReactiveRuntime {
   late final Runtime _runtime;
-  late final String _path;
+  late final String _codePath;
 
   LocalReactiveRuntime({
-    required this._path,
+    required Directory path,
+    required this._codePath,
     required LocalStorage storage,
     required super.log,
   }) {
     _runtime = Runtime.initial(
-      makeLocalEnv(runtime: this, storage: storage, log: log),
+      makeLocalEnv(path: path, runtime: this, storage: storage, log: log),
     );
   }
 
@@ -31,7 +32,10 @@ class LocalReactiveRuntime extends ReactiveRuntime {
     if (!isModuleRegistered(runtime.registry, name)) {
       loadModuleFromFile(
         name: name,
-        path: p.setExtension(p.joinAll([_path, ...name.split('.')]), '.glue'),
+        path: p.setExtension(
+          p.joinAll([_codePath, ...name.split('.')]),
+          '.glue',
+        ),
       );
     }
   }
