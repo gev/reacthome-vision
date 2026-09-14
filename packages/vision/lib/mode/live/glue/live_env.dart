@@ -8,6 +8,7 @@ import 'package:glue/lib/math/const.dart';
 import 'package:glue/lib/math/utility.dart';
 import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
+import 'package:vision/glue/lib/applets.dart';
 import 'package:vision/glue/lib/canvas.dart';
 import 'package:vision/glue/lib/module.dart';
 import 'package:vision/glue/lib/navigation.dart';
@@ -47,6 +48,7 @@ Env makeLiveEnv({
     routesModule,
     canvasModule,
     ioModule,
+    appletsModule,
     rateLimitModule(log),
     liveStateModule(storage),
     widgetsModule(image: liveImage(storage.assets)),
