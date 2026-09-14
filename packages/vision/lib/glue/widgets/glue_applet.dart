@@ -24,21 +24,14 @@ class GlueApplet extends StatefulWidget {
   State<GlueApplet> createState() => _GlueAppletState();
 }
 
-class _GlueAppletState extends State<GlueApplet> with WidgetsBindingObserver {
+class _GlueAppletState extends State<GlueApplet> {
   App _cachedApp = defaultApp;
-  Locale _currentLocale = WidgetsBinding.instance.platformDispatcher.locale;
 
   // Caches to prevent duplicate evaluation cycles
   Ir? _lastEvaluatedExpression;
 
   late final Scope _scope;
   bool _initialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
 
   @override
   void didChangeDependencies() {
@@ -55,15 +48,6 @@ class _GlueAppletState extends State<GlueApplet> with WidgetsBindingObserver {
   void didUpdateWidget(GlueApplet oldWidget) {
     super.didUpdateWidget(oldWidget);
     _runGuarded();
-  }
-
-  @override
-  void didChangeLocales(List<Locale>? locales) {
-    super.didChangeLocales(locales);
-    final newLocale = WidgetsBinding.instance.platformDispatcher.locale;
-    setState(() {
-      _currentLocale = newLocale;
-    });
   }
 
   void _runGuarded() {
@@ -169,7 +153,6 @@ class _GlueAppletState extends State<GlueApplet> with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
     _scope.reactiveRuntime.removeListener(_run);
     super.dispose();
   }
