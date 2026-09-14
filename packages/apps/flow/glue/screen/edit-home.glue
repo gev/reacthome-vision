@@ -51,7 +51,7 @@
         )
     )
 
-    (def (edit-home-screen props)
+    (def (edit-home-screen args)
         (def home-name (local-state _))
         (modal
             :color current-theme.color-scheme.surface-container
@@ -78,7 +78,10 @@
                         :children (
                             (outlined-button
                                 :child (text
-                                    :content (select-locale i18n-cancel)
+                                    :content (select-locale i18n-remove)
+                                )
+                                :style (button-style
+                                    :foreground-color current-theme.color-scheme.error
                                 )
                                 :on-pressed (\ () (back _))
                             )
