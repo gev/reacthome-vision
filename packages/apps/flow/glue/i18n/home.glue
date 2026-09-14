@@ -10,6 +10,7 @@
         i18n-apply
         i18n-cancel
         i18n-close
+        i18n-remove
     )
 
     (def i18n-home (
@@ -60,5 +61,10 @@
     (def i18n-close (
             :en "Close"
             :ru "Закрыть"
+        ))
+
+    (def i18n-remove (
+            :en "Remove"
+            :ru "Удалить"
         ))
 )
