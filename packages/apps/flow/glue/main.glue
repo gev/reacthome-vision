@@ -34,7 +34,7 @@
             :seed-color "#007bff"
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :routes (
-                :home home-route
+                :index home-route
                 :add-home add-home-route
                 :edit-home edit-home-route
             )
