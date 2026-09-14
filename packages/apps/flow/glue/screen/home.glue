@@ -1,26 +1,10 @@
 (module screen.home
     (export home-screen)
 
-    (import i18n.home)
-
-    (import lib.home)
-    (import lib.i18n)
-    (import lib.navigation)
-
-    (import widget.my-homes)
-    (import widget.welcome)
-
-    (def (show homes)
-        (if (empty? homes)
-            (welcome _)
-            (my-homes homes)
-        )
-    )
-
-    (def (home-screen props)
-        (material
-            :color current-theme.color-scheme.surface
-            :child (listen-homes show)
+    (def (home-screen home)
+        (live-applet
+            :host home.host
+            :title home.name
         )
     )
 )
