@@ -7,8 +7,9 @@
     (import screen.edit-home)
 
     (def (home-route args)
+        (print args)
         (route
-            :screen (home-screen args.home)
+            :screen (home-screen args)
         )
     )
 
