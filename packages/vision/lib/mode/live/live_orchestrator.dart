@@ -13,7 +13,7 @@ import 'package:vision/mode/live/controller.dart';
 import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
 import 'package:vision/mode/live/live_logger.dart';
 import 'package:vision/mode/live/live_storage.dart';
-import 'package:vision/retry/exponentinal_backoff_policy.dart';
+import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 import 'package:vision/websocket/session_monitor.dart';
 import 'package:vision/websocket/session_state.dart';

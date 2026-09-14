@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:vision/retry/dellayed_backoff_policy.dart';
+import 'package:vision/retry/delayed_backoff_policy.dart';
 
 class ExponentialBackoffPolicy extends DelayedBackoffPolicy {
   final int _maxDelay;
