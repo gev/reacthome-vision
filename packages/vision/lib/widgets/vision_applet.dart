@@ -12,7 +12,7 @@ class VisionApplet extends StatelessWidget {
   Widget build(BuildContext context) {
     return GlueApplet(
       app: mainEntryPoint,
-      splash: SplashScreen(title: title, route: 'index'),
+      splash: SplashScreen(title: title, route: defaultRoute),
     );
   }
 }

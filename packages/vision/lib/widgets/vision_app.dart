@@ -13,7 +13,7 @@ class VisionApp extends StatelessWidget {
     return GlueApp(
       title: title,
       app: mainEntryPoint,
-      splash: SplashScreen(title: title, route: 'index'),
+      splash: SplashScreen(title: title, route: defaultRoute),
     );
   }
 }
