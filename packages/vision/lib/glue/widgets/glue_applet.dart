@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/app.dart';
-import 'package:vision/glue/widgets/glue_route.dart';
-import 'package:vision/glue/widgets/glue_runtime_mixin.dart';
+import 'package:vision/glue/widgets/glue_app_base_state.dart';
 import 'package:vision/widgets/theme.dart';
 
 class GlueApplet extends StatefulWidget {
@@ -21,13 +19,9 @@ class GlueApplet extends StatefulWidget {
   State<GlueApplet> createState() => _GlueAppletState();
 }
 
-class _GlueAppletState extends State<GlueApplet>
-    with GlueRuntimeMixin<GlueApplet> {
+class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
   @override
   Ir get widgetApp => widget.app;
-
-  @override
-  void updateApp(App newApp) => setState(() => cachedApp = newApp);
 
   @override
   Widget build(BuildContext context) {
@@ -38,27 +32,17 @@ class _GlueAppletState extends State<GlueApplet>
       child: Material(
         child: Navigator(
           initialRoute: 'splash',
-          onGenerateRoute: (settings) => generateGlueRoute(
-            settings,
-            cachedApp: cachedApp,
-            scope: scope,
-            context: context,
-            splashWidget: widget.splash,
-          ),
+          onGenerateRoute: (settings) {
+            if (settings.name == 'splash') {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (_) => widget.splash,
+              );
+            }
+            return generateRoute(settings);
+          },
         ),
       ),
     );
-  }
-
-  @override
-  void didUpdateWidget(GlueApplet oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    didUpdateWidgetRuntime();
-  }
-
-  @override
-  void dispose() {
-    disposeRuntime();
-    super.dispose();
   }
 }
