@@ -2,12 +2,19 @@
     (export main)
 
     (import screen.home)
+    (import screen.homes)
     (import screen.add-home)
     (import screen.edit-home)
 
     (def (home-route args)
         (route
-            :screen (home-screen _)
+            :screen (home-screen args.home)
+        )
+    )
+
+    (def (homes-route args)
+        (route
+            :screen (homes-screen _)
         )
     )
 
@@ -34,7 +41,8 @@
             :seed-color "#007bff"
             :dynamic-scheme-variant dynamic-scheme-variant.content
             :routes (
-                :index home-route
+                :index homes-route
+                :home home-route
                 :add-home add-home-route
                 :edit-home edit-home-route
             )
