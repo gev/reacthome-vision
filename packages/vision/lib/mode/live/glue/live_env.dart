@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:glue/env.dart';
 import 'package:glue/lib/bool.dart';
 import 'package:glue/lib/builtin.dart';
@@ -28,6 +30,7 @@ import 'package:vision/mode/live/live_storage.dart';
 import 'package:vision/websocket/session_monitor.dart';
 
 Env makeLiveEnv({
+  required Directory path,
   required Sink<String> sink,
   required GlueSubscriber subscriber,
   required LiveReactiveRuntime runtime,
@@ -48,7 +51,7 @@ Env makeLiveEnv({
     routesModule,
     canvasModule,
     ioModule,
-    appletsModule,
+    appletsModule(path),
     rateLimitModule(log),
     liveStateModule(storage),
     widgetsModule(image: liveImage(storage.assets)),

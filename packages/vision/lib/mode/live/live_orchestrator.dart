@@ -48,6 +48,7 @@ class LiveOrchestrator {
     );
 
     reactiveRuntime = LiveReactiveRuntime(
+      path: path,
       storage: _storage,
       sink: _outbound,
       subscriber: _glueSubscriber,
