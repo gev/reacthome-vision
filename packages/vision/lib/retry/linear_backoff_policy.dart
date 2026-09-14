@@ -1,4 +1,4 @@
-import 'package:vision/retry/dellayed_backoff_policy.dart';
+import 'package:vision/retry/delayed_backoff_policy.dart';
 
 class LinearBackoffPolicy extends DelayedBackoffPolicy {
   LinearBackoffPolicy({
