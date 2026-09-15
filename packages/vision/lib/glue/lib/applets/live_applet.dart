@@ -11,15 +11,15 @@ Ir liveApplet = IrNativeFunc(
 );
 
 Eval<Ir> _createLiveApplet(Map<String, Ir> props) {
-  final id = to<String>(props['id']);
+  final id = toString(props['id']);
   if (id == null) {
     return throwError(wrongArgumentType(['Applet `id` required']));
   }
   final widget = ScopeFactory.makeLiveApplet(
     id: id,
-    title: to<String>(props['title']) ?? '',
-    host: to<String>(props['host']) ?? '127.0.0.1',
-    port: to<int>(props['port']) ?? 3005,
+    title: toString(props['title']) ?? '',
+    host: toString(props['host']) ?? '127.0.0.1',
+    port: toInt(props['port']) ?? 3005,
   );
   return Eval.pure(IrNativeValue(Value(widget)));
 }

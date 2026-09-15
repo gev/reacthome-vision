@@ -11,14 +11,14 @@ Ir localApplet = IrNativeFunc(
 );
 
 Eval<Ir> _createLocalApplet(Map<String, Ir> props) {
-  final id = to<String>(props['id']);
+  final id = toString(props['id']);
   if (id == null) {
     return throwError(wrongArgumentType(['Applet `id` required']));
   }
   final widget = ScopeFactory.makeLocalApplet(
     id: id,
-    title: to<String>(props['title']) ?? '',
-    codePath: to<String>(props['code-path']) ?? '.',
+    title: toString(props['title']) ?? '',
+    codePath: toString(props['code-path']) ?? '.',
   );
   return Eval.pure(IrNativeValue(Value(widget)));
 }
