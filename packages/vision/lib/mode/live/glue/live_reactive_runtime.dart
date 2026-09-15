@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
@@ -26,7 +25,6 @@ class LiveReactiveRuntime extends ReactiveRuntime
   late final Runtime _runtime;
 
   LiveReactiveRuntime({
-    required Directory path,
     required this._storage,
     required this._sink,
     required this._subscriber,
@@ -35,7 +33,6 @@ class LiveReactiveRuntime extends ReactiveRuntime
   }) {
     _runtime = Runtime.initial(
       makeLiveEnv(
-        path: path,
         sink: _sink,
         subscriber: _subscriber,
         runtime: this,

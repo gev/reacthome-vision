@@ -1,18 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:vision/mode/live/live_scope.dart';
-import 'package:vision/widgets/vision_app.dart';
+import 'package:vision/scope_factory.dart';
 
 Future<Widget> makeLiveApp({
+  required String title,
   required String host,
   required int port,
-  required String title,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  return makeLiveScope(
-    path: await getApplicationSupportDirectory(),
-    host: host,
-    port: port,
-    child: VisionApp(title: title),
-  );
+  await ScopeFactory.init();
+  return ScopeFactory.makeLiveApp(title: title, host: host, port: port);
 }
