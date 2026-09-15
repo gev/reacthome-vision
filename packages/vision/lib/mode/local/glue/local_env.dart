@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:glue/env.dart';
 import 'package:glue/lib/bool.dart';
 import 'package:glue/lib/builtin.dart';
@@ -25,7 +23,6 @@ import 'package:vision/mode/local/glue/local_reactive_runtime.dart';
 import 'package:vision/mode/local/local_storage.dart';
 
 Env makeLocalEnv({
-  required Directory path,
   required LocalReactiveRuntime runtime,
   required LocalStorage storage,
   required Logger log,
@@ -43,7 +40,7 @@ Env makeLocalEnv({
     routesModule,
     canvasModule,
     ioModule,
-    appletsModule(path),
+    appletsModule,
     rateLimitModule(log),
     localStateModule(storage),
     widgetsModule(image: localImage),

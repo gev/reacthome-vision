@@ -14,13 +14,12 @@ class LocalReactiveRuntime extends ReactiveRuntime {
   late final String _codePath;
 
   LocalReactiveRuntime({
-    required Directory path,
     required this._codePath,
     required LocalStorage storage,
     required super.log,
   }) {
     _runtime = Runtime.initial(
-      makeLocalEnv(path: path, runtime: this, storage: storage, log: log),
+      makeLocalEnv(runtime: this, storage: storage, log: log),
     );
   }
 

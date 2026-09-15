@@ -1,16 +1,11 @@
 import 'package:flutter/widgets.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:vision/mode/local/local_scope.dart';
-import 'package:vision/widgets/vision_app.dart';
+import 'package:vision/scope_factory.dart';
 
 Future<Widget> makeLocalApp({
-  required String codePath,
   required String title,
+  required String codePath,
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  return makeLocalScope(
-    path: await getApplicationSupportDirectory(),
-    codePath: codePath,
-    child: VisionApp(title: title),
-  );
+  await ScopeFactory.init();
+  return ScopeFactory.makeLocalApp(title: title, codePath: codePath);
 }
