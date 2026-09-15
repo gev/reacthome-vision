@@ -8,6 +8,7 @@ Future<Widget> makeLiveApp({
   required int port,
   required String title,
 }) async {
+  WidgetsFlutterBinding.ensureInitialized();
   return makeLiveScope(
     path: await getApplicationSupportDirectory(),
     host: host,

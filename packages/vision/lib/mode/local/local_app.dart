@@ -7,6 +7,7 @@ Future<Widget> makeLocalApp({
   required String codePath,
   required String title,
 }) async {
+  WidgetsFlutterBinding.ensureInitialized();
   return makeLocalScope(
     path: await getApplicationSupportDirectory(),
     codePath: codePath,

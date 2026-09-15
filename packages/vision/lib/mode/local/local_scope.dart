@@ -9,7 +9,6 @@ Widget makeLocalScope({
   required String codePath,
   required Widget child,
 }) {
-  WidgetsFlutterBinding.ensureInitialized();
   final orchestrator = LocalOrchestrator(path: path, codePath: codePath);
   return Scope(
     log: orchestrator.log,

@@ -10,7 +10,6 @@ Widget makeLiveScope({
   required int port,
   required Widget child,
 }) {
-  WidgetsFlutterBinding.ensureInitialized();
   final orchestrator = LiveOrchestrator(path: path, host: host, port: port);
   return Scope(
     log: orchestrator.log,
