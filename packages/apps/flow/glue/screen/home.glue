@@ -3,6 +3,7 @@
 
     (def (home-screen args)
         (live-applet
+            :id args.home.id
             :host args.home.host
             :title args.home.name
         )
