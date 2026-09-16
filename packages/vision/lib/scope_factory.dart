@@ -60,11 +60,13 @@ class ScopeFactory {
     required String title,
     required String host,
     required int port,
+    Key? key,
   }) {
     return _pool[id] ??
         _registerApplet(
           id,
           applet: makeLiveScope(
+            key: key,
             path: _appletRoot(id),
             host: host,
             port: port,
@@ -77,11 +79,13 @@ class ScopeFactory {
     required String id,
     required String title,
     required String codePath,
+    Key? key,
   }) {
     return _pool[id] ??
         _registerApplet(
           id,
           applet: makeLocalScope(
+            key: key,
             path: _appletRoot(id),
             codePath: codePath,
             child: VisionApplet(title: title),

@@ -9,9 +9,11 @@ Widget makeLiveScope({
   required String host,
   required int port,
   required Widget child,
+  Key? key,
 }) {
   final orchestrator = LiveOrchestrator(path: path, host: host, port: port);
   return Scope(
+    key: key,
     log: orchestrator.log,
     reactiveRuntime: orchestrator.reactiveRuntime,
     child: child,

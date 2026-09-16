@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
@@ -12,11 +13,13 @@ Ir localApplet = IrNativeFunc(
 
 Eval<Ir> _createLocalApplet(Map<String, Ir> props) {
   final id = toString(props['id']);
+  final key = toString(props['key']);
   if (id == null) {
     return throwError(wrongArgumentType(['Applet `id` required']));
   }
   final widget = ScopeFactory.makeLocalApplet(
     id: id,
+    key: key != null ? ValueKey(key) : null,
     title: toString(props['title']) ?? '',
     codePath: toString(props['code-path']) ?? '.',
   );
