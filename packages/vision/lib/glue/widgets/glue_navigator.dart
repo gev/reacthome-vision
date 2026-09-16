@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:glue/ir.dart';
-import 'package:vision/glue/widgets/glue_app_base_state.dart';
-import 'package:vision/widgets/main_entry_point.dart';
+import 'package:vision/glue/app.dart';
+import 'package:vision/glue/widgets/glue_navigator_base_state.dart';
 
 class GlueNavigator extends StatefulWidget {
-  final Ir app;
+  final Routes routes;
 
-  const GlueNavigator({required this.app, super.key});
+  const GlueNavigator({required this.routes, super.key});
 
   @override
   State<GlueNavigator> createState() => _GlueNavigatorState();
 }
 
-class _GlueNavigatorState extends GlueAppBaseState<GlueNavigator> {
+class _GlueNavigatorState extends GlueNavigatorBaseState<GlueNavigator> {
   @override
-  Ir get app => widget.app;
+  Routes get routes => widget.routes;
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      initialRoute: defaultRoute,
-      onGenerateRoute: generateRoute,
-    );
+    return Navigator(initialRoute: 'index', onGenerateRoute: generateRoute);
   }
 }
