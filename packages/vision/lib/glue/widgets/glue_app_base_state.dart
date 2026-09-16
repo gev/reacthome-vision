@@ -9,7 +9,7 @@ import 'package:vision/glue/widgets/glue_navigator_base_state.dart';
 abstract class GlueAppBaseState<T extends StatefulWidget>
     extends GlueNavigatorBaseState<T> {
   App cachedApp = defaultApp;
-  Ir? lastEvaluatedExpression;
+  Ir? _lastEvaluatedExpression;
 
   Ir get app;
 
@@ -35,14 +35,14 @@ abstract class GlueAppBaseState<T extends StatefulWidget>
   }
 
   void _runGuarded() {
-    if (lastEvaluatedExpression == app) {
+    if (_lastEvaluatedExpression == app) {
       return;
     }
     _run();
   }
 
   void _run() {
-    lastEvaluatedExpression = app;
+    _lastEvaluatedExpression = app;
 
     final evaluation = eval(app);
     final result = runEval(
