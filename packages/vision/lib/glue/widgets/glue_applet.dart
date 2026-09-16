@@ -15,7 +15,7 @@ class GlueApplet extends StatefulWidget {
 
 class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
   @override
-  Ir get widgetApp => widget.app;
+  Ir get app => widget.app;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,8 @@ class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
       data: themeData ?? theme,
       child: Material(
         child: Navigator(
-          initialRoute: 'splash',
           onGenerateRoute: (settings) {
-            if (settings.name == 'splash') {
+            if (settings.name == '/') {
               return MaterialPageRoute(
                 settings: settings,
                 builder: (_) => widget.splash,

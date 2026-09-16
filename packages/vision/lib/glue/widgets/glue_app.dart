@@ -25,7 +25,7 @@ class _GlueAppState extends GlueAppBaseState<GlueApp>
   Locale _currentLocale = WidgetsBinding.instance.platformDispatcher.locale;
 
   @override
-  Ir get widgetApp => widget.app;
+  Ir get app => widget.app;
 
   @override
   void initState() {

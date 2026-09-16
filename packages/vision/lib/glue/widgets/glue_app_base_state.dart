@@ -13,7 +13,7 @@ abstract class GlueAppBaseState<T extends StatefulWidget> extends State<T> {
   late final Scope scope;
   bool initialized = false;
 
-  Ir get widgetApp;
+  Ir get app;
 
   @override
   void didChangeDependencies() {
@@ -33,16 +33,16 @@ abstract class GlueAppBaseState<T extends StatefulWidget> extends State<T> {
   }
 
   void runGuarded() {
-    if (lastEvaluatedExpression == widgetApp) {
+    if (lastEvaluatedExpression == app) {
       return;
     }
     run();
   }
 
   void run() {
-    lastEvaluatedExpression = widgetApp;
+    lastEvaluatedExpression = app;
 
-    final evaluation = eval(widgetApp);
+    final evaluation = eval(app);
     final result = runEval(
       evaluation,
       scope.reactiveRuntime.runtime.copyWith(
@@ -58,7 +58,7 @@ abstract class GlueAppBaseState<T extends StatefulWidget> extends State<T> {
         final (val, _) = res;
         final newApp = extractLast<App>(val);
         if (newApp == null) {
-          scope.log.error('$widgetApp \n App required');
+          scope.log.error('$app \n App required');
         } else {
           setState(() {
             cachedApp = newApp;
