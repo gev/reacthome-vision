@@ -13,6 +13,8 @@ class ScopeFactory {
 
   static late String _root;
 
+  static final Map<String, Widget> _pool = {};
+
   static Directory get _appRoot =>
       Directory(p.join(_root, 'app'))..createSync(recursive: true);
 
@@ -48,18 +50,27 @@ class ScopeFactory {
     );
   }
 
+  static Widget _registerApplet(String id, {required Widget applet}) {
+    _pool[id] = applet;
+    return applet;
+  }
+
   static Widget makeLiveApplet({
     required String id,
     required String title,
     required String host,
     required int port,
   }) {
-    return makeLiveScope(
-      path: _appletRoot(id),
-      host: host,
-      port: port,
-      child: VisionApplet(title: title),
-    );
+    return _pool[id] ??
+        _registerApplet(
+          id,
+          applet: makeLiveScope(
+            path: _appletRoot(id),
+            host: host,
+            port: port,
+            child: VisionApplet(title: title),
+          ),
+        );
   }
 
   static Widget makeLocalApplet({
@@ -67,10 +78,14 @@ class ScopeFactory {
     required String title,
     required String codePath,
   }) {
-    return makeLocalScope(
-      path: _appletRoot(id),
-      codePath: codePath,
-      child: VisionApplet(title: title),
-    );
+    return _pool[id] ??
+        _registerApplet(
+          id,
+          applet: makeLocalScope(
+            path: _appletRoot(id),
+            codePath: codePath,
+            child: VisionApplet(title: title),
+          ),
+        );
   }
 }
