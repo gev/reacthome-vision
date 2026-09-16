@@ -1,5 +1,6 @@
 import 'package:glue/module.dart';
 import 'package:vision/glue/lib/navigation/can-pop.dart';
+import 'package:vision/glue/lib/navigation/navigator.dart';
 import 'package:vision/glue/lib/navigation/pop-until.dart';
 import 'package:vision/glue/lib/navigation/pop.dart';
 import 'package:vision/glue/lib/navigation/push.dart';
@@ -12,4 +13,5 @@ final navigationModule = nativeModule('ffi.vision.navigation', [
   ('pop', pop),
   ('pop-until', popUntil),
   ('can-pop', canPop),
+  ('navigator', navigator),
 ]);
