@@ -32,7 +32,7 @@ Eval<Ir> appImpl(Ir ir) {
           return throwError(wrongArgumentType(['Required routers map']));
       }
     default:
-      return throwError(wrongArgumentType(['Required application propertis']));
+      return throwError(wrongArgumentType(['Required application properties']));
   }
 }
 
