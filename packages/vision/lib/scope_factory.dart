@@ -13,10 +13,10 @@ class ScopeFactory {
 
   static late String _root;
 
-  static Directory get _app =>
+  static Directory get _appRoot =>
       Directory(p.join(_root, 'app'))..createSync(recursive: true);
 
-  static Directory _applet(String id) =>
+  static Directory _appletRoot(String id) =>
       Directory(p.join(_root, 'applet', id))..createSync(recursive: true);
 
   static Future<void> init() async {
@@ -30,7 +30,7 @@ class ScopeFactory {
     required int port,
   }) {
     return makeLiveScope(
-      path: _app,
+      path: _appRoot,
       host: host,
       port: port,
       child: VisionApp(title: title),
@@ -42,7 +42,7 @@ class ScopeFactory {
     required String codePath,
   }) {
     return makeLocalScope(
-      path: _app,
+      path: _appRoot,
       codePath: codePath,
       child: VisionApp(title: title),
     );
@@ -55,7 +55,7 @@ class ScopeFactory {
     required int port,
   }) {
     return makeLiveScope(
-      path: _applet(id),
+      path: _appletRoot(id),
       host: host,
       port: port,
       child: VisionApplet(title: title),
@@ -68,7 +68,7 @@ class ScopeFactory {
     required String codePath,
   }) {
     return makeLocalScope(
-      path: _applet(id),
+      path: _appletRoot(id),
       codePath: codePath,
       child: VisionApplet(title: title),
     );
