@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vision/glue/app.dart';
 import 'package:vision/glue/widgets/glue_navigator_base_state.dart';
+import 'package:vision/widgets/main_entry_point.dart';
 
 class GlueNavigator extends StatefulWidget {
   final Routes routes;
@@ -17,6 +18,11 @@ class _GlueNavigatorState extends GlueNavigatorBaseState<GlueNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(initialRoute: 'index', onGenerateRoute: generateRoute);
+    return Navigator(
+      key: navigatorKey,
+      initialRoute: defaultRoute,
+      observers: [HeroController()],
+      onGenerateRoute: generateRoute,
+    );
   }
 }
