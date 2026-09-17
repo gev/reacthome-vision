@@ -21,6 +21,7 @@ Eval<Ir> _createLocalApplet(WidgetProperties props) {
   final widget = ScopeFactory.makeLocalApplet(
     id: id,
     key: props.key,
+    navigatorKey: props.getKey('navigator-key'),
     title: props.getString('title') ?? '',
     codePath: props.getString('code-path') ?? '.',
   );
