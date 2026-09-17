@@ -21,6 +21,7 @@ Eval<Ir> _createLiveApplet(WidgetProperties props) {
   final widget = ScopeFactory.makeLiveApplet(
     id: id,
     key: props.key,
+    navigatorKey: props.getKey('navigator-key'),
     title: props.getString('title') ?? '',
     host: props.getString('host') ?? '127.0.0.1',
     port: props.getInt('port') ?? 3005,
