@@ -25,6 +25,8 @@ class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
       data: themeData ?? theme,
       child: Material(
         child: Navigator(
+          key: navigatorKey,
+          observers: [HeroController()],
           onGenerateRoute: (settings) {
             if (settings.name == '/') {
               return MaterialPageRoute(
