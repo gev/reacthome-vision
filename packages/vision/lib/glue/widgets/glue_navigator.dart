@@ -18,11 +18,14 @@ class _GlueNavigatorState extends GlueNavigatorBaseState<GlueNavigator> {
 
   @override
   Widget build(BuildContext context) {
-    return Navigator(
-      key: navigatorKey,
-      initialRoute: defaultRoute,
-      observers: [HeroController()],
-      onGenerateRoute: generateRoute,
+    return PopScope(
+      canPop: false,
+      child: Navigator(
+        key: navigatorKey,
+        initialRoute: defaultRoute,
+        observers: [HeroController()],
+        onGenerateRoute: generateRoute,
+      ),
     );
   }
 }

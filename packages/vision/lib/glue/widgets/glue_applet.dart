@@ -21,21 +21,24 @@ class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final themeData = makeTheme(cachedApp, theme.brightness);
-    return Theme(
-      data: themeData ?? theme,
-      child: Material(
-        child: Navigator(
-          key: navigatorKey,
-          observers: [HeroController()],
-          onGenerateRoute: (settings) {
-            if (settings.name == '/') {
-              return MaterialPageRoute(
-                settings: settings,
-                builder: (_) => widget.splash,
-              );
-            }
-            return generateRoute(settings);
-          },
+    return PopScope(
+      canPop: false,
+      child: Theme(
+        data: themeData ?? theme,
+        child: Material(
+          child: Navigator(
+            key: navigatorKey,
+            observers: [HeroController()],
+            onGenerateRoute: (settings) {
+              if (settings.name == '/') {
+                return MaterialPageRoute(
+                  settings: settings,
+                  builder: (_) => widget.splash,
+                );
+              }
+              return generateRoute(settings);
+            },
+          ),
         ),
       ),
     );
