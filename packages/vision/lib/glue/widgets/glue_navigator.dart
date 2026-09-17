@@ -21,7 +21,6 @@ class _GlueNavigatorState extends GlueNavigatorBaseState<GlueNavigator> {
     return PopScope(
       canPop: false,
       child: Navigator(
-        key: navigatorKey,
         initialRoute: defaultRoute,
         observers: [HeroController()],
         onGenerateRoute: generateRoute,
