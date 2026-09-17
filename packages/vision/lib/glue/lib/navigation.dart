@@ -1,8 +1,8 @@
 import 'package:glue/module.dart';
-import 'package:vision/glue/lib/navigation/can-pop.dart';
+import 'package:vision/glue/lib/navigation/can_pop.dart';
 import 'package:vision/glue/lib/navigation/navigator.dart';
-import 'package:vision/glue/lib/navigation/pop-until.dart';
 import 'package:vision/glue/lib/navigation/pop.dart';
+import 'package:vision/glue/lib/navigation/pop_until.dart';
 import 'package:vision/glue/lib/navigation/push.dart';
 import 'package:vision/glue/lib/navigation/push_replacement.dart';
 
