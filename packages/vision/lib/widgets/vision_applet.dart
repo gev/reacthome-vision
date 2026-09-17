@@ -5,14 +5,16 @@ import 'package:vision/widgets/main_entry_point.dart';
 
 class VisionApplet extends StatelessWidget {
   final String title;
+  final Key? navigatorKey;
 
-  const VisionApplet({required this.title, super.key});
+  const VisionApplet({required this.title, this.navigatorKey, super.key});
 
   @override
   Widget build(BuildContext context) {
     return GlueApplet(
       app: mainEntryPoint,
       splash: SplashScreen(title: title, route: defaultRoute),
+      navigatorKey: navigatorKey,
     );
   }
 }
