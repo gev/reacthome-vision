@@ -61,6 +61,7 @@ class ScopeFactory {
     required String host,
     required int port,
     Key? key,
+    Key? navigatorKey,
   }) {
     return _pool[id] ??
         _registerApplet(
@@ -70,7 +71,7 @@ class ScopeFactory {
             path: _appletRoot(id),
             host: host,
             port: port,
-            child: VisionApplet(title: title),
+            child: VisionApplet(title: title, navigatorKey: navigatorKey),
           ),
         );
   }
@@ -80,6 +81,7 @@ class ScopeFactory {
     required String title,
     required String codePath,
     Key? key,
+    Key? navigatorKey,
   }) {
     return _pool[id] ??
         _registerApplet(
@@ -88,7 +90,7 @@ class ScopeFactory {
             key: key,
             path: _appletRoot(id),
             codePath: codePath,
-            child: VisionApplet(title: title),
+            child: VisionApplet(title: title, navigatorKey: navigatorKey),
           ),
         );
   }
