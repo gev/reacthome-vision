@@ -6,31 +6,12 @@ import 'package:glue/ir.dart';
 import 'package:vision/glue/app.dart';
 import 'package:vision/scope.dart';
 
-// Наблюдатель для отслеживания изменений в стеке навигатора
-class _NavigatorObserver extends NavigatorObserver {
-  final VoidCallback onDidChange;
-  _NavigatorObserver(this.onDidChange);
-
-  @override
-  void didPush(Route route, Route? previousRoute) => onDidChange();
-  @override
-  void didPop(Route route, Route? previousRoute) => onDidChange();
-  @override
-  void didRemove(Route route, Route? previousRoute) => onDidChange();
-  @override
-  void didReplace({Route? newRoute, Route? oldRoute}) => onDidChange();
-}
-
 abstract class GlueNavigatorBaseState<T extends StatefulWidget>
     extends State<T> {
   late final Scope scope;
   bool _initialized = false;
 
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
-  late final _NavigatorObserver navObserver = _NavigatorObserver(() {
-    if (mounted) setState(() {});
-  });
 
   Routes get routes;
 
