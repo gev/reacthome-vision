@@ -3,6 +3,7 @@ import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/app.dart';
+import 'package:vision/glue/widgets/glue_navigator_finder.dart';
 
 /// Replaces the current route with a new Route
 final Ir pushReplacement = IrNativeFunc((Ir ir) {
@@ -10,7 +11,7 @@ final Ir pushReplacement = IrNativeFunc((Ir ir) {
     final context = getFromContext<BuildContext>(runtime.context);
     if (context != null) {
       return evalRoute(ir).bind((entry) {
-        final navigator = Navigator.of(context);
+        final navigator = findTargetNavigator(context, entry.route);
         return routeResult(
           navigator.pushReplacementNamed(entry.route, arguments: entry.args),
         );
