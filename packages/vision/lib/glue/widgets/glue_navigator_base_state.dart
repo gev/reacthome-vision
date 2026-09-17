@@ -11,6 +11,8 @@ abstract class GlueNavigatorBaseState<T extends StatefulWidget>
   late final Scope scope;
   bool _initialized = false;
 
+  final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
   Routes get routes;
 
   @override
