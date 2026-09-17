@@ -5,8 +5,9 @@ import 'package:vision/widgets/main_entry_point.dart';
 
 class GlueNavigator extends StatefulWidget {
   final Routes routes;
+  final Key? navigatorKey;
 
-  const GlueNavigator({required this.routes, super.key});
+  const GlueNavigator({required this.routes, this.navigatorKey, super.key});
 
   @override
   State<GlueNavigator> createState() => _GlueNavigatorState();
@@ -21,6 +22,7 @@ class _GlueNavigatorState extends GlueNavigatorBaseState<GlueNavigator> {
     return PopScope(
       canPop: false,
       child: Navigator(
+        key: widget.navigatorKey,
         initialRoute: defaultRoute,
         observers: [HeroController()],
         onGenerateRoute: generateRoute,
