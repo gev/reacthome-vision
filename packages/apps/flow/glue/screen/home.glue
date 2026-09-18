@@ -6,6 +6,7 @@
             :id args.home.id
             :host args.home.host
             :title args.home.name
+            :proxy (concat "proxy." args.home.id)
         )
     )
 )
