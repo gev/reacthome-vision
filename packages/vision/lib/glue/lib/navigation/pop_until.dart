@@ -1,30 +1,43 @@
 import 'package:flutter/widgets.dart';
+import 'package:glue/context.dart';
 import 'package:glue/either.dart';
-import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue_flutter/glue_flutter.dart';
+import 'package:vision/glue/lib/navigation/find_navigator.dart';
 
 /// Pops routes until a predicate closure returns true
-final Ir popUntil = IrNativeFunc((Ir predicateIr) {
-  switch (predicateIr) {
-    case IrClosure():
-      return Eval((runtime) {
-        // Transform closure evaluation into predicate function
-        predicate(Route route) {
+Ir popUntil(bool rootNavigator) => IrNativeFunc((Ir ir) {
+  return getRuntime().bind((runtime) {
+    final context = getFromContext<BuildContext>(runtime.context);
+    if (context != null) {
+      final targetNavigator = switch (ir) {
+        IrObject(:final properties) => extractFromGlobalKey(
+          properties['target'],
+        ),
+        _ => null,
+      };
+      final predicateIr = switch (ir) {
+        IrObject(:final properties) =>
+          properties['predicate'] ?? properties['route'],
+        IrClosure() => ir,
+        _ => null,
+      };
+
+      final navigator = findNavigator(context, rootNavigator, targetNavigator);
+      if (predicateIr is IrClosure) {
+        navigator.popUntil((route) {
           final result = runEval(
             apply(predicateIr, [IrNativeValue(Value(route))]),
             runtime,
           );
           return switch (result) {
             Right(value: (IrBool(value: bool v), _)) => v,
-            // ToDo: report error when result is a Future
             _ => false,
           };
-        }
-
-        return Right((IrVoid(), runtime));
-      });
-    default:
-      return throwError(wrongArgumentType(['predicate']));
-  }
+        });
+      }
+    }
+    return Eval.pure(IrVoid());
+  });
 });
