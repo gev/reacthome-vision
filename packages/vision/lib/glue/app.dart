@@ -5,10 +5,16 @@ import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 
 class App {
+  final Key? navigatorKey;
   final Color? seedColor;
   final DynamicSchemeVariant? dynamicSchemeVariant;
   final Routes routes;
-  const App({this.seedColor, this.dynamicSchemeVariant, required this.routes});
+  const App({
+    this.navigatorKey,
+    this.seedColor,
+    this.dynamicSchemeVariant,
+    required this.routes,
+  });
 }
 
 App defaultApp = App(routes: {});
