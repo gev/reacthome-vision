@@ -12,6 +12,7 @@ Eval<Ir> appImpl(Ir ir) {
   switch (ir) {
     case IrObject(:final properties):
       final seedColor = extractColor(properties['seed-color']);
+      final navigatorKey = extractKey(properties['navigator-key']);
       final dynamicSchemeVariant = to<DynamicSchemeVariant>(
         properties['dynamic-scheme-variant'],
       );
@@ -21,6 +22,7 @@ Eval<Ir> appImpl(Ir ir) {
             IrNativeValue(
               Value(
                 App(
+                  navigatorKey: navigatorKey,
                   seedColor: seedColor,
                   dynamicSchemeVariant: dynamicSchemeVariant,
                   routes: routes.unlock,
