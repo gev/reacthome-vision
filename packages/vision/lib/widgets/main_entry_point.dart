@@ -2,12 +2,12 @@ import 'package:glue/ir.dart';
 
 // (
 //   (import main)
-//   main
+//   (main args)
 // )
 
-final mainEntryPoint = IrList([
+Ir mainEntryPoint(Ir args) => IrList([
   IrList([IrSymbol('import'), IrSymbol('main')]),
-  IrSymbol('main'),
+  IrList([IrSymbol('main'), args]),
 ]);
 
 const defaultRoute = 'index';
