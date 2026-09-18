@@ -1,5 +1,6 @@
-(module i18n.home
+(module i18n.dict
     (export
+        i18n-my-homes
         i18n-home
         i18n-home-id
         i18n-name
@@ -12,6 +13,11 @@
         i18n-close
         i18n-remove
     )
+
+    (def i18n-my-homes (
+            :en "My homes"
+            :ru "Мои дома"
+        ))
 
     (def i18n-home (
             :en "Home"

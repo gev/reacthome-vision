@@ -1,7 +1,7 @@
 (module screen.edit-home
     (export edit-home-screen)
 
-    (import i18n.home)
+    (import i18n.dict)
 
     (import lib.home)
     (import lib.i18n)

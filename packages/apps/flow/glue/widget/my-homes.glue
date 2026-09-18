@@ -1,7 +1,7 @@
 (module widget.my-homes
     (export my-homes)
 
-    (import i18n.home)
+    (import i18n.dict)
 
     (import lib.i18n)
     (import lib.navigation)
@@ -23,7 +23,7 @@
                 :children (
                     (logo :width 64)
                     (text
-                        :text "My homes"
+                        :text (select-locale i18n-my-homes)
                         :style current-theme.text-theme.display-medium
                     )
                 )
