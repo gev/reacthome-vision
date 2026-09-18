@@ -3,13 +3,14 @@ import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/app.dart';
+import 'package:vision/glue/lib/navigation/find_navigator.dart';
 
-Ir push = IrNativeFunc((Ir ir) {
+Ir push(bool rootNavigator) => IrNativeFunc((Ir ir) {
   return getRuntime().bind((runtime) {
     final context = getFromContext<BuildContext>(runtime.context);
     if (context != null) {
       return evalRoute(ir).bind((entry) {
-        final navigator = Navigator.of(context);
+        final navigator = findNavigator(context, rootNavigator, entry.target);
         return routeResult(
           navigator.pushNamed(entry.route, arguments: entry.args),
         );
