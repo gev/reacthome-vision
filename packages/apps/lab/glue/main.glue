@@ -14,7 +14,7 @@
         )
     )
 
-    (def main
+    (def (main args)
         (app
             :routes (
                 :home home-route
