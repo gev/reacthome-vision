@@ -11,7 +11,11 @@ Ir pushReplacement(bool rootNavigator) => IrNativeFunc((Ir ir) {
     final context = getFromContext<BuildContext>(runtime.context);
     if (context != null) {
       return evalRoute(ir).bind((entry) {
-        final navigator = findNavigator(context, rootNavigator, entry.target);
+        final navigator = findNavigator(
+          context,
+          rootNavigator,
+          entry.targetNavigator,
+        );
         return routeResult(
           navigator.pushReplacementNamed(entry.route, arguments: entry.args),
         );

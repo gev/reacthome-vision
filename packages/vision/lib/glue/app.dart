@@ -15,19 +15,23 @@ App defaultApp = App(routes: {});
 
 typedef Routes = Map<String, Ir>;
 
-typedef RouteEntry = ({String route, NavigatorState? target, IrObject args});
+typedef RouteEntry = ({
+  String route,
+  NavigatorState? targetNavigator,
+  IrObject args,
+});
 
 Eval<RouteEntry> evalRoute(Ir ir) {
   if (ir case IrObject(:final properties)) {
     Ir? route;
-    Ir? target;
+    Ir? targetNavigator;
     final args = <String, Ir>{};
     for (final entry in properties.entries) {
       switch (entry.key) {
         case 'route':
           route = entry.value;
         case 'target':
-          target = entry.value;
+          targetNavigator = entry.value;
         default:
           args[entry.key] = entry.value;
       }
@@ -35,7 +39,7 @@ Eval<RouteEntry> evalRoute(Ir ir) {
     if (route case IrSymbol(:final value)) {
       return Eval.pure((
         route: value,
-        target: extractFromGlobalKey(target),
+        targetNavigator: extractFromGlobalKey(targetNavigator),
         args: IrObject(args),
       ));
     }

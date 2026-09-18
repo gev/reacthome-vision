@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 NavigatorState findNavigator(
   BuildContext context,
   bool rootNavigator,
-  NavigatorState? target,
+  NavigatorState? targetNavigator,
 ) => rootNavigator
     ? Navigator.of(context, rootNavigator: true)
-    : target ?? Navigator.of(context);
+    : targetNavigator ?? Navigator.of(context);
