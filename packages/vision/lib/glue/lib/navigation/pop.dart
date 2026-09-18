@@ -16,7 +16,9 @@ Ir pop(bool rootNavigator) => IrNativeFunc((Ir ir) {
         _ => null,
       };
       final navigator = findNavigator(context, rootNavigator, targetNavigator);
-      navigator.pop();
+      if (navigator.canPop()) {
+        navigator.pop();
+      }
     }
     return Eval.pure(IrVoid());
   });
