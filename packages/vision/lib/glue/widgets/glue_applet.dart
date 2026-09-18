@@ -6,14 +6,8 @@ import 'package:vision/widgets/theme.dart';
 class GlueApplet extends StatefulWidget {
   final Ir app;
   final Widget splash;
-  final Key? navigatorKey;
 
-  const GlueApplet({
-    required this.app,
-    required this.splash,
-    this.navigatorKey,
-    super.key,
-  });
+  const GlueApplet({required this.app, required this.splash, super.key});
 
   @override
   State<GlueApplet> createState() => _GlueAppletState();
@@ -33,7 +27,7 @@ class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
         data: themeData ?? theme,
         child: Material(
           child: Navigator(
-            key: widget.navigatorKey,
+            // key: widget.navigatorKey,
             observers: [HeroController()],
             onGenerateRoute: (settings) {
               if (settings.name == '/') {
