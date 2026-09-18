@@ -7,13 +7,14 @@ import 'package:vision/scope_factory.dart';
 Ir liveApplet = IrNativeFunc(
   (Ir props) => switch (props) {
     IrObject(:final properties) => _createLiveApplet(
+      props,
       WidgetProperties(properties.unlock),
     ),
     _ => throwError(wrongArgumentType(['Properties `Object` required'])),
   },
 );
 
-Eval<Ir> _createLiveApplet(WidgetProperties props) {
+Eval<Ir> _createLiveApplet(Ir args, WidgetProperties props) {
   final id = props.getString('id');
   if (id == null) {
     return throwError(wrongArgumentType(['Applet `id` required']));
@@ -24,6 +25,7 @@ Eval<Ir> _createLiveApplet(WidgetProperties props) {
     title: props.getString('title') ?? '',
     host: props.getString('host') ?? '127.0.0.1',
     port: props.getInt('port') ?? 3005,
+    args: args,
   );
   return Eval.pure(IrNativeValue(Value(widget)));
 }

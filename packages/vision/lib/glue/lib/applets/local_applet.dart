@@ -7,13 +7,14 @@ import 'package:vision/scope_factory.dart';
 Ir localApplet = IrNativeFunc(
   (Ir props) => switch (props) {
     IrObject(:final properties) => _createLocalApplet(
+      props,
       WidgetProperties(properties.unlock),
     ),
     _ => throwError(wrongArgumentType(['Properties `Object` required'])),
   },
 );
 
-Eval<Ir> _createLocalApplet(WidgetProperties props) {
+Eval<Ir> _createLocalApplet(Ir args, WidgetProperties props) {
   final id = props.getString('id');
   if (id == null) {
     return throwError(wrongArgumentType(['Applet `id` required']));
@@ -23,6 +24,7 @@ Eval<Ir> _createLocalApplet(WidgetProperties props) {
     key: props.key,
     title: props.getString('title') ?? '',
     codePath: props.getString('code-path') ?? '.',
+    args: args,
   );
   return Eval.pure(IrNativeValue(Value(widget)));
 }

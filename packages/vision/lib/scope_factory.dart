@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
+import 'package:glue/ir.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:vision/mode/live/live_scope.dart';
@@ -30,23 +31,25 @@ class ScopeFactory {
     required String title,
     required String host,
     required int port,
+    required Ir args,
   }) {
     return makeLiveScope(
       path: _appRoot,
       host: host,
       port: port,
-      child: VisionApp(title: title),
+      child: VisionApp(title: title, args: args),
     );
   }
 
   static Widget makeLocalApp({
     required String title,
     required String codePath,
+    required Ir args,
   }) {
     return makeLocalScope(
       path: _appRoot,
       codePath: codePath,
-      child: VisionApp(title: title),
+      child: VisionApp(title: title, args: args),
     );
   }
 
@@ -60,6 +63,7 @@ class ScopeFactory {
     required String title,
     required String host,
     required int port,
+    required Ir args,
     Key? key,
   }) {
     return _pool[id] ??
@@ -70,7 +74,7 @@ class ScopeFactory {
             path: _appletRoot(id),
             host: host,
             port: port,
-            child: VisionApplet(title: title),
+            child: VisionApplet(title: title, args: args),
           ),
         );
   }
@@ -79,6 +83,7 @@ class ScopeFactory {
     required String id,
     required String title,
     required String codePath,
+    required Ir args,
     Key? key,
   }) {
     return _pool[id] ??
@@ -88,7 +93,7 @@ class ScopeFactory {
             key: key,
             path: _appletRoot(id),
             codePath: codePath,
-            child: VisionApplet(title: title),
+            child: VisionApplet(title: title, args: args),
           ),
         );
   }
