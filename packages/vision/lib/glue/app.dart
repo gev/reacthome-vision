@@ -15,6 +15,20 @@ class App {
     this.dynamicSchemeVariant,
     required this.routes,
   });
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is App &&
+        navigatorKey == other.navigatorKey &&
+        seedColor == other.seedColor &&
+        dynamicSchemeVariant == other.dynamicSchemeVariant &&
+        routes == other.routes;
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(navigatorKey, seedColor, dynamicSchemeVariant, routes);
 }
 
 App defaultApp = App(routes: {});
