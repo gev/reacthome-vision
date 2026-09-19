@@ -38,7 +38,7 @@
         (\ ()
             (def home (:id id :name name :host host))
             (add-home home)
-            (back _)
+            (pop _)
         )
     )
 
@@ -89,7 +89,7 @@
                                 :child (text
                                     :text (select-locale i18n-cancel)
                                 )
-                                :on-pressed (\ () (back _))
+                                :on-pressed back
                             )
                             (listen submit-button home-host home-name home-id)
                         )
