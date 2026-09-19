@@ -57,7 +57,7 @@
             :child (card
                 :child (ink-well
                     :on-tap (go :route 'home :home home)
-                    :on-long-press (go :route 'edit-home :id home.id :tag home.id)
+                    :on-long-press (go :route 'edit-home :home home :tag home.id)
                     :child (adopt props.child)
                     :child (list-tile
                         :title (column

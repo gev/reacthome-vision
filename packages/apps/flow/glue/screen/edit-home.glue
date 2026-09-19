@@ -20,6 +20,7 @@
 
     (def (txt-field props)
         (text-field
+            :value props.state
             :decoration (input-decoration
                 :filled true
                 :label-text props.label
@@ -52,7 +53,7 @@
     )
 
     (def (edit-home-screen args)
-        (def home-name (local-state _))
+        (def home-name (local-state args.home.name))
         (modal
             :color current-theme.color-scheme.surface-container
             :child (column
@@ -63,7 +64,7 @@
                         :spacing 24
                         :children (
                             (text
-                                :text (select-locale i18n-add-home)
+                                :text args.home.name
                                 :style current-theme.text-theme.title-medium
                             )
                             
