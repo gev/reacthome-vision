@@ -35,20 +35,26 @@
         )
     )
 
-    (def (submit-home name id)
+    (def (remove home)
         (\ ()
-            (def home (:id id :name name :host host))
-            (edit-home home)
-            (back _)
+            (remove-home home)
+            (pop _)
         )
     )
 
-    (def (submit-button name)
+    (def (submit home)
+        (\ ()
+            (update-home home)
+            (pop _)
+        )
+    )
+
+    (def (submit-button home name)
         (filled-button
             :child (text
                 :text (select-locale i18n-apply)
             )
-            :on-pressed (submit-home name)
+            :on-pressed (submit (concat home (:name name)))
         )
     )
 
@@ -83,9 +89,9 @@
                                 :style (button-style
                                     :foreground-color current-theme.color-scheme.error
                                 )
-                                :on-pressed (\ () (back _))
+                                :on-pressed (remove args.home)
                             )
-                            (listen submit-button home-name)
+                            (listen (submit-button args.home) home-name)
                         )
                     )
                 )
