@@ -204,13 +204,13 @@ class _SyncedTextEditingController extends TextEditingController {
   final ValueNotifier<Ir> _sourceNotifier;
 
   _SyncedTextEditingController({required this._sourceNotifier})
-    : super(text: to<String>(_sourceNotifier.value)) {
+    : super(text: toString(_sourceNotifier.value)) {
     _sourceNotifier.addListener(_handleStateChange);
   }
 
   void _handleStateChange() {
     final newStateValue = _sourceNotifier.value;
-    final newText = to<String>(newStateValue) ?? "";
+    final newText = toString(newStateValue) ?? "";
 
     if (text != newText) {
       final currentSelection = selection;
