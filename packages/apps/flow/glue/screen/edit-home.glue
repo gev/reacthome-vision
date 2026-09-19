@@ -67,7 +67,6 @@
                                 :text args.home.name
                                 :style current-theme.text-theme.title-medium
                             )
-                            
                             (txt-field
                                 :label (select-locale i18n-name)
                                 :state home-name

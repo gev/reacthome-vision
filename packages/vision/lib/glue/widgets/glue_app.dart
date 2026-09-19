@@ -47,7 +47,7 @@ class _GlueAppState extends GlueAppBaseState<GlueApp>
       debugShowCheckedModeBanner: false,
       title: widget.title,
       // key: ValueKey((_currentLocale, cachedApp)),
-      key: ValueKey(cachedApp),
+      key: ValueKey(_currentLocale),
       themeMode: ThemeMode.system,
       theme: makeTheme(cachedApp, Brightness.light),
       darkTheme: makeTheme(cachedApp, Brightness.dark),
