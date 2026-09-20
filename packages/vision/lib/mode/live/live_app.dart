@@ -4,10 +4,10 @@ import 'package:vision/scope_factory.dart';
 
 Future<Widget> makeLiveApp({
   required String title,
-  required String uri,
+  required String url,
   Ir args = const IrVoid(),
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScopeFactory.init();
-  return ScopeFactory.makeLiveApp(title: title, uri: uri, args: args);
+  return ScopeFactory.makeLiveApp(title: title, url: url, args: args);
 }
