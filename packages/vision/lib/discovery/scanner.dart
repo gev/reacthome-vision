@@ -2,47 +2,48 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+const defaultDiscoveryTimeout = Duration(seconds: 2);
+
 typedef OnAnnounce = void Function(String message, InternetAddress sender);
+typedef OnJoin = void Function(NetworkInterface interface);
 
 Future<void> startScanner({
   required String announceGroup,
   required int port,
   required OnAnnounce onAnnounce,
-  Duration timeout = const Duration(seconds: 2),
+  required OnJoin onJoin,
+  Duration timeout = defaultDiscoveryTimeout,
 }) async {
   try {
-    await _listenToMulticast(
-      announceGroup: announceGroup,
-      port: port,
-      onAnnounce: onAnnounce,
-      timeout: timeout,
-    );
+    await _listenToMulticast(announceGroup, port, onAnnounce, onJoin, timeout);
   } finally {
     Timer(timeout, () {
       startScanner(
         announceGroup: announceGroup,
         port: port,
         onAnnounce: onAnnounce,
+        onJoin: onJoin,
         timeout: timeout,
       );
     });
   }
 }
 
-Future<void> _listenToMulticast({
-  required String announceGroup,
-  required int port,
-  required OnAnnounce onAnnounce,
-  required Duration timeout,
-}) async {
+Future<void> _listenToMulticast(
+  String announceGroup,
+  int port,
+  OnAnnounce onAnnounce,
+  OnJoin onJoin,
+  Duration timeout,
+) async {
   final socket = await _bindSocket(port);
   final completer = Completer<void>();
   final group = InternetAddress(announceGroup);
   final joinedInterfaces = <String>{};
 
-  await _updateInterfaces(socket, group, joinedInterfaces);
+  await _updateInterfaces(socket, group, joinedInterfaces, onJoin);
   final interfacePollTimer = Timer.periodic(timeout, (_) {
-    _updateInterfaces(socket, group, joinedInterfaces);
+    _updateInterfaces(socket, group, joinedInterfaces, onJoin);
   });
 
   try {
@@ -76,6 +77,7 @@ Future<void> _updateInterfaces(
   RawDatagramSocket socket,
   InternetAddress group,
   Set<String> joinedInterfaces,
+  OnJoin onJoin,
 ) async {
   try {
     final interfaces = await NetworkInterface.list(includeLoopback: false);
@@ -84,6 +86,7 @@ Future<void> _updateInterfaces(
         try {
           socket.joinMulticast(group, interface);
           joinedInterfaces.add(interface.name);
+          onJoin(interface);
         } catch (_) {}
       }
     }
