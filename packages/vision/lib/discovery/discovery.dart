@@ -4,10 +4,10 @@ import 'package:vision/discovery/prober.dart';
 import 'package:vision/discovery/scanner.dart';
 
 void startDiscovery({
-  required String probeGroup,
-  required int probePort,
-  required String announceGroup,
-  required int announcePort,
+  String probeGroup = "239.0.20.27",
+  int probePort = 2027,
+  String announceGroup = "239.0.20.26",
+  int announcePort = 2026,
   required OnAnnounce onAnnounce,
   Duration timeout = defaultDiscoveryTimeout,
 }) {
