@@ -65,7 +65,7 @@
                             :children (
                                 (home-title :text home.name)
                                 (home-subtitle :text home.id)
-                                (home-subtitle :text home.host)
+                                (home-subtitle :text home.url)
                             )
                         )
                     )

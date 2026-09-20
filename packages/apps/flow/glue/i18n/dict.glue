@@ -4,7 +4,7 @@
         i18n-home
         i18n-home-id
         i18n-name
-        i18n-host
+        i18n-url
         i18n-my-home
         i18n-add-home
         i18n-add
@@ -34,9 +34,9 @@
             :ru "Название"
         ))
 
-    (def i18n-host (
-            :en "Host"
-            :ru "Хост"
+    (def i18n-url (
+            :en "URL"
+            :ru "URL"
         ))
 
     (def i18n-my-homes (

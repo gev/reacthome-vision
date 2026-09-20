@@ -4,7 +4,7 @@
     (def (home-screen args)
         (live-applet
             :id args.home.id
-            :host args.home.host
+            :url args.home.url
             :title args.home.name
             :proxy (concat "proxy." args.home.id)
         )
