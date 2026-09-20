@@ -30,14 +30,10 @@ class ScopeFactory {
   static Widget makeLiveApp({
     required String uri,
     required String title,
-    required String host,
-    required int port,
     required Ir args,
   }) {
     return makeLiveScope(
       path: _appRoot,
-      host: host,
-      port: port,
       uri: uri,
       child: VisionApp(title: title, args: args),
     );
@@ -63,8 +59,6 @@ class ScopeFactory {
   static Widget makeLiveApplet({
     required String id,
     required String title,
-    required String host,
-    required int port,
     required String uri,
     required Ir args,
     Key? key,
@@ -75,8 +69,6 @@ class ScopeFactory {
           applet: makeLiveScope(
             key: key,
             path: _appletRoot(id),
-            host: host,
-            port: port,
             uri: uri,
             child: VisionApplet(title: title, args: args),
           ),

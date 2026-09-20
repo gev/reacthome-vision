@@ -23,9 +23,7 @@ Eval<Ir> _createLiveApplet(Ir args, WidgetProperties props) {
     id: id,
     key: props.key,
     title: props.getString('title') ?? '',
-    host: props.getString('host') ?? '127.0.0.1',
-    port: props.getInt('port') ?? 3005,
-    uri: props.getString('uri') ?? '/',
+    uri: props.getString('uri') ?? 'ws://localhost:3005/',
     args: args,
   );
   return Eval.pure(IrNativeValue(Value(widget)));

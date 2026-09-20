@@ -31,12 +31,7 @@ class LiveOrchestrator {
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
-  LiveOrchestrator({
-    required Directory path,
-    required String host,
-    required int port,
-    required String uri,
-  }) {
+  LiveOrchestrator({required Directory path, required String uri}) {
     log = LiveLogger(sink: _outbound);
 
     _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
@@ -60,7 +55,7 @@ class LiveOrchestrator {
       glueController: GlueController(runtime: reactiveRuntime, log: log),
       source: _inbound.stream,
     );
-    final client = _resilientWebSocket('ws://$host:$port$uri');
+    final client = _resilientWebSocket(uri);
     client.start();
   }
 
