@@ -35,6 +35,7 @@ class LiveOrchestrator {
     required Directory path,
     required String host,
     required int port,
+    required String uri,
   }) {
     log = LiveLogger(sink: _outbound);
 
@@ -59,7 +60,7 @@ class LiveOrchestrator {
       glueController: GlueController(runtime: reactiveRuntime, log: log),
       source: _inbound.stream,
     );
-    final client = _resilientWebSocket('ws://$host:$port');
+    final client = _resilientWebSocket('ws://$host:$port$uri');
     client.start();
   }
 

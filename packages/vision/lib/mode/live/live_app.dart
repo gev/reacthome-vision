@@ -6,6 +6,7 @@ Future<Widget> makeLiveApp({
   required String title,
   required String host,
   required int port,
+  required String uri,
   Ir args = const IrVoid(),
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,7 @@ Future<Widget> makeLiveApp({
     title: title,
     host: host,
     port: port,
+    uri: uri,
     args: args,
   );
 }
