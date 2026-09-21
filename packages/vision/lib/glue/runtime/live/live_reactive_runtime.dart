@@ -5,7 +5,7 @@ import 'package:glue/ir.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/glue/runtime/live/glue/live_env.dart';
+import 'package:vision/glue/runtime/live/live_env.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/store/put.dart';

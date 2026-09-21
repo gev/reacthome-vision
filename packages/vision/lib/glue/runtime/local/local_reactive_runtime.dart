@@ -5,7 +5,7 @@ import 'package:glue/module/registry.dart';
 import 'package:glue/parse.dart';
 import 'package:glue/runtime.dart';
 import 'package:path/path.dart' as p;
-import 'package:vision/glue/runtime/local/glue/local_env.dart';
+import 'package:vision/glue/runtime/local/local_env.dart';
 import 'package:vision/glue/runtime/local/local_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
 

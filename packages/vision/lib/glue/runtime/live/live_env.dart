@@ -14,17 +14,25 @@ import 'package:vision/glue/lib/module.dart';
 import 'package:vision/glue/lib/navigation.dart';
 import 'package:vision/glue/lib/rate_limit.dart';
 import 'package:vision/glue/lib/routes.dart';
-import 'package:vision/glue/lib/state.dart';
+import 'package:vision/glue/lib/rpc.dart';
+import 'package:vision/glue/lib/store.dart';
 import 'package:vision/glue/lib/widgets.dart';
-import 'package:vision/glue/runtime/local/glue/lib/module/local_import.dart';
-import 'package:vision/glue/runtime/local/glue/lib/widgets/local_image.dart';
-import 'package:vision/glue/runtime/local/glue/local_reactive_runtime.dart';
-import 'package:vision/glue/runtime/local/local_storage.dart';
+import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/glue/runtime/live/lib/connectivity.dart';
+import 'package:vision/glue/runtime/live/lib/module/live_import.dart';
+import 'package:vision/glue/runtime/live/lib/state.dart';
+import 'package:vision/glue/runtime/live/lib/widgets/live_image.dart';
+import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
+import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/logger.dart';
+import 'package:vision/websocket/session_monitor.dart';
 
-Env makeLocalEnv({
-  required LocalReactiveRuntime runtime,
-  required LocalStorage storage,
+Env makeLiveEnv({
+  required Sink<String> sink,
+  required GlueSubscriber subscriber,
+  required LiveReactiveRuntime runtime,
+  required LiveStorage storage,
+  required SessionMonitor monitor,
   required Logger log,
 }) {
   return envFromModules([
@@ -42,8 +50,11 @@ Env makeLocalEnv({
     ioModule,
     appletsModule,
     rateLimitModule(log),
-    localStateModule(storage),
-    widgetsModule(image: localImage),
-    moduleModule(import: localImport(runtime)),
+    liveStateModule(storage),
+    widgetsModule(image: liveImage(storage.assets)),
+    moduleModule(import: liveImport(subscriber, runtime)),
+    storeModule(subscriber),
+    rpcModule(sink),
+    connectivityModule(monitor),
   ]);
 }

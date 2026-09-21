@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
-import 'package:vision/glue/runtime/local/glue/local_reactive_runtime.dart';
 import 'package:vision/glue/runtime/local/local_logger.dart';
+import 'package:vision/glue/runtime/local/local_reactive_runtime.dart';
 import 'package:vision/glue/runtime/local/local_storage.dart';
 import 'package:vision/logger.dart';
 import 'package:watcher/watcher.dart';
