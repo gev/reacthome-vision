@@ -2,7 +2,7 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/module/import.dart';
-import 'package:vision/mode/local/glue/local_reactive_runtime.dart';
+import 'package:vision/glue/runtime/local/glue/local_reactive_runtime.dart';
 
 Ir localImport(LocalReactiveRuntime runtime) {
   Eval<Ir> importImpl(List<Ir> args) {

@@ -1,16 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/widgets.dart';
-import 'package:vision/mode/local/local_orchestrator.dart';
+import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 import 'package:vision/scope.dart';
 
-Widget makeLocalScope({
+Widget makeLiveScope({
+  required String url,
   required Directory path,
-  required String codePath,
   required Widget child,
   Key? key,
 }) {
-  final orchestrator = LocalOrchestrator(path: path, codePath: codePath);
+  final orchestrator = LiveOrchestrator(path: path, url: url);
   return Scope(
     key: key,
     log: orchestrator.log,

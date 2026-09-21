@@ -14,25 +14,17 @@ import 'package:vision/glue/lib/module.dart';
 import 'package:vision/glue/lib/navigation.dart';
 import 'package:vision/glue/lib/rate_limit.dart';
 import 'package:vision/glue/lib/routes.dart';
-import 'package:vision/glue/lib/rpc.dart';
-import 'package:vision/glue/lib/store.dart';
+import 'package:vision/glue/lib/state.dart';
 import 'package:vision/glue/lib/widgets.dart';
-import 'package:vision/glue/pub_sub/glue_subscriber.dart';
+import 'package:vision/glue/runtime/local/glue/lib/module/local_import.dart';
+import 'package:vision/glue/runtime/local/glue/lib/widgets/local_image.dart';
+import 'package:vision/glue/runtime/local/glue/local_reactive_runtime.dart';
+import 'package:vision/glue/runtime/local/local_storage.dart';
 import 'package:vision/logger.dart';
-import 'package:vision/mode/live/glue/lib/connectivity.dart';
-import 'package:vision/mode/live/glue/lib/module/live_import.dart';
-import 'package:vision/mode/live/glue/lib/state.dart';
-import 'package:vision/mode/live/glue/lib/widgets/live_image.dart';
-import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
-import 'package:vision/mode/live/live_storage.dart';
-import 'package:vision/websocket/session_monitor.dart';
 
-Env makeLiveEnv({
-  required Sink<String> sink,
-  required GlueSubscriber subscriber,
-  required LiveReactiveRuntime runtime,
-  required LiveStorage storage,
-  required SessionMonitor monitor,
+Env makeLocalEnv({
+  required LocalReactiveRuntime runtime,
+  required LocalStorage storage,
   required Logger log,
 }) {
   return envFromModules([
@@ -50,11 +42,8 @@ Env makeLiveEnv({
     ioModule,
     appletsModule,
     rateLimitModule(log),
-    liveStateModule(storage),
-    widgetsModule(image: liveImage(storage.assets)),
-    moduleModule(import: liveImport(subscriber, runtime)),
-    storeModule(subscriber),
-    rpcModule(sink),
-    connectivityModule(monitor),
+    localStateModule(storage),
+    widgetsModule(image: localImage),
+    moduleModule(import: localImport(runtime)),
   ]);
 }

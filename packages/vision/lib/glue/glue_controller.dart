@@ -5,7 +5,7 @@ import 'package:glue/compile.dart';
 import 'package:glue/either.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/parse.dart';
-import 'package:vision/glue/reactive_runtime.dart';
+import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 
 class GlueController {

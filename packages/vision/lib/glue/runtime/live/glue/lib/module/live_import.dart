@@ -3,7 +3,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/module/import.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/mode/live/glue/live_reactive_runtime.dart';
+import 'package:vision/glue/runtime/live/glue/live_reactive_runtime.dart';
 
 Ir liveImport(GlueSubscriber subscriber, LiveReactiveRuntime runtime) {
   Eval<Ir> importImpl(List<Ir> args) {

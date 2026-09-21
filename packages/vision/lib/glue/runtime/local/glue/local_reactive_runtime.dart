@@ -5,9 +5,9 @@ import 'package:glue/module/registry.dart';
 import 'package:glue/parse.dart';
 import 'package:glue/runtime.dart';
 import 'package:path/path.dart' as p;
-import 'package:vision/glue/reactive_runtime.dart';
-import 'package:vision/mode/local/glue/local_env.dart';
-import 'package:vision/mode/local/local_storage.dart';
+import 'package:vision/glue/runtime/local/glue/local_env.dart';
+import 'package:vision/glue/runtime/local/local_storage.dart';
+import 'package:vision/glue/runtime/reactive_runtime.dart';
 
 class LocalReactiveRuntime extends ReactiveRuntime {
   late final Runtime _runtime;

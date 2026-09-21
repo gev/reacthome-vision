@@ -6,7 +6,7 @@ import 'package:vision/glue/lib/state/optimistic_state.dart';
 import 'package:vision/glue/lib/state/read.dart';
 import 'package:vision/glue/lib/state/write.dart';
 import 'package:vision/glue/lib/store/lookup.dart';
-import 'package:vision/mode/local/local_storage.dart';
+import 'package:vision/glue/runtime/local/local_storage.dart';
 
 /// State module providing reactive state management
 ModuleInfo localStateModule(LocalStorage storage) =>
