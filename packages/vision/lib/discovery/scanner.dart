@@ -37,9 +37,9 @@ Future<void> _listenToMulticast(
   Duration timeout,
 ) async {
   final socket = await _bindSocket(port);
-  final completer = Completer<void>();
+  final completer = Completer();
   final group = InternetAddress(announceGroup);
-  final joinedInterfaces = <String>{};
+  final joinedInterfaces = <int, NetworkInterface>{};
 
   await _updateInterfaces(socket, group, joinedInterfaces, onJoin);
   final interfacePollTimer = Timer.periodic(timeout, (_) {
@@ -49,15 +49,19 @@ Future<void> _listenToMulticast(
   try {
     socket.listen(
       (event) => _handleSocketEvent(event, socket, onAnnounce),
-      onError: (_) => _completeSafely(completer),
-      onDone: () => _completeSafely(completer),
+      onError: (_) {
+        _completeSafely(completer);
+      },
+      onDone: () {
+        _completeSafely(completer);
+      },
       cancelOnError: true,
     );
-
     await completer.future;
   } finally {
     interfacePollTimer.cancel();
     try {
+      socket.leaveMulticast(group);
       socket.close();
     } catch (_) {}
   }
@@ -76,16 +80,23 @@ Future<RawDatagramSocket> _bindSocket(int port) async {
 Future<void> _updateInterfaces(
   RawDatagramSocket socket,
   InternetAddress group,
-  Set<String> joinedInterfaces,
+  Map<int, NetworkInterface> joined,
   OnJoin onJoin,
 ) async {
   try {
     final interfaces = await NetworkInterface.list(includeLoopback: false);
-    for (var interface in interfaces) {
-      if (!joinedInterfaces.contains(interface.name)) {
+    final indexes = interfaces.map((i) => i.index);
+    for (final entry in joined.entries) {
+      if (!indexes.contains(entry.key)) {
+        socket.leaveMulticast(group, entry.value);
+        joined.remove(entry.key);
+      }
+    }
+    for (final interface in interfaces) {
+      if (!joined.keys.contains(interface.index)) {
         try {
           socket.joinMulticast(group, interface);
-          joinedInterfaces.add(interface.name);
+          joined[interface.index] = interface;
           onJoin(interface);
         } catch (_) {}
       }
