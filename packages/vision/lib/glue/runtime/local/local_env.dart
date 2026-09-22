@@ -11,6 +11,7 @@ import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/lib/applets_module.dart';
 import 'package:vision/glue/lib/canvas_module.dart';
+import 'package:vision/glue/lib/media_module.dart';
 import 'package:vision/glue/lib/module_module.dart';
 import 'package:vision/glue/lib/navigation_module.dart';
 import 'package:vision/glue/lib/rate_limit_module.dart';
@@ -43,6 +44,7 @@ Env makeLocalEnv({
     routesModule,
     canvasModule,
     ioModule,
+    mediaModule,
     appletsModule(discoveryStore),
     localDiscoveryModule(discoveryStore),
     rateLimitModule(log),
