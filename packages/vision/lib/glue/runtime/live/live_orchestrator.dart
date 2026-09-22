@@ -8,7 +8,7 @@ import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/runtime/live/assets_controller.dart';
-import 'package:vision/glue/runtime/live/controller.dart';
+import 'package:vision/glue/runtime/live/live_controller.dart';
 import 'package:vision/glue/runtime/live/live_logger.dart';
 import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
@@ -24,7 +24,7 @@ class LiveOrchestrator {
   final _monitor = sessionMonitor();
   late final ReactiveRuntime reactiveRuntime;
 
-  late final Controller _controller;
+  late final LiveController _controller;
   late final GlueSubscriber _glueSubscriber;
 
   late final LiveStorage _storage;
@@ -56,7 +56,7 @@ class LiveOrchestrator {
       discoveryStore: discoveryStore,
       log: log,
     );
-    _controller = Controller(
+    _controller = LiveController(
       assetsController: AssetsController(assets: _storage.assets, log: log),
       glueController: GlueController(log: log),
       reactiveRuntime: reactiveRuntime,

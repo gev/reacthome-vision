@@ -15,13 +15,13 @@ extension type Message(Uint8List message) {
   Uint8List get body => Uint8List.sublistView(message, 1);
 }
 
-class Controller {
+class LiveController {
   final GlueController _glueController;
   final AssetsController _assetsController;
   final ReactiveRuntime _reactiveRuntime;
   late final StreamSubscription<Uint8List> _subscription;
 
-  Controller({
+  LiveController({
     required this._glueController,
     required this._assetsController,
     required this._reactiveRuntime,
