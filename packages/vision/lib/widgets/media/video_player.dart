@@ -70,7 +70,7 @@ class MediaPlayerState extends State<MediaPlayer> {
       Media(
         widget.url,
         extras: {
-          'rtsp-transport': 'tcp',
+          // 'rtsp-transport': 'tcp',
           'stimeout': '2000000',
           'allowed_media_types': 'video',
         },
