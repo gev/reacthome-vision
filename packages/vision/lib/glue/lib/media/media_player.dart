@@ -34,7 +34,7 @@ Eval<Ir> _createMediaPlayer(WidgetProperties props) {
       alignment: props.getValue<Alignment>('alignment') ?? Alignment.center,
       aspectRatio: props.getDouble('aspect-ratio'),
       filterQuality:
-          props.getValue<FilterQuality>('filter-quality') ?? FilterQuality.low,
+          props.getValue<FilterQuality>('filter-quality') ?? FilterQuality.none,
       // controls: props.getCallback<VideoState>('controls')?.call(runtime),
       wakelock: props.getBool('wakelock') ?? true,
       pauseUponEnteringBackgroundMode:

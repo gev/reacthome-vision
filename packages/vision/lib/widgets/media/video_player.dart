@@ -29,7 +29,7 @@ class MediaPlayer extends StatefulWidget {
     this.fill = const Color(0xFF000000),
     this.alignment = Alignment.center,
     this.aspectRatio,
-    this.filterQuality = FilterQuality.low,
+    this.filterQuality = FilterQuality.none,
     this.controls = NoVideoControls,
     this.wakelock = true,
     this.pauseUponEnteringBackgroundMode = true,
