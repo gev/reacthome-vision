@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/live/live_scope.dart';
 import 'package:vision/glue/runtime/local/local_scope.dart';
 import 'package:vision/widgets/vision_app.dart';
@@ -42,11 +43,13 @@ class ScopeFactory {
   static Widget makeLocalApp({
     required String title,
     required String codePath,
+    required DiscoveryStore discoveryStore,
     required Ir args,
   }) {
     return makeLocalScope(
       path: _appRoot,
       codePath: codePath,
+      discoveryStore: discoveryStore,
       child: VisionApp(title: title, args: args),
     );
   }
@@ -79,6 +82,7 @@ class ScopeFactory {
     required String id,
     required String title,
     required String codePath,
+    required DiscoveryStore discoveryStore,
     required Ir args,
     Key? key,
   }) {
@@ -89,6 +93,7 @@ class ScopeFactory {
             key: key,
             path: _appletRoot(id),
             codePath: codePath,
+            discoveryStore: discoveryStore,
             child: VisionApplet(title: title, args: args),
           ),
         );

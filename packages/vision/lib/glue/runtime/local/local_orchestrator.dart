@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
+import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/local/local_logger.dart';
 import 'package:vision/glue/runtime/local/local_reactive_runtime.dart';
 import 'package:vision/glue/runtime/local/local_storage.dart';
@@ -10,6 +11,7 @@ import 'package:watcher/watcher.dart';
 
 class LocalOrchestrator {
   final String _codePath;
+  final DiscoveryStore _discoveryStore;
 
   late final Logger log;
   late final LocalReactiveRuntime reactiveRuntime;
@@ -17,7 +19,11 @@ class LocalOrchestrator {
 
   late final StreamSubscription<WatchEvent> _subscription;
 
-  LocalOrchestrator({required Directory path, required this._codePath}) {
+  LocalOrchestrator({
+    required Directory path,
+    required this._codePath,
+    required this._discoveryStore,
+  }) {
     log = LocalLogger();
 
     _storage = LocalStorage(path: path, log: log);
@@ -25,6 +31,7 @@ class LocalOrchestrator {
     reactiveRuntime = LocalReactiveRuntime(
       codePath: _codePath,
       storage: _storage,
+      discoveryStore: _discoveryStore,
       log: log,
     );
     final watcher = DirectoryWatcher(_codePath);

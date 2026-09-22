@@ -5,6 +5,7 @@ import 'package:glue/module/registry.dart';
 import 'package:glue/parse.dart';
 import 'package:glue/runtime.dart';
 import 'package:path/path.dart' as p;
+import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/local/local_env.dart';
 import 'package:vision/glue/runtime/local/local_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
@@ -16,10 +17,16 @@ class LocalReactiveRuntime extends ReactiveRuntime {
   LocalReactiveRuntime({
     required this._codePath,
     required LocalStorage storage,
+    required DiscoveryStore discoveryStore,
     required super.log,
   }) {
     _runtime = Runtime.initial(
-      makeLocalEnv(runtime: this, storage: storage, log: log),
+      makeLocalEnv(
+        runtime: this,
+        storage: storage,
+        discoveryStore: discoveryStore,
+        log: log,
+      ),
     );
   }
 
