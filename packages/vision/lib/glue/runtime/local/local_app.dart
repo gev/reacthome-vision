@@ -1,5 +1,6 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:glue/ir.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:vision/discovery/discovery.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/scope_factory.dart';
@@ -10,13 +11,9 @@ Future<Widget> makeLocalApp({
   Ir args = const IrVoid(),
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
   final discoveryStore = DiscoveryStore();
-  startDiscovery(
-    onAnnounce: (message, address) {
-      print(address);
-      print(message);
-    },
-  );
+  startDiscovery(onAnnounce: print);
   await ScopeFactory.init();
   return ScopeFactory.makeLocalApp(
     title: title,

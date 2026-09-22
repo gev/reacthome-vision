@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 
 const defaultDiscoveryTimeout = Duration(seconds: 2);
 
-typedef OnAnnounce = void Function(String message, InternetAddress sender);
+typedef OnAnnounce = void Function(Datagram datagram);
 typedef OnJoin = void Function(NetworkInterface interface);
 
 Future<void> startScanner({
@@ -112,8 +111,7 @@ void _handleSocketEvent(
   if (event == RawSocketEvent.read) {
     final datagram = socket.receive();
     if (datagram != null) {
-      final message = utf8.decode(datagram.data);
-      onAnnounce(message, datagram.address);
+      onAnnounce(datagram);
     }
   }
 }
