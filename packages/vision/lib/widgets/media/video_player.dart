@@ -5,7 +5,41 @@ import 'package:media_kit_video/media_kit_video.dart';
 class MediaPlayer extends StatefulWidget {
   final String url;
 
-  const MediaPlayer({required this.url, super.key});
+  final double? width;
+  final double? height;
+  final BoxFit fit;
+  final Color fill;
+  final Alignment alignment;
+  final double? aspectRatio;
+  final FilterQuality filterQuality;
+  final Widget Function(VideoState)? controls;
+  final bool wakelock;
+  final bool pauseUponEnteringBackgroundMode;
+  final bool resumeUponEnteringForegroundMode;
+  final SubtitleViewConfiguration subtitleViewConfiguration;
+  final Future<void> Function() onEnterFullscreen;
+  final Future<void> Function() onExitFullscreen;
+  final FocusNode? focusNode;
+
+  const MediaPlayer({
+    required this.url,
+    this.width,
+    this.height,
+    this.fit = BoxFit.contain,
+    this.fill = const Color(0xFF000000),
+    this.alignment = Alignment.center,
+    this.aspectRatio,
+    this.filterQuality = FilterQuality.low,
+    this.controls = NoVideoControls,
+    this.wakelock = true,
+    this.pauseUponEnteringBackgroundMode = true,
+    this.resumeUponEnteringForegroundMode = false,
+    this.subtitleViewConfiguration = const SubtitleViewConfiguration(),
+    this.onEnterFullscreen = defaultEnterNativeFullscreen,
+    this.onExitFullscreen = defaultExitNativeFullscreen,
+    this.focusNode,
+    super.key,
+  });
 
   @override
   State<MediaPlayer> createState() => MediaPlayerState();
@@ -45,13 +79,32 @@ class MediaPlayerState extends State<MediaPlayer> {
   }
 
   @override
-  void dispose() {
-    player.dispose();
-    super.dispose();
+  Widget build(BuildContext context) {
+    return Video(
+      controller: controller,
+      width: widget.width,
+      height: widget.height,
+      fit: widget.fit,
+      fill: widget.fill,
+      alignment: widget.alignment,
+      aspectRatio: widget.aspectRatio,
+      filterQuality: widget.filterQuality,
+      controls: widget.controls,
+      wakelock: widget.wakelock,
+      pauseUponEnteringBackgroundMode: widget.pauseUponEnteringBackgroundMode,
+      resumeUponEnteringForegroundMode: widget.resumeUponEnteringForegroundMode,
+      subtitleViewConfiguration: widget.subtitleViewConfiguration,
+      onEnterFullscreen: widget.onEnterFullscreen,
+      onExitFullscreen: widget.onExitFullscreen,
+      focusNode: widget.focusNode,
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Video(controller: controller);
+  void dispose() {
+    try {
+      player.dispose();
+    } catch (_) {}
+    super.dispose();
   }
 }
