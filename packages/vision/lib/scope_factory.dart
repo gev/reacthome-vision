@@ -31,11 +31,13 @@ class ScopeFactory {
   static Widget makeLiveApp({
     required String url,
     required String title,
+    required DiscoveryStore discoveryStore,
     required Ir args,
   }) {
     return makeLiveScope(
       path: _appRoot,
       url: url,
+      discoveryStore: discoveryStore,
       child: VisionApp(title: title, args: args),
     );
   }
@@ -63,6 +65,8 @@ class ScopeFactory {
     required String id,
     required String title,
     required String url,
+    required DiscoveryStore discoveryStore,
+
     required Ir args,
     Key? key,
   }) {
@@ -73,6 +77,7 @@ class ScopeFactory {
             key: key,
             path: _appletRoot(id),
             url: url,
+            discoveryStore: discoveryStore,
             child: VisionApplet(title: title, args: args),
           ),
         );

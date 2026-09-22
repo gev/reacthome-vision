@@ -5,16 +5,15 @@ import 'package:glue/compile.dart';
 import 'package:glue/either.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/parse.dart';
-import 'package:vision/glue/runtime/reactive_runtime.dart';
+import 'package:glue/runtime.dart';
 import 'package:vision/logger.dart';
 
 class GlueController {
-  late final ReactiveRuntime _runtime;
   late final Logger _log;
 
-  GlueController({required this._runtime, required this._log});
+  GlueController({required this._log});
 
-  void runGlue(Uint8List body) {
+  void runGlue(Uint8List body, Runtime runtime) {
     try {
       final code = utf8.decode(body);
       final parseResult = parseGlue(code);
@@ -24,7 +23,7 @@ class GlueController {
         },
         (ast) {
           final irTree = compile(ast);
-          final evalResult = runEval(eval(irTree), _runtime.runtime);
+          final evalResult = runEval(eval(irTree), runtime);
           if (evalResult case Left(value: final error)) {
             _log.error(error);
           }

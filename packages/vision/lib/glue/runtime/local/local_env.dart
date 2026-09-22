@@ -43,7 +43,7 @@ Env makeLocalEnv({
     routesModule,
     canvasModule,
     ioModule,
-    appletsModule,
+    appletsModule(discoveryStore),
     localDiscoveryModule(discoveryStore),
     rateLimitModule(log),
     localStateModule(storage),

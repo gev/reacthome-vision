@@ -2,11 +2,13 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
+import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/scope_factory.dart';
 
-Ir liveApplet = IrNativeFunc(
+Ir liveApplet(DiscoveryStore store) => IrNativeFunc(
   (Ir props) => switch (props) {
     IrObject(:final properties) => _createLiveApplet(
+      store,
       props,
       WidgetProperties(properties.unlock),
     ),
@@ -14,7 +16,11 @@ Ir liveApplet = IrNativeFunc(
   },
 );
 
-Eval<Ir> _createLiveApplet(Ir args, WidgetProperties props) {
+Eval<Ir> _createLiveApplet(
+  DiscoveryStore store,
+  Ir args,
+  WidgetProperties props,
+) {
   final id = props.getString('id');
   if (id == null) {
     return throwError(wrongArgumentType(['Applet `id` required']));
@@ -24,6 +30,7 @@ Eval<Ir> _createLiveApplet(Ir args, WidgetProperties props) {
     key: props.key,
     title: props.getString('title') ?? '',
     url: props.getString('url') ?? 'ws://localhost:3005/',
+    discoveryStore: store,
     args: args,
   );
   return Eval.pure(IrNativeValue(Value(widget)));

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
@@ -31,7 +32,11 @@ class LiveOrchestrator {
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<String>();
 
-  LiveOrchestrator({required Directory path, required String url}) {
+  LiveOrchestrator({
+    required Directory path,
+    required String url,
+    required DiscoveryStore discoveryStore,
+  }) {
     log = LiveLogger(sink: _outbound);
 
     _glueSubscriber = GlueSubscriber(request: GlueRequest(_outbound));
@@ -44,15 +49,17 @@ class LiveOrchestrator {
     );
 
     reactiveRuntime = LiveReactiveRuntime(
-      storage: _storage,
       sink: _outbound,
       subscriber: _glueSubscriber,
       monitor: _monitor,
+      storage: _storage,
+      discoveryStore: discoveryStore,
       log: log,
     );
     _controller = Controller(
       assetsController: AssetsController(assets: _storage.assets, log: log),
-      glueController: GlueController(runtime: reactiveRuntime, log: log),
+      glueController: GlueController(log: log),
+      reactiveRuntime: reactiveRuntime,
       source: _inbound.stream,
     );
     final client = _resilientWebSocket(url);

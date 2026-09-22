@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/runtime/live/assets_controller.dart';
+import 'package:vision/glue/runtime/reactive_runtime.dart';
 
 sealed class Header {
   static const heartbeat = 0, glue = 1, file = 2;
@@ -17,11 +18,13 @@ extension type Message(Uint8List message) {
 class Controller {
   final GlueController _glueController;
   final AssetsController _assetsController;
+  final ReactiveRuntime _reactiveRuntime;
   late final StreamSubscription<Uint8List> _subscription;
 
   Controller({
     required this._glueController,
     required this._assetsController,
+    required this._reactiveRuntime,
     required Stream<Uint8List> source,
   }) {
     _subscription = source.listen(_onData);
@@ -34,7 +37,7 @@ class Controller {
         case Header.heartbeat:
           _handleHeartbeat();
         case Header.glue:
-          _glueController.runGlue(message.body);
+          _glueController.runGlue(message.body, _reactiveRuntime.runtime);
         case Header.file:
           _assetsController.acceptAsset(message.body);
         default:

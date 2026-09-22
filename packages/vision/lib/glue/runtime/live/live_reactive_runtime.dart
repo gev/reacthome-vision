@@ -4,6 +4,7 @@ import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
+import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/runtime/live/live_env.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
@@ -25,19 +26,21 @@ class LiveReactiveRuntime extends ReactiveRuntime
   late final Runtime _runtime;
 
   LiveReactiveRuntime({
-    required this._storage,
     required this._sink,
     required this._subscriber,
+    required this._storage,
     required this._monitor,
+    required DiscoveryStore discoveryStore,
     required super.log,
   }) {
     _runtime = Runtime.initial(
       makeLiveEnv(
         sink: _sink,
         subscriber: _subscriber,
+        monitor: _monitor,
         runtime: this,
         storage: _storage,
-        monitor: _monitor,
+        discoveryStore: discoveryStore,
         log: log,
       ),
     );

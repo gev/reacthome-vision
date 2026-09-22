@@ -8,6 +8,7 @@ import 'package:glue/lib/math/const.dart';
 import 'package:glue/lib/math/utility.dart';
 import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
+import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/lib/applets_module.dart';
 import 'package:vision/glue/lib/canvas_module.dart';
 import 'package:vision/glue/lib/module_module.dart';
@@ -32,6 +33,7 @@ Env makeLiveEnv({
   required GlueSubscriber subscriber,
   required LiveReactiveRuntime runtime,
   required LiveStorage storage,
+  required DiscoveryStore discoveryStore,
   required SessionMonitor monitor,
   required Logger log,
 }) {
@@ -48,7 +50,7 @@ Env makeLiveEnv({
     routesModule,
     canvasModule,
     ioModule,
-    appletsModule,
+    appletsModule(discoveryStore),
     rateLimitModule(log),
     liveStateModule(storage),
     widgetsModule(image: liveImage(storage.assets)),
