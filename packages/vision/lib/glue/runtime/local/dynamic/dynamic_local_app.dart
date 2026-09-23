@@ -5,7 +5,7 @@ import 'package:vision/discovery/discovery.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/scope_factory.dart';
 
-Future<Widget> makeLocalApp({
+Future<Widget> makeDynamicLocalApp({
   required String title,
   required String codePath,
   Ir args = const IrVoid(),
@@ -15,7 +15,7 @@ Future<Widget> makeLocalApp({
   final discoveryStore = DiscoveryStore();
   startDiscovery(onAnnounce: print);
   await ScopeFactory.init();
-  return ScopeFactory.makeLocalApp(
+  return ScopeFactory.makeDynamicLocalApp(
     title: title,
     codePath: codePath,
     discoveryStore: discoveryStore,

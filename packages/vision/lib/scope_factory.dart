@@ -6,7 +6,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/live/live_scope.dart';
-import 'package:vision/glue/runtime/local/local_scope.dart';
+import 'package:vision/glue/runtime/local/dynamic/dynamic_local_scope.dart';
 import 'package:vision/widgets/vision_app.dart';
 import 'package:vision/widgets/vision_applet.dart';
 
@@ -42,13 +42,13 @@ class ScopeFactory {
     );
   }
 
-  static Widget makeLocalApp({
+  static Widget makeDynamicLocalApp({
     required String title,
     required String codePath,
     required DiscoveryStore discoveryStore,
     required Ir args,
   }) {
-    return makeLocalScope(
+    return makeDynamicLocalScope(
       path: _appRoot,
       codePath: codePath,
       discoveryStore: discoveryStore,
@@ -94,7 +94,7 @@ class ScopeFactory {
     return _pool[id] ??
         _registerApplet(
           id,
-          applet: makeLocalScope(
+          applet: makeDynamicLocalScope(
             key: key,
             path: _appletRoot(id),
             codePath: codePath,

@@ -1,9 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:vision/glue/runtime/local/local_app.dart';
+import 'package:vision/glue/runtime/local/dynamic/dynamic_local_app.dart';
 
 Future<Widget> makeLabApp() {
   final path = Platform.environment['GLUE_PATH'] ?? "";
-  return makeLocalApp(title: 'Lab', codePath: path);
+  return makeDynamicLocalApp(title: 'Lab', codePath: path);
 }
