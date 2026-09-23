@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/discovery_store.dart';
+import 'package:vision/glue/runtime/applet_registry.dart';
 import 'package:vision/glue/runtime/live/live_scope.dart';
 import 'package:vision/glue/runtime/scope_factory.dart';
 import 'package:vision/widgets/vision_applet.dart';
@@ -12,7 +13,7 @@ Widget makeLiveApplet({
   required DiscoveryStore discoveryStore,
   required Ir args,
   Key? key,
-}) => ScopeFactory.registerApplet(
+}) => AppletRegistry.registerApplet(
   id,
   () => makeLiveScope(
     key: key,
