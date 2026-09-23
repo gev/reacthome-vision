@@ -25,6 +25,7 @@ class DiscoveryStore extends ValueNotifier<Ir> {
     }
     _services[id] = service;
     notifyListeners();
+    print(_services);
   }
 
   void _removeService(String id) {
