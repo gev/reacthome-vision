@@ -4,7 +4,7 @@ import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/scope.dart';
+import 'package:vision/glue/runtime/scope.dart';
 
 class GlueListenable extends StatefulWidget {
   final List<ValueNotifier> _notifiers;

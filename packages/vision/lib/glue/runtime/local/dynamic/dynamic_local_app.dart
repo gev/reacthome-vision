@@ -3,7 +3,7 @@ import 'package:glue/ir.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:vision/discovery/discovery.dart';
 import 'package:vision/glue/discovery_store.dart';
-import 'package:vision/scope_factory.dart';
+import 'package:vision/glue/runtime/scope_factory.dart';
 
 Future<Widget> makeDynamicLocalApp({
   required String title,

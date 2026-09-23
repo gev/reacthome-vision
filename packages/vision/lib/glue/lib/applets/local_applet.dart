@@ -3,7 +3,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/discovery_store.dart';
-import 'package:vision/scope_factory.dart';
+import 'package:vision/glue/runtime/scope_factory.dart';
 
 Ir localApplet(DiscoveryStore store) => IrNativeFunc(
   (Ir props) => switch (props) {

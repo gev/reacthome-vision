@@ -4,7 +4,7 @@ import 'package:glue/env.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/extract.dart';
-import 'package:vision/scope.dart';
+import 'package:vision/glue/runtime/scope.dart';
 
 class GlueWidget extends StatefulWidget {
   final Ir expression;

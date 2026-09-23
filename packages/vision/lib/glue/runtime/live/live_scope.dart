@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/live/live_orchestrator.dart';
-import 'package:vision/scope.dart';
+import 'package:vision/glue/runtime/scope.dart';
 
 Widget makeLiveScope({
   required String url,

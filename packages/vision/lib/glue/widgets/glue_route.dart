@@ -4,7 +4,7 @@ import 'package:glue/either.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/app.dart';
-import 'package:vision/scope.dart';
+import 'package:vision/glue/runtime/scope.dart';
 
 Route<dynamic>? generateGlueRoute(
   RouteSettings settings, {
