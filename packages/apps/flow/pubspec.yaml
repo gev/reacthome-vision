@@ -25,7 +25,12 @@ dev_dependencies:
 flutter:
 
   # To add assets to your package, add an assets section, like this:
-  # assets:
+  assets:
+    - glue/i18n/
+    - glue/lib/
+    - glue/screen/
+    - glue/widget/
+    - glue/main.glue
 
   # For details regarding assets in packages, see
   # https://flutter.dev/to/asset-from-package
