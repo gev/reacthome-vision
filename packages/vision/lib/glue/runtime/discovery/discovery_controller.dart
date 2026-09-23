@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:glue/context.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/discovery/discovery.dart';
 import 'package:vision/glue/discovery_store.dart';
@@ -20,7 +21,13 @@ class DiscoveryController {
 
   void _onData(Datagram datagram) {
     try {
-      _glueController.runGlue(datagram.data, _runtime);
+      final runtime = _runtime.copyWith(
+        context: putToContext<InternetAddress>(
+          _runtime.context,
+          datagram.address,
+        ),
+      );
+      _glueController.runGlue(datagram.data, runtime);
     } catch (e) {
       log(e.toString());
     }

@@ -20,10 +20,10 @@ class DiscoveryStore extends ValueNotifier<Ir> {
     _timers[id] = Timer(serviceTimeout, () {
       _removeService(id);
     });
-    _services[id] = service;
     if (!_services.containsKey(id)) {
       _order.add(id);
     }
+    _services[id] = service;
     notifyListeners();
   }
 
