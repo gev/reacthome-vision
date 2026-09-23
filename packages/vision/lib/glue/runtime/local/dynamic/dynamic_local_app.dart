@@ -3,7 +3,9 @@ import 'package:glue/ir.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:vision/discovery/discovery.dart';
 import 'package:vision/glue/discovery_store.dart';
+import 'package:vision/glue/runtime/local/dynamic/dynamic_local_scope.dart';
 import 'package:vision/glue/runtime/scope_factory.dart';
+import 'package:vision/widgets/vision_app.dart';
 
 Future<Widget> makeDynamicLocalApp({
   required String title,
@@ -15,10 +17,10 @@ Future<Widget> makeDynamicLocalApp({
   final discoveryStore = DiscoveryStore();
   startDiscovery(onAnnounce: print);
   await ScopeFactory.init();
-  return ScopeFactory.makeDynamicLocalApp(
-    title: title,
+  return makeDynamicLocalScope(
+    path: ScopeFactory.appRoot,
     codePath: codePath,
     discoveryStore: discoveryStore,
-    args: args,
+    child: VisionApp(title: title, args: args),
   );
 }

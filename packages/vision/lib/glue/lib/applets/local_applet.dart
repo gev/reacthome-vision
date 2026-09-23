@@ -3,7 +3,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/discovery_store.dart';
-import 'package:vision/glue/runtime/scope_factory.dart';
+import 'package:vision/glue/runtime/local/dynamic/dynamic_local_applet.dart';
 
 Ir localApplet(DiscoveryStore store) => IrNativeFunc(
   (Ir props) => switch (props) {
@@ -25,7 +25,7 @@ Eval<Ir> _createLocalApplet(
   if (id == null) {
     return throwError(wrongArgumentType(['Applet `id` required']));
   }
-  final widget = ScopeFactory.makeLocalApplet(
+  final widget = makeDynamicLocalApplet(
     id: id,
     key: props.key,
     title: props.getString('title') ?? '',
