@@ -1,27 +1,22 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:path/path.dart' as p;
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/local/local_logger.dart';
 import 'package:vision/glue/runtime/local/local_storage.dart';
 import 'package:vision/glue/runtime/local/static/static_local_reactive_runtime.dart';
 import 'package:vision/logger.dart';
-import 'package:watcher/watcher.dart';
 
 class StaticLocalOrchestrator {
-  final String _codePath;
+  final String _package;
   final DiscoveryStore _discoveryStore;
 
   late final Logger log;
   late final StaticLocalReactiveRuntime reactiveRuntime;
   late final LocalStorage _storage;
 
-  late final StreamSubscription<WatchEvent> _subscription;
-
   StaticLocalOrchestrator({
     required Directory path,
-    required this._codePath,
+    required this._package,
     required this._discoveryStore,
   }) {
     log = LocalLogger();
@@ -29,26 +24,14 @@ class StaticLocalOrchestrator {
     _storage = LocalStorage(path: path, log: log);
 
     reactiveRuntime = StaticLocalReactiveRuntime(
-      codePath: _codePath,
+      package: _package,
       storage: _storage,
       discoveryStore: _discoveryStore,
       log: log,
     );
-    final watcher = DirectoryWatcher(_codePath);
-    _subscription = watcher.events.listen(_watch);
-  }
-
-  void _watch(WatchEvent event) {
-    if (event.type == .MODIFY) {
-      final relativePath = p.relative(event.path, from: _codePath);
-      final pathWithoutExt = p.withoutExtension(relativePath);
-      final name = pathWithoutExt.replaceAll(p.separator, '.');
-      reactiveRuntime.loadModuleFromFile(name: name, path: event.path);
-    }
   }
 
   void dispose() {
-    _subscription.cancel();
     reactiveRuntime.dispose();
     _storage.dispose();
   }

@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:glue/compile.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/parse.dart';
@@ -7,10 +6,10 @@ import 'package:path/path.dart' as p;
 import 'package:vision/glue/runtime/local/local_reactive_runtime.dart';
 
 class StaticLocalReactiveRuntime extends LocalReactiveRuntime {
-  late final String _codePath;
+  final String _package;
 
   StaticLocalReactiveRuntime({
-    required this._codePath,
+    required this._package,
     required super.storage,
     required super.discoveryStore,
     required super.log,
@@ -19,20 +18,18 @@ class StaticLocalReactiveRuntime extends LocalReactiveRuntime {
   @override
   void loadModule(String name) {
     if (!isModuleRegistered(runtime.registry, name)) {
-      loadModuleFromFile(
-        name: name,
-        path: p.setExtension(
-          p.joinAll([_codePath, ...name.split('.')]),
-          '.glue',
-        ),
+      final path = p.posix.setExtension(
+        p.posix.joinAll(['packages', _package, ...name.split('.')]),
+        '.glue',
       );
+
+      _loadModuleFromAsset(name: name, path: path);
     }
   }
 
-  void loadModuleFromFile({required String name, required String path}) {
-    final file = File(path);
-    file
-        .readAsString()
+  void _loadModuleFromAsset({required String name, required String path}) {
+    rootBundle
+        .loadString(path)
         .then((glue) {
           parseGlue(glue).match(
             (error) {

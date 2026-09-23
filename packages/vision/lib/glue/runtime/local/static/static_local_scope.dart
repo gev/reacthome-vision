@@ -7,14 +7,14 @@ import 'package:vision/glue/runtime/scope.dart';
 
 Widget makeStaticLocalScope({
   required Directory path,
-  required String codePath,
+  required String package,
   required DiscoveryStore discoveryStore,
   required Widget child,
   Key? key,
 }) {
   final orchestrator = StaticLocalOrchestrator(
     path: path,
-    codePath: codePath,
+    package: package,
     discoveryStore: discoveryStore,
   );
   return Scope(

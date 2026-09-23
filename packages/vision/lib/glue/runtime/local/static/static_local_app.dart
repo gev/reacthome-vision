@@ -9,7 +9,7 @@ import 'package:vision/widgets/vision_app.dart';
 
 Future<Widget> makeStaticLocalApp({
   required String title,
-  required String codePath,
+  required String package,
   Ir args = const IrVoid(),
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +19,7 @@ Future<Widget> makeStaticLocalApp({
   await App.init();
   return makeStaticLocalScope(
     path: App.appRoot,
-    codePath: codePath,
+    package: package,
     discoveryStore: discoveryStore,
     child: VisionApp(title: title, args: args),
   );
