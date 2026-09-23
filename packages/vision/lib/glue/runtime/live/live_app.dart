@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/live/live_scope.dart';
-import 'package:vision/glue/runtime/scope_factory.dart';
+import 'package:vision/glue/runtime/app.dart';
 import 'package:vision/widgets/vision_app.dart';
 
 Future<Widget> makeLiveApp({
@@ -12,9 +12,9 @@ Future<Widget> makeLiveApp({
 }) async {
   final discoveryStore = DiscoveryStore();
   WidgetsFlutterBinding.ensureInitialized();
-  await ScopeFactory.init();
+  await App.init();
   return makeLiveScope(
-    path: ScopeFactory.appRoot,
+    path: App.appRoot,
     url: url,
     discoveryStore: discoveryStore,
     child: VisionApp(title: title, args: args),

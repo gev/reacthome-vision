@@ -3,7 +3,7 @@ import 'package:glue/ir.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/applet_registry.dart';
 import 'package:vision/glue/runtime/local/dynamic/dynamic_local_scope.dart';
-import 'package:vision/glue/runtime/scope_factory.dart';
+import 'package:vision/glue/runtime/app.dart';
 import 'package:vision/widgets/vision_applet.dart';
 
 Widget makeDynamicLocalApplet({
@@ -17,7 +17,7 @@ Widget makeDynamicLocalApplet({
   id,
   () => makeDynamicLocalScope(
     key: key,
-    path: ScopeFactory.appletRoot(id),
+    path: App.appletRoot(id),
     codePath: codePath,
     discoveryStore: discoveryStore,
     child: VisionApplet(title: title, args: args),
