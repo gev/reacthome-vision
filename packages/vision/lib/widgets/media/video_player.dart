@@ -58,10 +58,16 @@ class MediaPlayerState extends State<MediaPlayer> {
 
     if (player.platform is NativePlayer) {
       final native = player.platform as NativePlayer;
+      // Свойства libmpv для жесткого сброса кэша и задержек
       native.setProperty('profile', 'low-latency');
-      native.setProperty('untimed', '');
-      native.setProperty('no-cache', '');
+      native.setProperty('cache', 'no');
+      // сжимаем буфер до 1 Кб
       native.setProperty('demuxer-max-bytes', '1024');
+      // убираем упреждающее чтение
+      native.setProperty('demuxer-readahead-secs', '0');
+      native.setProperty('stream-buffer', 'no');
+      // или 'audio' для подгонки кадров    }
+      native.setProperty('video-sync', 'desync');
     }
 
     controller = VideoController(player);
@@ -70,9 +76,19 @@ class MediaPlayerState extends State<MediaPlayer> {
       Media(
         widget.url,
         extras: {
-          // 'rtsp-transport': 'tcp',
-          'stimeout': '2000000',
-          'allowed_media_types': 'video',
+          'rtsp_transport': 'tcp',
+          // сбрасываем буферизацию на уровне ffmpeg
+          'fflags': 'nobuffer+flags-un_latency+fastseek',
+          // 'fflags': 'nobuffer+flags-un_latency',
+          // флаг низкой задержки кодека
+          'flags': 'low_delay',
+          'max_delay': '0',
+          // разрешаем дропать кадры при отставании
+          // 'framedrop': '',
+          'framedrop': 'lasso',
+          'probesize': '32',
+          'analyzeduration': '0',
+          // // 'stimeout': '2000000',
         },
       ),
     );
