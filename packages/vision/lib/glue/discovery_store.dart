@@ -11,11 +11,18 @@ class DiscoveryStore extends ValueNotifier<Ir> {
   final Map<String, IrObject> _services = {};
   final Map<String, Timer> _timers = {};
   final List<String> _order = [];
+  final Map<String, String> _urls = {};
 
   @override
   Ir get value => IrList(_order.map((id) => _services[id]!).toList());
 
-  void addService(String id, IrObject service) {
+  String? url(String id) => _urls[id];
+
+  void addService({
+    required String id,
+    required IrObject service,
+    required String url,
+  }) {
     _timers[id]?.cancel();
     _timers[id] = Timer(serviceTimeout, () {
       _removeService(id);
@@ -24,6 +31,7 @@ class DiscoveryStore extends ValueNotifier<Ir> {
       _order.add(id);
     }
     _services[id] = service;
+    _urls[id] = url;
     notifyListeners();
   }
 

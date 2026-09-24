@@ -41,9 +41,11 @@ Ir discovery(DiscoveryStore store) => IrNativeFunc(
                 );
               }
               final uri = toString(serviceProps['uri']) ?? '/';
-              final url = '$scheme://$address:$port$uri';
-              serviceProps['url'] = IrString(url);
-              store.addService(id, IrObject(serviceProps));
+              store.addService(
+                id: id,
+                service: IrObject(serviceProps),
+                url: '$scheme://$address:$port$uri',
+              );
             default:
               return throwError(
                 (wrongArgumentType(['Service property should be an Object'])),
