@@ -29,7 +29,6 @@ Eval<Ir> _createLiveApplet(
     id: id,
     key: props.key,
     title: props.getString('title') ?? '',
-    url: props.getString('url') ?? 'ws://localhost:3005/',
     discoveryStore: store,
     args: args,
   );

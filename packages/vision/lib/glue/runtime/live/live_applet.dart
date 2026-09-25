@@ -9,7 +9,6 @@ import 'package:vision/widgets/vision_applet.dart';
 Widget makeLiveApplet({
   required String id,
   required String title,
-  required String url,
   required DiscoveryStore discoveryStore,
   required Ir args,
   Key? key,
@@ -17,8 +16,8 @@ Widget makeLiveApplet({
   id,
   () => makeLiveScope(
     key: key,
+    getUrl: () => discoveryStore.url(id),
     path: App.appletRoot(id),
-    url: url,
     discoveryStore: discoveryStore,
     child: VisionApplet(title: title, args: args),
   ),

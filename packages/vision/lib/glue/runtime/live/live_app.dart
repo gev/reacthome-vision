@@ -7,7 +7,7 @@ import 'package:vision/widgets/vision_app.dart';
 
 Future<Widget> makeLiveApp({
   required String title,
-  required String url,
+  required String? Function() getUrl,
   Ir args = const IrVoid(),
 }) async {
   final discoveryStore = DiscoveryStore();
@@ -15,7 +15,7 @@ Future<Widget> makeLiveApp({
   await App.init();
   return makeLiveScope(
     path: App.appRoot,
-    url: url,
+    getUrl: getUrl,
     discoveryStore: discoveryStore,
     child: VisionApp(title: title, args: args),
   );

@@ -33,8 +33,8 @@ class LiveOrchestrator {
   final _outbound = StreamController<String>();
 
   LiveOrchestrator({
+    required String? Function() getUrl,
     required Directory path,
-    required String url,
     required DiscoveryStore discoveryStore,
   }) {
     log = LiveLogger(sink: _outbound);
@@ -62,23 +62,24 @@ class LiveOrchestrator {
       reactiveRuntime: reactiveRuntime,
       source: _inbound.stream,
     );
-    final client = _resilientWebSocket(url);
+    final client = _resilientWebSocket(getUrl);
     client.start();
   }
 
-  ResilientWebSocket _resilientWebSocket(String url) => ResilientWebSocket(
-    url: url,
-    sink: _inbound,
-    policy: ExponentialBackoffPolicy(),
-    source: _outbound.stream.map(
-      (message) =>
-          (BytesBuilder(copy: false)
-                ..addByte(1)
-                ..add(utf8.encode(message)))
-              .takeBytes(),
-    ),
-    onStateChange: _onStateChange,
-  );
+  ResilientWebSocket _resilientWebSocket(String? Function() url) =>
+      ResilientWebSocket(
+        getUrl: url,
+        sink: _inbound,
+        policy: ExponentialBackoffPolicy(),
+        source: _outbound.stream.map(
+          (message) =>
+              (BytesBuilder(copy: false)
+                    ..addByte(1)
+                    ..add(utf8.encode(message)))
+                  .takeBytes(),
+        ),
+        onStateChange: _onStateChange,
+      );
 
   void _onStateChange(SessionState newState) {
     _monitor.value = newState;

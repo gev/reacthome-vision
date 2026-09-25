@@ -6,15 +6,15 @@ import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 import 'package:vision/glue/runtime/scope.dart';
 
 Widget makeLiveScope({
-  required String url,
+  required String? Function() getUrl,
   required Directory path,
   required DiscoveryStore discoveryStore,
   required Widget child,
   Key? key,
 }) {
   final orchestrator = LiveOrchestrator(
+    getUrl: getUrl,
     path: path,
-    url: url,
     discoveryStore: discoveryStore,
   );
   return Scope(
