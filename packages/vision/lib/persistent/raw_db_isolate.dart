@@ -1,4 +1,3 @@
-// raw_db_worker_entry.dart (или в файле воркера)
 import 'dart:isolate';
 
 import 'db_command.dart';
