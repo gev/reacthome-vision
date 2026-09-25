@@ -8,7 +8,7 @@ class ResilientWebSocket {
   late final Retry _retry;
 
   ResilientWebSocket({
-    required String url,
+    required String? Function() getUrl,
     required Sink<Uint8List> sink,
     required Stream<Uint8List> source,
     required OnSessionStateChange onStateChange,
@@ -16,7 +16,7 @@ class ResilientWebSocket {
   }) {
     _retry = Retry(
       process: RetryableWebSocket(
-        url: url,
+        getUrl: getUrl,
         sink: sink,
         source: source,
         onStateChange: onStateChange,

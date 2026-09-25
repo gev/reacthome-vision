@@ -7,7 +7,7 @@ import 'package:vision/retry/retry.dart';
 import 'package:vision/websocket/session_state.dart';
 
 class RetryableWebSocket implements Retryable {
-  final String url;
+  final String? Function() getUrl;
   final Sink<Uint8List> sink;
   final Stream<Uint8List> source;
   final OnSessionStateChange onStateChange;
@@ -15,7 +15,7 @@ class RetryableWebSocket implements Retryable {
   WebSocket? _socket;
 
   RetryableWebSocket({
-    required this.url,
+    required this.getUrl,
     required this.sink,
     required this.source,
     required this.onStateChange,
@@ -25,16 +25,20 @@ class RetryableWebSocket implements Retryable {
 
   @override
   Future<bool> init() async {
-    onStateChange(.connecting);
-    try {
-      _socket = await WebSocket.connect(url);
-      onStateChange(.connected);
-      return true;
-    } catch (error, trace) {
-      _onConnectionLost();
-      log(error.toString(), stackTrace: trace);
-      return false;
+    final url = getUrl();
+    if (url != null) {
+      onStateChange(.connecting);
+      try {
+        _socket = await WebSocket.connect(url);
+        onStateChange(.connected);
+        return true;
+      } catch (error, trace) {
+        _onConnectionLost();
+        log(error.toString(), stackTrace: trace);
+        return false;
+      }
     }
+    return false;
   }
 
   @override
