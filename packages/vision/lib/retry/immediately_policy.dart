@@ -1,6 +1,6 @@
 import 'package:vision/retry/retry.dart';
 
-class ImediatlyPolicy implements RetryPolicy {
+class ImmediatelyPolicy implements RetryPolicy {
   @override
   void reset() {}
 

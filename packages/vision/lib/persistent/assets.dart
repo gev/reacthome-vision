@@ -101,12 +101,12 @@ class Assets {
         );
 
         var receivedBytes = 0;
-        final receivedChuncks = <int>{};
+        final receivedChunks = <int>{};
         await for (final chunk in stream) {
-          if (receivedChuncks.contains(chunk.offset)) continue;
+          if (receivedChunks.contains(chunk.offset)) continue;
           await accessFile.setPosition(chunk.offset);
           await accessFile.writeFrom(chunk.buffer);
-          receivedChuncks.add(chunk.offset);
+          receivedChunks.add(chunk.offset);
           receivedBytes += chunk.buffer.length;
           if (receivedBytes == size) {
             await accessFile.close();

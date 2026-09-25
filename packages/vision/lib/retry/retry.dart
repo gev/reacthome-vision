@@ -14,18 +14,18 @@ class Retry {
   final Retryable process;
   final RetryPolicy policy;
 
-  var _isRuning = false;
+  var _isRunning = false;
 
   Retry({required this.process, required this.policy});
 
   Future<void> start() async {
-    if (!_isRuning) {
-      _isRuning = true;
+    if (!_isRunning) {
+      _isRunning = true;
       if (await process.init()) {
         policy.reset();
         await process.run();
       }
-      _isRuning = false;
+      _isRunning = false;
       if (await policy.shouldRetry) {
         await start();
       }

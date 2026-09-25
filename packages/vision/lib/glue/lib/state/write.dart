@@ -21,7 +21,7 @@ final write = IrNativeFunc((Ir stateIr) {
               [],
               RuntimeException(
                 'invalid-argument',
-                IrString('Expected WrireNotifier'),
+                IrString('Expected WriteNotifier'),
               ),
             ),
           );

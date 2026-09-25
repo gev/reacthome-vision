@@ -20,11 +20,10 @@ abstract class DelayedBackoffPolicy implements RetryPolicy {
 
   DelayedBackoffPolicy({
     required Duration delay,
-    int attempts = 0,
+    this._attempts = 0,
     Random? random,
   }) : _initialDelay = delay.inMilliseconds,
        _currentDelay = delay.inMilliseconds,
-       _attempts = attempts,
        _random = random ?? Random();
 
   @override

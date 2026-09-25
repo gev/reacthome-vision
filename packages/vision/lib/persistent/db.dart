@@ -6,7 +6,7 @@ class DbError {
   const DbError(this.message);
 
   @override
-  String toString() => 'Databasee error: $message';
+  String toString() => 'Database error: $message';
 }
 
 abstract interface class Db<K, T, V> {
