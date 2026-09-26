@@ -1,10 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/connection/connection_status.dart';
+import 'package:vision/connection/direct_connection.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
@@ -16,9 +16,7 @@ import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/logger.dart';
-import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/url.dart';
-import 'package:vision/websocket/resilient_websocket.dart';
 
 class LiveOrchestrator {
   late final Logger log;
@@ -63,25 +61,15 @@ class LiveOrchestrator {
       reactiveRuntime: reactiveRuntime,
       source: _inbound.stream,
     );
-    final client = _resilientWebSocket(getUrl);
-    client.start();
+    DirectConnection(
+      getUrl: getUrl,
+      sink: _inbound,
+      source: _outbound.stream,
+      onStatusChange: _onStatusChange,
+    );
   }
 
-  ResilientWebSocket _resilientWebSocket(GetUrl url) => ResilientWebSocket(
-    getUrl: url,
-    sink: _inbound,
-    policy: ExponentialBackoffPolicy(),
-    source: _outbound.stream.map(
-      (message) =>
-          (BytesBuilder(copy: false)
-                ..addByte(1)
-                ..add(utf8.encode(message)))
-              .takeBytes(),
-    ),
-    onStateChange: _onStateChange,
-  );
-
-  void _onStateChange(ConnectionStatus newState) {
+  void _onStatusChange(ConnectionStatus newState) {
     _monitor.value = newState;
     if (newState == .connected) {
       _glueSubscriber.resubscribeAll();
