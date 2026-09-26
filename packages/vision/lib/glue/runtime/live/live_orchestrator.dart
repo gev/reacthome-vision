@@ -4,7 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:vision/connection/connection_monitor.dart';
-import 'package:vision/connection/connection_state.dart';
+import 'package:vision/connection/connection_status.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
@@ -17,6 +17,7 @@ import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
+import 'package:vision/url.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
 class LiveOrchestrator {
@@ -33,7 +34,7 @@ class LiveOrchestrator {
   final _outbound = StreamController<String>();
 
   LiveOrchestrator({
-    required String? Function() getUrl,
+    required GetUrl getUrl,
     required Directory path,
     required DiscoveryStore discoveryStore,
   }) {
@@ -66,20 +67,19 @@ class LiveOrchestrator {
     client.start();
   }
 
-  ResilientWebSocket _resilientWebSocket(String? Function() url) =>
-      ResilientWebSocket(
-        getUrl: url,
-        sink: _inbound,
-        policy: ExponentialBackoffPolicy(),
-        source: _outbound.stream.map(
-          (message) =>
-              (BytesBuilder(copy: false)
-                    ..addByte(1)
-                    ..add(utf8.encode(message)))
-                  .takeBytes(),
-        ),
-        onStateChange: _onStateChange,
-      );
+  ResilientWebSocket _resilientWebSocket(GetUrl url) => ResilientWebSocket(
+    getUrl: url,
+    sink: _inbound,
+    policy: ExponentialBackoffPolicy(),
+    source: _outbound.stream.map(
+      (message) =>
+          (BytesBuilder(copy: false)
+                ..addByte(1)
+                ..add(utf8.encode(message)))
+              .takeBytes(),
+    ),
+    onStateChange: _onStateChange,
+  );
 
   void _onStateChange(ConnectionStatus newState) {
     _monitor.value = newState;

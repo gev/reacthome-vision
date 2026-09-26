@@ -7,14 +7,14 @@ import 'package:vision/connection/connection_status.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
-class RelayConnection {
+class DirectConnection {
   late final Uint8List _from;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<Uint8List>();
   final _monitor = ValueNotifier(ConnectionStatus.disconnected);
 
-  RelayConnection(String url) {
+  DirectConnection(String url) {
     final peer = Uuid().v4obj();
     _from = peer.toBytes();
     final peerUrl = '$url/v1?peer=${peer.uuid}';

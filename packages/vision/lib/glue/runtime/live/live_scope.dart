@@ -4,9 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 import 'package:vision/glue/runtime/scope.dart';
+import 'package:vision/url.dart';
 
 Widget makeLiveScope({
-  required String? Function() getUrl,
+  required GetUrl getUrl,
   required Directory path,
   required DiscoveryStore discoveryStore,
   required Widget child,

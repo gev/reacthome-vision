@@ -3,11 +3,12 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
-import 'package:vision/connection/connection_state.dart';
+import 'package:vision/connection/connection_status.dart';
 import 'package:vision/retry/retry.dart';
+import 'package:vision/url.dart';
 
 class RetryableWebSocket implements Retryable {
-  final String? Function() getUrl;
+  final GetUrl getUrl;
   final Sink<Uint8List> sink;
   final Stream<Uint8List> source;
   final OnConnectionStatusChange onStateChange;

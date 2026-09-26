@@ -1,5 +1,5 @@
 import 'package:glue/ir.dart';
-import 'package:vision/connection/connection_state.dart';
+import 'package:vision/connection/connection_status.dart';
 
 Ir connectionStatus = IrObject({
   'connected': IrNativeValue(Value(ConnectionStatus.connected)),

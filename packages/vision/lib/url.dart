@@ -1,0 +1,1 @@
+typedef GetUrl = String? Function();
