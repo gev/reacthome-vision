@@ -12,13 +12,13 @@ import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/store/put.dart';
 import 'package:vision/store/revision.dart';
 import 'package:vision/store/version.dart';
-import 'package:vision/websocket/session_monitor.dart';
+import 'package:vision/websocket/connection_monitor.dart';
 
 class LiveReactiveRuntime extends ReactiveRuntime
     implements Version<String, int>, Put<String, Revision<Ir, int>> {
   final StreamController<String> _sink;
   final GlueSubscriber _subscriber;
-  final SessionMonitor _monitor;
+  final ConnectionMonitor _monitor;
   final LiveStorage _storage;
 
   final Map<String, int> _versions = {};

@@ -15,13 +15,13 @@ import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
+import 'package:vision/websocket/connection_monitor.dart';
+import 'package:vision/websocket/connection_state.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
-import 'package:vision/websocket/session_monitor.dart';
-import 'package:vision/websocket/session_state.dart';
 
 class LiveOrchestrator {
   late final Logger log;
-  final _monitor = sessionMonitor();
+  final _monitor = connectionMonitor();
   late final ReactiveRuntime reactiveRuntime;
 
   late final LiveController _controller;
@@ -81,7 +81,7 @@ class LiveOrchestrator {
         onStateChange: _onStateChange,
       );
 
-  void _onStateChange(SessionState newState) {
+  void _onStateChange(ConnectionStatus newState) {
     _monitor.value = newState;
     if (newState == .connected) {
       _glueSubscriber.resubscribeAll();

@@ -1,11 +1,11 @@
 import 'package:glue/module.dart';
-import 'package:vision/glue/runtime/live/lib/connectivity/session_monitor.dart';
-import 'package:vision/glue/runtime/live/lib/connectivity/session_state.dart';
-import 'package:vision/websocket/session_monitor.dart';
+import 'package:vision/glue/runtime/live/lib/connectivity/connection_monitor.dart';
+import 'package:vision/glue/runtime/live/lib/connectivity/connection_state.dart';
+import 'package:vision/websocket/connection_monitor.dart';
 
-ModuleInfo connectivityModule(SessionMonitor monitor) {
+ModuleInfo connectivityModule(ConnectionMonitor monitor) {
   return nativeModule('ffi.vision.connectivity', [
-    ('local-session-monitor', localSessionMonitor(monitor)),
-    ('session-state', sessionState),
+    ('local-connection-monitor', localConnectionMonitor(monitor)),
+    ('connection-status', connectionStatus),
   ]);
 }

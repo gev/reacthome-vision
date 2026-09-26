@@ -27,7 +27,7 @@ import 'package:vision/glue/runtime/live/lib/widgets/live_image.dart';
 import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/logger.dart';
-import 'package:vision/websocket/session_monitor.dart';
+import 'package:vision/websocket/connection_monitor.dart';
 
 Env makeLiveEnv({
   required Sink<String> sink,
@@ -35,7 +35,7 @@ Env makeLiveEnv({
   required LiveReactiveRuntime runtime,
   required LiveStorage storage,
   required DiscoveryStore discoveryStore,
-  required SessionMonitor monitor,
+  required ConnectionMonitor monitor,
   required Logger log,
 }) {
   return envFromModules([
