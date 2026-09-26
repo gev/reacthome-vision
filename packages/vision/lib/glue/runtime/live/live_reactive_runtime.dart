@@ -4,6 +4,7 @@ import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
+import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/runtime/live/live_env.dart';
@@ -12,7 +13,6 @@ import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/store/put.dart';
 import 'package:vision/store/revision.dart';
 import 'package:vision/store/version.dart';
-import 'package:vision/websocket/connection_monitor.dart';
 
 class LiveReactiveRuntime extends ReactiveRuntime
     implements Version<String, int>, Put<String, Revision<Ir, int>> {

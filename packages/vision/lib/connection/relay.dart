@@ -3,8 +3,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:vision/connection/connection_state.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
-import 'package:vision/websocket/connection_state.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
 class Relay {

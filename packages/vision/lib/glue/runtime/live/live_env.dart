@@ -8,6 +8,7 @@ import 'package:glue/lib/math/const.dart';
 import 'package:glue/lib/math/utility.dart';
 import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
+import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/lib/applets_module.dart';
 import 'package:vision/glue/lib/canvas_module.dart';
@@ -27,7 +28,6 @@ import 'package:vision/glue/runtime/live/lib/widgets/live_image.dart';
 import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/logger.dart';
-import 'package:vision/websocket/connection_monitor.dart';
 
 Env makeLiveEnv({
   required Sink<String> sink,
