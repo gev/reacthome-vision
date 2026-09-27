@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:vision/connection/connection_status.dart';
+import 'package:vision/connection/connection.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/url.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
-class DirectConnection {
+class DirectConnection extends Connection {
   DirectConnection({
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<String> source,
-    required OnConnectionStatusChange onStatusChange,
+    required super.onConnectionStatusChange,
   }) {
     final client = ResilientWebSocket(
       getUrl: getUrl,

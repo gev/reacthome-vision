@@ -1,38 +1,31 @@
 import 'package:glue/module.dart';
-import 'package:vision/connection/connection_monitor.dart';
-import 'package:vision/connection/connection_status.dart';
 import 'package:vision/connection/direct_connection.dart';
 import 'package:vision/glue/runtime/live/direct/lib/direct_connectivity_module.dart';
 import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 
 class DirectLiveOrchestrator extends LiveOrchestrator {
-  final _monitor = makeConnectionMonitor();
+  late final DirectConnection _connection;
 
   DirectLiveOrchestrator({
     required String url,
     required super.path,
     required super.discoveryStore,
   }) {
-    DirectConnection(
+    _connection = DirectConnection(
       getUrl: () => url,
       sink: inbound,
       source: outbound.stream,
-      onStatusChange: onStatusChange,
+      onConnectionStatusChange: onStatusChange,
     );
   }
 
   @override
-  ModuleInfo get connectivityModule => directConnectivityModule(_monitor);
-
-  @override
-  void onStatusChange(ConnectionStatus newState) {
-    _monitor.value = newState;
-    super.onStatusChange(newState);
-  }
+  ModuleInfo get connectivityModule =>
+      directConnectivityModule(_connection.monitor);
 
   @override
   void dispose() {
-    _monitor.dispose();
+    _connection.dispose();
     super.dispose();
   }
 }

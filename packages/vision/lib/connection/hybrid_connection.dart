@@ -9,13 +9,13 @@ class HybridConnection {
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<String> source,
-    required OnConnectionStatusChange onStatusChange,
+    required OnConnectionStatusChange onConnectionStatusChange,
   }) {
     DirectConnection(
       getUrl: getUrl,
       sink: sink,
       source: source,
-      onStatusChange: onStatusChange,
+      onConnectionStatusChange: onConnectionStatusChange,
     );
   }
 }

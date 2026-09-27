@@ -1,20 +1,21 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:vision/connection/connection_status.dart';
+import 'package:vision/connection/connection.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
-class RelayConnection {
+class RelayConnection extends Connection {
   late final Uint8List _from;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<Uint8List>();
-  final _monitor = ValueNotifier(ConnectionStatus.disconnected);
 
-  RelayConnection(String url) {
+  RelayConnection({
+    required String url,
+    required super.onConnectionStatusChange,
+  }) {
     final peer = Uuid().v4obj();
     _from = peer.toBytes();
     final peerUrl = '$url/v1?peer=${peer.uuid}';
@@ -22,10 +23,8 @@ class RelayConnection {
       getUrl: () => peerUrl,
       sink: _inbound,
       source: _outbound.stream,
-      onStateChange: (state) {
-        _monitor.value = state;
-      },
       policy: ExponentialBackoffPolicy(),
+      onStateChange: onStatusChange,
     );
     client.start();
   }
