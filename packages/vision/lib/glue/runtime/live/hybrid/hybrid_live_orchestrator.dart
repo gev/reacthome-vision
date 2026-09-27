@@ -20,7 +20,7 @@ import 'package:vision/url.dart';
 
 class HybridLiveOrchestrator {
   late final Logger log;
-  final _monitor = connectionMonitor();
+  final _monitor = makeConnectionMonitor();
   late final ReactiveRuntime reactiveRuntime;
 
   late final LiveController _controller;

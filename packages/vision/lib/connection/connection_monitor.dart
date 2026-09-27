@@ -3,5 +3,5 @@ import 'package:vision/connection/connection_status.dart';
 
 typedef ConnectionMonitor = ValueNotifier<ConnectionStatus>;
 
-ConnectionMonitor connectionMonitor() =>
+ConnectionMonitor makeConnectionMonitor() =>
     ConnectionMonitor(ConnectionStatus.disconnected);
