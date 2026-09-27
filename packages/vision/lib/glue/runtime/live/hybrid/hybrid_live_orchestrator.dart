@@ -10,6 +10,7 @@ import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/runtime/live/assets_controller.dart';
+import 'package:vision/glue/runtime/live/hybrid/lib/hybrid_connectivity_module.dart';
 import 'package:vision/glue/runtime/live/live_controller.dart';
 import 'package:vision/glue/runtime/live/live_logger.dart';
 import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
@@ -50,9 +51,9 @@ class HybridLiveOrchestrator {
     reactiveRuntime = LiveReactiveRuntime(
       sink: _outbound,
       subscriber: _glueSubscriber,
-      monitor: _monitor,
       storage: _storage,
       discoveryStore: discoveryStore,
+      connectivityModule: hybridConnectivityModule(_monitor),
       log: log,
     );
     _controller = LiveController(

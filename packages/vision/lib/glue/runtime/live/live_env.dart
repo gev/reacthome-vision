@@ -8,7 +8,6 @@ import 'package:glue/lib/math/const.dart';
 import 'package:glue/lib/math/utility.dart';
 import 'package:glue/module.dart';
 import 'package:glue_flutter/glue_flutter.dart';
-import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/lib/applets_module.dart';
 import 'package:vision/glue/lib/canvas_module.dart';
@@ -21,7 +20,6 @@ import 'package:vision/glue/lib/rpc_module.dart';
 import 'package:vision/glue/lib/store_module.dart';
 import 'package:vision/glue/lib/widgets.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/glue/runtime/live/direct/lib/connectivity_module.dart';
 import 'package:vision/glue/runtime/live/lib/live_state_module.dart';
 import 'package:vision/glue/runtime/live/lib/module/live_import.dart';
 import 'package:vision/glue/runtime/live/lib/widgets/live_image.dart';
@@ -35,7 +33,7 @@ Env makeLiveEnv({
   required LiveReactiveRuntime runtime,
   required LiveStorage storage,
   required DiscoveryStore discoveryStore,
-  required ConnectionMonitor monitor,
+  required ModuleInfo connectivityModule,
   required Logger log,
 }) {
   return envFromModules([
@@ -59,6 +57,6 @@ Env makeLiveEnv({
     moduleModule(import: liveImport(subscriber, runtime)),
     storeModule(subscriber),
     rpcModule(sink),
-    connectivityModule(monitor),
+    connectivityModule,
   ]);
 }

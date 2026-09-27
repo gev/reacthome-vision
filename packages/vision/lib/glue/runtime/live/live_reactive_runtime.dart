@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
+import 'package:glue/module.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
-import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/runtime/live/live_env.dart';
@@ -18,7 +18,6 @@ class LiveReactiveRuntime extends ReactiveRuntime
     implements Version<String, int>, Put<String, Revision<Ir, int>> {
   final StreamController<String> _sink;
   final GlueSubscriber _subscriber;
-  final ConnectionMonitor _monitor;
   final LiveStorage _storage;
 
   final Map<String, int> _versions = {};
@@ -29,18 +28,18 @@ class LiveReactiveRuntime extends ReactiveRuntime
     required this._sink,
     required this._subscriber,
     required this._storage,
-    required this._monitor,
     required DiscoveryStore discoveryStore,
+    required ModuleInfo connectivityModule,
     required super.log,
   }) {
     _runtime = Runtime.initial(
       makeLiveEnv(
         sink: _sink,
         subscriber: _subscriber,
-        monitor: _monitor,
         runtime: this,
         storage: _storage,
         discoveryStore: discoveryStore,
+        connectivityModule: connectivityModule,
         log: log,
       ),
     );
