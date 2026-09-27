@@ -21,7 +21,7 @@ import 'package:vision/glue/lib/rpc_module.dart';
 import 'package:vision/glue/lib/store_module.dart';
 import 'package:vision/glue/lib/widgets.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
-import 'package:vision/glue/runtime/live/lib/connectivity_module.dart';
+import 'package:vision/glue/runtime/live/direct/lib/connectivity_module.dart';
 import 'package:vision/glue/runtime/live/lib/live_state_module.dart';
 import 'package:vision/glue/runtime/live/lib/module/live_import.dart';
 import 'package:vision/glue/runtime/live/lib/widgets/live_image.dart';

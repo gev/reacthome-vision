@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vision/glue/runtime/live/live_app.dart';
+import 'package:vision/glue/runtime/live/direct/direct_live_app.dart';
 
 Future<Widget> makeStudioApp() =>
-    makeLiveApp(title: 'Studio', url: 'ws://127.0.0.1');
+    makeDirectLiveApp(title: 'Studio', url: 'ws://127.0.0.1');

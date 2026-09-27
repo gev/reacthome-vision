@@ -3,10 +3,10 @@ import 'package:glue/ir.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/app.dart';
 import 'package:vision/glue/runtime/applet_registry.dart';
-import 'package:vision/glue/runtime/live/live_scope.dart';
+import 'package:vision/glue/runtime/live/hybrid/hybrid_live_scope.dart';
 import 'package:vision/widgets/vision_applet.dart';
 
-Widget makeLiveApplet({
+Widget makeHybridLiveApplet({
   required String id,
   required String title,
   required DiscoveryStore discoveryStore,
@@ -14,7 +14,7 @@ Widget makeLiveApplet({
   Key? key,
 }) => AppletRegistry.registerApplet(
   id,
-  () => makeLiveScope(
+  () => makeHybridLiveScope(
     key: key,
     getUrl: () => discoveryStore.url(id),
     path: App.appletRoot(id),
