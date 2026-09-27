@@ -16,7 +16,6 @@ import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
 import 'package:vision/logger.dart';
-import 'package:vision/url.dart';
 
 class DirectLiveOrchestrator {
   late final Logger log;
@@ -32,7 +31,7 @@ class DirectLiveOrchestrator {
   final _outbound = StreamController<String>();
 
   DirectLiveOrchestrator({
-    required GetUrl getUrl,
+    required String url,
     required Directory path,
     required DiscoveryStore discoveryStore,
   }) {
@@ -62,7 +61,7 @@ class DirectLiveOrchestrator {
       source: _inbound.stream,
     );
     DirectConnection(
-      getUrl: getUrl,
+      getUrl: () => url,
       sink: _inbound,
       source: _outbound.stream,
       onStatusChange: _onStatusChange,

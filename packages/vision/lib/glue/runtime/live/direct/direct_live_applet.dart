@@ -8,6 +8,7 @@ import 'package:vision/widgets/vision_applet.dart';
 
 Widget makeDirectLiveApplet({
   required String id,
+  required String url,
   required String title,
   required DiscoveryStore discoveryStore,
   required Ir args,
@@ -16,7 +17,7 @@ Widget makeDirectLiveApplet({
   id,
   () => makeDirectLiveScope(
     key: key,
-    getUrl: () => discoveryStore.url(id),
+    url: url,
     path: App.appletRoot(id),
     discoveryStore: discoveryStore,
     child: VisionApplet(title: title, args: args),
