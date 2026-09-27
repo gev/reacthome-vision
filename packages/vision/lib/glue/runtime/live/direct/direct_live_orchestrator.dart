@@ -10,7 +10,6 @@ class DirectLiveOrchestrator extends LiveOrchestrator {
     getUrl: () => _url,
     sink: inbound,
     source: outbound.stream,
-    onConnectionStatusChange: onStatusChange,
   );
 
   DirectLiveOrchestrator({

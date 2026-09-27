@@ -11,7 +11,6 @@ class DirectConnection extends Connection {
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<String> source,
-    required super.onConnectionStatusChange,
   }) {
     final client = ResilientWebSocket(
       getUrl: getUrl,

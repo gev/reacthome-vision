@@ -12,10 +12,7 @@ class RelayConnection extends Connection {
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<Uint8List>();
 
-  RelayConnection({
-    required String url,
-    required super.onConnectionStatusChange,
-  }) {
+  RelayConnection({required String url}) {
     final peer = Uuid().v4obj();
     _from = peer.toBytes();
     final peerUrl = '$url/v1?peer=${peer.uuid}';
