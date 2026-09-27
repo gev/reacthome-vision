@@ -5,20 +5,20 @@ import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 import 'package:vision/url.dart';
 
 class HybridLiveOrchestrator extends LiveOrchestrator {
-  late final DirectConnection _directConnection;
+  final GetUrl _getUrl;
+
+  late final DirectConnection _directConnection = DirectConnection(
+    getUrl: _getUrl,
+    sink: inbound,
+    source: outbound.stream,
+    onConnectionStatusChange: onStatusChange,
+  );
 
   HybridLiveOrchestrator({
-    required GetUrl getUrl,
+    required this._getUrl,
     required super.path,
     required super.discoveryStore,
-  }) {
-    _directConnection = DirectConnection(
-      getUrl: getUrl,
-      sink: inbound,
-      source: outbound.stream,
-      onConnectionStatusChange: onStatusChange,
-    );
-  }
+  });
 
   @override
   ModuleInfo get connectivityModule =>

@@ -4,7 +4,6 @@
     (def (home-screen args)
         (live-applet
             :id args.home.id
-            :url args.home.url
             :title args.home.name
         )
     )
