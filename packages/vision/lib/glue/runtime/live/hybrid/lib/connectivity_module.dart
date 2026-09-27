@@ -1,6 +1,6 @@
 import 'package:glue/module.dart';
 import 'package:vision/connection/connection_monitor.dart';
-import 'package:vision/connectivity/connection_status.dart';
+import 'package:vision/glue/lib/connectivity/connection_status.dart';
 import 'package:vision/glue/runtime/live/direct/lib/connectivity/direct_connection_monitor.dart';
 
 ModuleInfo connectivityModule(ConnectionMonitor monitor) {
