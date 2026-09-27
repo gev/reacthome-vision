@@ -34,27 +34,27 @@
         )
     )
 
-    (def (submit-home url name id)
+    (def (submit-home name id)
         (\ ()
-            (def home (:id id :name name :url url))
+            (def home (:id id :name name))
             (add-home home)
             (pop _)
         )
     )
 
-    (def (submit-button url name id)
+    (def (submit-button name id)
         (filled-button
             :child (text
                 :text (select-locale i18n-add)
             )
-            :on-pressed (?> (submit-home url name) id)
+            :on-pressed (?> (submit-home name) id)
         )
     )
 
+    (def home-id (local-state _))
+    (def home-name (local-state _))
+
     (def (add-home-screen props)
-        (def home-id (local-state _))
-        (def home-name (local-state _))
-        (def home-url (local-state _))
         (modal
             :color current-theme.color-scheme.surface-container
             :child (column
@@ -76,10 +76,6 @@
                                 :label (select-locale i18n-name)
                                 :state home-name
                             )
-                            (txt-field
-                                :label (select-locale i18n-url)
-                                :state home-url
-                            )
                         )
                     )
                     (row
@@ -91,7 +87,7 @@
                                 )
                                 :on-pressed back
                             )
-                            (listen submit-button home-url home-name home-id)
+                            (listen submit-button home-name home-id)
                         )
                     )
                 )

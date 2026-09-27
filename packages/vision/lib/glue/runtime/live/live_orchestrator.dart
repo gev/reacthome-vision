@@ -58,7 +58,7 @@ abstract class LiveOrchestrator {
 
   ModuleInfo get connectivityModule;
 
-  void onStatusChange(ConnectionStatus newState) {
+  void resubscribe(ConnectionStatus newState) {
     if (newState == .connected) {
       _glueSubscriber.resubscribeAll();
       _storage.assets.reRequestAll();
