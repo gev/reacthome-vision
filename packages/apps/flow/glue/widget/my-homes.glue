@@ -96,12 +96,14 @@
     )
 
     (def (my-homes homes)
-        (column
-            :cross-axis-alignment cross-axis-alignment.start
-            :children (
-                (title _)
-                (home-list homes)
-                (add-home _)
+        (safe-area
+            :child (column
+                :cross-axis-alignment cross-axis-alignment.start
+                :children (
+                    (title _)
+                    (home-list homes)
+                    (add-home _)
+                )
             )
         )
     )
