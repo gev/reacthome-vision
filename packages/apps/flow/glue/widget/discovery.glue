@@ -39,7 +39,6 @@
     )
 
     (def (tile home)
-        (print home)
         (home-tile
             :on-tap (add-discovered home)
             :title (title home)
