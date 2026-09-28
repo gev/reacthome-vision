@@ -2,6 +2,7 @@
     (export
         same-entity?
         not-same-entity?
+        find-entity
         contains-entity?
         replace-entity
         add-entity
@@ -20,6 +21,10 @@
 
     (def (replace-entity dst src)
         (if (same-entity? dst src) dst src)
+    )
+
+    (def (find-entity entity collection)
+        (find (same-entity? entity) collection)
     )
 
     (def (contains-entity? entity collection)
