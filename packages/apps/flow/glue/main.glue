@@ -5,6 +5,7 @@
     (import screen.homes)
     (import screen.add-home)
     (import screen.edit-home)
+    (import screen.discovery)
 
     (def (home-route args)
         (route
@@ -15,6 +16,12 @@
     (def (homes-route args)
         (route
             :screen (homes-screen _)
+        )
+    )
+
+    (def (discovery-route args)
+        (route
+            :screen (discovery-screen _)
         )
     )
 
@@ -43,6 +50,7 @@
             :routes (
                 :index homes-route
                 :home home-route
+                :discovery discovery-route
                 :add-home add-home-route
                 :edit-home edit-home-route
             )

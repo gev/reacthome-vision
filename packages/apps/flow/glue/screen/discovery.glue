@@ -1,5 +1,5 @@
-(module screen.homes
-    (export homes-screen)
+(module screen.discovery
+    (export discovery-screen)
 
     (import i18n.dict)
 
@@ -18,7 +18,7 @@
         )
     )
 
-    (def (homes-screen props)
+    (def (discovery-screen props)
         (screen
             :body (listen-homes show)
         )

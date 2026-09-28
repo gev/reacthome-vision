@@ -1,0 +1,30 @@
+(module widget.floating-bar
+    (export floating-bar)
+
+    (import lib.navigation)
+
+    (def (floating-bar props)
+        (def color (?? props.color current-theme.color-scheme.surface-container))
+        (def opacity (?? props.opacity 0.8))
+        (def radius (?? props.radius 24))
+        (def sigma (?? props.sigma 12))
+        (container
+            :decoration (box-decoration
+                :color (color.with :a opacity)
+                :border (border-all
+                    :color (current-theme.color-scheme.outline.with :a 0.2)
+                    :width 1
+                )
+                :border-radius (border-radius-circular radius)
+                :box-shadow (
+                    (box-shadow
+                        :blur-radius sigma
+                        :blur-style blur-style.outer
+                        :color (current-theme.color-scheme.shadow.with :a 0.2)
+                    )
+                )
+            )
+            :child props.child
+        )
+    )
+)

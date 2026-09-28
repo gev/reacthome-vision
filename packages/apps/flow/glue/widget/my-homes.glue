@@ -82,7 +82,7 @@
                     :child (text
                         :text (select-locale i18n-add-home)
                     )
-                    :on-pressed (go :route 'add-home :tag "add-home")
+                    :on-pressed (go :route 'discovery)
                 )
             )
         )

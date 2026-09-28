@@ -1,0 +1,24 @@
+(module widget.screen
+    (export screen)
+
+    (import widget.app-bar)
+
+    (def (screen props)
+        (material
+            :color current-theme.color-scheme.surface-container
+            :child (container
+                :child (stack
+                    :children (
+                        (props.body)
+                        (positioned
+                            :top (max media-query.padding.top 16)
+                            :left 16
+                            :right 16
+                            :child (app-bar _)
+                        )
+                    )
+                )
+            )
+        )
+    )
+)

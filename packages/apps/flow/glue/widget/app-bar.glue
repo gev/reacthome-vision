@@ -1,0 +1,19 @@
+(module widget.app-bar
+    (export app-bar)
+
+    (import lib.navigation)
+    (import widget.floating-bar)
+
+    (def (app-bar props)
+        (row
+            :main-axis-size main-axis-size.min
+            :children (
+                (if (can-pop? _)
+                    (floating-bar
+                        :child (back-button :on-pressed back)
+                    )
+                )
+            )
+        )
+    )
+)
