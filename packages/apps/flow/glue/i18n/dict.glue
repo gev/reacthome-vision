@@ -12,6 +12,7 @@
         i18n-cancel
         i18n-close
         i18n-remove
+        i18n-discovered
     )
 
     (def i18n-my-homes (
@@ -72,5 +73,10 @@
     (def i18n-remove (
             :en "Remove"
             :ru "Удалить"
+        ))
+
+    (def i18n-discovered (
+            :en "Discovered"
+            :ru "Обнаружено"
         ))
 )

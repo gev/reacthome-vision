@@ -6,15 +6,8 @@
     (import lib.i18n)
     (import lib.navigation)
 
-    (def (section props)
-        (padding
-            :padding (edge-insets-symmetric
-                :horizontal 16
-                :vertical 32
-            )
-            :child props.child
-        )
-    )
+    (import widget.section)
+    (import widget.home-tile)
 
     (def (title props)
         (section
@@ -31,79 +24,40 @@
         )
     )
 
-    (def (home-title props)
-        (text
-            :text props.text
-            :style (text-style
-                :font-size current-theme.text-theme.title-large.font-size
-                :color current-theme.color-scheme.on-surface
-            )
-        )
-    )
-
-    (def (home-subtitle props)
-        (text
-            :text props.text
-            :style (text-style
-                :font-size current-theme.text-theme.label-small.font-size
-                :color (current-theme.color-scheme.on-surface.with :a 0.3)
-            )
-        )
-    )
-
-    (def (home-tile home)
-        (hero
-            :tag home.id
-            :child (card
-                :child (ink-well
-                    :on-tap (go :route 'home :home home)
-                    :on-long-press (go :route 'edit-home :home home :tag home.id)
-                    :child (adopt props.child)
-                    :child (list-tile
-                        :title (column
-                            :cross-axis-alignment cross-axis-alignment.start
-                            :children (
-                                (home-title :text home.name)
-                                (home-subtitle :text home.id)
-                                (home-subtitle :text home.url)
-                            )
-                        )
-                    )
-                )
-            )
-        )
-    )
-
-    (def (add-home props)
-        (section
-            :child (hero
-                :tag "add-home"
-                :child (elevated-button
-                    :child (text
-                        :text (select-locale i18n-add-home)
-                    )
-                    :on-pressed (go :route 'discovery)
-                )
-            )
+    (def (tile home)
+        (home-tile
+            :on-tap (go :route 'home :home home)
+            :on-long-press (go :route 'edit-home :home home :tag home.id)
+            :title home.name
+            :subtitle home.id
+            :trailing "arrow_forward_ios"
         )
     )
 
     (def (home-list homes)
         (column
             :cross-axis-alignment cross-axis-alignment.start
-            :children (map home-tile homes)
+            :children (map tile homes)
+        )
+    )
+
+    (def (add-home-button props)
+        (section
+            :child (elevated-button
+                :child (text :text (select-locale i18n-add-home))
+                :on-pressed (go :route 'discovery)
+            )
         )
     )
 
     (def (my-homes homes)
-        (safe-area
-            :child (column
-                :cross-axis-alignment cross-axis-alignment.start
-                :children (
-                    (title _)
-                    (home-list homes)
-                    (add-home _)
-                )
+        (column
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (
+                (sized-box :height 48)
+                (title _)
+                (home-list homes)
+                (add-home-button _)
             )
         )
     )

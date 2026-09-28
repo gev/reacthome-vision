@@ -1,0 +1,81 @@
+(module widget.discovery
+    (export discovery)
+
+    (import i18n.dict)
+
+    (import lib.i18n)
+    (import lib.entity)
+    (import lib.home)
+    (import lib.navigation)
+
+    (import widget.section)
+    (import widget.home-tile)
+
+    (def (screen-title props)
+        (section
+            :child (row
+                :cross-axis-alignment cross-axis-alignment.center
+                :children (
+                    (text
+                        :text (select-locale i18n-discovered)
+                        :style current-theme.text-theme.headline-medium
+                    )
+                    (sized-box :width 16)
+                    (sized-box
+                        :width 16
+                        :height 16
+                        :child (activity :stroke-width 2)
+                    )
+                )
+            )
+        )
+    )
+
+    (def (add-discovered home)
+        (\ ()
+            (add-home (concat home (:name (title home))))
+            (pop _)
+        )
+    )
+
+    (def (tile home)
+        (print home)
+        (home-tile
+            :on-tap (add-discovered home)
+            :title (title home)
+            :subtitle home.id
+            :trailing "add_2"
+        )
+    )
+
+    (def (home-list homes)
+        (column
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (map tile homes)
+        )
+    )
+
+    (def (add-home-button props)
+        (section
+            :child (hero
+                :tag "add-home"
+                :child (elevated-button
+                    :child (text :text (select-locale i18n-add-home))
+                    :on-pressed (go :route 'add-home :tag "add-home")
+                )
+            )
+        )
+    )
+
+    (def (discovery homes)
+        (column
+            :cross-axis-alignment cross-axis-alignment.start
+            :children (
+                (sized-box :height 48)
+                (screen-title _)
+                (home-list homes)
+                (add-home-button _)
+            )
+        )
+    )
+)

@@ -39,6 +39,7 @@
             (def home (:id id :name name))
             (add-home home)
             (pop _)
+            (pop _)
         )
     )
 

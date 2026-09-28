@@ -7,20 +7,12 @@
     (import lib.i18n)
     (import lib.navigation)
 
-    (import widget.my-homes)
-    (import widget.welcome)
+    (import widget.discovery)
     (import widget.screen)
-
-    (def (show homes)
-        (if (empty? homes)
-            (welcome _)
-            (my-homes homes)
-        )
-    )
 
     (def (discovery-screen props)
         (screen
-            :body (listen-homes show)
+            :body (listen discovery discovered-services)
         )
     )
 )

@@ -1,0 +1,14 @@
+(module widget.section
+    (export section)
+
+    (def (section props)
+        (padding
+            :padding (edge-insets-symmetric
+                :horizontal 16
+                :vertical 32
+            )
+            :child props.child
+        )
+    )
+   
+)

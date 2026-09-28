@@ -1,0 +1,47 @@
+(module widget.home-tile
+    (export home-tile)
+
+    (def (home-title props)
+        (text
+            :text props.text
+            :style (text-style
+                :font-size current-theme.text-theme.title-large.font-size
+                :color current-theme.color-scheme.on-surface
+            )
+        )
+    )
+
+    (def (home-subtitle props)
+        (text
+            :text props.text
+            :style (text-style
+                :font-size current-theme.text-theme.label-small.font-size
+                :color (current-theme.color-scheme.on-surface.with :a 0.3)
+            )
+        )
+    )
+
+    (def (tile-icon name)
+        (icon :icon (symbol name))
+    )
+
+    (def (home-tile props)
+        (card
+            :child (ink-well
+                :on-tap props.on-tap
+                :on-long-press props.on-long-press
+                :child (list-tile
+                    :title (column
+                        :cross-axis-alignment cross-axis-alignment.start
+                        :children (
+                            (home-title :text props.title)
+                            (home-subtitle :text props.subtitle)
+                        )
+                    )
+                    :leading (?> tile-icon props.leading)
+                    :trailing (?> tile-icon props.trailing)
+                )
+            )
+        )
+    )
+)

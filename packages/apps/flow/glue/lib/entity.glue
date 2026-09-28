@@ -7,6 +7,7 @@
         add-entity
         update-entity
         remove-entity
+        title
     )
 
     (def (same-entity? entity1 entity2)
@@ -38,5 +39,9 @@
 
     (def (remove-entity entity collection)
         (filter (not-same-entity? entity) collection)
+    )
+
+    (def (title entity)
+        (?? entity.title entity.code)
     )
 )
