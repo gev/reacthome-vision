@@ -3,7 +3,6 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:glue/module.dart';
-import 'package:vision/connection/connection_status.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/pub_sub/glue_request.dart';
@@ -58,11 +57,9 @@ abstract class LiveOrchestrator {
 
   ModuleInfo get connectivityModule;
 
-  void resubscribe(ConnectionStatus newState) {
-    if (newState == .connected) {
-      _glueSubscriber.resubscribeAll();
-      _storage.assets.reRequestAll();
-    }
+  void resubscribe() {
+    _glueSubscriber.resubscribeAll();
+    _storage.assets.reRequestAll();
   }
 
   void dispose() {

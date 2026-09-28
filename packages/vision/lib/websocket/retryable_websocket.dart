@@ -11,7 +11,7 @@ class RetryableWebSocket implements Retryable {
   final GetUrl getUrl;
   final Sink<Uint8List> sink;
   final Stream<Uint8List> source;
-  final OnConnectionStatusChange onStateChange;
+  final OnConnectionStatusChanged onStateChange;
 
   WebSocket? _socket;
 

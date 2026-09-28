@@ -12,7 +12,7 @@ class ResilientWebSocket {
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<Uint8List> source,
-    required OnConnectionStatusChange onStateChange,
+    required OnConnectionStatusChanged onStateChange,
     required RetryPolicy policy,
   }) {
     _retry = Retry(

@@ -8,7 +8,13 @@ class HybridConnection {
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<String> source,
+    required void Function() resubscribe,
   }) {
-    DirectConnection(getUrl: getUrl, sink: sink, source: source);
+    DirectConnection(
+      getUrl: getUrl,
+      sink: sink,
+      source: source,
+      resubscribe: resubscribe,
+    );
   }
 }

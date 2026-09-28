@@ -1,4 +1,3 @@
-/// The current state of the connection.
 enum ConnectionStatus { disconnected, connecting, connected }
 
-typedef OnConnectionStatusChange = void Function(ConnectionStatus state);
+typedef OnConnectionStatusChanged = void Function(ConnectionStatus state);

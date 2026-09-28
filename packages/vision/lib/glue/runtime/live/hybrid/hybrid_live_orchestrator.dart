@@ -11,6 +11,7 @@ class HybridLiveOrchestrator extends LiveOrchestrator {
     getUrl: _getUrl,
     sink: inbound,
     source: outbound.stream,
+    resubscribe: resubscribe,
   );
 
   HybridLiveOrchestrator({

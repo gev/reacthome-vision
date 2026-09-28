@@ -11,6 +11,7 @@ class DirectConnection extends Connection {
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<String> source,
+    required super.resubscribe,
   }) {
     final client = ResilientWebSocket(
       getUrl: getUrl,
@@ -23,7 +24,7 @@ class DirectConnection extends Connection {
                   ..add(utf8.encode(message)))
                 .takeBytes(),
       ),
-      onStateChange: onStatusChange,
+      onStateChange: onStatusChanged,
     );
     client.start();
   }

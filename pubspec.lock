@@ -202,7 +202,7 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: a72c7d24b1d5eef4746d79fb7ac89c758fd25d92
+      resolved-ref: "8d4ffd310500c6f212653fbd88cc0e5953589f46"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -211,7 +211,7 @@ packages:
     description:
       path: "flutter/glue_flutter"
       ref: HEAD
-      resolved-ref: a72c7d24b1d5eef4746d79fb7ac89c758fd25d92
+      resolved-ref: "8d4ffd310500c6f212653fbd88cc0e5953589f46"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -531,10 +531,10 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      sha256: "91bd59303e9f769f108f8df05e371341b15d59e995e6806aefab827b58336675"
+      sha256: "2f1564aadb14215e478563b5406cb80729d022158c01dc50c96013c2f7eb4790"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.2"
+    version: "7.1.0"
   platform:
     dependency: transitive
     description:
@@ -720,10 +720,10 @@ packages:
     dependency: transitive
     description:
       name: vector_math
-      sha256: f36f9f3be64c6198714492bb455c11056e33e2f85d9a0b676a48301e44fdcf47
+      sha256: "92b9910f66ed1057fd4da7b040ae7c74cafacf885bdc81be496928d5049b032d"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.2"
+    version: "2.4.3"
   vm_service:
     dependency: transitive
     description:
@@ -797,5 +797,5 @@ packages:
     source: hosted
     version: "3.1.4"
 sdks:
-  dart: ">=3.12.0 <4.0.0"
+  dart: ">=3.13.0 <4.0.0"
   flutter: ">=3.44.0"
