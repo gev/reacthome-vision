@@ -33,7 +33,10 @@
 
     (def (add-discovered home)
         (\ ()
-            (add-home (concat home (:name (title home))))
+            (def existed-home (find-home home))
+            (def name (?? existed-home.name (title home)))
+            (def updated-home (concat home (:name name)))
+            (add-home updated-home)
             (pop _)
         )
     )
