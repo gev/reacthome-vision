@@ -40,7 +40,7 @@
             :body (single-child-scroll-view
                 :child (container
                     :padding (edge-insets-symmetric :horizontal 16)
-                    :width media-query.width
+                    :width media-query.size.width
                     :child (listen icon-size layout)
                 )
             )
