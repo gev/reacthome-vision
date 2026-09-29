@@ -58,16 +58,21 @@ class MediaPlayerState extends State<MediaPlayer> {
 
     if (player.platform is NativePlayer) {
       final native = player.platform as NativePlayer;
-      // Свойства libmpv для жесткого сброса кэша и задержек
+      // 1. Аппаратное декодирование для Raspberry Pi 4 (v4l2m2m)
+      native.setProperty('hwdec', 'v4l2m2m-copy');
+
+      // 2. Базовый низколатентный профиль mpv
       native.setProperty('profile', 'low-latency');
+
+      // 3. Отключаем файловый кэш, но оставляем разумный минимум для демуксера
       native.setProperty('cache', 'no');
-      // сжимаем буфер до 1 Кб
-      native.setProperty('demuxer-max-bytes', '1024');
-      // убираем упреждающее чтение
+      // ~512КБ достаточно для захвата I-frame без накопления задержки
+      native.setProperty('demuxer-max-bytes', '524288');
       native.setProperty('demuxer-readahead-secs', '0');
-      native.setProperty('stream-buffer', 'no');
-      // или 'audio' для подгонки кадров    }
+
+      // 4. Синхронизация и дроп отстающих кадров
       native.setProperty('video-sync', 'desync');
+      native.setProperty('framedrop', 'vo');
     }
 
     controller = VideoController(player);
@@ -76,19 +81,19 @@ class MediaPlayerState extends State<MediaPlayer> {
       Media(
         widget.url,
         extras: {
+          // Принудительный TCP транспорт для устранения артефактов UDP
           'rtsp_transport': 'tcp',
-          // сбрасываем буферизацию на уровне ffmpeg
-          'fflags': 'nobuffer+flags-un_latency+fastseek',
-          // 'fflags': 'nobuffer+flags-un_latency',
-          // флаг низкой задержки кодека
+
+          // Флаги FFmpeg для минимизации задержки
+          'fflags': 'nobuffer+fastseek',
           'flags': 'low_delay',
-          'max_delay': '0',
-          // разрешаем дропать кадры при отставании
-          // 'framedrop': '',
-          'framedrop': 'lasso',
-          'probesize': '32',
-          'analyzeduration': '0',
-          // // 'stimeout': '2000000',
+
+          // Уменьшаем время анализа потока при старте (в микросекундах: 500ms / 500KB)
+          'analyzeduration': '500000',
+          'probesize': '500000',
+
+          // Таймаут подключения (5 секунд), чтобы не вешать UI при отвале камеры
+          'stimeout': '5000000',
         },
       ),
     );
