@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpi_gstreamer_video_player/flutterpi_gstreamer_video_player.dart';
 import 'package:glue/ir.dart';
-import 'package:media_kit/media_kit.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/app.dart';
 import 'package:vision/glue/runtime/local/discovery.dart';
@@ -13,7 +13,8 @@ Future<Widget> makeStaticLocalApp({
   Ir args = const IrVoid(),
 }) async {
   WidgetsFlutterBinding.ensureInitialized();
-  MediaKit.ensureInitialized();
+  FlutterpiVideoPlayer.registerWith();
+  // MediaKit.ensureInitialized();
   await App.init();
   final discoveryStore = DiscoveryStore();
   runDiscovery(discoveryStore);
