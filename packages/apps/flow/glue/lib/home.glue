@@ -22,7 +22,7 @@
     )
 
     (def (find-home home)
-        (find-entity home (read my-homes))
+        (?> (find-entity home) (read my-homes))
     )
 
     (def (add-home home)
