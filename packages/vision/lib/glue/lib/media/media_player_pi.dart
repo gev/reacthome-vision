@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
@@ -22,7 +23,13 @@ Eval<Ir> _createMediaPlayer(WidgetProperties props) {
   }
 
   return getRuntime().map((runtime) {
-    final widget = MediaPlayerPi(key: props.key, url: url);
+    final widget = MediaPlayer(
+      key: props.key,
+      width: props.width,
+      height: props.height,
+      fit: props.getValue<BoxFit>('fit') ?? BoxFit.contain,
+      url: url,
+    );
 
     return IrNativeValue(Value(widget));
   });

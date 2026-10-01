@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterpi_gstreamer_video_player/flutterpi_gstreamer_video_player.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/app.dart';
-import 'package:vision/glue/runtime/local/discovery.dart';
 import 'package:vision/glue/runtime/local/dynamic/dynamic_local_scope.dart';
 import 'package:vision/widgets/vision_app.dart';
 
@@ -12,12 +10,8 @@ Future<Widget> makeDynamicLocalApp({
   required String codePath,
   Ir args = const IrVoid(),
 }) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  FlutterpiVideoPlayer.registerWith();
-  // MediaKit.ensureInitialized();
   final discoveryStore = DiscoveryStore();
-  runDiscovery(discoveryStore);
-  await App.init();
+  await App.init(discoveryStore);
   return makeDynamicLocalScope(
     path: App.appRoot,
     codePath: codePath,
