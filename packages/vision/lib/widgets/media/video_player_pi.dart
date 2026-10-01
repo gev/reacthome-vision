@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterpi_gstreamer_video_player/flutterpi_gstreamer_video_player.dart';
 import 'package:video_player/video_player.dart';
 
 class MediaPlayer extends StatefulWidget {
@@ -30,13 +31,17 @@ class _MediaPlayerState extends State<MediaPlayer> {
   }
 
   Future<void> _initializePlayer() async {
-    _controller = VideoPlayerController.networkUrl(
-      Uri.parse(widget.url),
-      videoPlayerOptions: VideoPlayerOptions(
-        mixWithOthers: true,
-        allowBackgroundPlayback: false,
-      ),
+    _controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
+      'rtspsrc location="rtsp://192.168.31.170:554" ! queue max-size-buffers=2 ! rtph264depay ! h264parse ! decodebin ! autovideosink sync=false appsink name="sink"',
     );
+    // _controller = VideoPlayerController.networkUrl(
+    //   Uri.parse(widget.url),
+    //   videoPlayerOptions: VideoPlayerOptions(
+    //     mixWithOthers: true,
+    //     allowBackgroundPlayback: false,
+    //     backBufferDurationMs: 300,
+    //   ),
+    // );
     _controller.addListener(() {
       setState(() {});
     });
