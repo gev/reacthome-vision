@@ -32,9 +32,9 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
   Future<void> _initializePlayer() async {
     final pipeline =
-        'urisourcebin name=src uri="${widget.url}" buffer-mode=slave ! '
+        'rtspsrc location="${widget.url}" protocols=tcp latency=0 ! '
         'rtph264depay ! h264parse ! v4l2h264dec ! '
-        'video/x-raw,format=I420 ! '
+        'videoconvert name=src ! '
         'appsink name="sink" sync=false max-buffers=1 drop=true';
     _controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
       pipeline,
