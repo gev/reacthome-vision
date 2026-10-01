@@ -32,7 +32,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
   Future<void> _initializePlayer() async {
     final pipeline =
-        'rtspsrc location="${widget.url}" protocols=tcp latency=0 ! '
+        'rtspsrc name=src location="${widget.url}" protocols=tcp latency=0 ! '
         'rtph264depay ! h264parse ! v4l2h264dec ! '
         'video/x-raw,format=I420 ! '
         'appsink name="sink" sync=false max-buffers=1 drop=true';
