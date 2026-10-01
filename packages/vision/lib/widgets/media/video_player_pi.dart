@@ -32,7 +32,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
   Future<void> _initializePlayer() async {
     _controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
-      'rtspsrc location="rtsp://192.168.31.170:554" ! queue max-size-buffers=2 ! rtph264depay ! h264parse ! decodebin ! autovideosink sync=false appsink name="sink"',
+      'rtspsrc location="${widget.url}" ! queue max-size-buffers=2 ! rtph264depay ! h264parse ! decodebin ! autovideosink sync=false appsink name="sink"',
     );
     // _controller = VideoPlayerController.networkUrl(
     //   Uri.parse(widget.url),
