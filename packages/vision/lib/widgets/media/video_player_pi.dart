@@ -32,12 +32,11 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
   Future<void> _initializePlayer() async {
     final pipeline =
-        'rtspsrc location="${widget.url}" protocols=tcp latency=0 ! '
-        'rtph264depay ! h264parse ! v4l2h264dec ! '
-        'videoconvert name=src ! '
-        'appsink name="sink" sync=false max-buffers=1 drop=true';
+        'rtspsrc name=src location="${widget.url}" protocols=tcp latency=0 '
+        '! rtph264depay ! h264parse ! v4l2h264dec ! kmssink sync=false';
     _controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
       pipeline,
+      formatHint: VideoFormat.other,
     );
     // _controller = VideoPlayerController.networkUrl(
     //   Uri.parse(widget.url),
@@ -47,11 +46,11 @@ class _MediaPlayerState extends State<MediaPlayer> {
     //     backBufferDurationMs: 300,
     //   ),
     // );
-    _controller.addListener(() {
-      setState(() {});
-    });
+    // _controller.addListener(() {
+    //   setState(() {});
+    // });
     await _controller.initialize();
-    setState(() {});
+    // setState(() {});
     await _controller.play();
   }
 
