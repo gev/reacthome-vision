@@ -7,7 +7,6 @@ environment:
 workspace:
   - apps/flow/android
   - apps/flow/ios
-  - apps/flow/elinux
   - apps/flow/linux
   - apps/flow/macos
   - apps/flow/windows
