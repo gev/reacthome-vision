@@ -16,11 +16,12 @@ Ir mediaPlayerPi = IrNativeFunc(
 
 Eval<Ir> _createMediaPlayer(WidgetProperties props) {
   final url = props.getString('url');
-  if (url == null) {
-    return throwError(
-      wrongArgumentType(['Property `url` required for media player']),
-    );
-  }
+  final pipeline = props.getString('pipeline');
+  // if (url == null) {
+  //   return throwError(
+  //     wrongArgumentType(['Property `url` required for media player']),
+  //   );
+  // }
 
   return getRuntime().map((runtime) {
     final widget = MediaPlayer(
@@ -28,7 +29,8 @@ Eval<Ir> _createMediaPlayer(WidgetProperties props) {
       width: props.width,
       height: props.height,
       fit: props.getValue<BoxFit>('fit') ?? BoxFit.contain,
-      url: url,
+      url: url ?? '',
+      pipeline: pipeline ?? '',
     );
 
     return IrNativeValue(Value(widget));

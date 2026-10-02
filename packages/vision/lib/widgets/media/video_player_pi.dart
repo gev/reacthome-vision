@@ -4,6 +4,7 @@ import 'package:video_player/video_player.dart';
 
 class MediaPlayer extends StatefulWidget {
   final String url;
+  final String pipeline;
 
   final double? width;
   final double? height;
@@ -12,6 +13,7 @@ class MediaPlayer extends StatefulWidget {
   const MediaPlayer({
     super.key,
     required this.url,
+    required this.pipeline,
     this.width,
     this.height,
     required this.fit,
@@ -31,24 +33,10 @@ class _MediaPlayerState extends State<MediaPlayer> {
   }
 
   Future<void> _initializePlayer() async {
-    final pipeline =
-        'urisourcebin name=src uri="${widget.url}" ! '
-        'rtph264depay ! h264parse ! v4l2h264dec ! '
-        'video/x-raw,format=I420 ! '
-        'appsink name="sink" sync=false max-buffers=1 drop=true';
     _controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
-      pipeline,
+      widget.pipeline,
       formatHint: VideoFormat.other,
     );
-    // _controller = VideoPlayerController.networkUrl(
-    //   Uri.parse(widget.url),
-    //   formatHint: VideoFormat.other,
-    //   videoPlayerOptions: VideoPlayerOptions(
-    //     mixWithOthers: true,
-    //     allowBackgroundPlayback: false,
-    //     backBufferDurationMs: 300,
-    //   ),
-    // );
     _controller.addListener(() {
       setState(() {});
     });
