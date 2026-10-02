@@ -24,7 +24,7 @@ class MediaPlayer extends StatefulWidget {
 }
 
 class _MediaPlayerState extends State<MediaPlayer> {
-  late final VideoPlayerController _controller;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
