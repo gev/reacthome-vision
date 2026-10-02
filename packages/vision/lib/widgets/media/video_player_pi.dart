@@ -42,19 +42,14 @@ class _MediaPlayerState extends State<MediaPlayer> {
   }
 
   Future<void> _reinitializePlayer() async {
-    // 1. Помечаем, что плеер временно не готов к отрисовке
     setState(() {
       _isInitialized = false;
     });
-
-    // 2. Освобождаем старый контроллер
     final oldController = _controller;
     if (oldController != null) {
       oldController.removeListener(_onControllerUpdated);
       await oldController.dispose();
     }
-
-    // 3. Создаем новый
     await _initializePlayer();
   }
 
@@ -68,8 +63,8 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
     try {
       debugPrint('[GStreamer] Initializing pipeline: ${widget.pipeline}');
-
       await controller.initialize();
+      debugPrint('[GStreamer] Initialized pipeline');
 
       if (mounted) {
         setState(() {
@@ -126,12 +121,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
       child: ClipRect(
         child: FittedBox(
           fit: widget.fit,
-          child: SizedBox(
-            width: videoSize.width,
-            height: videoSize.height,
-            // Key заставляет Flutter пересоздать плагин под новый контроллер
-            child: VideoPlayer(controller, key: ValueKey(controller)),
-          ),
+          child: SizedBox(width: videoSize.width, height: videoSize.height),
         ),
       ),
     );
