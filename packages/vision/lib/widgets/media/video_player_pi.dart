@@ -24,8 +24,7 @@ class MediaPlayer extends StatefulWidget {
 }
 
 class _MediaPlayerState extends State<MediaPlayer> {
-  VideoPlayerController? _controller;
-  bool _isInitialized = false;
+  late VideoPlayerController _controller;
 
   @override
   void initState() {
@@ -37,48 +36,23 @@ class _MediaPlayerState extends State<MediaPlayer> {
   void didUpdateWidget(MediaPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.url != widget.url || oldWidget.pipeline != widget.pipeline) {
-      _reinitializePlayer();
+      _controller.removeListener(_onControllerUpdated);
+      _controller.dispose();
+      setState(() {
+        _initializePlayer();
+      });
     }
-  }
-
-  Future<void> _reinitializePlayer() async {
-    // 1. Помечаем, что плеер временно не готов к отрисовке
-    setState(() {
-      _isInitialized = false;
-    });
-
-    // 2. Освобождаем старый контроллер
-    final oldController = _controller;
-    if (oldController != null) {
-      oldController.removeListener(_onControllerUpdated);
-      await oldController.dispose();
-    }
-
-    // 3. Создаем новый
-    await _initializePlayer();
   }
 
   Future<void> _initializePlayer() async {
-    final controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
+    _controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
       widget.pipeline,
       formatHint: VideoFormat.other,
     );
 
-    controller.addListener(_onControllerUpdated);
-
-    try {
-      await controller.initialize();
-      if (mounted) {
-        setState(() {
-          _isInitialized = true;
-        });
-        await controller.play();
-      }
-    } catch (e) {
-      // Обработка ошибки инициализации при необходимости
-    }
-
-    _controller = controller;
+    _controller.addListener(_onControllerUpdated);
+    await _controller.initialize();
+    await _controller.play();
   }
 
   void _onControllerUpdated() {
@@ -87,27 +61,14 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
   @override
   void dispose() {
-    _controller?.removeListener(_onControllerUpdated);
-    _controller?.dispose();
+    _controller.removeListener(_onControllerUpdated);
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final controller = _controller;
-
-    // Пока идет переинициализация или нет контроллера — показываем лоадер или пустой блок
-    if (!_isInitialized ||
-        controller == null ||
-        !controller.value.isInitialized) {
-      return SizedBox(
-        width: widget.width,
-        height: widget.height,
-        child: const Center(child: CircularProgressIndicator()),
-      );
-    }
-
-    final videoSize = controller.value.size;
+    final videoSize = _controller.value.size;
 
     return SizedBox(
       width: widget.width,
@@ -118,8 +79,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
           child: SizedBox(
             width: videoSize.width,
             height: videoSize.height,
-            // Key заставляет Flutter пересоздать плагин под новый контроллер
-            child: VideoPlayer(controller, key: ValueKey(controller)),
+            child: VideoPlayer(_controller),
           ),
         ),
       ),
