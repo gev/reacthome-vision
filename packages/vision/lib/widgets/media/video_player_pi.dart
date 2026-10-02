@@ -36,7 +36,6 @@ class _MediaPlayerState extends State<MediaPlayer> {
   void didUpdateWidget(MediaPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.url != widget.url || oldWidget.pipeline != widget.pipeline) {
-      _controller.removeListener(_onControllerUpdated);
       _controller.dispose();
       setState(() {
         _initializePlayer();
@@ -49,19 +48,12 @@ class _MediaPlayerState extends State<MediaPlayer> {
       widget.pipeline,
       formatHint: VideoFormat.other,
     );
-
-    _controller.addListener(_onControllerUpdated);
     await _controller.initialize();
     await _controller.play();
   }
 
-  void _onControllerUpdated() {
-    if (mounted) setState(() {});
-  }
-
   @override
   void dispose() {
-    _controller.removeListener(_onControllerUpdated);
     _controller.dispose();
     super.dispose();
   }
