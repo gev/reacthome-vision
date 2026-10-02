@@ -32,17 +32,36 @@ class _MediaPlayerState extends State<MediaPlayer> {
     _initializePlayer();
   }
 
+  @override
+  void didUpdateWidget(MediaPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.url != widget.url || oldWidget.pipeline != widget.pipeline) {
+      _reinitializePlayer();
+    }
+  }
+
+  Future<void> _reinitializePlayer() async {
+    // 1. Отписываемся и освобождаем старый контроллер
+    _controller.removeListener(_onControllerUpdated);
+    await _controller.dispose();
+
+    // 2. Инициализируем новый
+    _initializePlayer();
+  }
+
   Future<void> _initializePlayer() async {
     _controller = FlutterpiVideoPlayerController.withGstreamerPipeline(
       widget.pipeline,
       formatHint: VideoFormat.other,
     );
-    _controller.addListener(() {
-      setState(() {});
-    });
+    _controller.addListener(_onControllerUpdated);
     await _controller.initialize();
     setState(() {});
     await _controller.play();
+  }
+
+  void _onControllerUpdated() {
+    if (mounted) setState(() {});
   }
 
   @override
