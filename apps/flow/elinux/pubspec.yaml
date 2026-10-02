@@ -33,7 +33,6 @@ dependencies:
     sdk: flutter
 
   flow:
-  
   fvp: ^0.39.0
 
 dev_dependencies:
