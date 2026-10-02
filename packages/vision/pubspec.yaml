@@ -26,8 +26,6 @@ dependencies:
   watcher: ^1.2.1
 
   # flutterpi_gstreamer_video_player: ^0.2.0
-
-  fvp: ^0.39.0
   
   # media_kit: ^1.2.6 
   # media_kit_video: ^2.0.1 

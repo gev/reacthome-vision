@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:fvp/fvp.dart' as fvp;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:vision/glue/discovery_store.dart';
@@ -18,7 +17,6 @@ class App {
       Directory(p.join(_root, 'applet', id))..createSync(recursive: true);
 
   static Future<void> init(DiscoveryStore store) async {
-    fvp.registerWith();
     // WidgetsFlutterBinding.ensureInitialized();
     // FlutterpiVideoPlayer.registerWith();
     // MediaKit.ensureInitialized();
