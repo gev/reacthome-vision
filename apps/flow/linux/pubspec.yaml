@@ -34,6 +34,8 @@ dependencies:
 
   flow:
   flutter_launcher_icons: ^0.14.4
+  
+  fvp: ^0.39.0
 
 dev_dependencies:
   flutter_test:
