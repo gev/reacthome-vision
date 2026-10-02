@@ -68,13 +68,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
     try {
       debugPrint('[GStreamer] Initializing pipeline: ${widget.pipeline}');
-      await controller.initialize().timeout(
-        const Duration(seconds: 5),
-        onTimeout: () {
-          throw Exception('Pipeline initialization timed out!');
-        },
-      );
-
+      await controller.initialize();
       if (mounted) {
         setState(() {
           _isInitialized = true;
@@ -86,7 +80,6 @@ class _MediaPlayerState extends State<MediaPlayer> {
       debugPrint('[GStreamer ERROR] Failed to initialize: $e');
       debugPrint(stack.toString());
 
-      // Если упало, убираем лоадер, чтобы увидеть UI
       if (mounted) {
         setState(() {
           _isInitialized = false;
@@ -110,10 +103,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
   Widget build(BuildContext context) {
     final controller = _controller;
 
-    // Пока идет переинициализация или нет контроллера — показываем лоадер или пустой блок
-    if (!_isInitialized ||
-        controller == null ||
-        !controller.value.isInitialized) {
+    if (!_isInitialized || controller == null) {
       return SizedBox(
         width: widget.width,
         height: widget.height,
