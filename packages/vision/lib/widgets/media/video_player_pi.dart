@@ -68,14 +68,19 @@ class _MediaPlayerState extends State<MediaPlayer> {
 
     try {
       debugPrint('[GStreamer] Initializing pipeline: ${widget.pipeline}');
+
       await controller.initialize();
+
       if (mounted) {
         setState(() {
+          _controller = controller;
           _isInitialized = true;
         });
+
         await controller.play();
+      } else {
+        await controller.dispose();
       }
-      _controller = controller;
     } catch (e, stack) {
       debugPrint('[GStreamer ERROR] Failed to initialize: $e');
       debugPrint(stack.toString());
@@ -83,8 +88,10 @@ class _MediaPlayerState extends State<MediaPlayer> {
       if (mounted) {
         setState(() {
           _isInitialized = false;
+          _controller = null;
         });
       }
+      await controller.dispose();
     }
   }
 
