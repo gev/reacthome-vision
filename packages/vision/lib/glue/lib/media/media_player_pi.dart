@@ -3,7 +3,7 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
-import 'package:vision/widgets/media/video_player_pi.dart';
+import 'package:vision/widgets/media/video_player_fpv.dart';
 
 Ir mediaPlayerPi = IrNativeFunc(
   (Ir props) => switch (props) {
@@ -16,12 +16,12 @@ Ir mediaPlayerPi = IrNativeFunc(
 
 Eval<Ir> _createMediaPlayer(WidgetProperties props) {
   final url = props.getString('url');
-  final pipeline = props.getString('pipeline');
-  // if (url == null) {
-  //   return throwError(
-  //     wrongArgumentType(['Property `url` required for media player']),
-  //   );
-  // }
+
+  if (url == null) {
+    return throwError(
+      wrongArgumentType(['Property `url` required for media player']),
+    );
+  }
 
   return getRuntime().map((runtime) {
     final widget = MediaPlayer(
@@ -29,8 +29,7 @@ Eval<Ir> _createMediaPlayer(WidgetProperties props) {
       width: props.width,
       height: props.height,
       fit: props.getValue<BoxFit>('fit') ?? BoxFit.contain,
-      url: url ?? '',
-      pipeline: pipeline ?? '',
+      url: url,
     );
 
     return IrNativeValue(Value(widget));
