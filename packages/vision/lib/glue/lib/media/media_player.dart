@@ -3,7 +3,7 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
-import 'package:vision/widgets/media/video_player_fpv.dart';
+import 'package:vision/widgets/media/video_player.dart';
 
 Ir mediaPlayer = IrNativeFunc(
   (Ir props) => switch (props) {

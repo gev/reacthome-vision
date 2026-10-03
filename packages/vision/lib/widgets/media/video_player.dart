@@ -1,131 +1,125 @@
-// import 'package:flutter/widgets.dart';
-// import 'package:media_kit/media_kit.dart';
-// import 'package:media_kit_video/media_kit_video.dart';
+import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
-// class MediaPlayer extends StatefulWidget {
-//   final String url;
+class MediaPlayer extends StatefulWidget {
+  final String url;
 
-//   final double? width;
-//   final double? height;
-//   final BoxFit fit;
-//   final Color fill;
-//   final Alignment alignment;
-//   final double? aspectRatio;
-//   final FilterQuality filterQuality;
-//   final Widget Function(VideoState)? controls;
-//   final bool wakelock;
-//   final bool pauseUponEnteringBackgroundMode;
-//   final bool resumeUponEnteringForegroundMode;
-//   final SubtitleViewConfiguration subtitleViewConfiguration;
-//   final Future<void> Function() onEnterFullscreen;
-//   final Future<void> Function() onExitFullscreen;
-//   final FocusNode? focusNode;
+  final double? width;
+  final double? height;
+  final BoxFit fit;
 
-//   const MediaPlayer({
-//     required this.url,
-//     this.width,
-//     this.height,
-//     this.fit = BoxFit.contain,
-//     this.fill = const Color(0xFF000000),
-//     this.alignment = Alignment.center,
-//     this.aspectRatio,
-//     this.filterQuality = FilterQuality.none,
-//     this.controls = NoVideoControls,
-//     this.wakelock = true,
-//     this.pauseUponEnteringBackgroundMode = true,
-//     this.resumeUponEnteringForegroundMode = false,
-//     this.subtitleViewConfiguration = const SubtitleViewConfiguration(),
-//     this.onEnterFullscreen = defaultEnterNativeFullscreen,
-//     this.onExitFullscreen = defaultExitNativeFullscreen,
-//     this.focusNode,
-//     super.key,
-//   });
+  const MediaPlayer({
+    super.key,
+    required this.url,
+    this.width,
+    this.height,
+    required this.fit,
+  });
 
-//   @override
-//   State<MediaPlayer> createState() => MediaPlayerState();
-// }
+  @override
+  State<MediaPlayer> createState() => _MediaPlayerState();
+}
 
-// class MediaPlayerState extends State<MediaPlayer> {
-//   late final Player player;
+class _MediaPlayerState extends State<MediaPlayer> {
+  VideoPlayerController? _controller;
+  bool _isInitialized = false;
 
-//   late final VideoController controller;
+  @override
+  void initState() {
+    super.initState();
+    _initializePlayer();
+  }
 
-//   @override
-//   void initState() {
-//     super.initState();
+  @override
+  void didUpdateWidget(MediaPlayer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.url != widget.url) {
+      _reinitializePlayer();
+    }
+  }
 
-//     player = Player();
+  Future<void> _reinitializePlayer() async {
+    setState(() {
+      _isInitialized = false;
+    });
+    final oldController = _controller;
+    if (oldController != null) {
+      oldController.removeListener(_onControllerUpdated);
+      await oldController.dispose();
+    }
+    await _initializePlayer();
+  }
 
-//     if (player.platform is NativePlayer) {
-//       final native = player.platform as NativePlayer;
-//       // 1. Аппаратное декодирование для Raspberry Pi 4 (v4l2m2m)
-//       native.setProperty('hwdec', 'v4l2m2m-copy');
+  Future<void> _initializePlayer() async {
+    final controller = VideoPlayerController.networkUrl(Uri.parse(widget.url));
 
-//       // 2. Базовый низколатентный профиль mpv
-//       native.setProperty('profile', 'low-latency');
+    controller.addListener(_onControllerUpdated);
 
-//       // 3. Отключаем файловый кэш, но оставляем разумный минимум для демуксера
-//       native.setProperty('cache', 'no');
-//       // ~512КБ достаточно для захвата I-frame без накопления задержки
-//       native.setProperty('demuxer-max-bytes', '524288');
-//       native.setProperty('demuxer-readahead-secs', '0');
+    try {
+      await controller.initialize();
 
-//       // 4. Синхронизация и дроп отстающих кадров
-//       native.setProperty('video-sync', 'desync');
-//       native.setProperty('framedrop', 'vo');
-//     }
+      if (mounted) {
+        setState(() {
+          _controller = controller;
+          _isInitialized = true;
+        });
 
-//     controller = VideoController(player);
+        await controller.play();
+      } else {
+        await controller.dispose();
+      }
+    } catch (e, stack) {
+      debugPrint('[GStreamer ERROR] Failed to initialize: $e');
+      debugPrint(stack.toString());
 
-//     player.open(
-//       Media(
-//         widget.url,
-//         extras: {
-//           // Принудительный TCP транспорт для устранения артефактов UDP
-//           'rtsp_transport': 'tcp',
+      if (mounted) {
+        setState(() {
+          _isInitialized = false;
+          _controller = null;
+        });
+      }
+      await controller.dispose();
+    }
+  }
 
-//           // Флаги FFmpeg для минимизации задержки
-//           'fflags': 'nobuffer+fastseek',
-//           'flags': 'low_delay',
+  void _onControllerUpdated() {
+    if (mounted) setState(() {});
+  }
 
-//           // Уменьшаем время анализа потока при старте (в микросекундах: 500ms / 500KB)
-//           'analyzeduration': '500000',
-//           'probesize': '500000',
+  @override
+  void dispose() {
+    _controller?.removeListener(_onControllerUpdated);
+    _controller?.dispose();
+    super.dispose();
+  }
 
-//           // Таймаут подключения (5 секунд), чтобы не вешать UI при отвале камеры
-//           'stimeout': '5000000',
-//         },
-//       ),
-//     );
-//   }
+  @override
+  Widget build(BuildContext context) {
+    final controller = _controller;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Video(
-//       controller: controller,
-//       width: widget.width,
-//       height: widget.height,
-//       fit: widget.fit,
-//       fill: widget.fill,
-//       alignment: widget.alignment,
-//       aspectRatio: widget.aspectRatio,
-//       filterQuality: widget.filterQuality,
-//       controls: widget.controls,
-//       wakelock: widget.wakelock,
-//       pauseUponEnteringBackgroundMode: widget.pauseUponEnteringBackgroundMode,
-//       resumeUponEnteringForegroundMode: widget.resumeUponEnteringForegroundMode,
-//       subtitleViewConfiguration: widget.subtitleViewConfiguration,
-//       onEnterFullscreen: widget.onEnterFullscreen,
-//       onExitFullscreen: widget.onExitFullscreen,
-//       focusNode: widget.focusNode,
-//     );
-//   }
+    if (!_isInitialized || controller == null) {
+      return SizedBox(
+        width: widget.width,
+        height: widget.height,
+        child: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
-//   @override
-//   void dispose() {
-//     try {
-//       player.dispose();
-//     } catch (_) {}
-//     super.dispose();
-//   }
-// }
+    final videoSize = controller.value.size;
+
+    return SizedBox(
+      width: widget.width,
+      height: widget.height,
+      child: ClipRect(
+        child: FittedBox(
+          fit: widget.fit,
+          child: SizedBox(
+            width: videoSize.width,
+            height: videoSize.height,
+            child: VideoPlayer(controller, key: ValueKey(controller)),
+          ),
+        ),
+      ),
+    );
+  }
+}
