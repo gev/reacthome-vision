@@ -7,7 +7,7 @@ void main() async {
     options: {
       'platforms': ['macos'],
       'lowLatency': 2,
-      'global': {'logLevel': 'All', 'ffmpeg.log': 'verbose'},
+      'global': {'log': 'All', 'ffmpeg.log': 'verbose'},
     },
   );
   runApp(await makeFlowApp());
