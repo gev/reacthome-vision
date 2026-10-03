@@ -5,6 +5,9 @@ import 'package:fvp/fvp.dart' as fvp;
 void main() async {
   fvp.registerWith(
     options: {
+      'platforms': ['linux'],
+      'video.decoders': ['V4L2M2M'],
+      'lowLatency': 2,
       'global': {'logLevel': 'All'},
     },
   );
