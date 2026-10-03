@@ -3,6 +3,11 @@ import 'package:flutter/widgets.dart';
 import 'package:fvp/fvp.dart' as fvp;
 
 void main() async {
-  fvp.registerWith();
+  fvp.registerWith(
+    options: {
+      'lowLatency': 1,
+      'decoders': ['V4L2:m2m', 'FFmpeg'],
+    },
+  );
   runApp(await makeFlowApp());
 }
