@@ -8,7 +8,7 @@ void main() async {
       'platforms': ['linux'],
       'video.decoders': ['V4L2M2M'],
       'lowLatency': 2,
-      'global': {'logLevel': 'All'},
+      'global': {'log': 'All', 'ffmpeg.log': 'verbose'},
     },
   );
   runApp(await makeFlowApp());

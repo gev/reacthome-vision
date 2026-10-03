@@ -3,6 +3,12 @@ import 'package:flutter/widgets.dart';
 import 'package:fvp/fvp.dart' as fvp;
 
 void main() async {
-  fvp.registerWith();
+  fvp.registerWith(
+    options: {
+      'platforms': ['macos'],
+      'lowLatency': 2,
+      'global': {'logLevel': 'All', 'ffmpeg.log': 'verbose'},
+    },
+  );
   runApp(await makeFlowApp());
 }
