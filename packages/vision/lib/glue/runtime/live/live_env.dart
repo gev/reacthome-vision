@@ -18,7 +18,7 @@ import 'package:vision/glue/lib/rate_limit_module.dart';
 import 'package:vision/glue/lib/routes_module.dart';
 import 'package:vision/glue/lib/rpc_module.dart';
 import 'package:vision/glue/lib/store_module.dart';
-import 'package:vision/glue/lib/widgets.dart';
+import 'package:vision/glue/lib/widgets_module.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/runtime/live/lib/live_state_module.dart';
 import 'package:vision/glue/runtime/live/lib/module/live_import.dart';

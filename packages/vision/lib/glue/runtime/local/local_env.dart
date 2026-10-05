@@ -17,7 +17,7 @@ import 'package:vision/glue/lib/navigation_module.dart';
 import 'package:vision/glue/lib/rate_limit_module.dart';
 import 'package:vision/glue/lib/routes_module.dart';
 import 'package:vision/glue/lib/state_module.dart';
-import 'package:vision/glue/lib/widgets.dart';
+import 'package:vision/glue/lib/widgets_module.dart';
 import 'package:vision/glue/runtime/local/lib/local_discovery_module.dart';
 import 'package:vision/glue/runtime/local/lib/module/local_import.dart';
 import 'package:vision/glue/runtime/local/lib/widgets/local_image.dart';

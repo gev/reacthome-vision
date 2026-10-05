@@ -9,6 +9,7 @@ import 'package:vision/glue/lib/widgets/closures.dart';
 import 'package:vision/glue/lib/widgets/current_theme.dart';
 import 'package:vision/glue/lib/widgets/image_color_scheme.dart';
 import 'package:vision/glue/lib/widgets/image_filtered.dart';
+import 'package:vision/glue/lib/widgets/layout.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/logo.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
@@ -42,6 +43,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('right-gate', rightGate),
     ('shutter', shutter),
     ('app', app),
+    ('layout', layout),
     ('locale', locale),
     ('logo', logo),
     ('media-query', mediaQuery),
