@@ -63,7 +63,6 @@ class _MediaPlayerState extends State<MediaPlayer> {
           _controller = controller;
           _isInitialized = true;
         });
-
         await controller.play();
       } else {
         await controller.dispose();

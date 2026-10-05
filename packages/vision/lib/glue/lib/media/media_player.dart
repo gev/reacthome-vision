@@ -29,29 +29,6 @@ Eval<Ir> _createMediaPlayer(WidgetProperties props) {
       width: props.width,
       height: props.height,
       fit: props.getValue<BoxFit>('fit') ?? BoxFit.contain,
-      // fill: props.getColor('fill') ?? Color(0xFF000000),
-      // alignment: props.getValue<Alignment>('alignment') ?? Alignment.center,
-      // aspectRatio: props.getDouble('aspect-ratio'),
-      // filterQuality:
-      //     props.getValue<FilterQuality>('filter-quality') ?? FilterQuality.none,
-      // // controls: props.getCallback<VideoState>('controls')?.call(runtime),
-      // wakelock: props.getBool('wakelock') ?? true,
-      // pauseUponEnteringBackgroundMode:
-      //     props.getValue<bool>('pause-upon-entering-background-mode') ?? true,
-      // resumeUponEnteringForegroundMode:
-      //     props.getValue<bool>('resume-upon-entering-foreground-mode') ?? false,
-      // subtitleViewConfiguration:
-      //     props.getValue<SubtitleViewConfiguration>(
-      //       'subtitle-view-configuration',
-      //     ) ??
-      //     const SubtitleViewConfiguration(),
-      // focusNode: props.getValue<FocusNode>('focus-node'),
-      // onEnterFullscreen: props
-      //     .getVoidCallback('on-enter-fullscreen')
-      //     ?.call(runtime),
-      // onExitFullscreen: props
-      //     .getVoidCallback('on-exit-fullscreen')
-      //     ?.call(runtime),
     );
 
     return IrNativeValue(Value(widget));
