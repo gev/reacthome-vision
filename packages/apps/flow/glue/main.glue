@@ -45,8 +45,9 @@
 
     (def (main args)
         (app
-            :seed-color "#007bff"
-            :dynamic-scheme-variant dynamic-scheme-variant.content
+            :seed-color (?? args.seed-color "#007bff")
+            :dynamic-scheme-variant (?? args.dynamic-scheme-variant dynamic-scheme-variant.content)
+            :visual-density args.visual-density
             :routes (
                 :index homes-route
                 :home home-route
