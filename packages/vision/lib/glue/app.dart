@@ -8,11 +8,13 @@ class App {
   final Key? navigatorKey;
   final Color? seedColor;
   final DynamicSchemeVariant? dynamicSchemeVariant;
+  final VisualDensity? visualDensity;
   final Routes routes;
   const App({
     this.navigatorKey,
     this.seedColor,
     this.dynamicSchemeVariant,
+    this.visualDensity,
     required this.routes,
   });
 
