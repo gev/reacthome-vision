@@ -7,6 +7,9 @@ import 'package:vision/widgets/vision_app.dart';
 Future<Widget> makeDynamicLocalApp({
   required String title,
   required String codePath,
+  Color? seedColor,
+  DynamicSchemeVariant? dynamicSchemeVariant,
+  VisualDensity? visualDensity,
 }) async {
   final discoveryStore = DiscoveryStore();
   await App.init(discoveryStore);
@@ -14,6 +17,11 @@ Future<Widget> makeDynamicLocalApp({
     path: App.appRoot,
     codePath: codePath,
     discoveryStore: discoveryStore,
-    child: VisionApp(title: title),
+    child: VisionApp(
+      title: title,
+      seedColor: seedColor,
+      dynamicSchemeVariant: dynamicSchemeVariant,
+      visualDensity: visualDensity,
+    ),
   );
 }
