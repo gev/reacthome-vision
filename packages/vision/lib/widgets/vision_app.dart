@@ -6,15 +6,14 @@ import 'package:vision/widgets/main_entry_point.dart';
 
 class VisionApp extends StatelessWidget {
   final String title;
-  final Ir args;
 
-  const VisionApp({required this.title, required this.args, super.key});
+  const VisionApp({required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
     return GlueApp(
       title: title,
-      app: mainEntryPoint(args),
+      app: mainEntryPoint(IrVoid()),
       splash: SplashScreen(title: title, route: defaultRoute),
     );
   }
