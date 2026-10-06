@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:vision/glue/app.dart';
 
-ThemeData? makeTheme(App app, Brightness brightness) {
-  final seedColor = app.seedColor;
+ThemeData? makeTheme({
+  required App app,
+  required Brightness brightness,
+  VisualDensity? visualDensity,
+}) {
   return ThemeData(
     colorScheme: .fromSeed(
       brightness: brightness,
-      seedColor: seedColor ?? Color(0xff6200ee),
+      seedColor: app.seedColor ?? Color(0xff6200ee),
       dynamicSchemeVariant:
           app.dynamicSchemeVariant ?? DynamicSchemeVariant.tonalSpot,
     ),
-    visualDensity: app.visualDensity,
+    visualDensity: app.visualDensity ?? visualDensity,
   );
 }

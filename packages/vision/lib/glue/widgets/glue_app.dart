@@ -48,8 +48,8 @@ class _GlueAppState extends GlueAppBaseState<GlueApp>
       title: widget.title,
       key: ValueKey((_currentLocale, cachedApp)),
       themeMode: ThemeMode.system,
-      theme: makeTheme(cachedApp, Brightness.light),
-      darkTheme: makeTheme(cachedApp, Brightness.dark),
+      theme: makeTheme(app: cachedApp, brightness: .light),
+      darkTheme: makeTheme(app: cachedApp, brightness: .dark),
       locale: _currentLocale,
       supportedLocales: WidgetsBinding.instance.platformDispatcher.locales,
       localizationsDelegates: const [

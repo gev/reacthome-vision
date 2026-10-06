@@ -20,7 +20,11 @@ class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final themeData = makeTheme(cachedApp, theme.brightness);
+    final themeData = makeTheme(
+      app: cachedApp,
+      brightness: theme.brightness,
+      visualDensity: theme.visualDensity,
+    );
     return PopScope(
       canPop: false,
       child: Theme(
