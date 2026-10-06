@@ -16,6 +16,7 @@ Eval<Ir> appImpl(Ir ir) {
       final dynamicSchemeVariant = to<DynamicSchemeVariant>(
         properties['dynamic-scheme-variant'],
       );
+      final visualDensity = to<VisualDensity>(properties['visual-density']);
       switch (properties['routes']) {
         case IrObject(properties: final routes):
           return Eval.pure(
@@ -25,6 +26,7 @@ Eval<Ir> appImpl(Ir ir) {
                   navigatorKey: navigatorKey,
                   seedColor: seedColor,
                   dynamicSchemeVariant: dynamicSchemeVariant,
+                  visualDensity: visualDensity,
                   routes: routes.unlock,
                 ),
               ),
