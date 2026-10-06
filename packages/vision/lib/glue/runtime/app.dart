@@ -17,10 +17,6 @@ class App {
       Directory(p.join(_root, 'applet', id))..createSync(recursive: true);
 
   static Future<void> init(DiscoveryStore store) async {
-    // WidgetsFlutterBinding.ensureInitialized();
-    // FlutterpiVideoPlayer.registerWith();
-    // MediaKit.ensureInitialized();
-    // VideoPlayerMediaKit.ensureInitialized(macOS: true);
     final dir = await getApplicationSupportDirectory();
     runDiscovery(store);
     _root = dir.path;
