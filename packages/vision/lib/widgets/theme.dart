@@ -10,5 +10,6 @@ ThemeData? makeTheme(App app, Brightness brightness) {
       dynamicSchemeVariant:
           app.dynamicSchemeVariant ?? DynamicSchemeVariant.tonalSpot,
     ),
+    visualDensity: app.visualDensity,
   );
 }
