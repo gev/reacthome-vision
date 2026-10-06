@@ -20,7 +20,6 @@ Eval<Ir> _createTheme(WidgetProperties properties) {
     return throwError(wrongArgumentType(['`color-scheme` property required']));
   }
   final theme = ThemeData.from(
-    useMaterial3: true,
     colorScheme: colorScheme,
     textTheme: properties.getValue('text-theme'),
   );
