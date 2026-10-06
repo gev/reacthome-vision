@@ -24,12 +24,13 @@ class App {
     return other is App &&
         navigatorKey == other.navigatorKey &&
         seedColor == other.seedColor &&
-        dynamicSchemeVariant == other.dynamicSchemeVariant;
+        dynamicSchemeVariant == other.dynamicSchemeVariant &&
+        visualDensity == other.visualDensity;
   }
 
   @override
   int get hashCode =>
-      Object.hash(navigatorKey, seedColor, dynamicSchemeVariant);
+      Object.hash(navigatorKey, seedColor, dynamicSchemeVariant, visualDensity);
 }
 
 App defaultApp = App(routes: {});
