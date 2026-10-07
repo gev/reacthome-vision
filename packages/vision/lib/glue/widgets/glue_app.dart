@@ -57,6 +57,9 @@ class _GlueAppState extends GlueAppBaseState<GlueApp>
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        scrollbars: false,
+      ),
       home: widget.splash,
       onGenerateRoute: generateRoute,
     );
