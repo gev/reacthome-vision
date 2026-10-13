@@ -12,6 +12,7 @@ import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/layout.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/logo.dart';
+import 'package:vision/glue/lib/widgets/media/media_player.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/seed_color_scheme.dart';
@@ -31,10 +32,13 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('blur', blur),
     ('placeholder', placeholder),
     ('load-image', image),
+
     ('canvas', canvas),
+
     ('horizontal-slider', horizontalSlider),
     ('vertical-slider', verticalSlider),
     ('circular-slider', circularSlider),
+
     ('double-curtain', doubleCurtain),
     ('double-gate', doubleGate),
     ('left-curtain', leftCurtain),
@@ -42,6 +46,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('right-curtain', rightCurtain),
     ('right-gate', rightGate),
     ('shutter', shutter),
+
     ('app', app),
     ('layout', layout),
     ('locale', locale),
@@ -58,5 +63,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('image-color-scheme', imageColorScheme),
     ('seed-color-scheme', seedColorScheme),
     ('text-field', textField),
+
+    ('video-player', videoPlayer),
   ]);
 }
