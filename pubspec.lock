@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: f773153144ce0456ae77d96bd247f2efd58efe4f3e5ad42616d0385c031aea11
+      sha256: "0d58d1fa1fddf6588251ccf2819f3fb3b6d0452c1b2813ac7413a05592bfbefe"
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.1"
+    version: "4.5.2"
   args:
     dependency: transitive
     description:
@@ -210,7 +210,7 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: "3a56fa41776187bab6e7b66083d65d9a70d616f7"
+      resolved-ref: "390cb75131b31e72b4e744a9800b8a46a354dd6b"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -219,7 +219,7 @@ packages:
     description:
       path: "flutter/glue_flutter"
       ref: HEAD
-      resolved-ref: "3a56fa41776187bab6e7b66083d65d9a70d616f7"
+      resolved-ref: "390cb75131b31e72b4e744a9800b8a46a354dd6b"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -536,10 +536,10 @@ packages:
     dependency: transitive
     description:
       name: sqlite3
-      sha256: cc62d72dbf16bb1f6ae8954b238016de1473e53df060ed0c332eed0a41dd1848
+      sha256: "144132790ec1947fad9f3ddceffd0af2ab80a1f0d1e81a4d094ee6707ec3df0b"
       url: "https://pub.dev"
     source: hosted
-    version: "3.7.0"
+    version: "3.7.1"
   stack_trace:
     dependency: transitive
     description:
