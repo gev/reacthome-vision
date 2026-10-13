@@ -22,6 +22,8 @@ import 'package:vision/glue/lib/widgets/slider/vertical_slider.dart';
 import 'package:vision/glue/lib/widgets/symbol.dart';
 import 'package:vision/glue/lib/widgets/text_field.dart';
 import 'package:vision/glue/lib/widgets/theme.dart';
+import 'package:vision/glue/lib/widgets/weather/weather_background.dart';
+import 'package:vision/glue/lib/widgets/weather/weather_type.dart';
 import 'package:vision/glue/lib/widgets/with_seed_color.dart';
 import 'package:vision/glue/lib/widgets/with_theme.dart';
 
@@ -69,5 +71,8 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('backdrop', backdrop),
     ('blur', blur),
     ('placeholder', placeholder),
+
+    ('weather-type', weatherType),
+    ('weather-background', weatherBackground),
   ]);
 }
