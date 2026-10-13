@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart' as vp;
 import 'package:video_player/video_player.dart';
 
-class MediaPlayer extends StatefulWidget {
+class VideoPlayer extends StatefulWidget {
   final String url;
 
   final double? width;
   final double? height;
   final BoxFit fit;
 
-  const MediaPlayer({
+  const VideoPlayer({
     super.key,
     required this.url,
     this.width,
@@ -17,10 +18,10 @@ class MediaPlayer extends StatefulWidget {
   });
 
   @override
-  State<MediaPlayer> createState() => _MediaPlayerState();
+  State<VideoPlayer> createState() => _VideoPlayerState();
 }
 
-class _MediaPlayerState extends State<MediaPlayer> {
+class _VideoPlayerState extends State<VideoPlayer> {
   VideoPlayerController? _controller;
   bool _isInitialized = false;
 
@@ -31,7 +32,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
   }
 
   @override
-  void didUpdateWidget(MediaPlayer oldWidget) {
+  void didUpdateWidget(VideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.url != widget.url) {
       _reinitializePlayer();
@@ -115,7 +116,7 @@ class _MediaPlayerState extends State<MediaPlayer> {
           child: SizedBox(
             width: videoSize.width,
             height: videoSize.height,
-            child: VideoPlayer(controller, key: ValueKey(controller)),
+            child: vp.VideoPlayer(controller, key: ValueKey(controller)),
           ),
         ),
       ),

@@ -23,7 +23,7 @@ Eval<Ir> _createVideoPlayer(WidgetProperties props) {
   }
 
   return getRuntime().map((runtime) {
-    final widget = MediaPlayer(
+    final widget = VideoPlayer(
       key: props.key,
       url: url,
       width: props.width,

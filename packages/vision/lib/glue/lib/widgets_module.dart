@@ -12,7 +12,7 @@ import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/layout.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/logo.dart';
-import 'package:vision/glue/lib/widgets/media/media_player.dart';
+import 'package:vision/glue/lib/widgets/media/video_player.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/seed_color_scheme.dart';
