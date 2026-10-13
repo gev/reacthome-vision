@@ -2,13 +2,10 @@ import 'package:glue/ir.dart';
 import 'package:glue/module.dart';
 import 'package:vision/glue/lib/widgets/activity.dart';
 import 'package:vision/glue/lib/widgets/app.dart';
-import 'package:vision/glue/lib/widgets/back_drop.dart';
-import 'package:vision/glue/lib/widgets/blur.dart';
 import 'package:vision/glue/lib/widgets/canvas.dart';
 import 'package:vision/glue/lib/widgets/closures.dart';
 import 'package:vision/glue/lib/widgets/current_theme.dart';
 import 'package:vision/glue/lib/widgets/image_color_scheme.dart';
-import 'package:vision/glue/lib/widgets/image_filtered.dart';
 import 'package:vision/glue/lib/widgets/layout.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/logo.dart';
@@ -50,8 +47,6 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('sharp-symbol', sharpSymbol),
     ('rounded-symbol', roundedSymbol),
 
-    ('image-filtered', imageFiltered),
-
     ('media-query', mediaQuery),
 
     ('current-theme', currentTheme),
@@ -68,8 +63,6 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('canvas', canvas),
     ('video-player', videoPlayer),
 
-    ('backdrop', backdrop),
-    ('blur', blur),
     ('placeholder', placeholder),
 
     ('weather-type', weatherType),
