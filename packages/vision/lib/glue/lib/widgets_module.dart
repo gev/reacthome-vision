@@ -27,14 +27,6 @@ import 'package:vision/glue/lib/widgets/with_theme.dart';
 
 ModuleInfo widgetsModule({required Ir image}) {
   return nativeModule('ffi.vision.widgets', [
-    ('activity', activity),
-    ('backdrop', backdrop),
-    ('blur', blur),
-    ('placeholder', placeholder),
-    ('load-image', image),
-
-    ('canvas', canvas),
-
     ('horizontal-slider', horizontalSlider),
     ('vertical-slider', verticalSlider),
     ('circular-slider', circularSlider),
@@ -51,19 +43,31 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('layout', layout),
     ('locale', locale),
     ('logo', logo),
-    ('media-query', mediaQuery),
+
     ('symbol', symbol),
     ('sharp-symbol', sharpSymbol),
     ('rounded-symbol', roundedSymbol),
+
     ('image-filtered', imageFiltered),
+
+    ('media-query', mediaQuery),
+
     ('current-theme', currentTheme),
     ('with-seed-color', withSeedColor),
     ('with-theme', withTheme),
     ('theme', theme),
     ('image-color-scheme', imageColorScheme),
     ('seed-color-scheme', seedColorScheme),
-    ('text-field', textField),
 
+    ('load-image', image),
+
+    ('activity', activity),
+    ('text-field', textField),
+    ('canvas', canvas),
     ('video-player', videoPlayer),
+
+    ('backdrop', backdrop),
+    ('blur', blur),
+    ('placeholder', placeholder),
   ]);
 }
