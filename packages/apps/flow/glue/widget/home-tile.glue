@@ -22,7 +22,7 @@
     )
 
     (def (tile-icon name)
-        (icon :icon (symbol name))
+        (icon :icon name)
     )
 
     (def (home-tile props)
