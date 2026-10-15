@@ -30,7 +30,7 @@
             :on-long-press (go :route 'edit-home :home home :tag home.id)
             :title home.name
             :subtitle home.id
-            :trailing "arrow_forward_ios"
+            :trailing (symbol 'arrow_forward_ios)
         )
     )
 

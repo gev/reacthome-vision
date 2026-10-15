@@ -46,7 +46,7 @@
             :on-tap (add-discovered home)
             :title (title home)
             :subtitle home.id
-            :trailing "add_2"
+            :trailing (symbol 'add_2)
         )
     )
 
