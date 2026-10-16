@@ -193,10 +193,10 @@ packages:
     dependency: transitive
     description:
       name: fvp
-      sha256: "2addef2e6faf46a589c529de8a81b74cef927c3343eb75aeab5e6a4715c97e8d"
+      sha256: "2f4607e07748856dbe268a3b968efe973c27f85ea4e7621c4209783a6dad26a0"
       url: "https://pub.dev"
     source: hosted
-    version: "0.39.0"
+    version: "0.39.1"
   glob:
     dependency: transitive
     description:
@@ -210,7 +210,7 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: "390cb75131b31e72b4e744a9800b8a46a354dd6b"
+      resolved-ref: "5430cbf65ed077b5d784f3476a76fe545525030b"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -219,7 +219,7 @@ packages:
     description:
       path: "flutter/glue_flutter"
       ref: HEAD
-      resolved-ref: "390cb75131b31e72b4e744a9800b8a46a354dd6b"
+      resolved-ref: "5430cbf65ed077b5d784f3476a76fe545525030b"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -616,10 +616,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: "670a59098f5c4c9f8eab25edba4f72e1bc8172b428b012339ac892eb31c68f2b"
+      sha256: a8e2c19796144da2f81bcc96dad1bb19c4677b561c452081b97ee737b9faed65
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.1"
+    version: "1.3.2"
   vector_math:
     dependency: transitive
     description:
@@ -672,10 +672,10 @@ packages:
     dependency: transitive
     description:
       name: vm_service
-      sha256: "5f37239c4851efcef929cea7824e76df7f2f0970aef85d66bbc430afa40e72f0"
+      sha256: "89b11d62e1040ee681af3b4f1c97a803ecbf010c6e8b9c5896ee5b08c3bf7b78"
       url: "https://pub.dev"
     source: hosted
-    version: "15.3.0"
+    version: "15.4.0"
   watcher:
     dependency: transitive
     description:
