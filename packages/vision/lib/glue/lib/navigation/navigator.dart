@@ -15,7 +15,13 @@ Eval<Ir> navigatorImpl(Ir ir) {
         case IrObject(properties: final routes):
           return Eval.pure(
             IrNativeValue(
-              Value(GlueNavigator(key: props.key, routes: routes.unlock)),
+              Value(
+                GlueNavigator(
+                  key: props.key,
+                  navigatorKey: props.getKey('navigator-key'),
+                  routes: routes.unlock,
+                ),
+              ),
             ),
           );
         default:
