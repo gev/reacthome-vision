@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 abstract final class LogTag {
   static const info = "info";
   static const debug = "debug";
@@ -7,9 +9,15 @@ abstract final class LogTag {
 
 abstract class Logger {
   void info<M>(M message) => log(message, tag: LogTag.info);
-  void debug<M>(M message) => log(message, tag: LogTag.debug);
+  void debug<M>(M message) => _log(message, tag: LogTag.debug);
   void warning<M>(M message) => log(message, tag: LogTag.warning);
-  void error<M>(M message) => log(message, tag: LogTag.error);
+  void error<M>(M message) => _log(message, tag: LogTag.error);
+
+  void _log<M>(M message, {required String tag}) {
+    if (kDebugMode) {
+      log(message, tag: tag);
+    }
+  }
 
   void log<M>(M message, {required String tag});
 }
