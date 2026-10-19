@@ -6,14 +6,7 @@ import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/local/dynamic/dynamic_local_applet.dart';
 
 Ir localApplet(DiscoveryStore store) => IrNativeFunc(
-  (Ir props) => switch (props) {
-    IrObject(:final properties) => _createLocalApplet(
-      store,
-      props,
-      WidgetProperties(properties.unlock),
-    ),
-    _ => throwError(wrongArgumentType(['Properties `Object` required'])),
-  },
+  (Ir props) => _createLocalApplet(store, props, WidgetProperties(props)),
 );
 
 Eval<Ir> _createLocalApplet(

@@ -5,14 +5,7 @@ import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/lib/widgets/current_theme.dart';
 
-final theme = IrNativeFunc(
-  (props) => switch (props) {
-    IrObject(:final properties) => _createTheme(
-      WidgetProperties(properties.unlock),
-    ),
-    _ => Eval.pure(themeData(ThemeData(useMaterial3: true))),
-  },
-);
+final theme = IrNativeFunc((props) => _createTheme(WidgetProperties(props)));
 
 Eval<Ir> _createTheme(WidgetProperties properties) {
   final colorScheme = properties.getValue<ColorScheme>('color-scheme');

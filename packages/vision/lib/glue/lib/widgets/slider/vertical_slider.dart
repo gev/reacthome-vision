@@ -1,4 +1,3 @@
-import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
@@ -8,12 +7,8 @@ import 'package:vision/widgets/slider/vertical_slider.dart';
 final Ir verticalSlider = IrNativeFunc(verticalSliderImpl);
 
 /// VerticalSlider implementation
-Eval<Ir> verticalSliderImpl(Ir props) => switch (props) {
-  IrObject(:final properties) => _createVerticalSlider(
-    WidgetProperties(properties.unlock),
-  ),
-  _ => throwError(wrongArgumentType(['object'])),
-};
+Eval<Ir> verticalSliderImpl(Ir props) =>
+    _createVerticalSlider(WidgetProperties(props));
 
 /// Create VerticalSlider widget from properties
 Eval<Ir> _createVerticalSlider(WidgetProperties properties) {

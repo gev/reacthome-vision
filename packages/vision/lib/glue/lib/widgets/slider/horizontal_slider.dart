@@ -1,4 +1,3 @@
-import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
@@ -8,12 +7,8 @@ import 'package:vision/widgets/slider/horizontal_slider.dart';
 final Ir horizontalSlider = IrNativeFunc(horizontalSliderImpl);
 
 /// HorizontalSlider implementation
-Eval<Ir> horizontalSliderImpl(Ir props) => switch (props) {
-  IrObject(:final properties) => _createHorizontalSlider(
-    WidgetProperties(properties.unlock),
-  ),
-  _ => throwError(wrongArgumentType(['object'])),
-};
+Eval<Ir> horizontalSliderImpl(Ir props) =>
+    _createHorizontalSlider(WidgetProperties(props));
 
 /// Create HorizontalSlider widget from properties
 Eval<Ir> _createHorizontalSlider(WidgetProperties properties) {

@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
@@ -11,12 +10,8 @@ import 'package:vision/widgets/slider/circular_slider.dart';
 final Ir circularSlider = IrNativeFunc(circularSliderImpl);
 
 /// CircularSlider implementation
-Eval<Ir> circularSliderImpl(Ir props) => switch (props) {
-  IrObject(:final properties) => _createCircularSlider(
-    WidgetProperties(properties.unlock),
-  ),
-  _ => throwError(wrongArgumentType(['object'])),
-};
+Eval<Ir> circularSliderImpl(Ir props) =>
+    _createCircularSlider(WidgetProperties(props));
 
 /// Create CircularSlider widget from properties
 Eval<Ir> _createCircularSlider(WidgetProperties properties) {

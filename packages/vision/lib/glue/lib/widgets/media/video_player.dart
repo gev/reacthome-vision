@@ -6,12 +6,7 @@ import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/widgets/media/video_player.dart';
 
 Ir videoPlayer = IrNativeFunc(
-  (Ir props) => switch (props) {
-    IrObject(:final properties) => _createVideoPlayer(
-      WidgetProperties(properties.unlock),
-    ),
-    _ => throwError(wrongArgumentType(['Properties `Object` required'])),
-  },
+  (Ir props) => _createVideoPlayer(WidgetProperties(props)),
 );
 
 Eval<Ir> _createVideoPlayer(WidgetProperties props) {

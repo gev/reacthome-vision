@@ -10,12 +10,7 @@ import 'package:glue_flutter/glue_flutter.dart';
 
 final Ir textField = IrNativeFunc(textFieldImpl);
 
-Eval<Ir> textFieldImpl(Ir props) => switch (props) {
-  IrObject(:final properties) => _createTextField(
-    WidgetProperties(properties.unlock),
-  ),
-  _ => _createTextField(WidgetProperties.empty()),
-};
+Eval<Ir> textFieldImpl(Ir props) => _createTextField(WidgetProperties(props));
 
 Eval<Ir> _createTextField(WidgetProperties properties) {
   return getRuntime().map((runtime) {

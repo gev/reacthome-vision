@@ -1,4 +1,3 @@
-import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
@@ -55,15 +54,12 @@ Eval<Ir> Function(Ir props) curtainImpl({
   required double defaultHeight,
   required double defaultWidth,
 }) =>
-    (Ir props) => switch (props) {
-      IrObject(:final properties) => _createCurtain(
-        curtain: curtain,
-        defaultHeight: defaultHeight,
-        defaultWidth: defaultWidth,
-        properties: WidgetProperties(properties.unlock),
-      ),
-      _ => throwError(wrongArgumentType(['object'])),
-    };
+    (Ir props) => _createCurtain(
+      curtain: curtain,
+      defaultHeight: defaultHeight,
+      defaultWidth: defaultWidth,
+      properties: WidgetProperties(props),
+    );
 
 /// Create curtain widget from properties
 Eval<Ir> _createCurtain({

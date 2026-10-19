@@ -7,14 +7,7 @@ import 'package:vision/glue/runtime/live/direct/direct_live_applet.dart';
 import 'package:vision/glue/runtime/live/hybrid/hybrid_live_applet.dart';
 
 Ir liveApplet(DiscoveryStore store) => IrNativeFunc(
-  (Ir props) => switch (props) {
-    IrObject(:final properties) => _createLiveApplet(
-      store,
-      props,
-      WidgetProperties(properties.unlock),
-    ),
-    _ => throwError(wrongArgumentType(['Properties `Object` required'])),
-  },
+  (Ir props) => _createLiveApplet(store, props, WidgetProperties(props)),
 );
 
 Eval<Ir> _createLiveApplet(
