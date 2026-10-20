@@ -12,11 +12,19 @@ Eval<Ir> routeImpl(List<Ir> ir) {
     case [IrObject(:final properties)]:
       final screen = properties['screen'];
       if (screen == null) {
-        return throwError(wrongArgumentType(['`screen  propery required']));
+        return throwError(wrongArgumentType(['`screen  property required']));
       }
       return getEnv().bind((env) {
         return Eval.pure(
-          IrNativeValue(Value(makeRouteBuilder(screen: screen, env: env))),
+          IrNativeValue(
+            Value(
+              (settings) => makeRouteBuilder(
+                screen: screen,
+                env: env,
+                settings: settings,
+              ),
+            ),
+          ),
         );
       });
     default:
@@ -24,9 +32,13 @@ Eval<Ir> routeImpl(List<Ir> ir) {
   }
 }
 
-Route<Ir> makeRouteBuilder({required Ir screen, required Env env}) =>
-    MaterialPageRoute(
-      builder: (_) {
-        return GlueWidget(expression: screen, env: env);
-      },
-    );
+Route<Ir> makeRouteBuilder({
+  required Ir screen,
+  required Env env,
+  required RouteSettings settings,
+}) => MaterialPageRoute(
+  settings: settings,
+  builder: (_) {
+    return GlueWidget(expression: screen, env: env);
+  },
+);

@@ -31,7 +31,7 @@ Eval<Ir> overlayRouteImpl(List<Ir> ir) => getRuntime().bind((runtime) {
             return Eval.pure(
               IrNativeValue(
                 Value(
-                  makeOverlayRouteBuilder(
+                  (settings) => makeOverlayRouteBuilder(
                     key: GlobalKey(),
                     tag: tag,
                     screen: screen,
@@ -41,13 +41,14 @@ Eval<Ir> overlayRouteImpl(List<Ir> ir) => getRuntime().bind((runtime) {
                       milliseconds: toInt(properties['duration']) ?? 300,
                     ),
                     env: runtime.env,
+                    settings: settings,
                   ),
                 ),
               ),
             );
           default:
             return throwError(
-              wrongArgumentType(['Properties` oject required']),
+              wrongArgumentType(['Properties` object required']),
             );
         }
       });
@@ -65,7 +66,9 @@ Route<Ir> makeOverlayRouteBuilder({
   required double elevation,
   required Duration duration,
   required Env env,
+  required RouteSettings settings,
 }) => PageRouteBuilder(
+  settings: settings,
   opaque: false,
   pageBuilder: (context, animation, secondaryAnimation) {
     var isClosing = false;
