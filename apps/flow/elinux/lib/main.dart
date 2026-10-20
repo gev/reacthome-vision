@@ -6,7 +6,7 @@ void main() async {
   fvp.registerWith(
     options: {
       'platforms': ['linux'],
-      'video.decoders': ['V4L2M2M'],
+      'video.decoders': ['V4L2M2M', 'rockchip'],
       'lowLatency': 2,
       'global': {'log': 'All', 'ffmpeg.log': 'verbose'},
     },
