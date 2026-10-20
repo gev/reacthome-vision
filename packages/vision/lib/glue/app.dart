@@ -40,7 +40,7 @@ typedef Routes = Map<String, Ir>;
 typedef RouteEntry = ({
   String route,
   NavigatorState? targetNavigator,
-  IrObject args,
+  IrObject? args,
 });
 
 Eval<RouteEntry> evalRoute(Ir ir) {
@@ -62,7 +62,7 @@ Eval<RouteEntry> evalRoute(Ir ir) {
       return Eval.pure((
         route: value,
         targetNavigator: extractFromGlobalKey(targetNavigator),
-        args: IrObject(args),
+        args: args.length == 0 ? null : IrObject(args),
       ));
     }
   }
