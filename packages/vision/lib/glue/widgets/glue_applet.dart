@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/widgets/glue_app_base_state.dart';
+import 'package:vision/navigation/multi_navigator_tracker.dart';
 import 'package:vision/widgets/theme.dart';
 
 class GlueApplet extends StatefulWidget {
@@ -32,7 +33,7 @@ class _GlueAppletState extends GlueAppBaseState<GlueApplet> {
         child: Material(
           child: Navigator(
             key: cachedApp.navigatorKey,
-            observers: [HeroController()],
+            observers: [HeroController(), MultiNavigatorTracker()],
             onGenerateRoute: (settings) {
               if (settings.name == '/') {
                 return MaterialPageRoute(

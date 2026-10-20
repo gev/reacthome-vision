@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/widgets/glue_app_base_state.dart';
+import 'package:vision/navigation/multi_navigator_tracker.dart';
 import 'package:vision/widgets/theme.dart';
 
 class GlueApp extends StatefulWidget {
@@ -61,6 +62,7 @@ class _GlueAppState extends GlueAppBaseState<GlueApp>
         scrollbars: false,
       ),
       home: widget.splash,
+      navigatorObservers: [MultiNavigatorTracker()],
       onGenerateRoute: generateRoute,
     );
   }

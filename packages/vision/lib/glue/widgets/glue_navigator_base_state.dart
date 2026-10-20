@@ -45,12 +45,12 @@ abstract class GlueNavigatorBaseState<T extends StatefulWidget>
         scope.log.error('Route `${settings.name}` internal error $err');
         return null;
       case Right(:final value):
-        final route = to<Route<Ir>>(value.$1);
+        final route = to<Route<Ir> Function(RouteSettings)>(value.$1);
         if (route == null) {
           scope.log.error('Route `${settings.name}` not found');
           return null;
         }
-        return route;
+        return route(settings);
     }
   }
 }

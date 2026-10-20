@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vision/glue/app.dart';
 import 'package:vision/glue/widgets/glue_navigator_base_state.dart';
+import 'package:vision/navigation/multi_navigator_tracker.dart';
 import 'package:vision/widgets/main_entry_point.dart';
 
 class GlueNavigator extends StatefulWidget {
@@ -24,7 +25,7 @@ class _GlueNavigatorState extends GlueNavigatorBaseState<GlueNavigator> {
       child: Navigator(
         key: widget.navigatorKey,
         initialRoute: defaultRoute,
-        observers: [HeroController()],
+        observers: [HeroController(), MultiNavigatorTracker()],
         onGenerateRoute: generateRoute,
       ),
     );
