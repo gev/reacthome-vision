@@ -5,7 +5,8 @@ After=network.target
 Type=simple
 User=pi
 WorkingDirectory=/home/pi/reacthome-flow
-ExecStart=/home/pi/reacthome-flow/flow -s 2 -b .
+ExecStartPre=/bin/sh -c 'until [ -e /sys/class/drm/card0-HDMI-A-2/status ] && [ "$(cat /sys/class/drm/card0-HDMI-A-2/status)" = "connected" ]; do sleep 1; done'
+ExecStart=/home/pi/reacthome-flow/flow -s 2 -v -b .
 Restart=always
 RestartSec=1
 

@@ -6,7 +6,7 @@ Type=simple
 User=pi
 WorkingDirectory=/home/pi/reacthome-flow
 Environment="FLUTTER_DRM_DEVICE=/dev/dri/card1"
-ExecStart=/home/pi/reacthome-flow/flow -s 1.333 -b .
+ExecStart=/home/pi/reacthome-flow/flow -s 1.333 -v -b .
 Restart=always
 RestartSec=1
 
