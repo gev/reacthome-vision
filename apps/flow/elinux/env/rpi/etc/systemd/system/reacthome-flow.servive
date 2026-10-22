@@ -7,7 +7,7 @@ User=pi
 WorkingDirectory=/home/pi/reacthome-flow
 Environment="FLUTTER_DRM_DEVICE=/dev/dri/card1"
 ExecStart=/home/pi/reacthome-flow/flow -s 1.333 -b .
-Restart=on-failure
+Restart=always
 RestartSec=1
 
 [Install]
