@@ -9,18 +9,18 @@ import 'package:vision/glue/lib/navigation/find_navigator.dart';
 Ir pushReplacement(bool rootNavigator) => IrNativeFunc((Ir ir) {
   return getRuntime().bind((runtime) {
     final context = getFromContext<BuildContext>(runtime.context);
-    if (context != null) {
-      return evalRoute(ir).bind((entry) {
-        final navigator = findNavigator(
-          context,
-          rootNavigator,
-          entry.targetNavigator,
-        );
+    return evalRoute(ir).bind((entry) {
+      final navigator = findNavigator(
+        context,
+        rootNavigator,
+        entry.targetNavigator,
+      );
+      if (navigator != null) {
         return routeResult(
           navigator.pushReplacementNamed(entry.route, arguments: entry.args),
         );
-      });
-    }
-    return Eval.pure(IrVoid());
+      }
+      return Eval.pure(IrVoid());
+    });
   });
 });

@@ -8,17 +8,14 @@ import 'package:vision/glue/lib/navigation/find_navigator.dart';
 Ir pop(bool rootNavigator) => IrNativeFunc((Ir ir) {
   return getRuntime().bind((runtime) {
     final context = getFromContext<BuildContext>(runtime.context);
-    if (context != null) {
-      final targetNavigator = switch (ir) {
-        IrObject(:final properties) => extractFromGlobalKey(
-          properties['target'],
-        ),
-        _ => null,
-      };
-      final navigator = findNavigator(context, rootNavigator, targetNavigator);
-      if (navigator.canPop()) {
-        navigator.pop();
-      }
+    final targetNavigator = switch (ir) {
+      IrObject(:final properties) => extractFromGlobalKey(properties['target']),
+      _ => null,
+    };
+    final navigator = findNavigator(context, rootNavigator, targetNavigator);
+    final canPop = navigator != null ? navigator.canPop() : false;
+    if (canPop) {
+      navigator.pop();
     }
     return Eval.pure(IrVoid());
   });

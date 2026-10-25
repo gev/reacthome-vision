@@ -62,7 +62,7 @@ Eval<RouteEntry> evalRoute(Ir ir) {
       return Eval.pure((
         route: value,
         targetNavigator: extractFromGlobalKey(targetNavigator),
-        args: args.length == 0 ? null : IrObject(args),
+        args: args.isEmpty ? null : IrObject(args),
       ));
     }
   }
