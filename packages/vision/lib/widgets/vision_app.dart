@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/widgets/glue_app.dart';
 import 'package:vision/screens/splash_screen.dart';
-import 'package:vision/widgets/main_entry_point.dart';
+import 'package:vision/widgets/entry_point.dart';
 
 class VisionApp extends StatelessWidget {
   final String _title;

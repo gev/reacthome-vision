@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vision/glue/app.dart';
 import 'package:vision/glue/widgets/glue_navigator_base_state.dart';
 import 'package:vision/navigation/multi_navigator_tracker.dart';
-import 'package:vision/widgets/main_entry_point.dart';
+import 'package:vision/widgets/entry_point.dart';
 
 class GlueNavigator extends StatefulWidget {
   final Routes routes;

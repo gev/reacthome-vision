@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:glue/ir.dart';
 import 'package:vision/glue/glue_controller.dart';
 import 'package:vision/glue/runtime/live/assets_controller.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
+import 'package:vision/widgets/entry_point.dart';
 
 sealed class Header {
   static const heartbeat = 0, glue = 1, file = 2;
@@ -37,7 +39,18 @@ class LiveController {
         case Header.heartbeat:
           _handleHeartbeat();
         case Header.glue:
-          _glueController.runGlue(message.body, _reactiveRuntime.runtime);
+          final endpoint = _glueController.compileGlue(message.body);
+          if (endpoint case IrList(:final elements)) {
+            switch (elements.unlock) {
+              case [IrSymbol(value: 'put'), ...]:
+                _glueController.evalGlue(endpoint, _reactiveRuntime.runtime);
+              default:
+                _glueController.evalGlue(
+                  apiEndpoint(endpoint),
+                  _reactiveRuntime.runtime,
+                );
+            }
+          }
         case Header.file:
           _assetsController.acceptAsset(message.body);
         default:
