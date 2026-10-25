@@ -23,7 +23,7 @@ class VisionApp extends StatelessWidget {
     final args = IrObject({
       'title': toIr(_title),
       'seed-color': toIr(_seedColor),
-      'dynamic-scheme-varian': toIr(_dynamicSchemeVariant),
+      'dynamic-scheme-variant': toIr(_dynamicSchemeVariant),
       'visual-density': toIr(_visualDensity),
     });
     return GlueApp(
