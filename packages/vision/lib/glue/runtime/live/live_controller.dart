@@ -45,10 +45,8 @@ class LiveController {
               case [IrSymbol(value: 'put'), ...]:
                 _glueController.evalGlue(endpoint, _reactiveRuntime.runtime);
               default:
-                _glueController.evalGlue(
-                  apiEndpoint(endpoint),
-                  _reactiveRuntime.runtime,
-                );
+                final code = apiEndpoint(endpoint);
+                _glueController.evalGlue(code, _reactiveRuntime.runtime);
             }
           }
         case Header.file:
