@@ -4,6 +4,7 @@ import 'package:glue/module/registry.dart';
 import 'package:glue/parse.dart';
 import 'package:path/path.dart' as p;
 import 'package:vision/glue/runtime/local/local_reactive_runtime.dart';
+import 'package:vision/glue/runtime/reactive_runtime.dart';
 
 class StaticLocalReactiveRuntime extends LocalReactiveRuntime {
   final String _package;
@@ -14,6 +15,11 @@ class StaticLocalReactiveRuntime extends LocalReactiveRuntime {
     required super.discoveryStore,
     required super.log,
   });
+
+  @override
+  Future<Iterable<ModuleExpr>> preloadModules() async {
+    return [];
+  }
 
   @override
   void loadModule(String name) {

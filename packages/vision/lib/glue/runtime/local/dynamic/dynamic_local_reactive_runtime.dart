@@ -5,6 +5,7 @@ import 'package:glue/module/registry.dart';
 import 'package:glue/parse.dart';
 import 'package:path/path.dart' as p;
 import 'package:vision/glue/runtime/local/local_reactive_runtime.dart';
+import 'package:vision/glue/runtime/reactive_runtime.dart';
 
 class DynamicLocalReactiveRuntime extends LocalReactiveRuntime {
   late final String _codePath;
@@ -15,6 +16,11 @@ class DynamicLocalReactiveRuntime extends LocalReactiveRuntime {
     required super.discoveryStore,
     required super.log,
   });
+
+  @override
+  Future<Iterable<ModuleExpr>> preloadModules() async {
+    return [];
+  }
 
   @override
   void loadModule(String name) {

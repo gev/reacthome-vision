@@ -68,6 +68,11 @@ class LiveReactiveRuntime extends ReactiveRuntime
   }
 
   @override
+  Future<Iterable<ModuleExpr>> preloadModules() async {
+    return [];
+  }
+
+  @override
   void loadModule(String name) {
     final db = _storage.codeDb;
     if (db != null && !isModuleRegistered(runtime.registry, name)) {
