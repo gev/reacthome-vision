@@ -69,7 +69,24 @@ class LiveReactiveRuntime extends ReactiveRuntime
 
   @override
   Future<Iterable<ModuleExpr>> preloadModules() async {
-    return [];
+    final db = _storage.codeDb;
+    if (db == null) {
+      return [];
+    }
+
+    switch (await db.selectAll()) {
+      case Left(value: final error):
+        log.error(error.message);
+        return [];
+      case Right(:final value):
+        _versions.addAll({
+          for (final entry in value.entries) entry.key: entry.value.version,
+        });
+        return [
+          for (final entry in value.entries)
+            (name: entry.key, expr: entry.value.payload),
+        ];
+    }
   }
 
   @override

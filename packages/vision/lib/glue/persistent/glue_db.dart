@@ -8,46 +8,56 @@ import 'package:glue/parse.dart';
 import 'package:glue/serialize.dart';
 import 'package:path/path.dart' as p;
 import 'package:vision/logger.dart';
+import 'package:vision/persistent/codec_db.dart';
 import 'package:vision/persistent/db.dart';
 import 'package:vision/persistent/raw_db.dart';
 import 'package:vision/store/revision.dart';
 
 class GlueDb implements Db<String, Ir, int> {
-  late final RawDb _db;
+  late final RawDb _rawDb;
+  late final CodecDb<Ir> _db;
 
   GlueDb({required String path}) {
-    _db = RawDb(path: path);
+    _rawDb = RawDb(path: path);
+    _db = CodecDb<Ir>(
+      db: _rawDb,
+      decode: _decodeGlue,
+      encode: _encodeGlue,
+    );
   }
 
   @override
-  Future<Either<DbError, Revision<Ir, int>>> lookup(String key) async {
-    switch (await _db.lookup(key)) {
-      case Left(value: final error):
-        return Left(error);
-      case Right(:final value):
-        switch (parseGlue(value.payload)) {
-          case Left(value: final error):
-            return Left(DbError(error.toString()));
-          case (Right(value: final ast)):
-            final ir = compile(ast);
-            return Right((payload: ir, version: value.version));
-        }
-    }
-  }
+  Future<Either<DbError, Revision<Ir, int>>> lookup(String key) =>
+      _db.lookup(key);
 
   @override
-  Future<DbError?> store(String key, Revision<Ir, int> value) async {
-    switch (decompile(value.payload)) {
-      case Left(value: final error):
-        return DbError(error);
-      case Right(value: final ast):
-        final raw = serializeAst(ast);
-        return _db.store(key, (payload: raw, version: value.version));
-    }
-  }
+  Future<Either<DbError, Map<String, Revision<Ir, int>>>> selectAll() =>
+      _db.selectAll();
+
+  @override
+  Future<DbError?> store(String key, Revision<Ir, int> value) =>
+      _db.store(key, value);
 
   void dispose() {
-    _db.dispose();
+    _rawDb.dispose();
+  }
+}
+
+Either<DbError, Ir> _decodeGlue(String source) {
+  switch (parseGlue(source)) {
+    case Left(value: final error):
+      return Left(DbError(error.toString()));
+    case Right(value: final ast):
+      return Right(compile(ast));
+  }
+}
+
+Either<DbError, String> _encodeGlue(Ir ir) {
+  switch (decompile(ir)) {
+    case Left(value: final error):
+      return Left(DbError(error));
+    case Right(value: final ast):
+      return Right(serializeAst(ast));
   }
 }
 
