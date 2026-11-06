@@ -21,17 +21,18 @@ class DynamicLocalReactiveRuntime extends LocalReactiveRuntime {
   Future<Iterable<ModuleExpr>> preloadModules() async {
     final modules = <ModuleExpr>[];
     try {
-      await for (final entity in Directory(
-        _codePath,
-      ).list(recursive: true, followLinks: false)) {
-        if (entity is! File || p.extension(entity.path) != '.glue') {
-          continue;
-        }
-
-        final name = _moduleNameForPath(entity.path);
-        final module = await _readModuleFromFile(name: name, path: entity.path);
-        if (module != null) {
-          modules.add(module);
+      final files = Directory(_codePath)
+          .list(recursive: true, followLinks: false);
+      await for (final entity in files) {
+        if (entity is File && p.extension(entity.path) == '.glue') {
+          final name = _moduleNameForPath(entity.path);
+          final module = await _readModuleFromFile(
+            name: name,
+            path: entity.path,
+          );
+          if (module != null) {
+            modules.add(module);
+          }
         }
       }
     } catch (error) {
