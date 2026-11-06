@@ -19,7 +19,25 @@ class DynamicLocalReactiveRuntime extends LocalReactiveRuntime {
 
   @override
   Future<Iterable<ModuleExpr>> preloadModules() async {
-    return [];
+    final modules = <ModuleExpr>[];
+    try {
+      await for (final entity in Directory(
+        _codePath,
+      ).list(recursive: true, followLinks: false)) {
+        if (entity is! File || p.extension(entity.path) != '.glue') {
+          continue;
+        }
+
+        final name = _moduleNameForPath(entity.path);
+        final module = await _readModuleFromFile(name: name, path: entity.path);
+        if (module != null) {
+          modules.add(module);
+        }
+      }
+    } catch (error) {
+      log.error('Failed to scan module directory $_codePath: $error');
+    }
+    return modules;
   }
 
   @override
@@ -36,21 +54,32 @@ class DynamicLocalReactiveRuntime extends LocalReactiveRuntime {
   }
 
   void loadModuleFromFile({required String name, required String path}) {
+    _readModuleFromFile(name: name, path: path).then((module) {
+      if (module != null) {
+        tryRegisterModule(module);
+      }
+    });
+  }
+
+  String _moduleNameForPath(String path) {
+    final relativePath = p.relative(path, from: _codePath);
+    return p.withoutExtension(relativePath).split(p.separator).join('.');
+  }
+
+  Future<ModuleExpr?> _readModuleFromFile({
+    required String name,
+    required String path,
+  }) async {
     final file = File(path);
-    file
-        .readAsString()
-        .then((glue) {
-          parseGlue(glue).match(
-            (error) {
-              log.error(error.message);
-            },
-            (ast) {
-              tryRegisterModule(name, compile(ast));
-            },
-          );
-        })
-        .catchError((error) {
-          log.error(error.message);
-        });
+    try {
+      final glue = await file.readAsString();
+      return await parseGlue(glue).match((error) {
+        log.error(error.message);
+        return null;
+      }, (ast) => (name: name, expr: compile(ast)));
+    } catch (error) {
+      log.error('Failed to load module $name: $error');
+      return null;
+    }
   }
 }
