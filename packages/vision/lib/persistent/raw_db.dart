@@ -58,6 +58,16 @@ class RawDb implements Db<String, String, int> {
   }
 
   @override
+  Future<Either<DbError, Map<String, Revision<String, int>>>>
+  selectAll() async {
+    final replyPort = ReceivePort();
+    await _sendOrQueue(SelectAllCmd(replyPort.sendPort));
+    final result = await replyPort.first;
+    replyPort.close();
+    return result as Either<DbError, Map<String, Revision<String, int>>>;
+  }
+
+  @override
   Future<DbError?> store(String key, Revision<String, int> value) async {
     final replyPort = ReceivePort();
     await _sendOrQueue(StoreCmd(key, value, replyPort.sendPort));

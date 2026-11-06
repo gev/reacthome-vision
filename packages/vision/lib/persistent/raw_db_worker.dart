@@ -7,6 +7,7 @@ import 'package:vision/store/revision.dart';
 class RawDbWorker {
   late final Database _db;
   late final PreparedStatement _lookup;
+  late final PreparedStatement _selectAll;
   late final PreparedStatement _put;
 
   RawDbWorker({required String path}) {
@@ -23,6 +24,11 @@ class RawDbWorker {
     _lookup = _db.prepare('''
       SELECT key, value, version
       FROM data WHERE key = ?
+    ''');
+
+    _selectAll = _db.prepare('''
+      SELECT key, value, version
+      FROM data
     ''');
 
     _put = _db.prepare('''
@@ -45,6 +51,17 @@ class RawDbWorker {
     }
   }
 
+  Either<DbError, Map<String, Revision<String, int>>> selectAll() {
+    try {
+      final rows = _selectAll.select();
+      return Right({
+        for (final row in rows) row['key'] as String: _toRecord(row),
+      });
+    } catch (e) {
+      return Left(DbError(e.toString()));
+    }
+  }
+
   // Синхронный store
   DbError? store(String key, Revision<String, int> value) {
     try {
@@ -60,6 +77,7 @@ class RawDbWorker {
 
   void dispose() {
     _lookup.close();
+    _selectAll.close();
     _put.close();
     _db.close();
   }

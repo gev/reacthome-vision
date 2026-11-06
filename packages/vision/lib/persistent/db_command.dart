@@ -9,6 +9,11 @@ class LookupCmd extends DbCommand {
   LookupCmd(this.key, this.replyTo);
 }
 
+class SelectAllCmd extends DbCommand {
+  final SendPort replyTo;
+  SelectAllCmd(this.replyTo);
+}
+
 class StoreCmd extends DbCommand {
   final String key;
   final Revision<String, int> value;
