@@ -53,7 +53,7 @@ class LiveReactiveRuntime extends ReactiveRuntime
 
   @override
   void put(String name, Revision<Ir, int> value) {
-    final registered = tryRegisterModule(name, value.payload);
+    final registered = tryRegisterModule((name: name, expr: value.payload));
     if (registered) {
       final db = _storage.codeDb;
       if (db != null) {
@@ -68,13 +68,38 @@ class LiveReactiveRuntime extends ReactiveRuntime
   }
 
   @override
+  Future<Iterable<ModuleExpr>> preloadModules() async {
+    final db = _storage.codeDb;
+    if (db == null) {
+      return [];
+    }
+
+    switch (await db.selectAll()) {
+      case Left(value: final error):
+        log.error(error.message);
+        return [];
+      case Right(:final value):
+        _versions.addAll({
+          for (final entry in value.entries) entry.key: entry.value.version,
+        });
+        return [
+          for (final entry in value.entries)
+            (name: entry.key, expr: entry.value.payload),
+        ];
+    }
+  }
+
+  @override
   void loadModule(String name) {
     final db = _storage.codeDb;
     if (db != null && !isModuleRegistered(runtime.registry, name)) {
       db.lookup(name).then((value) {
         switch (value) {
           case Right(:final value):
-            final registered = tryRegisterModule(name, value.payload);
+            final registered = tryRegisterModule((
+              name: name,
+              expr: value.payload,
+            ));
             if (registered) {
               _versions[name] = value.version;
             }

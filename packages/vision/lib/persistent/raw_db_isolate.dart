@@ -16,6 +16,9 @@ void rawDbIsolate(RawDbIsolate initData) {
       case LookupCmd(:final key, :final replyTo):
         replyTo.send(db.lookup(key));
 
+      case SelectAllCmd(:final replyTo):
+        replyTo.send(db.selectAll());
+
       case StoreCmd(:final key, :final value, :final replyTo):
         replyTo.send(db.store(key, value));
 

@@ -10,41 +10,79 @@ import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
 import 'package:vision/logger.dart';
 
+typedef ModuleExpr = ({String name, Ir expr});
+
 abstract class ReactiveRuntime extends ChangeNotifier {
   final Logger log;
 
-  ReactiveRuntime({required this.log});
+  ReactiveRuntime({required this.log}) {
+    _preloadModules();
+  }
+
+  void _preloadModules() async {
+    var registered = false;
+    final modules = await preloadModules();
+    for (final module in modules) {
+      final registeredModule = _tryRegisterModule(module.name, module.expr);
+      if (registeredModule != null) {
+        registered = true;
+      }
+    }
+    if (registered) {
+      _notifyListeners();
+    }
+  }
 
   Runtime get runtime;
 
   void loadModule(String name);
 
-  /// ToDo: Add module name verification
-  bool tryRegisterModule(String name, Ir value) {
-    switch (parseModule(value)) {
-      case Left(value: final error):
-        log.error(error);
-        return false;
-      case Right(value: final module):
-        reregisterModule(runtime.registry, module);
-        _cacheModule(module);
+  Future<Iterable<ModuleExpr>> preloadModules();
+
+  bool tryRegisterModule(ModuleExpr module) {
+    final registeredModule = _tryRegisterModule(module.name, module.expr);
+    if (registeredModule != null) {
+      if (_cacheModule(registeredModule)) {
+        _notifyListeners();
         return true;
+      }
     }
+    return false;
   }
 
   bool _isDisposed = false;
 
-  void _cacheModule(RegisteredModule module) {
+  void _notifyListeners() {
+    if (!_isDisposed) {
+      notifyListeners();
+    }
+  }
+
+  /// ToDo: Add module name verification
+  RegisteredModule? _tryRegisterModule(String name, Ir expr) {
+    switch (parseModule(expr)) {
+      case Left(value: final error):
+        log.error(error);
+        return null;
+      case Right(value: final module):
+        reregisterModule(runtime.registry, module);
+        return module;
+    }
+  }
+
+  bool _cacheModule(RegisteredModule module) {
     final res = runEval(
       cacheImportedModule(module),
       runtime.copyWith(env: envFromModule(builtinModule)),
     );
 
-    if (_isDisposed) return;
-
-    res.match((error) => log.error(error), (m) {
-      notifyListeners();
-    });
+    switch (res) {
+      case Left(value: final error):
+        log.error(error);
+        return false;
+      default:
+        return true;
+    }
   }
 
   @override
