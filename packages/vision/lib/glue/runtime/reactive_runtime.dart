@@ -39,8 +39,8 @@ abstract class ReactiveRuntime extends ChangeNotifier {
 
   Future<Iterable<ModuleExpr>> preloadModules();
 
-  bool tryRegisterModule(String name, Ir expr) {
-    final registeredModule = _tryRegisterModule(name, expr);
+  bool tryRegisterModule(ModuleExpr module) {
+    final registeredModule = _tryRegisterModule(module.name, module.expr);
     if (registeredModule != null) {
       if (_cacheModule(registeredModule)) {
         _notifyListeners();

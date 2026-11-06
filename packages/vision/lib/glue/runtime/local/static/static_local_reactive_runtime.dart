@@ -42,7 +42,7 @@ class StaticLocalReactiveRuntime extends LocalReactiveRuntime {
               log.error(error.message);
             },
             (ast) {
-              tryRegisterModule(name, compile(ast));
+              tryRegisterModule((name: name, expr: compile(ast)));
             },
           );
         })

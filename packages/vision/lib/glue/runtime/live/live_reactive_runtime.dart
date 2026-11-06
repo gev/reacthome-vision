@@ -53,7 +53,7 @@ class LiveReactiveRuntime extends ReactiveRuntime
 
   @override
   void put(String name, Revision<Ir, int> value) {
-    final registered = tryRegisterModule(name, value.payload);
+    final registered = tryRegisterModule((name: name, expr: value.payload));
     if (registered) {
       final db = _storage.codeDb;
       if (db != null) {
@@ -79,7 +79,10 @@ class LiveReactiveRuntime extends ReactiveRuntime
       db.lookup(name).then((value) {
         switch (value) {
           case Right(:final value):
-            final registered = tryRegisterModule(name, value.payload);
+            final registered = tryRegisterModule((
+              name: name,
+              expr: value.payload,
+            ));
             if (registered) {
               _versions[name] = value.version;
             }
