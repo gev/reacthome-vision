@@ -15,7 +15,7 @@ Future<Widget> makeDirectLiveApp({
   await App.init(discoveryStore);
   return makeDirectLiveScope(
     path: App.appRoot,
-    url: url,
+    getUrl: () => url,
     discoveryStore: discoveryStore,
     child: VisionApp(
       title: title,

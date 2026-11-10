@@ -2,19 +2,20 @@ import 'package:glue/module.dart';
 import 'package:vision/connection/direct_connection.dart';
 import 'package:vision/glue/runtime/live/direct/lib/direct_connectivity_module.dart';
 import 'package:vision/glue/runtime/live/live_orchestrator.dart';
+import 'package:vision/url.dart';
 
 class DirectLiveOrchestrator extends LiveOrchestrator {
-  final String _url;
+  final GetUrl _getUrl;
 
   late final DirectConnection _connection = DirectConnection(
-    getUrl: () => _url,
+    getUrl: _getUrl,
     sink: inbound,
     source: outbound.stream,
     resubscribe: resubscribe,
   );
 
   DirectLiveOrchestrator({
-    required this._url,
+    required this._getUrl,
     required super.path,
     required super.discoveryStore,
   });
