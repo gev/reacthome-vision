@@ -6,6 +6,8 @@ import 'package:vision/connection/connection.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
+final relayUrl = 'wss://relay.reacthome.net';
+
 class RelayConnection extends Connection {
   late final Uint8List _from;
 
