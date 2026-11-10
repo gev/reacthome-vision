@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:vision/connection/connection_status.dart';
 import 'package:vision/connection/direct_connection.dart';
 import 'package:vision/url.dart';
 
@@ -9,7 +10,7 @@ class HybridConnection {
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<String> source,
-    required void Function() onStatusChanged,
+    required OnConnectionStatusChanged onStatusChanged,
   }) {
     directConnection = DirectConnection(
       getUrl: getUrl,
