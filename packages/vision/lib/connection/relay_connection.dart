@@ -14,7 +14,7 @@ class RelayConnection extends Connection {
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<Uint8List>();
 
-  RelayConnection({required String url, required super.resubscribe}) {
+  RelayConnection({required String url}) {
     final peer = Uuid().v4obj();
     _from = peer.toBytes();
     final peerUrl = '$url/v1?peer=${peer.uuid}';
@@ -23,7 +23,7 @@ class RelayConnection extends Connection {
       sink: _inbound,
       source: _outbound.stream,
       policy: ExponentialBackoffPolicy(),
-      onStateChange: onStatusChanged,
+      onStateChange: setStatus,
     );
     client.start();
   }

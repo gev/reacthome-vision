@@ -3,7 +3,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
 import 'package:vision/glue/discovery_store.dart';
-import 'package:vision/glue/runtime/live/hybrid/hybrid_live_applet.dart';
+import 'package:vision/glue/runtime/live/direct/direct_live_applet.dart';
 
 Ir liveApplet(DiscoveryStore store) => IrNativeFunc(
   (Ir props) => _createLiveApplet(store, props, WidgetProperties(props)),
@@ -19,7 +19,7 @@ Eval<Ir> _createLiveApplet(
     return throwError(wrongArgumentType(['Applet `id` required']));
   }
   final title = props.getString('title') ?? '';
-  final widget = makeHybridLiveApplet(
+  final widget = makeDirectLiveApplet(
     id: id,
     key: props.key,
     title: title,

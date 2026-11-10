@@ -11,7 +11,7 @@ class DirectLiveOrchestrator extends LiveOrchestrator {
     getUrl: _getUrl,
     sink: inbound,
     source: outbound.stream,
-    resubscribe: resubscribe,
+    onStatusChanged: resubscribe,
   );
 
   DirectLiveOrchestrator({
