@@ -5,11 +5,9 @@ import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 import 'package:vision/url.dart';
 
 class HybridLiveOrchestrator extends LiveOrchestrator {
-  final String _id;
   final GetUrl _getUrl;
 
   late final HybridConnection _hybridConnection = HybridConnection(
-    id: _id,
     getUrl: _getUrl,
     sink: inbound,
     source: outbound.stream,
@@ -17,7 +15,6 @@ class HybridLiveOrchestrator extends LiveOrchestrator {
   );
 
   HybridLiveOrchestrator({
-    required this._id,
     required this._getUrl,
     required super.path,
     required super.discoveryStore,

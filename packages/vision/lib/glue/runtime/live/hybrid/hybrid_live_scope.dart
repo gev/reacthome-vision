@@ -7,7 +7,6 @@ import 'package:vision/glue/runtime/scope.dart';
 import 'package:vision/url.dart';
 
 Widget makeHybridLiveScope({
-  required String id,
   required GetUrl getUrl,
   required Directory path,
   required DiscoveryStore discoveryStore,
@@ -15,7 +14,6 @@ Widget makeHybridLiveScope({
   Key? key,
 }) {
   final orchestrator = HybridLiveOrchestrator(
-    id: id,
     getUrl: getUrl,
     path: path,
     discoveryStore: discoveryStore,
