@@ -6,7 +6,9 @@ import 'package:vision/connection/connection.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
-const relayUrl = 'wss://relay.reacthome.net';
+final relayUrl = 'wss://relay.reacthome.net';
+
+final relayConnection = RelayConnection(url: relayUrl);
 
 class RelayConnection extends Connection {
   late final Uint8List _from;
@@ -14,10 +16,10 @@ class RelayConnection extends Connection {
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<Uint8List>();
 
-  RelayConnection() {
+  RelayConnection({required String url}) {
     final peer = Uuid().v4obj();
     _from = peer.toBytes();
-    final peerUrl = '$relayUrl/v1?peer=${peer.uuid}';
+    final peerUrl = '$url/v1?peer=${peer.uuid}';
     final client = ResilientWebSocket(
       getUrl: () => peerUrl,
       sink: _inbound,
