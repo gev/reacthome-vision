@@ -26,7 +26,7 @@ class HybridLiveOrchestrator extends LiveOrchestrator {
 
   @override
   ModuleInfo get connectivityModule =>
-      hybridConnectivityModule(_hybridConnection.directConnection.monitor);
+      hybridConnectivityModule(_hybridConnection.monitor);
 
   @override
   void dispose() {
