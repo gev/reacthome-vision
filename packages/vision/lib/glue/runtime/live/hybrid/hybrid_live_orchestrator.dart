@@ -1,13 +1,15 @@
 import 'package:glue/module.dart';
-import 'package:vision/connection/direct_connection.dart';
+import 'package:vision/connection/hybrid_connection.dart';
 import 'package:vision/glue/runtime/live/hybrid/lib/hybrid_connectivity_module.dart';
 import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 import 'package:vision/url.dart';
 
 class HybridLiveOrchestrator extends LiveOrchestrator {
+  final String _id;
   final GetUrl _getUrl;
 
-  late final DirectConnection _directConnection = DirectConnection(
+  late final HybridConnection _hybridConnection = HybridConnection(
+    id: _id,
     getUrl: _getUrl,
     sink: inbound,
     source: outbound.stream,
@@ -15,6 +17,7 @@ class HybridLiveOrchestrator extends LiveOrchestrator {
   );
 
   HybridLiveOrchestrator({
+    required this._id,
     required this._getUrl,
     required super.path,
     required super.discoveryStore,
@@ -22,11 +25,11 @@ class HybridLiveOrchestrator extends LiveOrchestrator {
 
   @override
   ModuleInfo get connectivityModule =>
-      hybridConnectivityModule(_directConnection.monitor);
+      hybridConnectivityModule(_hybridConnection.directConnection.monitor);
 
   @override
   void dispose() {
-    _directConnection.dispose();
+    _hybridConnection.dispose();
     super.dispose();
   }
 }

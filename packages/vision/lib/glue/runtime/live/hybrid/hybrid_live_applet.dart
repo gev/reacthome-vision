@@ -15,6 +15,7 @@ Widget makeHybridLiveApplet({
 }) => AppletRegistry.registerApplet(
   id,
   () => makeHybridLiveScope(
+    id: id,
     key: key,
     getUrl: () => discoveryStore.url(id),
     path: App.appletRoot(id),
