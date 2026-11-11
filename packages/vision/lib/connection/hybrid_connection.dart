@@ -47,7 +47,7 @@ class HybridConnection extends Connection {
       if (_directConnection.monitor.value != .connected) {
         _source.add(message);
       } else if (_relayMonitor.value == .connected) {
-        relayConnection.sendTo(to: _id, message: utf8.encode(message));
+        relayConnection.send(to: _id, message: utf8.encode(message));
       }
     });
   }

@@ -17,21 +17,27 @@ class Peer {
   final ConnectionMonitor monitor = makeConnectionMonitor();
   final OnRelayMessage _onMessage;
 
-  Timer? _timer;
+  late final Timer _ping;
+  Timer? _timeout;
 
   void onMessage(Uint8List message) {
-    _timer?.cancel();
-    _timer = Timer(const Duration(seconds: 30), () {
+    _timeout?.cancel();
+    _timeout = Timer(const Duration(seconds: 30), () {
       monitor.value = .disconnected;
     });
     monitor.value = .connected;
     _onMessage(message);
   }
 
-  Peer(this._onMessage);
+  Peer(Uint8List id, this._onMessage) {
+    _ping = Timer.periodic(const Duration(seconds: 20), (_) {
+      relayConnection.ping(to: id);
+    });
+  }
 
   void dispose() {
-    _timer?.cancel();
+    _timeout?.cancel();
+    _ping.cancel();
   }
 }
 
@@ -64,12 +70,12 @@ class RelayConnection extends Connection {
     ..add(_from)
     ..add(to);
 
-  void pingPeer({required Uint8List to}) {
+  void ping({required Uint8List to}) {
     final builder = header(to)..addByte(0);
     _outbound.add(builder.toBytes());
   }
 
-  void sendTo({required Uint8List to, required Uint8List message}) {
+  void send({required Uint8List to, required Uint8List message}) {
     final builder = header(to)..add(message);
     _outbound.add(builder.toBytes());
   }
@@ -78,7 +84,7 @@ class RelayConnection extends Connection {
     required Uint8List id,
     required OnRelayMessage onMessage,
   }) {
-    final peer = Peer(onMessage);
+    final peer = Peer(id, onMessage);
     _peers[id] = peer;
     return peer.monitor;
   }
