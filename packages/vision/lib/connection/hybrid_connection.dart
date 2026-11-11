@@ -14,7 +14,6 @@ class HybridConnection extends Connection {
   late final ConnectionMonitor _relayMonitor;
 
   final Uint8List _id;
-  final _sink = StreamController<Uint8List>();
   final _source = StreamController<String>();
   late final StreamSubscription<String> _sourceSubscription;
 
@@ -28,27 +27,29 @@ class HybridConnection extends Connection {
     _relayMonitor = relayConnection.subscribe(
       id: _id,
       onMessage: (message) {
-        if (_directConnection.monitor.value != ConnectionStatus.connected) {
-          _sink.add(message);
-        }
+        // if (_directConnection.monitor.value != ConnectionStatus.connected) {
+          sink.add(message);
+        // }
       },
     );
     _relayMonitor.addListener(_setStatus);
 
     _directConnection = DirectConnection(
       getUrl: getUrl,
-      sink: _sink,
+      sink: sink,
       source: _source.stream,
       onStatusChanged: onStatusChanged,
     );
     _directConnection.monitor.addListener(_setStatus);
 
     _sourceSubscription = source.listen((message) {
-      if (_directConnection.monitor.value != .connected) {
-        _source.add(message);
-      } else if (_relayMonitor.value == .connected) {
+      // if (_directConnection.monitor.value == .connected) {
+      //   _source.add(message);
+      //   // } else if (_relayMonitor.value == .connected) {
+      // } else {
+        print('HybridConnection: sending message: $message');
         relayConnection.send(to: _id, message: utf8.encode(message));
-      }
+      // }
     });
   }
 
@@ -67,7 +68,6 @@ class HybridConnection extends Connection {
     _directConnection.monitor.removeListener(_setStatus);
     _relayMonitor.removeListener(_setStatus);
     relayConnection.unsubscribe(id: _id);
-    _sink.close();
     _source.close();
     _sourceSubscription.cancel();
     _directConnection.dispose();

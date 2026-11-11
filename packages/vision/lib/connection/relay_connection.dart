@@ -7,7 +7,8 @@ import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
-final relayUrl = 'wss://relay.reacthome.net';
+// final relayUrl = 'wss://relay.reacthome.net';
+final relayUrl = 'ws://127.0.0.1:3003';
 
 final relayConnection = RelayConnection(url: relayUrl);
 
@@ -66,17 +67,19 @@ class RelayConnection extends Connection {
     client.start();
   }
 
-  BytesBuilder header(Uint8List to) => BytesBuilder(copy: false)
-    ..add(_from)
-    ..add(to);
+  BytesBuilder header(Uint8List to, int messageType) =>
+      BytesBuilder(copy: false)
+        ..add(_from)
+        ..add(to)
+        ..addByte(messageType);
 
   void ping({required Uint8List to}) {
-    final builder = header(to)..addByte(0);
+    final builder = header(to, 0);
     _outbound.add(builder.toBytes());
   }
 
   void send({required Uint8List to, required Uint8List message}) {
-    final builder = header(to)..add(message);
+    final builder = header(to, 1)..add(message);
     _outbound.add(builder.toBytes());
   }
 

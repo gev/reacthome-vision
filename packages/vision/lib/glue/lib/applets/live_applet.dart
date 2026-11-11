@@ -21,6 +21,9 @@ Eval<Ir> _createLiveApplet(
   }
   try {
     final peer = Uuid.parseAsByteList(id);
+    print(id);
+    print(peer);
+    print(Uuid.unparse(peer));
     final title = props.getString('title') ?? '';
     final widget = makeHybridLiveApplet(
       id: id,
