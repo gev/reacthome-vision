@@ -24,7 +24,6 @@ class GlueController {
   Ir? compileGlue(Uint8List body) {
     try {
       final code = utf8.decode(body);
-      print(code);
       switch (parseGlue(code)) {
         case Left(value: final error):
           _log.error(error);
