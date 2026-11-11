@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:glue/module.dart';
 import 'package:vision/connection/hybrid_connection.dart';
 import 'package:vision/glue/runtime/live/hybrid/lib/hybrid_connectivity_module.dart';
@@ -5,9 +7,11 @@ import 'package:vision/glue/runtime/live/live_orchestrator.dart';
 import 'package:vision/url.dart';
 
 class HybridLiveOrchestrator extends LiveOrchestrator {
+  final Uint8List _peer;
   final GetUrl _getUrl;
 
   late final HybridConnection _hybridConnection = HybridConnection(
+    id: _peer,
     getUrl: _getUrl,
     sink: inbound,
     source: outbound.stream,
@@ -19,6 +23,7 @@ class HybridLiveOrchestrator extends LiveOrchestrator {
   );
 
   HybridLiveOrchestrator({
+    required this._peer,
     required this._getUrl,
     required super.path,
     required super.discoveryStore,

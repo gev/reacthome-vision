@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/widgets.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/discovery_store.dart';
@@ -9,12 +11,14 @@ import 'package:vision/widgets/vision_applet.dart';
 Widget makeHybridLiveApplet({
   required String id,
   required String title,
+  required Uint8List peer,
   required DiscoveryStore discoveryStore,
   required Ir args,
   Key? key,
 }) => AppletRegistry.registerApplet(
   id,
   () => makeHybridLiveScope(
+    peer: peer,
     key: key,
     getUrl: () => discoveryStore.url(id),
     path: App.appletRoot(id),

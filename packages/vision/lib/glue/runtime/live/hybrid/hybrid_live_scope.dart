@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:vision/glue/discovery_store.dart';
@@ -7,6 +8,7 @@ import 'package:vision/glue/runtime/scope.dart';
 import 'package:vision/url.dart';
 
 Widget makeHybridLiveScope({
+  required Uint8List peer,
   required GetUrl getUrl,
   required Directory path,
   required DiscoveryStore discoveryStore,
@@ -14,6 +16,7 @@ Widget makeHybridLiveScope({
   Key? key,
 }) {
   final orchestrator = HybridLiveOrchestrator(
+    peer: peer,
     getUrl: getUrl,
     path: path,
     discoveryStore: discoveryStore,
