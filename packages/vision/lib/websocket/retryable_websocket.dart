@@ -57,7 +57,6 @@ class RetryableWebSocket implements Retryable {
   }
 
   void _sendMessage(Uint8List message) {
-    print('RetryableWebSocket: sending message: $message');
     _socket?.add(message);
   }
 

@@ -28,7 +28,7 @@ class HybridConnection extends Connection {
       id: _id,
       onMessage: (message) {
         // if (_directConnection.monitor.value != ConnectionStatus.connected) {
-          sink.add(message);
+        sink.add(message);
         // }
       },
     );
@@ -47,8 +47,7 @@ class HybridConnection extends Connection {
       //   _source.add(message);
       //   // } else if (_relayMonitor.value == .connected) {
       // } else {
-        print('HybridConnection: sending message: $message');
-        relayConnection.send(to: _id, message: utf8.encode(message));
+      relayConnection.send(to: _id, message: utf8.encode(message));
       // }
     });
   }
