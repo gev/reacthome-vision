@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:typed_data';
 
+import 'package:collection/collection.dart';
 import 'package:vision/connection/connection.dart';
 import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
@@ -41,13 +43,18 @@ class Peer {
   }
 }
 
+final _bytes = const ListEquality<int>();
+
 class RelayConnection extends Connection {
   late final Uint8List _from;
 
   final _inbound = StreamController<Uint8List>();
   final _outbound = StreamController<Uint8List>();
 
-  final Map<Uint8List, Peer> _peers = {};
+  final Map<Uint8List, Peer> _peers = LinkedHashMap(
+    equals: _bytes.equals,
+    hashCode: _bytes.hash,
+  );
 
   late final StreamSubscription<Uint8List> _inboundSubscription;
 
