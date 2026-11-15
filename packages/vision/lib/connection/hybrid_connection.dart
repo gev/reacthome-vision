@@ -27,9 +27,9 @@ class HybridConnection extends Connection {
     _relayMonitor = relayConnection.subscribe(
       id: _id,
       onMessage: (message) {
-        // if (_directConnection.monitor.value != ConnectionStatus.connected) {
-        sink.add(message);
-        // }
+        if (_directConnection.monitor.value != ConnectionStatus.connected) {
+          sink.add(message);
+        }
       },
     );
     _relayMonitor.addListener(_setStatus);
@@ -43,12 +43,12 @@ class HybridConnection extends Connection {
     _directConnection.monitor.addListener(_setStatus);
 
     _sourceSubscription = source.listen((message) {
-      // if (_directConnection.monitor.value == .connected) {
-      //   _source.add(message);
-      //   // } else if (_relayMonitor.value == .connected) {
-      // } else {
-      relayConnection.send(to: _id, message: utf8.encode(message));
-      // }
+      if (_directConnection.monitor.value == .connected) {
+        _source.add(message);
+        // } else if (_relayMonitor.value == .connected) {
+      } else {
+        relayConnection.send(to: _id, message: utf8.encode(message));
+      }
     });
   }
 

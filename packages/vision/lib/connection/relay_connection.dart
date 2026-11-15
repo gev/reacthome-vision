@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
 
-import 'package:uuid/uuid.dart';
 import 'package:vision/connection/connection.dart';
 import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
@@ -53,7 +52,6 @@ class RelayConnection extends Connection {
   late final StreamSubscription<Uint8List> _inboundSubscription;
 
   RelayConnection({required String url}) {
-    final peer = Uuid().v4obj();
     _from = peer.toBytes();
     _inboundSubscription = _inbound.stream.listen(_handleInbound);
     final peerUrl = '$url/v1?peer=${peer.uuid}';
