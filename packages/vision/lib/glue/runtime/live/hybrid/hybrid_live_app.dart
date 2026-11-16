@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/app.dart';
@@ -6,6 +8,7 @@ import 'package:vision/widgets/vision_app.dart';
 
 Future<Widget> makeHybridLiveApp({
   required String title,
+  required Uint8List peer,
   required String url,
   Color? seedColor,
   DynamicSchemeVariant? dynamicSchemeVariant,
@@ -14,6 +17,7 @@ Future<Widget> makeHybridLiveApp({
   final discoveryStore = DiscoveryStore();
   await App.init(discoveryStore);
   return makeHybridLiveScope(
+    peer: peer,
     path: App.appRoot,
     getUrl: () => url,
     discoveryStore: discoveryStore,

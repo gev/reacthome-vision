@@ -15,7 +15,7 @@ class DirectConnection extends Connection {
     required OnConnectionStatusChanged onStatusChanged,
   }) {
     final client = ResilientWebSocket(
-      getUrl: getUrl,
+      getUrl: () => '${getUrl()}?peer=${peer.uuid}',
       sink: sink,
       policy: ExponentialBackoffPolicy(),
       source: source.map(

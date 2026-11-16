@@ -17,6 +17,7 @@ dependencies:
   glue:
   glue_flutter:
 
+  collection: ^1.19.1
   flutter_svg: ^2.2.3
   flutter_weather_bg: ^3.1.0
   material_symbols_icons: ^4.2960.0
