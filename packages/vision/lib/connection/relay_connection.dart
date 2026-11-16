@@ -8,8 +8,8 @@ import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
-// final relayUrl = 'wss://relay.reacthome.net';
-final relayUrl = 'ws://127.0.0.1:3003';
+final relayUrl = 'wss://relay.reacthome.net';
+// final relayUrl = 'ws://127.0.0.1:3003';
 
 final relayConnection = RelayConnection(url: relayUrl);
 
