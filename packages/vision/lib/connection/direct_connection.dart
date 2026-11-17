@@ -10,28 +10,33 @@ import 'package:vision/websocket/resilient_websocket.dart';
 class DirectConnection extends Connection {
   late final Heartbeat _heartbeat;
 
+  final _outbound = StreamController<Uint8List>();
+  late final StreamSubscription<Uint8List> _sourceSubscription;
+
   DirectConnection({
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
-    required StreamController<Uint8List> source,
+    required Stream<Uint8List> source,
   }) {
     final client = ResilientWebSocket(
       getUrl: () => '${getUrl()}?peer=${Connection.peer.uuid}',
       sink: sink,
       policy: ExponentialBackoffPolicy(),
-      source: source.stream.map(
-        (message) =>
-            (BytesBuilder(copy: false)
-                  ..addByte(1)
-                  ..add(message))
-                .takeBytes(),
-      ),
+      source: _outbound.stream,
       onStateChange: setStatus,
     );
     client.start();
+    _sourceSubscription = source.listen((data) {
+      _outbound.add(
+        (BytesBuilder(copy: false)
+              ..addByte(1)
+              ..add(data))
+            .takeBytes(),
+      );
+    });
     _heartbeat = Heartbeat(
       onTick: () {
-        source.add(_heartbeatData);
+        _outbound.add(_heartbeatData);
       },
     );
   }
@@ -39,6 +44,8 @@ class DirectConnection extends Connection {
   @override
   void dispose() {
     _heartbeat.dispose();
+    _outbound.close();
+    _sourceSubscription.cancel();
     super.dispose();
   }
 }
