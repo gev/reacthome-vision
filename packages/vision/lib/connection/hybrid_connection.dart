@@ -22,7 +22,6 @@ class HybridConnection extends Connection {
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
     required Stream<String> source,
-    required OnConnectionStatusChanged onStatusChanged,
   }) {
     _relayMonitor = relayConnection.subscribe(
       id: _id,
@@ -38,7 +37,6 @@ class HybridConnection extends Connection {
       getUrl: getUrl,
       sink: sink,
       source: _source.stream,
-      onStatusChanged: onStatusChanged,
     );
     _directConnection.monitor.addListener(_setStatus);
 

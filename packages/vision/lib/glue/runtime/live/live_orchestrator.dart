@@ -48,16 +48,17 @@ abstract class LiveOrchestrator {
       log: log,
     );
     _controller = LiveController(
-      assetsController: AssetsController(assets: _storage.assets, log: log),
       glueController: GlueController(log: log),
+      assetsController: AssetsController(assets: _storage.assets, log: log),
       reactiveRuntime: reactiveRuntime,
+      resubscribe: _resubscribe,
       source: inbound.stream,
     );
   }
 
   ModuleInfo get connectivityModule;
 
-  void resubscribe() {
+  void _resubscribe() {
     _glueSubscriber.resubscribeAll();
     _storage.assets.reRequestAll();
   }

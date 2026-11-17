@@ -21,12 +21,17 @@ class LiveController {
   final GlueController _glueController;
   final AssetsController _assetsController;
   final ReactiveRuntime _reactiveRuntime;
+  final void Function() _resubscribe;
+
   late final StreamSubscription<Uint8List> _subscription;
+
+  int? _hid;
 
   LiveController({
     required this._glueController,
     required this._assetsController,
     required this._reactiveRuntime,
+    required this._resubscribe,
     required Stream<Uint8List> source,
   }) {
     _subscription = source.listen(_onData);
@@ -37,18 +42,9 @@ class LiveController {
     try {
       switch (message.header) {
         case Header.heartbeat:
-          _handleHeartbeat();
+          _handleHeartbeat(message.body);
         case Header.glue:
-          final endpoint = _glueController.compileGlue(message.body);
-          if (endpoint case IrList(:final elements)) {
-            switch (elements.unlock) {
-              case [IrSymbol(value: 'put'), ...]:
-                _glueController.evalGlue(endpoint, _reactiveRuntime.runtime);
-              default:
-                final code = apiEndpoint(endpoint);
-                _glueController.evalGlue(code, _reactiveRuntime.runtime);
-            }
-          }
+          _handleGlue(message.body);
         case Header.file:
           _assetsController.acceptAsset(message.body);
         default:
@@ -59,7 +55,25 @@ class LiveController {
     }
   }
 
-  void _handleHeartbeat() {}
+  void _handleHeartbeat(Uint8List data) {
+    final hid = data.buffer.asByteData().getInt32(0, Endian.big);
+    if (_hid == hid) return;
+    _resubscribe();
+    _hid = hid;
+  }
+
+  void _handleGlue(Uint8List data) {
+    final endpoint = _glueController.compileGlue(data);
+    if (endpoint case IrList(:final elements)) {
+      switch (elements.unlock) {
+        case [IrSymbol(value: 'put'), ...]:
+          _glueController.evalGlue(endpoint, _reactiveRuntime.runtime);
+        default:
+          final code = apiEndpoint(endpoint);
+          _glueController.evalGlue(code, _reactiveRuntime.runtime);
+      }
+    }
+  }
 
   void dispose() {
     _subscription.cancel();

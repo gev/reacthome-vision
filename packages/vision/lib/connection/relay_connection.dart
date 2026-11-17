@@ -19,7 +19,7 @@ class Peer {
   final ConnectionMonitor monitor = makeConnectionMonitor();
   final OnRelayMessage _onMessage;
 
-  late final Timer _ping;
+  late final Timer _heartbeat;
   Timer? _timeout;
 
   void onMessage(Uint8List message) {
@@ -32,14 +32,14 @@ class Peer {
   }
 
   Peer(Uint8List id, this._onMessage) {
-    _ping = Timer.periodic(const Duration(seconds: 20), (_) {
+    _heartbeat = Timer.periodic(const Duration(seconds: 20), (_) {
       relayConnection.ping(to: id);
     });
   }
 
   void dispose() {
     _timeout?.cancel();
-    _ping.cancel();
+    _heartbeat.cancel();
   }
 }
 
