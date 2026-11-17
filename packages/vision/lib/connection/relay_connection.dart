@@ -113,8 +113,7 @@ class RelayConnection extends Connection {
     final payload = message.sublist(32);
     final peer = _peers[from];
     if (peer != null) {
-      print(payload);
-      // peer.onMessage(payload);
+      peer.onMessage(payload);
     }
   }
 
