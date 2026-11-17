@@ -5,14 +5,12 @@ import 'package:vision/connection/connection.dart';
 import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/connection/connection_status.dart';
 import 'package:vision/connection/direct_connection.dart';
-import 'package:vision/connection/heartbeat.dart';
 import 'package:vision/connection/relay_connection.dart';
 import 'package:vision/url.dart';
 
 class HybridConnection extends Connection {
   late final DirectConnection _directConnection;
   late final ConnectionMonitor _relayMonitor;
-  late final Heartbeat _heartbeat;
 
   final Uint8List _id;
   final _source = StreamController<Uint8List>();
@@ -49,14 +47,7 @@ class HybridConnection extends Connection {
         relayConnection.send(to: _id, message: message);
       }
     });
-
-    _heartbeat = Heartbeat(
-      onTick: () {
-        _source.add(_heartbeatData);
-      },
-    );
   }
-  final _heartbeatData = Uint8List.fromList([0]);
 
   void _setStatus() {
     if (_directConnection.monitor.value == ConnectionStatus.connected) {
@@ -70,7 +61,6 @@ class HybridConnection extends Connection {
 
   @override
   void dispose() {
-    _heartbeat.dispose();
     _directConnection.monitor.removeListener(_setStatus);
     _relayMonitor.removeListener(_setStatus);
     relayConnection.unsubscribe(id: _id);
