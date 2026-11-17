@@ -1,9 +1,12 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:glue/ast.dart';
 import 'package:glue/serialize.dart';
 import 'package:vision/persistent/asset_request.dart';
 
 class GlueAssetRequest implements AssetRequest {
-  final Sink<String> _sink;
+  final Sink<Uint8List> _sink;
 
   GlueAssetRequest(this._sink);
 
@@ -28,6 +31,6 @@ class GlueAssetRequest implements AssetRequest {
   }
 
   void _request(ListAst ast) {
-    _sink.add(serializeAst(ast));
+    _sink.add(utf8.encode(serializeAst(ast)));
   }
 }

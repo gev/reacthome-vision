@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:vision/glue/persistent/glue_asset_request.dart';
 import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
 
 Assets glueAssets({
-  required Sink<String> sink,
+  required Sink<Uint8List> sink,
   required Directory path,
   required Directory tmp,
   required Logger log,

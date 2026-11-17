@@ -39,6 +39,7 @@ class LiveController {
 
   void _onData(Uint8List data) {
     final message = Message(data);
+    print(data);
     try {
       switch (message.header) {
         case Header.heartbeat:
@@ -57,7 +58,9 @@ class LiveController {
 
   void _handleHeartbeat(Uint8List data) {
     final hid = data.buffer.asByteData().getInt32(0, Endian.big);
+    print(hid);
     if (_hid == hid) return;
+    print("Resubscribing to live updates");
     _resubscribe();
     _hid = hid;
   }

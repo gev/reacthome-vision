@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:vision/connection/connection.dart';
 import 'package:vision/connection/connection_monitor.dart';
+import 'package:vision/connection/heartbeat.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
@@ -19,7 +20,7 @@ class Peer {
   final ConnectionMonitor monitor = makeConnectionMonitor();
   final OnRelayMessage _onMessage;
 
-  late final Timer _heartbeat;
+  late final Heartbeat _heartbeat;
   Timer? _timeout;
 
   void onMessage(Uint8List message) {
@@ -32,14 +33,16 @@ class Peer {
   }
 
   Peer(Uint8List id, this._onMessage) {
-    _heartbeat = Timer.periodic(const Duration(seconds: 20), (_) {
-      relayConnection.ping(to: id);
-    });
+    _heartbeat = Heartbeat(
+      onTick: () {
+        relayConnection.ping(to: id);
+      },
+    );
   }
 
   void dispose() {
     _timeout?.cancel();
-    _heartbeat.cancel();
+    _heartbeat.dispose();
   }
 }
 
@@ -59,9 +62,9 @@ class RelayConnection extends Connection {
   late final StreamSubscription<Uint8List> _inboundSubscription;
 
   RelayConnection({required String url}) {
-    _from = peer.toBytes();
+    _from = Connection.peer.toBytes();
     _inboundSubscription = _inbound.stream.listen(_handleInbound);
-    final peerUrl = '$url/v1?peer=${peer.uuid}';
+    final peerUrl = '$url/v1?peer=${Connection.peer.uuid}';
     final client = ResilientWebSocket(
       getUrl: () => peerUrl,
       sink: _inbound,
@@ -110,7 +113,8 @@ class RelayConnection extends Connection {
     final payload = message.sublist(32);
     final peer = _peers[from];
     if (peer != null) {
-      peer.onMessage(payload);
+      print(payload);
+      // peer.onMessage(payload);
     }
   }
 

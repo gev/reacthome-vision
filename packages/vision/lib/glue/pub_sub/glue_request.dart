@@ -1,10 +1,12 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:glue/ast.dart';
 import 'package:glue/serialize.dart';
-
 import 'package:vision/pub_sub/request.dart';
 
 class GlueRequest implements Request<String, int> {
-  final Sink<String> _sink;
+  final Sink<Uint8List> _sink;
 
   GlueRequest(this._sink);
 
@@ -33,6 +35,6 @@ class GlueRequest implements Request<String, int> {
   }
 
   void _request(ListAst ast) {
-    _sink.add(serializeAst(ast));
+    _sink.add(utf8.encode(serializeAst(ast)));
   }
 }

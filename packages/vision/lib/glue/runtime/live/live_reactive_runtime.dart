@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:glue/either.dart';
 import 'package:glue/ir.dart';
@@ -16,7 +17,7 @@ import 'package:vision/store/version.dart';
 
 class LiveReactiveRuntime extends ReactiveRuntime
     implements Version<String, int>, Put<String, Revision<Ir, int>> {
-  final StreamController<String> _sink;
+  final StreamController<Uint8List> _sink;
   final GlueSubscriber _subscriber;
   final LiveStorage _storage;
 

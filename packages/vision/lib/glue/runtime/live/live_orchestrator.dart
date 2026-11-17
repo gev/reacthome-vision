@@ -25,7 +25,7 @@ abstract class LiveOrchestrator {
   late final LiveStorage _storage;
 
   final inbound = StreamController<Uint8List>();
-  final outbound = StreamController<String>();
+  final outbound = StreamController<Uint8List>();
 
   LiveOrchestrator({
     required Directory path,

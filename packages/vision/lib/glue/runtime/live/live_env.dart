@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:glue/env.dart';
 import 'package:glue/lib/bool.dart';
 import 'package:glue/lib/builtin.dart';
@@ -27,7 +29,7 @@ import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/logger.dart';
 
 Env makeLiveEnv({
-  required Sink<String> sink,
+  required Sink<Uint8List> sink,
   required GlueSubscriber subscriber,
   required LiveReactiveRuntime runtime,
   required LiveStorage storage,

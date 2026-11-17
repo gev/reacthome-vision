@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:vision/connection/connection.dart';
@@ -10,17 +9,17 @@ class DirectConnection extends Connection {
   DirectConnection({
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
-    required Stream<String> source,
+    required Stream<Uint8List> source,
   }) {
     final client = ResilientWebSocket(
-      getUrl: () => '${getUrl()}?peer=${peer.uuid}',
+      getUrl: () => '${getUrl()}?peer=${Connection.peer.uuid}',
       sink: sink,
       policy: ExponentialBackoffPolicy(),
       source: source.map(
         (message) =>
             (BytesBuilder(copy: false)
                   ..addByte(1)
-                  ..add(utf8.encode(message)))
+                  ..add(message))
                 .takeBytes(),
       ),
       onStateChange: setStatus,

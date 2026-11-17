@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:path/path.dart' as p;
 import 'package:vision/glue/persistent/glue_assets.dart';
@@ -20,7 +21,7 @@ class LiveStorage {
   LiveStorage({
     required Directory path,
     required GlueSubscriber subscriber,
-    required Sink<String> sink,
+    required Sink<Uint8List> sink,
     required Logger log,
   }) {
     final dbDirectory = Directory(p.join(path.path, 'db'))
