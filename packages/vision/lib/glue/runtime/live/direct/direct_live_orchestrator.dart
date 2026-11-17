@@ -10,7 +10,7 @@ class DirectLiveOrchestrator extends LiveOrchestrator {
   late final DirectConnection _connection = DirectConnection(
     getUrl: _getUrl,
     sink: inbound,
-    source: outbound.stream,
+    source: outbound,
   );
 
   DirectLiveOrchestrator({

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:vision/connection/connection.dart';
@@ -9,13 +10,13 @@ class DirectConnection extends Connection {
   DirectConnection({
     required GetUrl getUrl,
     required Sink<Uint8List> sink,
-    required Stream<Uint8List> source,
+    required StreamController<Uint8List> source,
   }) {
     final client = ResilientWebSocket(
       getUrl: () => '${getUrl()}?peer=${Connection.peer.uuid}',
       sink: sink,
       policy: ExponentialBackoffPolicy(),
-      source: source.map(
+      source: source.stream.map(
         (message) =>
             (BytesBuilder(copy: false)
                   ..addByte(1)

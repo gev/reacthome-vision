@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:collection/collection.dart';
 import 'package:vision/connection/connection.dart';
 import 'package:vision/connection/connection_monitor.dart';
+import 'package:vision/connection/heartbeat.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
@@ -19,6 +20,7 @@ class Peer {
   final ConnectionMonitor monitor = makeConnectionMonitor();
   final OnRelayMessage _onMessage;
 
+  late final Heartbeat _heartbeat;
   Timer? _timeout;
 
   void onMessage(Uint8List message) {
@@ -30,10 +32,17 @@ class Peer {
     _onMessage(message);
   }
 
-  Peer(Uint8List id, this._onMessage);
+  Peer(Uint8List id, this._onMessage) {
+    _heartbeat = Heartbeat(
+      onTick: () {
+        relayConnection.ping(to: id);
+      },
+    );
+  }
 
   void dispose() {
     _timeout?.cancel();
+    _heartbeat.dispose();
   }
 }
 

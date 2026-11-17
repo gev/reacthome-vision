@@ -35,7 +35,7 @@ class HybridConnection extends Connection {
     _directConnection = DirectConnection(
       getUrl: getUrl,
       sink: sink,
-      source: _source.stream,
+      source: _source,
     );
     _directConnection.monitor.addListener(_setStatus);
 
