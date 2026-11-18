@@ -1,16 +1,27 @@
 import 'dart:async';
 
 class Heartbeat {
-  late final Timer _timer;
+  Timer? _timer;
 
-  Heartbeat({required void Function() onTick}) {
-    onTick();
+  final void Function() _onTick;
+
+  Heartbeat({required this._onTick}) {
+    _init();
+  }
+
+  void ping() {
+    _init();
+    _onTick();
+  }
+
+  void _init() {
+    _timer?.cancel();
     _timer = Timer.periodic(Duration(seconds: 20), (_) {
-      onTick();
+      _onTick();
     });
   }
 
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
   }
 }

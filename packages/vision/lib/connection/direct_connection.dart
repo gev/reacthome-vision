@@ -2,16 +2,22 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:vision/connection/connection.dart';
+import 'package:vision/connection/connection_status.dart';
 import 'package:vision/connection/heartbeat.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
 import 'package:vision/url.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
 class DirectConnection extends Connection {
-  late final Heartbeat _heartbeat;
-
   final _outbound = StreamController<Uint8List>();
+
   late final StreamSubscription<Uint8List> _sourceSubscription;
+
+  late final Heartbeat _heartbeat = Heartbeat(
+    onTick: () {
+      _outbound.add(_heartbeatData);
+    },
+  );
 
   DirectConnection({
     required GetUrl getUrl,
@@ -23,7 +29,7 @@ class DirectConnection extends Connection {
       sink: sink,
       policy: ExponentialBackoffPolicy(),
       source: _outbound.stream,
-      onStateChange: setStatus,
+      onStateChange: _onStatusChange,
     );
     client.start();
     _sourceSubscription = source.listen((data) {
@@ -34,11 +40,11 @@ class DirectConnection extends Connection {
             .takeBytes(),
       );
     });
-    _heartbeat = Heartbeat(
-      onTick: () {
-        _outbound.add(_heartbeatData);
-      },
-    );
+  }
+
+  void _onStatusChange(ConnectionStatus status) {
+    _heartbeat.ping();
+    setStatus(status);
   }
 
   @override

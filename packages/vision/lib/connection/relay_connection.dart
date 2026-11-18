@@ -28,6 +28,9 @@ class Peer {
     _timeout = Timer(const Duration(seconds: 30), () {
       monitor.value = .disconnected;
     });
+    if (monitor.value != .connected) {
+      _heartbeat.ping();
+    }
     monitor.value = .connected;
     _onMessage(message);
   }
