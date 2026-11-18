@@ -43,7 +43,9 @@ class DirectConnection extends Connection {
   }
 
   void _onStatusChange(ConnectionStatus status) {
-    _heartbeat.ping();
+    if (status == .connected) {
+      _heartbeat.ping();
+    }
     setStatus(status);
   }
 
