@@ -1,4 +1,5 @@
 import 'package:vision/widgets/media/fvp_rtsp_player.dart';
+import 'package:vision/widgets/media/player_lease.dart';
 import 'package:vision/widgets/media/player_pool.dart';
 
 typedef RtspPlayerLease = PlayerLease<String, FvpRtspPlayer>;
