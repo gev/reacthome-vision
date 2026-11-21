@@ -13,6 +13,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  flutter_webrtc: ^1.6.3
+
   assets:
   glue:
   glue_flutter:
