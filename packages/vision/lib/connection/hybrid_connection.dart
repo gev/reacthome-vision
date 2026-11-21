@@ -42,7 +42,7 @@ class HybridConnection extends Connection {
     _sourceSubscription = source.listen((message) {
       if (_directConnection.monitor.value == .connected) {
         _source.add(message);
-      } else if (_relayMonitor.value == .connected) {
+      } else {
         relayConnection.send(to: _id, message: message);
       }
     });
