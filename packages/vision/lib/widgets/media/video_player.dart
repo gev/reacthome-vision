@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import 'package:vision/widgets/media/fvp_rtsp_player.dart';
+import 'package:vision/widgets/media/player.dart';
+import 'package:vision/widgets/media/rtsp_player_pool.dart';
 
-/// Displays an [FvpRtspPlayer] while owning its lifecycle.
+/// Displays a pooled RTSP player through a unique playback lease.
 class VideoPlayer extends StatefulWidget {
   final String url;
   final double? width;
@@ -23,26 +24,29 @@ class VideoPlayer extends StatefulWidget {
 
 class _VideoPlayerState extends State<VideoPlayer> {
   final Key _visibilityKey = UniqueKey();
-  late FvpRtspPlayer _player;
+  late RtspPlayerLease _lease;
+  Player get _player => _lease.player;
+  bool _isVisible = false;
 
   @override
   void initState() {
     super.initState();
-    _player = FvpRtspPlayer(widget.url);
+    _lease = RtspPlayerPool.instance.acquire(widget.url);
   }
 
   @override
   void didUpdateWidget(VideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.url != widget.url) {
-      _player.dispose();
-      _player = FvpRtspPlayer(widget.url);
+      _lease.release();
+      _lease = RtspPlayerPool.instance.acquire(widget.url);
+      if (_isVisible) _lease.play();
     }
   }
 
   @override
   void dispose() {
-    _player.dispose();
+    _lease.release();
     super.dispose();
   }
 
@@ -52,16 +56,17 @@ class _VideoPlayerState extends State<VideoPlayer> {
       key: _visibilityKey,
       onVisibilityChanged: (info) {
         final visible = info.visibleFraction > 0;
+        _isVisible = visible;
         debugPrint(
           '[VideoPlayer] ${widget.url} visibility: '
           '${(info.visibleFraction * 100).toStringAsFixed(1)}%',
         );
         if (visible) {
           debugPrint('[VideoPlayer] ${widget.url}: play (visible)');
-          _player.play();
+          _lease.play();
         } else {
           debugPrint('[VideoPlayer] ${widget.url}: pause (not visible)');
-          _player.pause();
+          _lease.pause();
         }
       },
       child: SizedBox(

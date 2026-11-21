@@ -3,9 +3,10 @@ import 'dart:ui' show Size;
 
 import 'package:flutter/foundation.dart';
 import 'package:fvp/mdk.dart' as fvp;
+import 'package:vision/widgets/media/player.dart';
 
 /// Owns fvp playback and exposes only the state needed by the UI.
-class FvpRtspPlayer extends ChangeNotifier {
+class FvpRtspPlayer extends Player {
   FvpRtspPlayer(String url) {
     _initialize(url);
   }
@@ -21,9 +22,13 @@ class FvpRtspPlayer extends ChangeNotifier {
   bool _isDisposed = false;
   Size? _videoSize;
 
+  @override
   bool get isInitialized => _isInitialized;
+  @override
   bool get hasError => _hasError;
+  @override
   Size? get videoSize => _videoSize;
+  @override
   int? get textureId => _player.textureId.value;
 
   void _initialize(String url) {
@@ -54,7 +59,7 @@ class FvpRtspPlayer extends ChangeNotifier {
     _player.setProperty('avformat.analyzeduration', '100000');
     _player.setBufferRange(min: 0, max: 1000, drop: true);
     _player.media = url;
-    _player.state = fvp.PlaybackState.playing;
+    _player.state = fvp.PlaybackState.paused;
   }
 
   Future<void> _createTexture() async {
@@ -95,11 +100,13 @@ class FvpRtspPlayer extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
   void play() {
     if (_isDisposed) return;
     _player.state = fvp.PlaybackState.playing;
   }
 
+  @override
   void pause() {
     if (_isDisposed) return;
     _player.state = fvp.PlaybackState.paused;
