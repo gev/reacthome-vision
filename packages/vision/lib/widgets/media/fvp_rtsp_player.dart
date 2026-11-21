@@ -95,6 +95,16 @@ class FvpRtspPlayer extends ChangeNotifier {
     notifyListeners();
   }
 
+  void play() {
+    if (_isDisposed) return;
+    _player.state = fvp.PlaybackState.playing;
+  }
+
+  void pause() {
+    if (_isDisposed) return;
+    _player.state = fvp.PlaybackState.paused;
+  }
+
   @override
   void dispose() {
     _isDisposed = true;
