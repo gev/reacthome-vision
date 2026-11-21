@@ -57,15 +57,9 @@ class _VideoPlayerState extends State<VideoPlayer> {
       onVisibilityChanged: (info) {
         final visible = info.visibleFraction > 0;
         _isVisible = visible;
-        debugPrint(
-          '[VideoPlayer] ${widget.url} visibility: '
-          '${(info.visibleFraction * 100).toStringAsFixed(1)}%',
-        );
         if (visible) {
-          debugPrint('[VideoPlayer] ${widget.url}: play (visible)');
           _lease.play();
         } else {
-          debugPrint('[VideoPlayer] ${widget.url}: pause (not visible)');
           _lease.pause();
         }
       },
