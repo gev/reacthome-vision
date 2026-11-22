@@ -15,7 +15,8 @@ dependencies:
 
   assets:
   glue:
-  glue_flutter:
+  glue_flutter_ui:
+  glue_flutter_material_ui:
 
   collection: ^1.19.1
   flutter_svg: ^2.2.3

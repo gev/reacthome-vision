@@ -31,7 +31,12 @@ dependency_overrides:
       url: https://github.com/gev/glue.git
       path: dart/glue
 
-  glue_flutter:
+  glue_flutter_ui:
     git:
       url: https://github.com/gev/glue.git
-      path: flutter/glue_flutter
+      path: flutter/glue_flutter_ui
+
+glue_flutter_material_ui:
+    git:
+      url: https://github.com/gev/glue.git
+      path: flutter/glue_flutter_material_ui
