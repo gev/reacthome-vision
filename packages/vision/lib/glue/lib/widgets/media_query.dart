@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vision/glue/lib/widgets/getters.dart';
 
 /// Provides access to the current MediaQueryData through the Glue IR system.

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/app.dart';
 import 'package:vision/glue/runtime/live/hybrid/hybrid_live_scope.dart';
