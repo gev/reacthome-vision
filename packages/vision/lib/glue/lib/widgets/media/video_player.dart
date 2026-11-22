@@ -3,7 +3,7 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter/glue_flutter.dart';
-import 'package:vision/widgets/media/rtsp_video_player.dart';
+import 'package:vision/widgets/media/rtsp/rtsp_video_player.dart';
 
 Ir videoPlayer = IrNativeFunc(
   (Ir props) => _createVideoPlayer(WidgetProperties(props)),

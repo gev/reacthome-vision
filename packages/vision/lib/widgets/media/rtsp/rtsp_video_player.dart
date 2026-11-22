@@ -1,46 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import 'package:vision/widgets/media/webrtc_player.dart';
-import 'package:vision/widgets/media/webrtc_player_pool.dart';
+import 'package:vision/widgets/media/player.dart';
+import 'package:vision/widgets/media/rtsp/rtsp_player_pool.dart';
 
-/// Displays an established WebRTC stream and pauses rendering when hidden.
-class WebRtcVideoPlayer extends StatefulWidget {
-  final String streamId;
+/// Displays a pooled RTSP player through a unique playback lease.
+class RtspVideoPlayer extends StatefulWidget {
+  final String url;
   final double? width;
   final double? height;
   final BoxFit fit;
 
-  const WebRtcVideoPlayer({
+  const RtspVideoPlayer({
     super.key,
-    required this.streamId,
+    required this.url,
     this.width,
     this.height,
-    this.fit = BoxFit.contain,
+    required this.fit,
   });
 
   @override
-  State<WebRtcVideoPlayer> createState() => _WebRtcVideoPlayerState();
+  State<RtspVideoPlayer> createState() => _RtspVideoPlayerState();
 }
 
-class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
+class _RtspVideoPlayerState extends State<RtspVideoPlayer> {
   final Key _visibilityKey = UniqueKey();
-  late WebRtcPlayerLease _lease;
-  WebRtcPlayer get _player => _lease.player;
+  late RtspPlayerLease _lease;
+  Player get _player => _lease.player;
   bool _isVisible = false;
 
   @override
   void initState() {
     super.initState();
-    _lease = webRtcPlayerPool.acquire(widget.streamId);
+    _lease = RtspPlayerPool.instance.acquire(widget.url);
   }
 
   @override
-  void didUpdateWidget(WebRtcVideoPlayer oldWidget) {
+  void didUpdateWidget(RtspVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.streamId != widget.streamId) {
+    if (oldWidget.url != widget.url) {
       _lease.release();
-      _lease = webRtcPlayerPool.acquire(widget.streamId);
+      _lease = RtspPlayerPool.instance.acquire(widget.url);
       if (_isVisible) _lease.play();
     }
   }
@@ -70,19 +69,26 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
         child: AnimatedBuilder(
           animation: _player,
           builder: (context, _) {
+            final videoSize = _player.videoSize;
+            final textureId = _player.textureId;
+
             if (_player.hasError) {
               return const Center(child: Icon(Icons.videocam_off_outlined));
             }
-            if (!_player.isInitialized || _player.videoSize == null) {
+            if (!_player.isInitialized ||
+                videoSize == null ||
+                textureId == null) {
               return const Center(child: CircularProgressIndicator());
             }
 
             return ClipRect(
-              child: RTCVideoView(
-                _player.renderer,
-                objectFit: widget.fit == BoxFit.cover
-                    ? RTCVideoViewObjectFit.RTCVideoViewObjectFitCover
-                    : RTCVideoViewObjectFit.RTCVideoViewObjectFitContain,
+              child: FittedBox(
+                fit: widget.fit,
+                child: SizedBox(
+                  width: videoSize.width,
+                  height: videoSize.height,
+                  child: Texture(textureId: textureId),
+                ),
               ),
             );
           },

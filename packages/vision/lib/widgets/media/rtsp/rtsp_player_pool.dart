@@ -1,6 +1,6 @@
 import 'package:vision/widgets/media/player_lease.dart';
 import 'package:vision/widgets/media/player_pool.dart';
-import 'package:vision/widgets/media/rtsp_player.dart';
+import 'package:vision/widgets/media/rtsp/rtsp_player.dart';
 
 typedef RtspPlayerLease = PlayerLease<String, RtspPlayer>;
 
