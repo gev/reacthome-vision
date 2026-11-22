@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:glue/ir.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vision/glue/widgets/glue_app_base_state.dart';
 import 'package:vision/navigation/multi_navigator_tracker.dart';
 import 'package:vision/widgets/theme.dart';
@@ -53,11 +52,7 @@ class _GlueAppState extends GlueAppBaseState<GlueApp>
       darkTheme: makeTheme(app: cachedApp, brightness: .dark),
       locale: _currentLocale,
       supportedLocales: WidgetsBinding.instance.platformDispatcher.locales,
-      localizationsDelegates: const [
-        GlobalCupertinoLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
+      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
       scrollBehavior: const MaterialScrollBehavior().copyWith(
         scrollbars: false,
       ),

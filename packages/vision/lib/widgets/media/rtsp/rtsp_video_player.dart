@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:vision/widgets/media/player.dart';
 import 'package:vision/widgets/media/rtsp/rtsp_player_pool.dart';

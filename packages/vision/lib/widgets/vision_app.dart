@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:glue/ir.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vision/glue/widgets/glue_app.dart';
 import 'package:vision/screens/splash_screen.dart';
 import 'package:vision/widgets/entry_point.dart';

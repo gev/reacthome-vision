@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/app.dart';
 import 'package:vision/glue/runtime/local/static/static_local_scope.dart';

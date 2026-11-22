@@ -10,14 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_localizations:
-    sdk: flutter
 
   flutter_webrtc: ^1.6.3
 
   assets:
   glue:
-  glue_flutter:
+  glue_flutter_ui:
+  glue_flutter_material_ui:
 
   collection: ^1.19.1
   flutter_svg: ^2.2.3
@@ -30,6 +29,9 @@ dependencies:
   uuid: ^4.5.2
   visibility_detector: ^0.4.0+2
   watcher: ^1.2.1
+
+  material_ui: any
+  cupertino_ui: any
 
 dev_dependencies:
   flutter_test:
