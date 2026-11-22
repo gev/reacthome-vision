@@ -24,7 +24,7 @@ class WebRtcPlayer extends Player {
       onStop: onStop,
     );
     _renderer.onResize = _handleResize;
-    unawaited(_initialize());
+    _initialize();
   }
 
   final String streamId;
@@ -37,7 +37,6 @@ class WebRtcPlayer extends Player {
   bool _rendererInitialized = false;
   bool _isInitialized = false;
   bool _hasError = false;
-  bool _isPlaying = false;
   bool _isDisposed = false;
   int _sourceRevision = 0;
 
@@ -77,6 +76,10 @@ class WebRtcPlayer extends Player {
   void start() {
     if (_isDisposed) return;
     _onStart();
+    final stream = _stream;
+    if (_rendererInitialized && stream != null) {
+      _bindStream(stream);
+    }
   }
 
   Future<void> _initialize() async {
@@ -84,7 +87,7 @@ class WebRtcPlayer extends Player {
       await _renderer.initialize();
       if (_isDisposed) return;
       _rendererInitialized = true;
-      if (_isPlaying && _stream != null) {
+      if (_stream != null) {
         await _bindStream(_stream!);
       }
     } catch (error, stack) {
@@ -103,7 +106,7 @@ class WebRtcPlayer extends Player {
     _hasError = false;
     notifyListeners();
     if (!_rendererInitialized) return;
-    if (_isPlaying && stream != null) {
+    if (stream != null) {
       await _bindStream(stream);
     } else {
       await _detachStream(_sourceRevision);
@@ -124,10 +127,9 @@ class WebRtcPlayer extends Player {
   void play() {
     if (_isDisposed) return;
     _onPlay?.call();
-    _isPlaying = true;
     final stream = _stream;
     if (_rendererInitialized && stream != null) {
-      unawaited(_bindStream(stream));
+      _bindStream(stream);
     }
   }
 
@@ -135,21 +137,17 @@ class WebRtcPlayer extends Player {
   void pause() {
     if (_isDisposed) return;
     _onPause?.call();
-    _isPlaying = false;
-    final revision = ++_sourceRevision;
-    unawaited(_detachStream(revision));
   }
 
   void stop() {
     if (_isDisposed) return;
     _onStop?.call();
-    _isPlaying = false;
     final revision = ++_sourceRevision;
-    unawaited(_detachStream(revision));
+    _detachStream(revision);
   }
 
   Future<void> _bindStream(MediaStream stream) async {
-    if (_isDisposed || !_rendererInitialized || !_isPlaying) return;
+    if (_isDisposed || !_rendererInitialized) return;
     final revision = ++_sourceRevision;
     try {
       await _renderer.setSrcObject(stream: stream);
@@ -188,7 +186,7 @@ class WebRtcPlayer extends Player {
   void dispose() {
     _isDisposed = true;
     _sourceRevision++;
-    unawaited(_renderer.dispose());
+    _renderer.dispose();
     super.dispose();
   }
 }
