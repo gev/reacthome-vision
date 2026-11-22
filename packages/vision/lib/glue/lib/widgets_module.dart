@@ -9,7 +9,7 @@ import 'package:vision/glue/lib/widgets/image_color_scheme.dart';
 import 'package:vision/glue/lib/widgets/layout.dart';
 import 'package:vision/glue/lib/widgets/locale.dart';
 import 'package:vision/glue/lib/widgets/logo.dart';
-import 'package:vision/glue/lib/widgets/media/video_player.dart';
+import 'package:vision/glue/lib/widgets/media/rtsp_video_player.dart';
 import 'package:vision/glue/lib/widgets/media_query.dart';
 import 'package:vision/glue/lib/widgets/placeholder.dart';
 import 'package:vision/glue/lib/widgets/seed_color_scheme.dart';
@@ -61,7 +61,7 @@ ModuleInfo widgetsModule({required Ir image}) {
     ('activity', activity),
     ('text-field', textField),
     ('canvas', canvas),
-    ('video-player', videoPlayer),
+    ('rtsp-video-player', rtspVideoPlayer),
 
     ('placeholder', placeholder),
 

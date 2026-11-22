@@ -5,11 +5,11 @@ import 'package:glue/ir.dart';
 import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:vision/widgets/media/rtsp/rtsp_video_player.dart';
 
-Ir videoPlayer = IrNativeFunc(
-  (Ir props) => _createVideoPlayer(WidgetProperties(props)),
+Ir rtspVideoPlayer = IrNativeFunc(
+  (Ir props) => _createRtspVideoPlayer(WidgetProperties(props)),
 );
 
-Eval<Ir> _createVideoPlayer(WidgetProperties props) {
+Eval<Ir> _createRtspVideoPlayer(WidgetProperties props) {
   final url = props.getString('url');
   if (url == null) {
     return throwError(
