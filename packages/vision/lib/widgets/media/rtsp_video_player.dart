@@ -4,13 +4,13 @@ import 'package:vision/widgets/media/player.dart';
 import 'package:vision/widgets/media/rtsp_player_pool.dart';
 
 /// Displays a pooled RTSP player through a unique playback lease.
-class VideoPlayer extends StatefulWidget {
+class RtspVideoPlayer extends StatefulWidget {
   final String url;
   final double? width;
   final double? height;
   final BoxFit fit;
 
-  const VideoPlayer({
+  const RtspVideoPlayer({
     super.key,
     required this.url,
     this.width,
@@ -19,10 +19,10 @@ class VideoPlayer extends StatefulWidget {
   });
 
   @override
-  State<VideoPlayer> createState() => _VideoPlayerState();
+  State<RtspVideoPlayer> createState() => _RtspVideoPlayerState();
 }
 
-class _VideoPlayerState extends State<VideoPlayer> {
+class _RtspVideoPlayerState extends State<RtspVideoPlayer> {
   final Key _visibilityKey = UniqueKey();
   late RtspPlayerLease _lease;
   Player get _player => _lease.player;
@@ -35,7 +35,7 @@ class _VideoPlayerState extends State<VideoPlayer> {
   }
 
   @override
-  void didUpdateWidget(VideoPlayer oldWidget) {
+  void didUpdateWidget(RtspVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.url != widget.url) {
       _lease.release();

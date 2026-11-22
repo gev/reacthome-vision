@@ -6,14 +6,14 @@ import 'package:fvp/mdk.dart' as fvp;
 import 'package:vision/widgets/media/player.dart';
 
 /// Owns fvp playback and exposes only the state needed by the UI.
-class FvpRtspPlayer extends Player {
-  FvpRtspPlayer(String url) {
+class RtspPlayer extends Player {
+  RtspPlayer(String url) {
     _initialize(url);
   }
 
   late final fvp.Player _player;
   StreamSubscription<({fvp.MediaStatus oldValue, fvp.MediaStatus newValue})>?
-      _statusSubscription;
+  _statusSubscription;
   StreamSubscription<fvp.MediaEvent>? _eventSubscription;
 
   bool _isInitialized = false;
