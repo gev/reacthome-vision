@@ -5,17 +5,25 @@ import 'package:vision/widgets/media/player_lease.dart';
 
 /// Keeps one player per key and aggregates play requests across its leases.
 class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
-  PlayerPool({required this._createPlayer});
+  PlayerPool({
+    required this._createPlayer,
+    this.onFirstAcquire,
+    this.onLastRelease,
+  });
 
   final P Function(K key) _createPlayer;
+  final void Function(P player)? onFirstAcquire;
+  final void Function(P player)? onLastRelease;
   final Map<K, _PooledPlayer<K, P>> _players = {};
   int _nextLeaseId = 0;
 
-  PlayerLease<K, P> acquire(K key) {
+  PlayerLease<K, P> acquire(K key, {void Function(P player)? configurePlayer}) {
     final entry = _players.putIfAbsent(
       key,
       () => _PooledPlayer<K, P>(_createPlayer(key)),
     );
+    configurePlayer?.call(entry.player);
+    final isFirstLease = entry.leases.isEmpty;
     final lease = PlayerLease<K, P>.create(
       key,
       entry.player,
@@ -23,6 +31,7 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
       ++_nextLeaseId,
     );
     entry.leases.add(lease);
+    if (isFirstLease) onFirstAcquire?.call(entry.player);
     return lease;
   }
 
@@ -33,9 +42,8 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
   void play(PlayerLease<K, P> lease) {
     final entry = _entryFor(lease);
     if (entry == null || lease.isReleased) return;
-    final wasStopped = entry.playingLeases.isEmpty;
-    entry.playingLeases.add(lease);
-    if (wasStopped) entry.player.play();
+    final wasAdded = entry.playingLeases.add(lease);
+    if (entry.playingLeases.length == 1 || !wasAdded) entry.player.play();
   }
 
   @override
@@ -44,6 +52,7 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
     if (entry == null || lease.isReleased) return;
     final wasPlaying = entry.playingLeases.remove(lease);
     if (wasPlaying && entry.playingLeases.isEmpty) entry.player.pause();
+    if (!wasPlaying && entry.playingLeases.isEmpty) entry.player.pause();
   }
 
   @override
@@ -55,6 +64,7 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
     entry.leases.remove(lease);
     final wasPlaying = entry.playingLeases.remove(lease);
     if (wasPlaying && entry.playingLeases.isEmpty) entry.player.pause();
+    if (entry.leases.isEmpty) onLastRelease?.call(entry.player);
   }
 
   _PooledPlayer<K, P>? _entryFor(PlayerLease<K, P> lease) {
@@ -65,6 +75,7 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
   /// Disposes all cached players and invalidates their outstanding leases.
   void disposeAll() {
     for (final entry in _players.values) {
+      if (entry.leases.isNotEmpty) onLastRelease?.call(entry.player);
       for (final lease in entry.leases) {
         lease.invalidate();
       }

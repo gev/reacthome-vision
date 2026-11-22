@@ -6,4 +6,8 @@ typedef WebRtcPlayerLease = PlayerLease<String, WebRtcPlayer>;
 
 /// Shared WebRTC players keyed by application stream ID.
 final PlayerPool<String, WebRtcPlayer> webRtcPlayerPool =
-    PlayerPool<String, WebRtcPlayer>(createPlayer: WebRtcPlayer.new);
+    PlayerPool<String, WebRtcPlayer>(
+      createPlayer: WebRtcPlayer.new,
+      onFirstAcquire: (player) => player.start(),
+      onLastRelease: (player) => player.stop(),
+    );

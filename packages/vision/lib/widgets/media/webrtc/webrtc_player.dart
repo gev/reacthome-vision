@@ -10,12 +10,28 @@ import 'package:vision/widgets/media/player.dart';
 /// The peer connection and signaling remain the responsibility of the caller
 /// that supplies the stream. This player owns only its video renderer.
 class WebRtcPlayer extends Player {
-  WebRtcPlayer(this.streamId) {
+  WebRtcPlayer(
+    this.streamId, {
+    VoidCallback onStart = _noOp,
+    VoidCallback? onPlay,
+    VoidCallback? onPause,
+    VoidCallback? onStop,
+  }) {
+    updateCallbacks(
+      onStart: onStart,
+      onPlay: onPlay,
+      onPause: onPause,
+      onStop: onStop,
+    );
     _renderer.onResize = _handleResize;
     unawaited(_initialize());
   }
 
   final String streamId;
+  late VoidCallback _onStart;
+  VoidCallback? _onPlay;
+  VoidCallback? _onPause;
+  VoidCallback? _onStop;
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
   MediaStream? _stream;
   bool _rendererInitialized = false;
@@ -45,6 +61,23 @@ class WebRtcPlayer extends Player {
   }
 
   RTCVideoRenderer get renderer => _renderer;
+
+  void updateCallbacks({
+    required VoidCallback onStart,
+    VoidCallback? onPlay,
+    VoidCallback? onPause,
+    VoidCallback? onStop,
+  }) {
+    _onStart = onStart;
+    _onPlay = onPlay;
+    _onPause = onPause;
+    _onStop = onStop;
+  }
+
+  void start() {
+    if (_isDisposed) return;
+    _onStart();
+  }
 
   Future<void> _initialize() async {
     try {
@@ -90,6 +123,7 @@ class WebRtcPlayer extends Player {
   @override
   void play() {
     if (_isDisposed) return;
+    _onPlay?.call();
     _isPlaying = true;
     final stream = _stream;
     if (_rendererInitialized && stream != null) {
@@ -100,6 +134,15 @@ class WebRtcPlayer extends Player {
   @override
   void pause() {
     if (_isDisposed) return;
+    _onPause?.call();
+    _isPlaying = false;
+    final revision = ++_sourceRevision;
+    unawaited(_detachStream(revision));
+  }
+
+  void stop() {
+    if (_isDisposed) return;
+    _onStop?.call();
     _isPlaying = false;
     final revision = ++_sourceRevision;
     unawaited(_detachStream(revision));
@@ -149,3 +192,5 @@ class WebRtcPlayer extends Player {
     super.dispose();
   }
 }
+
+void _noOp() {}

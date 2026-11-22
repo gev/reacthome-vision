@@ -10,6 +10,10 @@ class WebRtcVideoPlayer extends StatefulWidget {
   final double? width;
   final double? height;
   final BoxFit fit;
+  final VoidCallback onStart;
+  final VoidCallback? onPlay;
+  final VoidCallback? onPause;
+  final VoidCallback? onStop;
 
   const WebRtcVideoPlayer({
     super.key,
@@ -17,6 +21,10 @@ class WebRtcVideoPlayer extends StatefulWidget {
     this.width,
     this.height,
     this.fit = BoxFit.contain,
+    required this.onStart,
+    this.onPlay,
+    this.onPause,
+    this.onStop,
   });
 
   @override
@@ -32,7 +40,7 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
   @override
   void initState() {
     super.initState();
-    _lease = webRtcPlayerPool.acquire(widget.streamId);
+    _lease = _acquire(widget);
   }
 
   @override
@@ -40,8 +48,15 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.streamId != widget.streamId) {
       _lease.release();
-      _lease = webRtcPlayerPool.acquire(widget.streamId);
+      _lease = _acquire(widget);
       if (_isVisible) _lease.play();
+    } else {
+      _player.updateCallbacks(
+        onStart: widget.onStart,
+        onPlay: widget.onPlay,
+        onPause: widget.onPause,
+        onStop: widget.onStop,
+      );
     }
   }
 
@@ -91,3 +106,14 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
     );
   }
 }
+
+WebRtcPlayerLease _acquire(WebRtcVideoPlayer widget) =>
+    webRtcPlayerPool.acquire(
+      widget.streamId,
+      configurePlayer: (player) => player.updateCallbacks(
+        onStart: widget.onStart,
+        onPlay: widget.onPlay,
+        onPause: widget.onPause,
+        onStop: widget.onStop,
+      ),
+    );
