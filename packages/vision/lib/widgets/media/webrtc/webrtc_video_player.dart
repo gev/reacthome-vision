@@ -6,7 +6,7 @@ import 'package:vision/widgets/media/webrtc/webrtc_player_pool.dart';
 
 /// Displays an established WebRTC stream and pauses rendering when hidden.
 class WebRtcVideoPlayer extends StatefulWidget {
-  final String streamId;
+  final String sessionId;
   final double? width;
   final double? height;
   final BoxFit fit;
@@ -17,7 +17,7 @@ class WebRtcVideoPlayer extends StatefulWidget {
 
   const WebRtcVideoPlayer({
     super.key,
-    required this.streamId,
+    required this.sessionId,
     this.width,
     this.height,
     this.fit = BoxFit.contain,
@@ -46,7 +46,7 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
   @override
   void didUpdateWidget(WebRtcVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.streamId != widget.streamId) {
+    if (oldWidget.sessionId != widget.sessionId) {
       _lease.release();
       _lease = _acquire(widget);
       if (_isVisible) _lease.play();
@@ -109,7 +109,7 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
 
 WebRtcPlayerLease _acquire(WebRtcVideoPlayer widget) =>
     webRtcPlayerPool.acquire(
-      widget.streamId,
+      widget.sessionId,
       configurePlayer: (player) => player.updateCallbacks(
         onStart: widget.onStart,
         onPlay: widget.onPlay,

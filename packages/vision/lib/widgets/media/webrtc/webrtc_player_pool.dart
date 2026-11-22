@@ -4,7 +4,7 @@ import 'package:vision/widgets/media/webrtc/webrtc_player.dart';
 
 typedef WebRtcPlayerLease = PlayerLease<String, WebRtcPlayer>;
 
-/// Shared WebRTC players keyed by application stream ID.
+/// Shared WebRTC players keyed by application session ID.
 final PlayerPool<String, WebRtcPlayer> webRtcPlayerPool =
     PlayerPool<String, WebRtcPlayer>(
       createPlayer: WebRtcPlayer.new,

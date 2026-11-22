@@ -5,13 +5,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:vision/widgets/media/player.dart';
 
-/// Owns rendering for a WebRTC stream identified by [streamId].
+/// Owns rendering for a WebRTC session identified by [sessionId].
 ///
 /// The peer connection and signaling remain the responsibility of the caller
 /// that supplies the stream. This player owns only its video renderer.
 class WebRtcPlayer extends Player {
   WebRtcPlayer(
-    this.streamId, {
+    this.sessionId, {
     VoidCallback onStart = _noOp,
     VoidCallback? onPlay,
     VoidCallback? onPause,
@@ -27,7 +27,7 @@ class WebRtcPlayer extends Player {
     _initialize();
   }
 
-  final String streamId;
+  final String sessionId;
   late VoidCallback _onStart;
   VoidCallback? _onPlay;
   VoidCallback? _onPause;
