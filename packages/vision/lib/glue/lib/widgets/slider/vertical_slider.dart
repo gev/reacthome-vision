@@ -1,6 +1,6 @@
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:vision/widgets/slider/vertical_slider.dart';
 
 /// VerticalSlider widget function

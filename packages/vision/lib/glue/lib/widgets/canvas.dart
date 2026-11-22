@@ -1,6 +1,6 @@
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:vision/glue/lib/canvas/handler.dart';
 import 'package:vision/glue/widgets/glue_canvas.dart';
 

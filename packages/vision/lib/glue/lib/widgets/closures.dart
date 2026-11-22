@@ -1,6 +1,6 @@
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:vision/widgets/closures/double_curtain.dart';
 import 'package:vision/widgets/closures/double_gate.dart';
 import 'package:vision/widgets/closures/left_curtain.dart';

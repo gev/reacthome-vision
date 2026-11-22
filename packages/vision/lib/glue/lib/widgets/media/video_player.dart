@@ -2,7 +2,7 @@ import 'package:cupertino_ui/cupertino_ui.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:vision/widgets/media/rtsp/rtsp_video_player.dart';
 
 Ir videoPlayer = IrNativeFunc(

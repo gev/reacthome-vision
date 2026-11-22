@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:vision/widgets/slider/circular_slider.dart';
 

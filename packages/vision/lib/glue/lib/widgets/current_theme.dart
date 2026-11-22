@@ -1,7 +1,7 @@
 import 'package:glue/context.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue_flutter_ui/utils/color.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:vision/glue/lib/widgets/getters.dart';
 

@@ -1,8 +1,8 @@
-import 'package:material_ui/material_ui.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:glue_flutter/glue_flutter.dart';
+import 'package:glue_flutter_ui/utils/widget_properties.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:vision/glue/lib/widgets/current_theme.dart';
 
 final theme = IrNativeFunc((props) => _createTheme(WidgetProperties(props)));

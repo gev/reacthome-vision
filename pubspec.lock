@@ -234,16 +234,25 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: "5e77f068c0be1c3d9f43a732475aeb0e8323e00e"
+      resolved-ref: "3e6c30d95bd86a94040784751838458b91333a61"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
-  glue_flutter:
+  glue_flutter_material_ui:
     dependency: "direct overridden"
     description:
-      path: "flutter/glue_flutter"
+      path: "flutter/glue_flutter_material_ui"
       ref: HEAD
-      resolved-ref: "5e77f068c0be1c3d9f43a732475aeb0e8323e00e"
+      resolved-ref: "3e6c30d95bd86a94040784751838458b91333a61"
+      url: "https://github.com/gev/glue.git"
+    source: git
+    version: "0.1.0"
+  glue_flutter_ui:
+    dependency: "direct overridden"
+    description:
+      path: "flutter/glue_flutter_ui"
+      ref: HEAD
+      resolved-ref: "3e6c30d95bd86a94040784751838458b91333a61"
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
