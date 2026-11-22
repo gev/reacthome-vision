@@ -62,10 +62,11 @@ class WebRtcPlayer extends Player {
   }
 
   Future<void> setStream(MediaStream? stream) async {
-    if (_isDisposed || identical(stream, _stream)) return;
+    if (_isDisposed) return;
+    final isSameStream = identical(stream, _stream);
     _stream = stream;
     _sourceRevision++;
-    _isInitialized = false;
+    if (!isSameStream) _isInitialized = false;
     _hasError = false;
     notifyListeners();
     if (!_rendererInitialized) return;
@@ -88,7 +89,7 @@ class WebRtcPlayer extends Player {
 
   @override
   void play() {
-    if (_isDisposed || _isPlaying) return;
+    if (_isDisposed) return;
     _isPlaying = true;
     final stream = _stream;
     if (_rendererInitialized && stream != null) {
@@ -98,7 +99,7 @@ class WebRtcPlayer extends Player {
 
   @override
   void pause() {
-    if (_isDisposed || !_isPlaying) return;
+    if (_isDisposed) return;
     _isPlaying = false;
     final revision = ++_sourceRevision;
     unawaited(_detachStream(revision));
@@ -110,6 +111,7 @@ class WebRtcPlayer extends Player {
     try {
       await _renderer.setSrcObject(stream: stream);
       if (_isDisposed || revision != _sourceRevision) return;
+      if (videoSize != null) _isInitialized = true;
       _hasError = false;
       notifyListeners();
     } catch (error, stack) {
