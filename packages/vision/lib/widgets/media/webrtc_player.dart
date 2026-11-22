@@ -5,19 +5,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:vision/widgets/media/player.dart';
 
-/// Renders an established WebRTC media stream without owning its connection.
+/// Owns rendering for a WebRTC stream identified by [streamId].
 ///
-/// The caller retains ownership of [stream], its peer connection, and all
-/// signaling. Pausing detaches the stream from this renderer; it does not stop
-/// or close the underlying connection.
+/// The peer connection and signaling remain the responsibility of the caller
+/// that supplies the stream. This player owns only its video renderer.
 class WebRtcPlayer extends Player {
-  WebRtcPlayer(MediaStream stream) : _stream = stream {
+  WebRtcPlayer(this.streamId) {
     _renderer.onResize = _handleResize;
     unawaited(_initialize());
   }
 
+  final String streamId;
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
-  MediaStream _stream;
+  MediaStream? _stream;
   bool _rendererInitialized = false;
   bool _isInitialized = false;
   bool _hasError = false;
@@ -34,6 +34,8 @@ class WebRtcPlayer extends Player {
   @override
   int? get textureId => _renderer.textureId;
 
+  MediaStream? get stream => _stream;
+
   @override
   Size? get videoSize {
     final width = _renderer.videoWidth;
@@ -49,12 +51,28 @@ class WebRtcPlayer extends Player {
       await _renderer.initialize();
       if (_isDisposed) return;
       _rendererInitialized = true;
-      notifyListeners();
-      if (_isPlaying) await _bindCurrentStream();
+      if (_isPlaying && _stream != null) {
+        await _bindStream(_stream!);
+      }
     } catch (error, stack) {
       debugPrint('[WebRtcPlayer] Failed to initialize renderer: $error');
       debugPrint(stack.toString());
       _showError();
+    }
+  }
+
+  Future<void> setStream(MediaStream? stream) async {
+    if (_isDisposed || identical(stream, _stream)) return;
+    _stream = stream;
+    _sourceRevision++;
+    _isInitialized = false;
+    _hasError = false;
+    notifyListeners();
+    if (!_rendererInitialized) return;
+    if (_isPlaying && stream != null) {
+      await _bindStream(stream);
+    } else {
+      await _detachStream(_sourceRevision);
     }
   }
 
@@ -68,25 +86,14 @@ class WebRtcPlayer extends Player {
     notifyListeners();
   }
 
-  Future<void> setStream(MediaStream stream) async {
-    if (_isDisposed || identical(_stream, stream)) return;
-    _stream = stream;
-    _sourceRevision++;
-    _isInitialized = false;
-    _hasError = false;
-    notifyListeners();
-    if (_rendererInitialized && _isPlaying) {
-      await _bindCurrentStream();
-    } else if (_rendererInitialized) {
-      await _renderer.setSrcObject(stream: null);
-    }
-  }
-
   @override
   void play() {
     if (_isDisposed || _isPlaying) return;
     _isPlaying = true;
-    if (_rendererInitialized) unawaited(_bindCurrentStream());
+    final stream = _stream;
+    if (_rendererInitialized && stream != null) {
+      unawaited(_bindStream(stream));
+    }
   }
 
   @override
@@ -97,10 +104,9 @@ class WebRtcPlayer extends Player {
     unawaited(_detachStream(revision));
   }
 
-  Future<void> _bindCurrentStream() async {
+  Future<void> _bindStream(MediaStream stream) async {
     if (_isDisposed || !_rendererInitialized || !_isPlaying) return;
     final revision = ++_sourceRevision;
-    final stream = _stream;
     try {
       await _renderer.setSrcObject(stream: stream);
       if (_isDisposed || revision != _sourceRevision) return;

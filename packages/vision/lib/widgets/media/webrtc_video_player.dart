@@ -1,20 +1,19 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:vision/widgets/media/webrtc_player.dart';
+import 'package:vision/widgets/media/webrtc_player_pool.dart';
 
 /// Displays an established WebRTC stream and pauses rendering when hidden.
 class WebRtcVideoPlayer extends StatefulWidget {
-  final MediaStream stream;
+  final String streamId;
   final double? width;
   final double? height;
   final BoxFit fit;
 
   const WebRtcVideoPlayer({
     super.key,
-    required this.stream,
+    required this.streamId,
     this.width,
     this.height,
     this.fit = BoxFit.contain,
@@ -26,27 +25,29 @@ class WebRtcVideoPlayer extends StatefulWidget {
 
 class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
   final Key _visibilityKey = UniqueKey();
-  late WebRtcPlayer _player;
+  late WebRtcPlayerLease _lease;
+  WebRtcPlayer get _player => _lease.player;
   bool _isVisible = false;
 
   @override
   void initState() {
     super.initState();
-    _player = WebRtcPlayer(widget.stream);
+    _lease = webRtcPlayerPool.acquire(widget.streamId);
   }
 
   @override
   void didUpdateWidget(WebRtcVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (!identical(oldWidget.stream, widget.stream)) {
-      unawaited(_player.setStream(widget.stream));
-      if (_isVisible) _player.play();
+    if (oldWidget.streamId != widget.streamId) {
+      _lease.release();
+      _lease = webRtcPlayerPool.acquire(widget.streamId);
+      if (_isVisible) _lease.play();
     }
   }
 
   @override
   void dispose() {
-    _player.dispose();
+    _lease.release();
     super.dispose();
   }
 
@@ -58,9 +59,9 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
         final visible = info.visibleFraction > 0;
         _isVisible = visible;
         if (visible) {
-          _player.play();
+          _lease.play();
         } else {
-          _player.pause();
+          _lease.pause();
         }
       },
       child: SizedBox(

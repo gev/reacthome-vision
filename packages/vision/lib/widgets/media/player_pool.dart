@@ -26,6 +26,9 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
     return lease;
   }
 
+  /// Returns the cached player for [key], if one has already been acquired.
+  P? getPlayer(K key) => _players[key]?.player;
+
   @override
   void play(PlayerLease<K, P> lease) {
     final entry = _entryFor(lease);
