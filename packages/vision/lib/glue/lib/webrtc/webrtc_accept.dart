@@ -9,7 +9,7 @@ import 'package:vision/widgets/media/webrtc/webrtc_player_pool.dart';
 /// Usage: (webrtc-accept session-id {:sdp "..." :type "offer"})
 final Ir webRtcAccept = IrNativeFunc(
   (Ir sessionIdIr) => Eval.pure(
-    IrNativeFunc((Ir jsepIr) {
+    IrNativeFunc((Ir offerIr) {
       final sessionId = switch (sessionIdIr) {
         IrString(:final value) => value,
         _ => null,
@@ -20,11 +20,11 @@ final Ir webRtcAccept = IrNativeFunc(
         );
       }
 
-      final jsep = _jsepDescription(jsepIr);
-      if (jsep == null) {
+      final offer = _offerDescription(offerIr);
+      if (offer == null) {
         return throwError(
           wrongArgumentType([
-            '`webrtc-accept` requires a JSEP object with string `sdp` and `type`',
+            '`webrtc-accept` requires a JSEP offer object with string `sdp` and `type`',
           ]),
         );
       }
@@ -41,14 +41,14 @@ final Ir webRtcAccept = IrNativeFunc(
 
       return Eval.pure(
         IrNativeValue(
-          Value(player.acceptOffer(jsep).then(toGlueWebRtcAnswer)),
+          Value(player.acceptOffer(offer).then(toGlueWebRtcAnswer)),
         ),
       );
     }),
   ),
 );
 
-RTCSessionDescription? _jsepDescription(Ir ir) {
+RTCSessionDescription? _offerDescription(Ir ir) {
   if (ir case IrObject(:final properties)) {
     final sdp = properties['sdp'];
     final type = properties['type'];
