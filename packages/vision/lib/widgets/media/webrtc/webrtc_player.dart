@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:vision/widgets/media/player.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_answer.dart';
+import 'package:vision/widgets/media/webrtc/webrtc_ice_server.dart';
+import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 
 /// Owns rendering for a WebRTC session identified by [sessionId].
 ///
@@ -31,7 +33,9 @@ class WebRtcPlayer extends Player {
   VoidCallback? _onPlay;
   VoidCallback? _onPause;
   VoidCallback? _onStop;
-  List<Map<String, dynamic>> _iceServers = const [];
+  List<WebRtcIceServer> _iceServers = const [];
+  WebRtcIceTransportPolicy _iceTransportPolicy =
+      WebRtcIceTransportPolicy.all;
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
   RTCPeerConnection? _peerConnection;
   MediaStream? _stream;
@@ -62,10 +66,12 @@ class WebRtcPlayer extends Player {
 
   RTCVideoRenderer get renderer => _renderer;
 
-  void updateIceServers(List<Map<String, dynamic>> iceServers) {
-    _iceServers = List.unmodifiable(
-      iceServers.map((server) => Map<String, dynamic>.unmodifiable(server)),
-    );
+  void updateIceServers(List<WebRtcIceServer> iceServers) {
+    _iceServers = List.unmodifiable(iceServers);
+  }
+
+  void updateIceTransportPolicy(WebRtcIceTransportPolicy policy) {
+    _iceTransportPolicy = policy;
   }
 
   /// Applies a remote JSEP offer and returns the answer and ICE candidates.
@@ -75,7 +81,8 @@ class WebRtcPlayer extends Player {
     final candidates = ValueNotifier<List<RTCIceCandidate>>([]);
     try {
       final peerConnection = _peerConnection ??= await createPeerConnection({
-        'iceServers': _iceServers,
+        'iceServers': _iceServers.map((server) => server.toMap()).toList(),
+        'iceTransportPolicy': _iceTransportPolicy.name,
       });
       peerConnection.onIceCandidate = (candidate) {
         candidates.value = [...candidates.value, candidate];

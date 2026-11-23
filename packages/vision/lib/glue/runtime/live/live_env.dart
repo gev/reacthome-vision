@@ -21,6 +21,7 @@ import 'package:vision/glue/lib/routes_module.dart';
 import 'package:vision/glue/lib/rpc_module.dart';
 import 'package:vision/glue/lib/store_module.dart';
 import 'package:vision/glue/lib/widgets_module.dart';
+import 'package:vision/glue/lib/webrtc_module.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/runtime/live/lib/live_state_module.dart';
 import 'package:vision/glue/runtime/live/lib/module/live_import.dart';
@@ -55,6 +56,7 @@ Env makeLiveEnv({
     rateLimitModule(log),
     liveStateModule(storage),
     widgetsModule(image: liveImage(storage.assets)),
+    webrtcModule,
     moduleModule(import: liveImport(subscriber, runtime)),
     storeModule(subscriber),
     rpcModule(sink),

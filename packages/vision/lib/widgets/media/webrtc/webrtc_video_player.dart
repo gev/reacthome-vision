@@ -1,6 +1,8 @@
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:vision/widgets/media/webrtc/webrtc_ice_server.dart';
+import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_player.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_player_pool.dart';
 
@@ -10,7 +12,8 @@ class WebRtcVideoPlayer extends StatefulWidget {
   final double? width;
   final double? height;
   final BoxFit fit;
-  final List<Map<String, dynamic>> iceServers;
+  final List<WebRtcIceServer> iceServers;
+  final WebRtcIceTransportPolicy iceTransportPolicy;
   final VoidCallback onStart;
   final VoidCallback? onPlay;
   final VoidCallback? onPause;
@@ -23,6 +26,7 @@ class WebRtcVideoPlayer extends StatefulWidget {
     this.height,
     this.fit = BoxFit.contain,
     this.iceServers = const [],
+    this.iceTransportPolicy = WebRtcIceTransportPolicy.all,
     required this.onStart,
     this.onPlay,
     this.onPause,
@@ -54,6 +58,7 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
       if (_isVisible) _lease.play();
     } else {
       _player.updateIceServers(widget.iceServers);
+      _player.updateIceTransportPolicy(widget.iceTransportPolicy);
       _player.updateCallbacks(
         onStart: widget.onStart,
         onPlay: widget.onPlay,
@@ -115,6 +120,7 @@ WebRtcPlayerLease _acquire(WebRtcVideoPlayer widget) =>
       widget.sessionId,
       configurePlayer: (player) {
         player.updateIceServers(widget.iceServers);
+        player.updateIceTransportPolicy(widget.iceTransportPolicy);
         player.updateCallbacks(
           onStart: widget.onStart,
           onPlay: widget.onPlay,
