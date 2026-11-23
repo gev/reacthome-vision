@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:vision/widgets/media/player.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_answer.dart';
-import 'package:vision/widgets/media/webrtc/webrtc_negotiation.dart';
 
 /// Owns rendering for a WebRTC session identified by [sessionId].
 ///
@@ -32,6 +31,7 @@ class WebRtcPlayer extends Player {
   VoidCallback? _onPlay;
   VoidCallback? _onPause;
   VoidCallback? _onStop;
+  List<Map<String, dynamic>> _iceServers = const [];
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
   RTCPeerConnection? _peerConnection;
   MediaStream? _stream;
@@ -62,14 +62,21 @@ class WebRtcPlayer extends Player {
 
   RTCVideoRenderer get renderer => _renderer;
 
+  void updateIceServers(List<Map<String, dynamic>> iceServers) {
+    _iceServers = List.unmodifiable(
+      iceServers.map((server) => Map<String, dynamic>.unmodifiable(server)),
+    );
+  }
+
   /// Applies a remote JSEP offer and returns the answer and ICE candidates.
   Future<WebRtcAnswer> acceptOffer(RTCSessionDescription offer) async {
     if (_isDisposed) throw StateError('WebRTC player is disposed');
 
     final candidates = ValueNotifier<List<RTCIceCandidate>>([]);
     try {
-      final peerConnection =
-          _peerConnection ??= await createPeerConnection({});
+      final peerConnection = _peerConnection ??= await createPeerConnection({
+        'iceServers': _iceServers,
+      });
       peerConnection.onIceCandidate = (candidate) {
         candidates.value = [...candidates.value, candidate];
       };

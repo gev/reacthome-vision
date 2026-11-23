@@ -10,6 +10,7 @@ class WebRtcVideoPlayer extends StatefulWidget {
   final double? width;
   final double? height;
   final BoxFit fit;
+  final List<Map<String, dynamic>> iceServers;
   final VoidCallback onStart;
   final VoidCallback? onPlay;
   final VoidCallback? onPause;
@@ -21,6 +22,7 @@ class WebRtcVideoPlayer extends StatefulWidget {
     this.width,
     this.height,
     this.fit = BoxFit.contain,
+    this.iceServers = const [],
     required this.onStart,
     this.onPlay,
     this.onPause,
@@ -51,6 +53,7 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
       _lease = _acquire(widget);
       if (_isVisible) _lease.play();
     } else {
+      _player.updateIceServers(widget.iceServers);
       _player.updateCallbacks(
         onStart: widget.onStart,
         onPlay: widget.onPlay,
@@ -110,10 +113,13 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
 WebRtcPlayerLease _acquire(WebRtcVideoPlayer widget) =>
     webRtcPlayerPool.acquire(
       widget.sessionId,
-      configurePlayer: (player) => player.updateCallbacks(
-        onStart: widget.onStart,
-        onPlay: widget.onPlay,
-        onPause: widget.onPause,
-        onStop: widget.onStop,
-      ),
+      configurePlayer: (player) {
+        player.updateIceServers(widget.iceServers);
+        player.updateCallbacks(
+          onStart: widget.onStart,
+          onPlay: widget.onPlay,
+          onPause: widget.onPause,
+          onStop: widget.onStop,
+        );
+      },
     );
