@@ -3,6 +3,8 @@ import 'dart:ui' show Size;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:vision/widgets/media/player.dart';
+import 'package:vision/widgets/media/webrtc/webrtc_answer.dart';
+import 'package:vision/widgets/media/webrtc/webrtc_negotiation.dart';
 
 /// Owns rendering for a WebRTC session identified by [sessionId].
 ///
@@ -60,24 +62,31 @@ class WebRtcPlayer extends Player {
 
   RTCVideoRenderer get renderer => _renderer;
 
-  /// Applies a remote JSEP offer and returns the local answer.
-  Future<RTCSessionDescription> acceptOffer(
-    RTCSessionDescription offer, {
-    required void Function(RTCIceCandidate candidate) onIceCandidate,
-  }) async {
+  /// Applies a remote JSEP offer and returns the answer and ICE candidates.
+  Future<WebRtcAnswer> acceptOffer(RTCSessionDescription offer) async {
     if (_isDisposed) throw StateError('WebRTC player is disposed');
 
-    final peerConnection = _peerConnection ??= await createPeerConnection({});
-    peerConnection.onIceCandidate = onIceCandidate;
-    peerConnection.onTrack = (event) {
-      if (event.streams.isEmpty) return;
-      setStream(event.streams.first);
-    };
+    final candidates = ValueNotifier<List<RTCIceCandidate>>([]);
+    try {
+      final peerConnection =
+          _peerConnection ??= await createPeerConnection({});
+      peerConnection.onIceCandidate = (candidate) {
+        candidates.value = [...candidates.value, candidate];
+      };
+      peerConnection.onTrack = (event) {
+        if (event.streams.isEmpty) return;
+        setStream(event.streams.first);
+      };
 
-    await peerConnection.setRemoteDescription(offer);
-    final answer = await peerConnection.createAnswer();
-    await peerConnection.setLocalDescription(answer);
-    return await peerConnection.getLocalDescription() ?? answer;
+      await peerConnection.setRemoteDescription(offer);
+      final localAnswer = await peerConnection.createAnswer();
+      await peerConnection.setLocalDescription(localAnswer);
+      final answer = await peerConnection.getLocalDescription() ?? localAnswer;
+      return (description: answer, candidates: candidates);
+    } catch (_) {
+      candidates.dispose();
+      rethrow;
+    }
   }
 
   void updateCallbacks({
