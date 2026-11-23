@@ -2,10 +2,10 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/glue/lib/webrtc/webrtc_answer.dart';
-import 'package:vision/widgets/media/webrtc/webrtc_player_pool.dart';
+import 'package:vision/glue/webrtc/glue_webrtc_answer.dart';
+import 'package:vision/glue/webrtc/glue_webrtc_player_pool.dart';
 
-/// Accepts a JSEP offer for an acquired WebRTC session.
+/// Accepts an offer for an acquired WebRTC session.
 /// Usage: (webrtc-accept session-id {:sdp "..." :type "offer"})
 final Ir webRtcAccept = IrNativeFunc(
   (Ir sessionIdIr) => Eval.pure(
@@ -24,7 +24,7 @@ final Ir webRtcAccept = IrNativeFunc(
       if (offer == null) {
         return throwError(
           wrongArgumentType([
-            '`webrtc-accept` requires a JSEP offer object with string `sdp` and `type`',
+            '`webrtc-accept` requires an offer object with string `sdp` and `type`',
           ]),
         );
       }
@@ -41,7 +41,7 @@ final Ir webRtcAccept = IrNativeFunc(
 
       return Eval.pure(
         IrNativeValue(
-          Value(player.acceptOffer(offer).then(toGlueWebRtcAnswer)),
+          Value(player.acceptOffer(offer).then(glueWebRtcAnswerToIr)),
         ),
       );
     }),

@@ -1,13 +1,16 @@
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:vision/widgets/media/player_lease.dart';
+import 'package:vision/widgets/media/player_pool.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_ice_server.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_player.dart';
-import 'package:vision/widgets/media/webrtc/webrtc_player_pool.dart';
 
 /// Displays an established WebRTC stream and pauses rendering when hidden.
-class WebRtcVideoPlayer extends StatefulWidget {
+class WebRtcVideoPlayer<P extends WebRtcPlayer<dynamic>>
+    extends StatefulWidget {
+  final PlayerPool<String, P> playerPool;
   final String sessionId;
   final double? width;
   final double? height;
@@ -21,6 +24,7 @@ class WebRtcVideoPlayer extends StatefulWidget {
 
   const WebRtcVideoPlayer({
     super.key,
+    required this.playerPool,
     required this.sessionId,
     this.width,
     this.height,
@@ -34,13 +38,14 @@ class WebRtcVideoPlayer extends StatefulWidget {
   });
 
   @override
-  State<WebRtcVideoPlayer> createState() => _WebRtcVideoPlayerState();
+  State<WebRtcVideoPlayer<P>> createState() => _WebRtcVideoPlayerState<P>();
 }
 
-class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
+class _WebRtcVideoPlayerState<P extends WebRtcPlayer<dynamic>>
+    extends State<WebRtcVideoPlayer<P>> {
   final Key _visibilityKey = UniqueKey();
-  late WebRtcPlayerLease _lease;
-  WebRtcPlayer get _player => _lease.player;
+  late PlayerLease<String, P> _lease;
+  P get _player => _lease.player;
   bool _isVisible = false;
 
   @override
@@ -50,16 +55,17 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
   }
 
   @override
-  void didUpdateWidget(WebRtcVideoPlayer oldWidget) {
+  void didUpdateWidget(WebRtcVideoPlayer<P> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.sessionId != widget.sessionId) {
+    if (oldWidget.sessionId != widget.sessionId ||
+        oldWidget.playerPool != widget.playerPool) {
       _lease.release();
       _lease = _acquire(widget);
       if (_isVisible) _lease.play();
     } else {
-      _player.updateIceServers(widget.iceServers);
-      _player.updateIceTransportPolicy(widget.iceTransportPolicy);
-      _player.updateCallbacks(
+      _player.configure(
+        iceServers: widget.iceServers,
+        iceTransportPolicy: widget.iceTransportPolicy,
         onStart: widget.onStart,
         onPlay: widget.onPlay,
         onPause: widget.onPause,
@@ -115,13 +121,15 @@ class _WebRtcVideoPlayerState extends State<WebRtcVideoPlayer> {
   }
 }
 
-WebRtcPlayerLease _acquire(WebRtcVideoPlayer widget) =>
-    webRtcPlayerPool.acquire(
+PlayerLease<String, P> _acquire<P extends WebRtcPlayer<dynamic>>(
+  WebRtcVideoPlayer<P> widget,
+) =>
+    widget.playerPool.acquire(
       widget.sessionId,
       configurePlayer: (player) {
-        player.updateIceServers(widget.iceServers);
-        player.updateIceTransportPolicy(widget.iceTransportPolicy);
-        player.updateCallbacks(
+        player.configure(
+          iceServers: widget.iceServers,
+          iceTransportPolicy: widget.iceTransportPolicy,
           onStart: widget.onStart,
           onPlay: widget.onPlay,
           onPause: widget.onPause,

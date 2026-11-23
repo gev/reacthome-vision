@@ -3,6 +3,8 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:vision/glue/webrtc/glue_webrtc_player.dart';
+import 'package:vision/glue/webrtc/glue_webrtc_player_pool.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_ice_server.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_video_player.dart';
@@ -27,8 +29,9 @@ Eval<Ir> _createWebRtcVideoPlayer(WidgetProperties props) {
       );
     }
 
-    final widget = WebRtcVideoPlayer(
+    final widget = WebRtcVideoPlayer<GlueWebRtcPlayer>(
       key: props.key,
+      playerPool: webRtcPlayerPool,
       sessionId: sessionId,
       width: props.width,
       height: props.height,

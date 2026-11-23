@@ -10,32 +10,19 @@ import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 /// Owns rendering for a WebRTC session identified by [sessionId].
 ///
 /// The signaling transport remains the caller's responsibility.
-class WebRtcPlayer extends Player {
-  WebRtcPlayer(
-    this.sessionId, {
-    VoidCallback onStart = _noOp,
-    VoidCallback? onPlay,
-    VoidCallback? onPause,
-    VoidCallback? onStop,
-  }) {
-    updateCallbacks(
-      onStart: onStart,
-      onPlay: onPlay,
-      onPause: onPause,
-      onStop: onStop,
-    );
+abstract class WebRtcPlayer<C> extends Player {
+  WebRtcPlayer(this.sessionId) {
     _renderer.onResize = _handleResize;
     _initialize();
   }
 
   final String sessionId;
-  late VoidCallback _onStart;
+  VoidCallback _onStart = _noOp;
   VoidCallback? _onPlay;
   VoidCallback? _onPause;
   VoidCallback? _onStop;
   List<WebRtcIceServer> _iceServers = const [];
-  WebRtcIceTransportPolicy _iceTransportPolicy =
-      WebRtcIceTransportPolicy.all;
+  WebRtcIceTransportPolicy _iceTransportPolicy = WebRtcIceTransportPolicy.all;
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
   RTCPeerConnection? _peerConnection;
   MediaStream? _stream;
@@ -44,6 +31,9 @@ class WebRtcPlayer extends Player {
   bool _hasError = false;
   bool _isDisposed = false;
   int _sourceRevision = 0;
+
+  C convertDescription(RTCSessionDescription description);
+  C convertCandidates(List<RTCIceCandidate> candidates);
 
   @override
   bool get isInitialized => _isInitialized;
@@ -66,53 +56,51 @@ class WebRtcPlayer extends Player {
 
   RTCVideoRenderer get renderer => _renderer;
 
-  void updateIceServers(List<WebRtcIceServer> iceServers) {
-    _iceServers = List.unmodifiable(iceServers);
-  }
-
-  void updateIceTransportPolicy(WebRtcIceTransportPolicy policy) {
-    _iceTransportPolicy = policy;
-  }
-
-  /// Applies a remote JSEP offer and returns the answer and ICE candidates.
-  Future<WebRtcAnswer> acceptOffer(RTCSessionDescription offer) async {
-    if (_isDisposed) throw StateError('WebRTC player is disposed');
-
-    final candidates = ValueNotifier<List<RTCIceCandidate>>([]);
-    try {
-      final peerConnection = _peerConnection ??= await createPeerConnection({
-        'iceServers': _iceServers.map((server) => server.toMap()).toList(),
-        'iceTransportPolicy': _iceTransportPolicy.name,
-      });
-      peerConnection.onIceCandidate = (candidate) {
-        candidates.value = [...candidates.value, candidate];
-      };
-      peerConnection.onTrack = (event) {
-        if (event.streams.isEmpty) return;
-        setStream(event.streams.first);
-      };
-
-      await peerConnection.setRemoteDescription(offer);
-      final localAnswer = await peerConnection.createAnswer();
-      await peerConnection.setLocalDescription(localAnswer);
-      final answer = await peerConnection.getLocalDescription() ?? localAnswer;
-      return (description: answer, candidates: candidates);
-    } catch (_) {
-      candidates.dispose();
-      rethrow;
-    }
-  }
-
-  void updateCallbacks({
+  void configure({
+    required List<WebRtcIceServer> iceServers,
+    required WebRtcIceTransportPolicy iceTransportPolicy,
     required VoidCallback onStart,
     VoidCallback? onPlay,
     VoidCallback? onPause,
     VoidCallback? onStop,
   }) {
+    _iceServers = List.unmodifiable(iceServers);
+    _iceTransportPolicy = iceTransportPolicy;
     _onStart = onStart;
     _onPlay = onPlay;
     _onPause = onPause;
     _onStop = onStop;
+  }
+
+  /// Applies a remote offer and returns the answer with mapped candidates.
+  Future<WebRtcAnswer<C>> acceptOffer(RTCSessionDescription offer) async {
+    if (_isDisposed) throw StateError('WebRTC player is disposed');
+
+    final iceCandidates = <RTCIceCandidate>[];
+    final candidates = ValueNotifier<C>(convertCandidates(iceCandidates));
+    final peerConnection = _peerConnection ??= await createPeerConnection({
+      'iceServers': _iceServers.map((server) => server.toMap()).toList(),
+      'iceTransportPolicy': _iceTransportPolicy.name,
+    });
+    peerConnection.onIceCandidate = (candidate) {
+      iceCandidates.add(candidate);
+      candidates.value = convertCandidates(iceCandidates);
+    };
+    peerConnection.onTrack = (event) {
+      if (event.streams.isEmpty) return;
+      setStream(event.streams.first);
+    };
+
+    await peerConnection.setRemoteDescription(offer);
+    final localAnswer = await peerConnection.createAnswer();
+    await peerConnection.setLocalDescription(localAnswer);
+    final answer = (
+      description: convertDescription(
+        await peerConnection.getLocalDescription() ?? localAnswer,
+      ),
+      candidates: candidates,
+    );
+    return answer;
   }
 
   void start() {
