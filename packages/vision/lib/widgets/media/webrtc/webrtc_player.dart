@@ -1,14 +1,13 @@
-import 'dart:async';
 import 'dart:ui' show Size;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:vision/widgets/media/player.dart';
+import 'package:vision/widgets/media/webrtc/webrtc_negotiation.dart';
 
 /// Owns rendering for a WebRTC session identified by [sessionId].
 ///
-/// The peer connection and signaling remain the responsibility of the caller
-/// that supplies the stream. This player owns only its video renderer.
+/// The signaling transport remains the caller's responsibility.
 class WebRtcPlayer extends Player {
   WebRtcPlayer(
     this.sessionId, {
@@ -33,6 +32,7 @@ class WebRtcPlayer extends Player {
   VoidCallback? _onPause;
   VoidCallback? _onStop;
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
+  RTCPeerConnection? _peerConnection;
   MediaStream? _stream;
   bool _rendererInitialized = false;
   bool _isInitialized = false;
@@ -60,6 +60,33 @@ class WebRtcPlayer extends Player {
   }
 
   RTCVideoRenderer get renderer => _renderer;
+
+  /// Applies a remote JSEP offer and returns observable local signaling data.
+  Future<WebRtcNegotiation> acceptOffer(RTCSessionDescription offer) async {
+    if (_isDisposed) throw StateError('WebRTC player is disposed');
+
+    final negotiation = WebRtcNegotiation();
+    try {
+      final peerConnection =
+          _peerConnection ??= await createPeerConnection({});
+      peerConnection.onIceCandidate = negotiation.addIceCandidate;
+      peerConnection.onTrack = (event) {
+        if (event.streams.isEmpty) return;
+        setStream(event.streams.first);
+      };
+
+      await peerConnection.setRemoteDescription(offer);
+      final answer = await peerConnection.createAnswer();
+      await peerConnection.setLocalDescription(answer);
+      negotiation.setAnswer(
+        await peerConnection.getLocalDescription() ?? answer,
+      );
+      return negotiation;
+    } catch (_) {
+      negotiation.dispose();
+      rethrow;
+    }
+  }
 
   void updateCallbacks({
     required VoidCallback onStart,
@@ -186,6 +213,7 @@ class WebRtcPlayer extends Player {
   void dispose() {
     _isDisposed = true;
     _sourceRevision++;
+    _peerConnection?.close();
     _renderer.dispose();
     super.dispose();
   }
