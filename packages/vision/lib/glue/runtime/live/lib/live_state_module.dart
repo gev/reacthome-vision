@@ -1,4 +1,5 @@
 import 'package:glue/module.dart';
+import 'package:vision/glue/lib/state/await.dart';
 import 'package:vision/glue/lib/state/listen.dart';
 import 'package:vision/glue/lib/state/local_state.dart';
 import 'package:vision/glue/lib/state/modify.dart';
@@ -26,6 +27,7 @@ ModuleInfo liveStateModule(LiveStorage storage) =>
         lookupReadOnly(lookup: storage.remotePersistentStore),
       ),
       ('listen', listen),
+      ('await', awaitFuture),
       ('read', read),
       ('write', write),
       ('modify', modify),

@@ -1,4 +1,5 @@
 import 'package:glue/module.dart';
+import 'package:vision/glue/lib/state/await.dart';
 import 'package:vision/glue/lib/state/listen.dart';
 import 'package:vision/glue/lib/state/local_state.dart';
 import 'package:vision/glue/lib/state/modify.dart';
@@ -21,6 +22,7 @@ ModuleInfo localStateModule(LocalStorage storage) =>
         ),
       ),
       ('listen', listen),
+      ('await', awaitFuture),
       ('read', read),
       ('write', write),
       ('modify', modify),
