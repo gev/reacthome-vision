@@ -91,6 +91,9 @@ abstract class WebRtcPlayer<C> extends Player {
       setStream(event.streams.first);
     };
 
+    print(offer.type);
+    print(offer.sdp);
+
     await peerConnection.setRemoteDescription(offer);
     final localAnswer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(localAnswer);

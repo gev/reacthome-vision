@@ -8,8 +8,7 @@ import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_player.dart';
 
 /// Displays an established WebRTC stream and pauses rendering when hidden.
-class WebRtcVideoPlayer<P extends WebRtcPlayer<dynamic>>
-    extends StatefulWidget {
+class WebRtcVideoPlayer<P extends WebRtcPlayer> extends StatefulWidget {
   final PlayerPool<String, P> playerPool;
   final String sessionId;
   final double? width;
@@ -123,17 +122,16 @@ class _WebRtcVideoPlayerState<P extends WebRtcPlayer<dynamic>>
 
 PlayerLease<String, P> _acquire<P extends WebRtcPlayer<dynamic>>(
   WebRtcVideoPlayer<P> widget,
-) =>
-    widget.playerPool.acquire(
-      widget.sessionId,
-      configurePlayer: (player) {
-        player.configure(
-          iceServers: widget.iceServers,
-          iceTransportPolicy: widget.iceTransportPolicy,
-          onStart: widget.onStart,
-          onPlay: widget.onPlay,
-          onPause: widget.onPause,
-          onStop: widget.onStop,
-        );
-      },
+) => widget.playerPool.acquire(
+  widget.sessionId,
+  configurePlayer: (player) {
+    player.configure(
+      iceServers: widget.iceServers,
+      iceTransportPolicy: widget.iceTransportPolicy,
+      onStart: widget.onStart,
+      onPlay: widget.onPlay,
+      onPause: widget.onPause,
+      onStop: widget.onStop,
     );
+  },
+);
