@@ -6,7 +6,7 @@ import 'package:vision/glue/webrtc/glue_webrtc_answer.dart';
 import 'package:vision/glue/webrtc/glue_webrtc_player_pool.dart';
 
 /// Accepts an offer for an acquired WebRTC session.
-/// Usage: (webrtc-accept session-id {:sdp "..." :type "offer"})
+/// Usage: (webrtc-accept session-id (:sdp "..." :type "offer"))
 final Ir webRtcAccept = IrNativeFunc(
   (Ir sessionIdIr) => Eval.pure(
     IrNativeFunc((Ir offerIr) {

@@ -87,22 +87,22 @@ abstract class WebRtcPlayer<C> extends Player {
       candidates.value = convertCandidates(iceCandidates);
     };
     peerConnection.onTrack = (event) {
-      if (event.streams.isEmpty) return;
-      setStream(event.streams.first);
+      if (event.streams.isNotEmpty) {
+        setStream(event.streams.first);
+      }
     };
-
-    print(offer.type);
-    print(offer.sdp);
 
     await peerConnection.setRemoteDescription(offer);
     final localAnswer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(localAnswer);
+
     final answer = (
       description: convertDescription(
         await peerConnection.getLocalDescription() ?? localAnswer,
       ),
       candidates: candidates,
     );
+
     return answer;
   }
 
