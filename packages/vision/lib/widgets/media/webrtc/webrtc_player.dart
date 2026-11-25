@@ -16,7 +16,7 @@ abstract class WebRtcPlayer<C> extends Player {
   }
 
   final String sessionId;
-  VoidCallback _onStart = _noOp;
+  VoidCallback? _onStart;
   VoidCallback? _onPlay;
   VoidCallback? _onPause;
   VoidCallback? _onStop;
@@ -60,7 +60,7 @@ abstract class WebRtcPlayer<C> extends Player {
   void configure({
     required List<WebRtcIceServer> iceServers,
     required WebRtcIceTransportPolicy iceTransportPolicy,
-    required VoidCallback onStart,
+    VoidCallback? onStart,
     VoidCallback? onPlay,
     VoidCallback? onPause,
     VoidCallback? onStop,
@@ -125,7 +125,7 @@ abstract class WebRtcPlayer<C> extends Player {
 
   void start() {
     if (_isDisposed) return;
-    _onStart();
+    _onStart?.call();
     final stream = _stream;
     if (_rendererInitialized && stream != null) {
       _bindStream(stream);
@@ -241,5 +241,3 @@ abstract class WebRtcPlayer<C> extends Player {
     super.dispose();
   }
 }
-
-void _noOp() {}

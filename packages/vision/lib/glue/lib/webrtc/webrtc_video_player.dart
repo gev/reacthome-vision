@@ -23,12 +23,6 @@ Eval<Ir> _createWebRtcVideoPlayer(WidgetProperties props) {
 
   return getRuntime().bind((runtime) {
     final onStart = props.getVoidCallback('on-start')?.call(runtime);
-    if (onStart == null) {
-      return throwError(
-        wrongArgumentType(['Property `on-start` required for WebRTC player']),
-      );
-    }
-
     final widget = WebRtcVideoPlayer<GlueWebRtcPlayer>(
       key: props.key,
       playerPool: webRtcPlayerPool,

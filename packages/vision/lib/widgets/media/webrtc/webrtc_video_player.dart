@@ -16,7 +16,7 @@ class WebRtcVideoPlayer<P extends WebRtcPlayer> extends StatefulWidget {
   final BoxFit fit;
   final List<WebRtcIceServer> iceServers;
   final WebRtcIceTransportPolicy iceTransportPolicy;
-  final VoidCallback onStart;
+  final VoidCallback? onStart;
   final VoidCallback? onPlay;
   final VoidCallback? onPause;
   final VoidCallback? onStop;
@@ -30,7 +30,7 @@ class WebRtcVideoPlayer<P extends WebRtcPlayer> extends StatefulWidget {
     this.fit = BoxFit.contain,
     this.iceServers = const [],
     this.iceTransportPolicy = WebRtcIceTransportPolicy.all,
-    required this.onStart,
+    this.onStart,
     this.onPlay,
     this.onPause,
     this.onStop,
