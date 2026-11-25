@@ -22,7 +22,6 @@ Eval<Ir> _createWebRtcVideoPlayer(WidgetProperties props) {
   }
 
   return getRuntime().bind((runtime) {
-    final onStart = props.getVoidCallback('on-start')?.call(runtime);
     final widget = WebRtcVideoPlayer<GlueWebRtcPlayer>(
       key: props.key,
       playerPool: webRtcPlayerPool,
@@ -34,7 +33,7 @@ Eval<Ir> _createWebRtcVideoPlayer(WidgetProperties props) {
       iceTransportPolicy:
           props.getValue<WebRtcIceTransportPolicy>('ice-transport-policy') ??
           WebRtcIceTransportPolicy.all,
-      onStart: onStart,
+      onStart: props.getVoidCallback('on-start')?.call(runtime),
       onPlay: props.getVoidCallback('on-play')?.call(runtime),
       onPause: props.getVoidCallback('on-pause')?.call(runtime),
       onStop: props.getVoidCallback('on-stop')?.call(runtime),
