@@ -2,51 +2,47 @@ import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
+import 'package:glue_flutter_ui/utils/widget_properties.dart';
 import 'package:vision/glue/webrtc/glue_webrtc_player_pool.dart';
 
 /// Adds a remote ICE candidate to an acquired WebRTC session.
-/// Usage: (webrtc-add-candidate session-id (:candidate "..." :sdpMid "v" :sdpMLineIndex 0))
+/// Usage: (webrtc-add-candidate :session id :candidate candidate)
 final Ir webRtcAddCandidate = IrNativeFunc(
-  (Ir sessionIdIr) => Eval.pure(
-    IrNativeFunc((Ir candidateIr) {
-      final sessionId = switch (sessionIdIr) {
-        IrString(:final value) => value,
-        _ => null,
-      };
-      if (sessionId == null) {
-        return throwError(
-          wrongArgumentType([
-            '`webrtc-add-candidate` requires a string session ID',
-          ]),
-        );
-      }
-
-      final candidate = _iceCandidate(candidateIr);
-      if (candidate == null) {
-        return throwError(
-          wrongArgumentType([
-            '`webrtc-add-candidate` requires a candidate object with a string `candidate`',
-          ]),
-        );
-      }
-
-      final player = webRtcPlayerPool.getPlayer(sessionId);
-      if (player == null) {
-        return throwError(
-          RuntimeException(
-            'not-found',
-            IrString('No WebRTC player acquired for session "$sessionId"'),
-          ),
-        );
-      }
-
-      player.addCandidate(candidate);
-      return Eval.pure(IrVoid());
-    }),
-  ),
+  (Ir propsIr) => _addCandidate(WidgetProperties(propsIr)),
 );
 
-RTCIceCandidate? _iceCandidate(Ir ir) {
+Eval<Ir> _addCandidate(WidgetProperties props) {
+  final session = props.getString('session');
+  if (session == null) {
+    return throwError(
+      wrongArgumentType(['`webrtc-add-candidate` requires a string `session`']),
+    );
+  }
+
+  final candidate = _iceCandidate(props.get('candidate'));
+  if (candidate == null) {
+    return throwError(
+      wrongArgumentType([
+        '`webrtc-add-candidate` requires a candidate object with a string `candidate`',
+      ]),
+    );
+  }
+
+  final player = webRtcPlayerPool.getPlayer(session);
+  if (player == null) {
+    return throwError(
+      RuntimeException(
+        'not-found',
+        IrString('No WebRTC player acquired for session "$session"'),
+      ),
+    );
+  }
+
+  player.addCandidate(candidate);
+  return Eval.pure(IrVoid());
+}
+
+RTCIceCandidate? _iceCandidate(Ir? ir) {
   if (ir case IrObject(:final properties)) {
     final candidate = properties['candidate'];
     final sdpMid = properties['sdpMid'];

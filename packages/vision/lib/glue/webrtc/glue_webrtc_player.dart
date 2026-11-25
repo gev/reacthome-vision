@@ -10,15 +10,9 @@ class GlueWebRtcPlayer extends WebRtcPlayer<Ir> {
       IrObject({'sdp': toIr(description.sdp), 'type': toIr(description.type)});
 
   @override
-  Ir convertCandidates(List<RTCIceCandidate> candidates) => IrList(
-    candidates
-        .map(
-          (candidate) => IrObject({
-            'candidate': toIr(candidate.candidate),
-            'sdpMid': toIr(candidate.sdpMid),
-            'sdpMLineIndex': toIr(candidate.sdpMLineIndex),
-          }),
-        )
-        .toList(),
-  );
+  Ir convertCandidate(RTCIceCandidate candidate) => IrObject({
+    'candidate': toIr(candidate.candidate),
+    'sdpMid': toIr(candidate.sdpMid),
+    'sdpMLineIndex': toIr(candidate.sdpMLineIndex),
+  });
 }

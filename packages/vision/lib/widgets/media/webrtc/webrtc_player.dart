@@ -3,7 +3,6 @@ import 'dart:ui' show Size;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 import 'package:vision/widgets/media/player.dart';
-import 'package:vision/widgets/media/webrtc/webrtc_answer.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_ice_server.dart';
 import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 
@@ -35,7 +34,7 @@ abstract class WebRtcPlayer<C> extends Player {
   int _sourceRevision = 0;
 
   C convertDescription(RTCSessionDescription description);
-  C convertCandidates(List<RTCIceCandidate> candidates);
+  C convertCandidate(RTCIceCandidate candidate);
 
   @override
   bool get isInitialized => _isInitialized;
@@ -75,19 +74,19 @@ abstract class WebRtcPlayer<C> extends Player {
   }
 
   /// Applies a remote offer and returns the answer with mapped candidates.
-  Future<WebRtcAnswer<C>> acceptOffer(RTCSessionDescription offer) async {
+  Future<C> acceptOffer(
+    RTCSessionDescription offer, {
+    void Function(C candidate)? onCandidate,
+  }) async {
     if (_isDisposed) throw StateError('WebRTC player is disposed');
 
     _hasRemoteDescription = false;
-    final iceCandidates = <RTCIceCandidate>[];
-    final candidates = ValueNotifier<C>(convertCandidates(iceCandidates));
     final peerConnection = _peerConnection ??= await createPeerConnection({
       'iceServers': _iceServers.map((server) => server.toMap()).toList(),
       'iceTransportPolicy': _iceTransportPolicy.name,
     });
     peerConnection.onIceCandidate = (candidate) {
-      iceCandidates.add(candidate);
-      candidates.value = convertCandidates(iceCandidates);
+      onCandidate?.call(convertCandidate(candidate));
     };
     peerConnection.onTrack = (event) {
       if (event.streams.isNotEmpty) {
@@ -103,14 +102,9 @@ abstract class WebRtcPlayer<C> extends Player {
     final localAnswer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(localAnswer);
 
-    final answer = (
-      description: convertDescription(
-        await peerConnection.getLocalDescription() ?? localAnswer,
-      ),
-      candidates: candidates,
+    return convertDescription(
+      await peerConnection.getLocalDescription() ?? localAnswer,
     );
-
-    return answer;
   }
 
   /// Adds a candidate received from the remote peer.
