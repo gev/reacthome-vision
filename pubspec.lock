@@ -234,7 +234,7 @@ packages:
     description:
       path: "dart/glue"
       ref: HEAD
-      resolved-ref: aaef725e598e5994c05fe0a3d41af8a431afe13b
+      resolved-ref: a8e0d551914ebbd6ab10b5b15d4e9ca316170b20
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -243,7 +243,7 @@ packages:
     description:
       path: "flutter/glue_flutter_material_ui"
       ref: HEAD
-      resolved-ref: aaef725e598e5994c05fe0a3d41af8a431afe13b
+      resolved-ref: a8e0d551914ebbd6ab10b5b15d4e9ca316170b20
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -252,7 +252,7 @@ packages:
     description:
       path: "flutter/glue_flutter_ui"
       ref: HEAD
-      resolved-ref: aaef725e598e5994c05fe0a3d41af8a431afe13b
+      resolved-ref: a8e0d551914ebbd6ab10b5b15d4e9ca316170b20
       url: "https://github.com/gev/glue.git"
     source: git
     version: "0.1.0"
@@ -713,10 +713,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: "5af728d811c218fdc100b7e89bcda789fe34d36d53a968912011bc2d7df14b46"
+      sha256: "69782f89ed334b6a316d87ded16b07816d18e4c0952b69a88a1b502afb45fe3b"
       url: "https://pub.dev"
     source: hosted
-    version: "2.12.4"
+    version: "2.12.5"
   video_player_platform_interface:
     dependency: transitive
     description:
