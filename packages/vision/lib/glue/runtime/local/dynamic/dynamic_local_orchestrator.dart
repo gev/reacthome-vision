@@ -6,7 +6,7 @@ import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/local/dynamic/dynamic_local_reactive_runtime.dart';
 import 'package:vision/glue/runtime/local/local_logger.dart';
 import 'package:vision/glue/runtime/local/local_storage.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 import 'package:watcher/watcher.dart';
 
 class DynamicLocalOrchestrator {

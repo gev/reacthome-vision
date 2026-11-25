@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:glue/ast.dart';
 import 'package:glue/serialize.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 
 class LiveLogger extends Logger {
   final Sink<Uint8List> _sink;

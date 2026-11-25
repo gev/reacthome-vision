@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:vision/connection/connection_status.dart';
 import 'package:vision/retry/retry.dart';
-import 'package:vision/url.dart';
+import 'package:vision/util/url.dart';
 import 'package:vision/websocket/retryable_websocket.dart';
 
 class ResilientWebSocket {

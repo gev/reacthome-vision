@@ -2,7 +2,7 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/notifier.dart';
+import 'package:vision/util/notifier.dart';
 
 /// Modifies a reactive state atomically
 /// Usage: (modify state (lambda (current-value) new-value))

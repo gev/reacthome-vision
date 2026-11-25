@@ -7,11 +7,11 @@ import 'package:glue/ir.dart';
 import 'package:glue/parse.dart';
 import 'package:glue/serialize.dart';
 import 'package:path/path.dart' as p;
-import 'package:vision/logger.dart';
 import 'package:vision/persistent/codec_db.dart';
 import 'package:vision/persistent/db.dart';
 import 'package:vision/persistent/raw_db.dart';
 import 'package:vision/store/revision.dart';
+import 'package:vision/util/logger.dart';
 
 class GlueDb implements Db<String, Ir, int> {
   late final RawDb _rawDb;
@@ -19,11 +19,7 @@ class GlueDb implements Db<String, Ir, int> {
 
   GlueDb({required String path}) {
     _rawDb = RawDb(path: path);
-    _db = CodecDb<Ir>(
-      db: _rawDb,
-      decode: _decodeGlue,
-      encode: _encodeGlue,
-    );
+    _db = CodecDb<Ir>(db: _rawDb, decode: _decodeGlue, encode: _encodeGlue);
   }
 
   @override

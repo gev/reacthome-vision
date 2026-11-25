@@ -7,7 +7,7 @@ import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:glue/parse.dart';
 import 'package:glue/runtime.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 
 class GlueController {
   late final Logger _log;

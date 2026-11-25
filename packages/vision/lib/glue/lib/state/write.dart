@@ -2,7 +2,7 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/notifier.dart';
+import 'package:vision/util/notifier.dart';
 
 /// Writes the value of a reactive state
 /// Takes: state (IrNativeValue), returns function that takes newValue

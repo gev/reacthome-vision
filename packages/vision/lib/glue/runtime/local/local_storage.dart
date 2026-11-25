@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:path/path.dart' as p;
 import 'package:vision/glue/stores/local_persistent_store.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 
 class LocalStorage {
   late final LocalPersistentStore localPersistentStore;

@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:vision/connection/connection_status.dart';
 import 'package:vision/retry/retry.dart';
-import 'package:vision/url.dart';
+import 'package:vision/util/url.dart';
 
 class RetryableWebSocket implements Retryable {
   final GetUrl getUrl;

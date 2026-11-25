@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:path/path.dart' as p;
-import 'package:vision/logger.dart';
 import 'package:vision/persistent/asset_request.dart';
+import 'package:vision/util/logger.dart';
 
 typedef Chunk = ({int offset, List<int> buffer});
 

@@ -2,7 +2,7 @@ import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
 import 'package:vision/glue/stores/glue_store.dart';
-import 'package:vision/notifier.dart';
+import 'package:vision/util/notifier.dart';
 
 Ir lookupReadOnly({required GlueReactiveLookup lookup}) {
   return IrNativeFunc((Ir key) {

@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
+import 'package:vision/util/logger.dart';
 
 class AssetsController {
   final Assets _assets;

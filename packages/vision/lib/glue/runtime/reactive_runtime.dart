@@ -8,7 +8,7 @@ import 'package:glue/module/import.dart';
 import 'package:glue/module/registration.dart';
 import 'package:glue/module/registry.dart';
 import 'package:glue/runtime.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 
 typedef ModuleExpr = ({String name, Ir expr});
 

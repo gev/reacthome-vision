@@ -13,7 +13,7 @@ import 'package:vision/glue/runtime/live/live_logger.dart';
 import 'package:vision/glue/runtime/live/live_reactive_runtime.dart';
 import 'package:vision/glue/runtime/live/live_storage.dart';
 import 'package:vision/glue/runtime/reactive_runtime.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 
 abstract class LiveOrchestrator {
   late final Logger log;

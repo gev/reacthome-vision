@@ -4,7 +4,7 @@ import 'package:glue/module.dart';
 import 'package:vision/connection/hybrid_connection.dart';
 import 'package:vision/glue/runtime/live/hybrid/lib/hybrid_connectivity_module.dart';
 import 'package:vision/glue/runtime/live/live_orchestrator.dart';
-import 'package:vision/url.dart';
+import 'package:vision/util/url.dart';
 
 class HybridLiveOrchestrator extends LiveOrchestrator {
   final Uint8List _peer;

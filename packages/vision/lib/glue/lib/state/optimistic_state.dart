@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/notifier.dart';
+import 'package:vision/util/notifier.dart';
 
 /// Creates an optimistic state with a given timeout.
 final optimisticState = IrNativeFunc((Ir timeoutIr) {

@@ -6,7 +6,7 @@ import 'package:vision/connection/connection_monitor.dart';
 import 'package:vision/connection/connection_status.dart';
 import 'package:vision/connection/direct_connection.dart';
 import 'package:vision/connection/relay_connection.dart';
-import 'package:vision/url.dart';
+import 'package:vision/util/url.dart';
 
 class HybridConnection extends Connection {
   late final DirectConnection _directConnection;

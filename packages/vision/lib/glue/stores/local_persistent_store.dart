@@ -6,8 +6,8 @@ import 'package:vision/glue/persistent/glue_db.dart';
 import 'package:vision/glue/stores/glue_reactive_cache.dart';
 import 'package:vision/glue/stores/glue_reactive_db.dart';
 import 'package:vision/glue/stores/glue_store.dart';
-import 'package:vision/logger.dart';
 import 'package:vision/store/revision.dart';
+import 'package:vision/util/logger.dart';
 
 class LocalPersistentStore implements GlueReactiveLookup, GluePut {
   GlueDb? _local;

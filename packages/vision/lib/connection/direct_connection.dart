@@ -5,7 +5,7 @@ import 'package:vision/connection/connection.dart';
 import 'package:vision/connection/connection_status.dart';
 import 'package:vision/connection/heartbeat.dart';
 import 'package:vision/retry/exponential_backoff_policy.dart';
-import 'package:vision/url.dart';
+import 'package:vision/util/url.dart';
 import 'package:vision/websocket/resilient_websocket.dart';
 
 class DirectConnection extends Connection {

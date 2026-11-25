@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/live/hybrid/hybrid_live_orchestrator.dart';
 import 'package:vision/glue/runtime/scope.dart';
-import 'package:vision/url.dart';
+import 'package:vision/util/url.dart';
 
 Widget makeHybridLiveScope({
   required Uint8List peer,

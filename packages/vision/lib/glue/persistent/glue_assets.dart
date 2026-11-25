@@ -2,8 +2,8 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:vision/glue/persistent/glue_asset_request.dart';
-import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
+import 'package:vision/util/logger.dart';
 
 Assets glueAssets({
   required Sink<Uint8List> sink,

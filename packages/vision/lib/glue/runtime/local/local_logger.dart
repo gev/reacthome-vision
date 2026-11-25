@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 
 class LocalLogger extends Logger {
   @override

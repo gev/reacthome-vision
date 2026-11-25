@@ -4,7 +4,7 @@ import 'package:vision/glue/discovery_store.dart';
 import 'package:vision/glue/runtime/local/local_logger.dart';
 import 'package:vision/glue/runtime/local/local_storage.dart';
 import 'package:vision/glue/runtime/local/static/static_local_reactive_runtime.dart';
-import 'package:vision/logger.dart';
+import 'package:vision/util/logger.dart';
 
 class StaticLocalOrchestrator {
   final String _package;

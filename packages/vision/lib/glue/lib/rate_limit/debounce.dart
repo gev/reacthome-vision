@@ -2,8 +2,8 @@ import 'package:glue/either.dart';
 import 'package:glue/error.dart';
 import 'package:glue/eval.dart';
 import 'package:glue/ir.dart';
-import 'package:vision/logger.dart';
 import 'package:vision/rate_limit/debouncer.dart';
+import 'package:vision/util/logger.dart';
 
 Ir debounce(Logger log) => IrNativeFunc((Ir delayIr) {
   final delay = to<Duration>(delayIr);

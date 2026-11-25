@@ -8,8 +8,8 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/local_persistent_store.dart';
 import 'package:vision/glue/stores/remote_persistent_store.dart';
 import 'package:vision/glue/stores/remote_store.dart';
-import 'package:vision/logger.dart';
 import 'package:vision/persistent/assets.dart';
+import 'package:vision/util/logger.dart';
 
 class LiveStorage {
   late final GlueDb? codeDb;

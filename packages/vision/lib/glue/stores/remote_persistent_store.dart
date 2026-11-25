@@ -7,8 +7,8 @@ import 'package:vision/glue/pub_sub/glue_subscriber.dart';
 import 'package:vision/glue/stores/glue_reactive_cache.dart';
 import 'package:vision/glue/stores/glue_reactive_db.dart';
 import 'package:vision/glue/stores/glue_subscribable.dart';
-import 'package:vision/logger.dart';
 import 'package:vision/store/subscribable.dart';
+import 'package:vision/util/logger.dart';
 
 class RemotePersistentStore implements GlueSubscribable {
   GlueDb? _remote;
