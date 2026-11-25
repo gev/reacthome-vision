@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui' show Size;
 
 import 'package:flutter/foundation.dart';
@@ -24,6 +25,7 @@ abstract class WebRtcPlayer<C> extends Player {
   WebRtcIceTransportPolicy _iceTransportPolicy = WebRtcIceTransportPolicy.all;
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
   RTCPeerConnection? _peerConnection;
+  Timer? _heartbeatTimer;
   final List<RTCIceCandidate> _pendingRemoteCandidates = [];
   MediaStream? _stream;
   bool _hasRemoteDescription = false;
@@ -32,6 +34,7 @@ abstract class WebRtcPlayer<C> extends Player {
   bool _hasError = false;
   bool _isDisposed = false;
   int _sourceRevision = 0;
+  int _heartbeatGeneration = 0;
 
   C convertDescription(RTCSessionDescription description);
   C convertCandidate(RTCIceCandidate candidate);
@@ -77,9 +80,16 @@ abstract class WebRtcPlayer<C> extends Player {
   Future<C> acceptOffer(
     RTCSessionDescription offer, {
     void Function(C candidate)? onCandidate,
+    Duration heartbeatInterval = const Duration(seconds: 30),
+    VoidCallback? onHeartbeat,
   }) async {
     if (_isDisposed) throw StateError('WebRTC player is disposed');
+    if (onHeartbeat != null && heartbeatInterval <= Duration.zero) {
+      throw ArgumentError.value(heartbeatInterval, 'heartbeatInterval');
+    }
 
+    final heartbeatGeneration = ++_heartbeatGeneration;
+    _cancelHeartbeat();
     _hasRemoteDescription = false;
     final peerConnection = _peerConnection ??= await createPeerConnection({
       'iceServers': _iceServers.map((server) => server.toMap()).toList(),
@@ -102,9 +112,25 @@ abstract class WebRtcPlayer<C> extends Player {
     final localAnswer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(localAnswer);
 
-    return convertDescription(
+    final answer = convertDescription(
       await peerConnection.getLocalDescription() ?? localAnswer,
     );
+    if (heartbeatGeneration == _heartbeatGeneration && !_isDisposed) {
+      _startHeartbeat(heartbeatInterval, onHeartbeat);
+    }
+    return answer;
+  }
+
+  void _startHeartbeat(Duration interval, VoidCallback? onHeartbeat) {
+    if (onHeartbeat == null) return;
+
+    _heartbeatTimer = Timer.periodic(interval, (_) {
+      if (!_isDisposed) onHeartbeat();
+    });
+  }
+
+  void _cancelHeartbeat() {
+    _heartbeatTimer?.cancel();
   }
 
   /// Adds a candidate received from the remote peer.
@@ -191,6 +217,8 @@ abstract class WebRtcPlayer<C> extends Player {
 
   void stop() {
     if (_isDisposed) return;
+    _heartbeatGeneration++;
+    _cancelHeartbeat();
     _onStop?.call();
     final revision = ++_sourceRevision;
     _detachStream(revision);
@@ -235,6 +263,8 @@ abstract class WebRtcPlayer<C> extends Player {
   @override
   void dispose() {
     _isDisposed = true;
+    _heartbeatGeneration++;
+    _cancelHeartbeat();
     _sourceRevision++;
     _peerConnection?.close();
     _renderer.dispose();
