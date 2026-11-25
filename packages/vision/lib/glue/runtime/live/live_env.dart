@@ -20,6 +20,7 @@ import 'package:vision/glue/lib/rate_limit_module.dart';
 import 'package:vision/glue/lib/routes_module.dart';
 import 'package:vision/glue/lib/rpc_module.dart';
 import 'package:vision/glue/lib/store_module.dart';
+import 'package:vision/glue/lib/util_module.dart';
 import 'package:vision/glue/lib/webrtc_module.dart';
 import 'package:vision/glue/lib/widgets_module.dart';
 import 'package:vision/glue/pub_sub/glue_subscriber.dart';
@@ -52,6 +53,7 @@ Env makeLiveEnv({
     routesModule,
     canvasModule,
     ioModule,
+    utilModule,
     appletsModule(discoveryStore),
     rateLimitModule(log),
     liveStateModule(storage),
