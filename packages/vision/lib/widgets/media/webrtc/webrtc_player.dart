@@ -25,7 +25,9 @@ abstract class WebRtcPlayer<C> extends Player {
   WebRtcIceTransportPolicy _iceTransportPolicy = WebRtcIceTransportPolicy.all;
   final RTCVideoRenderer _renderer = RTCVideoRenderer();
   RTCPeerConnection? _peerConnection;
+  final List<RTCIceCandidate> _pendingRemoteCandidates = [];
   MediaStream? _stream;
+  bool _hasRemoteDescription = false;
   bool _rendererInitialized = false;
   bool _isInitialized = false;
   bool _hasError = false;
@@ -76,6 +78,7 @@ abstract class WebRtcPlayer<C> extends Player {
   Future<WebRtcAnswer<C>> acceptOffer(RTCSessionDescription offer) async {
     if (_isDisposed) throw StateError('WebRTC player is disposed');
 
+    _hasRemoteDescription = false;
     final iceCandidates = <RTCIceCandidate>[];
     final candidates = ValueNotifier<C>(convertCandidates(iceCandidates));
     final peerConnection = _peerConnection ??= await createPeerConnection({
@@ -93,6 +96,10 @@ abstract class WebRtcPlayer<C> extends Player {
     };
 
     await peerConnection.setRemoteDescription(offer);
+    _hasRemoteDescription = true;
+    while (_pendingRemoteCandidates.isNotEmpty) {
+      await peerConnection.addCandidate(_pendingRemoteCandidates.removeAt(0));
+    }
     final localAnswer = await peerConnection.createAnswer();
     await peerConnection.setLocalDescription(localAnswer);
 
@@ -104,6 +111,22 @@ abstract class WebRtcPlayer<C> extends Player {
     );
 
     return answer;
+  }
+
+  /// Adds a candidate received from the remote peer.
+  ///
+  /// Candidates received before the remote offer is applied are queued and
+  /// added immediately after [acceptOffer] sets the remote description.
+  void addCandidate(RTCIceCandidate candidate) {
+    if (_isDisposed) throw StateError('WebRTC player is disposed');
+
+    final peerConnection = _peerConnection;
+    if (peerConnection == null || !_hasRemoteDescription) {
+      _pendingRemoteCandidates.add(candidate);
+      return;
+    }
+
+    peerConnection.addCandidate(candidate);
   }
 
   void start() {
