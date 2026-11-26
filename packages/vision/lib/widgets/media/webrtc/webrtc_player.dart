@@ -39,6 +39,9 @@ abstract class WebRtcPlayer<C> extends Player {
   C convertDescription(RTCSessionDescription description);
   C convertCandidate(RTCIceCandidate candidate);
 
+  void _log(String message) =>
+      debugPrint('[WebRtcPlayer ${identityHashCode(this)}] $message');
+
   @override
   bool get isInitialized => _isInitialized;
 
@@ -89,16 +92,20 @@ abstract class WebRtcPlayer<C> extends Player {
     }
 
     final heartbeatGeneration = ++_heartbeatGeneration;
+    _log('Accepting offer #$heartbeatGeneration');
     _cancelHeartbeat();
     _hasRemoteDescription = false;
     final peerConnection = _peerConnection ??= await createPeerConnection({
       'iceServers': _iceServers.map((server) => server.toMap()).toList(),
       'iceTransportPolicy': _iceTransportPolicy.name,
     });
+    peerConnection.onIceConnectionState = (state) => _log('ICE: $state');
+    peerConnection.onConnectionState = (state) => _log('Peer: $state');
     peerConnection.onIceCandidate = (candidate) {
       onCandidate?.call(convertCandidate(candidate));
     };
     peerConnection.onTrack = (event) {
+      _log('Track: ${event.track.kind}, streams=${event.streams.length}');
       if (event.streams.isNotEmpty) {
         setStream(event.streams.first);
       }
@@ -116,9 +123,38 @@ abstract class WebRtcPlayer<C> extends Player {
       await peerConnection.getLocalDescription() ?? localAnswer,
     );
     if (heartbeatGeneration == _heartbeatGeneration && !_isDisposed) {
+      _log('Local answer ready for offer #$heartbeatGeneration');
+      unawaited(_logVideoStats(peerConnection, heartbeatGeneration));
       _startHeartbeat(heartbeatInterval, onHeartbeat);
     }
     return answer;
+  }
+
+  Future<void> _logVideoStats(RTCPeerConnection peer, int generation) async {
+    for (var sample = 0; sample < 3; sample++) {
+      await Future<void>.delayed(const Duration(seconds: 5));
+      if (generation != _heartbeatGeneration) return;
+      try {
+        final reports = await peer.getStats();
+        if (generation != _heartbeatGeneration) return;
+        final video = reports.where((report) {
+          final values = report.values;
+          return report.type == 'inbound-rtp' &&
+              (values['kind'] == 'video' ||
+                  values['mediaType'] == 'video' ||
+                  values.containsKey('framesDecoded'));
+        });
+        if (video.isEmpty) _log('No inbound video stats');
+        for (final report in video) {
+          final values = report.values;
+          _log('Inbound video: bytesReceived=${values['bytesReceived']}, '
+              'framesDecoded=${values['framesDecoded']}, renderer=$videoSize');
+        }
+      } catch (error) {
+        if (generation == _heartbeatGeneration) _log('getStats failed: $error');
+        return;
+      }
+    }
   }
 
   void _startHeartbeat(Duration interval, VoidCallback? onHeartbeat) {
@@ -163,6 +199,7 @@ abstract class WebRtcPlayer<C> extends Player {
       await _renderer.initialize();
       if (_isDisposed) return;
       _rendererInitialized = true;
+      _log('Renderer initialized: texture=$textureId');
       if (_stream != null) {
         await _bindStream(_stream!);
       }
@@ -192,6 +229,7 @@ abstract class WebRtcPlayer<C> extends Player {
   void _handleResize() {
     if (_isDisposed) return;
     final size = videoSize;
+    _log('Renderer resize: $size');
     if (size != null) {
       _isInitialized = true;
       _hasError = false;
@@ -231,6 +269,7 @@ abstract class WebRtcPlayer<C> extends Player {
       await _renderer.setSrcObject(stream: stream);
       if (_isDisposed || revision != _sourceRevision) return;
       if (videoSize != null) _isInitialized = true;
+      _log('Stream bound: renderer=$videoSize');
       _hasError = false;
       notifyListeners();
     } catch (error, stack) {
