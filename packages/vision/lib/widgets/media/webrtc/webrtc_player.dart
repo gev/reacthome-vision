@@ -281,10 +281,11 @@ abstract class WebRtcPlayer<C> extends Player {
     if (_isDisposed || !_rendererInitialized) return;
     final revision = ++_sourceRevision;
     try {
-      await _renderer.setSrcObject(stream: stream);
+      final trackId = stream.getVideoTracks().firstOrNull?.id;
+      await _renderer.setSrcObject(stream: stream, trackId: trackId);
       if (_isDisposed || revision != _sourceRevision) return;
       if (videoSize != null) _isInitialized = true;
-      _log('Stream bound: renderer=$videoSize');
+      _log('Stream bound: videoTrack=$trackId, renderer=$videoSize');
       _hasError = false;
       notifyListeners();
     } catch (error, stack) {
