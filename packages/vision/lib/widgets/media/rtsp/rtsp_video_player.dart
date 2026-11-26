@@ -1,7 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:video_player/video_player.dart' as vp;
-import 'package:vision/widgets/media/player.dart';
+import 'package:vision/widgets/media/rtsp/rtsp_player.dart';
 import 'package:vision/widgets/media/rtsp/rtsp_player_pool.dart';
 
 /// Displays a pooled RTSP player through a unique playback lease.
@@ -26,7 +26,7 @@ class RtspVideoPlayer extends StatefulWidget {
 class _RtspVideoPlayerState extends State<RtspVideoPlayer> {
   final Key _visibilityKey = UniqueKey();
   late RtspPlayerLease _lease;
-  Player get _player => _lease.player;
+  RtspPlayer get _player => _lease.player;
   bool _isVisible = false;
 
   @override
