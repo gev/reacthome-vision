@@ -145,7 +145,12 @@ abstract class WebRtcPlayer<C> extends Player {
                   values['mediaType'] == 'video' ||
                   values.containsKey('framesDecoded'));
         });
-        if (video.isEmpty) _log('No inbound video stats');
+        if (video.isEmpty) {
+          final reportSummary = reports
+              .map((report) => '${report.type}:${report.values.keys.join(',')}')
+              .join(' | ');
+          _log('No inbound video stats; reports=$reportSummary');
+        }
         for (final report in video) {
           final values = report.values;
           _log('Inbound video: bytesReceived=${values['bytesReceived']}, '
