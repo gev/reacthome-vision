@@ -13,6 +13,7 @@ import 'package:vision/widgets/media/webrtc/webrtc_ice_transport_policy.dart';
 abstract class WebRtcPlayer<C> extends Player {
   WebRtcPlayer(this.sessionId) {
     _renderer.onResize = _handleResize;
+    _renderer.onFirstFrameRendered = () => _log('Renderer received first frame');
     _initialize();
   }
 
