@@ -1,6 +1,5 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:visibility_detector/visibility_detector.dart';
-import 'package:video_player/video_player.dart' as vp;
 import 'package:vision/widgets/media/rtsp/rtsp_player.dart';
 import 'package:vision/widgets/media/rtsp/rtsp_player_pool.dart';
 
@@ -71,11 +70,13 @@ class _RtspVideoPlayerState extends State<RtspVideoPlayer> {
           animation: _player,
           builder: (context, _) {
             final videoSize = _player.videoSize;
+            final textureId = _player.textureId;
             if (_player.hasError) {
               return const Center(child: Icon(Icons.videocam_off_outlined));
             }
             if (!_player.isInitialized ||
-                videoSize == null) {
+                videoSize == null ||
+                textureId == null) {
               return const Center(child: CircularProgressIndicator());
             }
 
@@ -85,10 +86,7 @@ class _RtspVideoPlayerState extends State<RtspVideoPlayer> {
                 child: SizedBox(
                   width: videoSize.width,
                   height: videoSize.height,
-                  child: vp.VideoPlayer(
-                    _player.controller,
-                    key: ValueKey(_player.controller),
-                  ),
+                  child: Texture(textureId: textureId),
                 ),
               ),
             );
