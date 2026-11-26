@@ -101,7 +101,7 @@ class _WebRtcVideoPlayerState<P extends WebRtcPlayer<dynamic>>
             if (_player.hasError) {
               return const Center(child: Icon(Icons.videocam_off_outlined));
             }
-            if (!_player.isInitialized || _player.videoSize == null) {
+            if (!_player.renderer.renderVideo) {
               return const Center(child: CircularProgressIndicator());
             }
 
