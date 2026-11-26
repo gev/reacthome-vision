@@ -147,7 +147,16 @@ abstract class WebRtcPlayer<C> extends Player {
         });
         if (video.isEmpty) {
           final reportSummary = reports
-              .map((report) => '${report.type}:${report.values.keys.join(',')}')
+              .where(
+                (report) =>
+                    report.type == 'transport' ||
+                    report.type == 'candidate-pair' ||
+                    report.type == 'remote-candidate',
+              )
+              .map(
+                (report) =>
+                    '${report.type}:${report.values}',
+              )
               .join(' | ');
           _log('No inbound video stats; reports=$reportSummary');
         }
