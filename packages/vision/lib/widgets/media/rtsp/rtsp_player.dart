@@ -15,8 +15,6 @@ class RtspPlayer extends Player {
   StreamSubscription<({fvp.MediaStatus oldValue, fvp.MediaStatus newValue})>?
   _statusSubscription;
   StreamSubscription<fvp.MediaEvent>? _eventSubscription;
-  StreamSubscription<({fvp.PlaybackState oldValue, fvp.PlaybackState newValue})>?
-  _stateSubscription;
 
   bool _isInitialized = false;
   bool _hasError = false;
@@ -45,24 +43,17 @@ class RtspPlayer extends Player {
       _player.videoDecoders = ['VT', 'FFmpeg'];
     }
     _statusSubscription = _player.onMediaStatus.listen((event) {
-      debugPrint('[RtspPlayer] Media status: ${event.oldValue} -> ${event.newValue}');
       if (event.newValue.test(fvp.MediaStatus.invalid)) {
         _showError();
       }
     });
     _eventSubscription = _player.onEvent.listen((event) {
-      if (event.category == 'decoder.video') {
-        debugPrint('[RtspPlayer] Video decoder: ${event.detail} (${event.error})');
-      }
       // reader.buffering uses error as a 0..100 progress value, not an error.
       if (event.category != 'reader.buffering' && event.error != 0) {
         debugPrint(
           '[FvpRtspPlayer] ${event.category}: ${event.detail} (${event.error})',
         );
       }
-    });
-    _stateSubscription = _player.onStateChanged.listen((event) {
-      debugPrint('[RtspPlayer] State: ${event.oldValue} -> ${event.newValue}');
     });
 
     // Prefer RTSP over TCP and recover from transient network interruptions.
@@ -86,7 +77,6 @@ class RtspPlayer extends Player {
   Future<void> _prepare() async {
     try {
       final result = await _player.prepare();
-      debugPrint('[RtspPlayer] Prepare result: $result');
       if (_isDisposed) return;
       if (result < 0) {
         _showError();
@@ -116,7 +106,6 @@ class RtspPlayer extends Player {
       }
 
       final id = await _player.updateTexture();
-      debugPrint('[RtspPlayer] Texture: $id, size: ${size.width}x${size.height}');
       if (_isDisposed) return;
       if (id < 0) {
         _showError();
@@ -146,7 +135,6 @@ class RtspPlayer extends Player {
   void play() {
     if (_isDisposed) return;
     _shouldPlay = true;
-    debugPrint('[RtspPlayer] Play requested, initialized=$_isInitialized');
     if (_isInitialized) _player.state = fvp.PlaybackState.playing;
   }
 
@@ -154,7 +142,6 @@ class RtspPlayer extends Player {
   void pause() {
     if (_isDisposed) return;
     _shouldPlay = false;
-    debugPrint('[RtspPlayer] Pause requested, initialized=$_isInitialized');
     if (_isInitialized) _player.state = fvp.PlaybackState.paused;
   }
 
@@ -163,7 +150,6 @@ class RtspPlayer extends Player {
     _isDisposed = true;
     _statusSubscription?.cancel();
     _eventSubscription?.cancel();
-    _stateSubscription?.cancel();
     _player.dispose();
     super.dispose();
   }
