@@ -191,11 +191,11 @@ class RtspPlayer extends Player {
     _videoSize = size;
     _isInitialized = true;
     _hasError = false;
-    // Pause can happen during preparation. Finish setup in the paused state
-    // and let the already-armed idle timer decide when to release resources.
-    player.state = _shouldPlay
-        ? fvp.PlaybackState.playing
-        : fvp.PlaybackState.paused;
+    // RTSP is live: freezing its decoder leaves it behind the live edge. Keep
+    // reading and decoding during the grace period so a quick visibility
+    // return shows current frames immediately. The idle timer releases this
+    // native session when no lease wants playback for long enough.
+    player.state = fvp.PlaybackState.playing;
     _watchdog?.cancel();
     if (_shouldPlay) _watchPlayback(player, generation);
     notifyListeners();
@@ -281,8 +281,8 @@ class RtspPlayer extends Player {
     _releaseTimer?.cancel();
     final player = _player;
     if (player != null && _isInitialized) {
-      // Reuse the prepared session if visibility returns during the grace time.
-      player.state = fvp.PlaybackState.playing;
+      // Native playback stayed at the live edge while hidden; resume stall
+      // monitoring and render from the existing texture.
       _watchPlayback(player, _generation);
     } else if (_starting) {
       _watchdog?.cancel();
@@ -299,9 +299,9 @@ class RtspPlayer extends Player {
     _shouldPlay = false;
     _retryTimer?.cancel();
     _watchdog?.cancel();
-    // Pause decoding now, while retaining the player and texture until the
-    // grace timer expires or another lease requests playback.
-    if (_isInitialized) _player?.state = fvp.PlaybackState.paused;
+    // Stop stall monitoring while hidden, but keep the live decoder running
+    // during the grace period. Freezing RTSP decoding delays recovery and can
+    // leave playback at a low frame rate while it catches up to a keyframe.
     _scheduleRelease();
     _hasError = false;
     _retryAttempt = 0;
