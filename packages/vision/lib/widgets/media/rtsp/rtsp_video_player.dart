@@ -91,7 +91,8 @@ class _RtspVideoPlayerState extends State<RtspVideoPlayer>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _player.removeLeaseTimeout(_lease);
+    // Keep this timeout preference until idle eviction; it still governs the
+    // player after the final widget releases its lease.
     _lease.release();
     super.dispose();
   }

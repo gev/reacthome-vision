@@ -42,6 +42,16 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
   /// Returns the cached player for [key], if one has already been acquired.
   P? getPlayer(K key) => _players[key]?.player;
 
+  /// Removes and disposes [key]'s player only when no leases still own it.
+  /// A caller can use this for delayed eviction after an idle grace period.
+  void evictIfUnleased(K key) {
+    final entry = _players[key];
+    if (entry == null || entry.leases.isNotEmpty) return;
+    _players.remove(key);
+    onLastRelease?.call(entry.player);
+    entry.player.dispose();
+  }
+
   @override
   void play(PlayerLease<K, P> lease) {
     final entry = _entryFor(lease);
@@ -66,8 +76,8 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
     final entry = _entryFor(lease);
     if (entry == null) return;
     entry.leases.remove(lease);
-    final wasPlaying = entry.playingLeases.remove(lease);
-    if (wasPlaying && entry.playingLeases.isEmpty) entry.player.pause();
+    entry.playingLeases.remove(lease);
+    if (entry.playingLeases.isEmpty) entry.player.pause();
     if (entry.leases.isEmpty) {
       onLastRelease?.call(entry.player);
       if (disposeOnLastRelease) {

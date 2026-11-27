@@ -12,11 +12,16 @@ class RtspPlayer extends Player {
   RtspPlayer(
     this._url, {
     this.timeout = const Duration(seconds: 30),
+    this.onIdle,
     fvp.Player Function()? createPlayer,
   }) : _createPlayer = createPlayer ?? fvp.Player.new;
 
   /// Grace period before releasing a paused native player.
   final Duration timeout;
+
+  /// Called after the idle timeout releases native resources, allowing the
+  /// pool to discard this lightweight wrapper when it has no remaining leases.
+  final VoidCallback? onIdle;
   // A player can be shared by several widgets. Keep each lease's preference
   // separately so one widget cannot shorten another widget's grace period.
   final Map<Object, Duration> _leaseTimeouts = {};
@@ -316,6 +321,8 @@ class RtspPlayer extends Player {
       // its leases. A later play request creates a fresh native session.
       _stop();
       notifyListeners();
+      _leaseTimeouts.clear();
+      onIdle?.call();
     });
   }
 
