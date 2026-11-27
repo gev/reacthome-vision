@@ -9,7 +9,11 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
     required this._createPlayer,
     this.onFirstAcquire,
     this.onLastRelease,
+    this.disposeOnLastRelease = false,
   });
+
+  /// Evict unreferenced players instead of retaining them for later reuse.
+  final bool disposeOnLastRelease;
 
   final P Function(K key) _createPlayer;
   final void Function(P player)? onFirstAcquire;
@@ -64,7 +68,13 @@ class PlayerPool<K, P extends Player> implements PlayerLeaseOwner<K, P> {
     entry.leases.remove(lease);
     final wasPlaying = entry.playingLeases.remove(lease);
     if (wasPlaying && entry.playingLeases.isEmpty) entry.player.pause();
-    if (entry.leases.isEmpty) onLastRelease?.call(entry.player);
+    if (entry.leases.isEmpty) {
+      onLastRelease?.call(entry.player);
+      if (disposeOnLastRelease) {
+        _players.remove(lease.key);
+        entry.player.dispose();
+      }
+    }
   }
 
   _PooledPlayer<K, P>? _entryFor(PlayerLease<K, P> lease) {

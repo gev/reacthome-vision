@@ -21,6 +21,7 @@ Eval<Ir> _createRtspVideoPlayer(WidgetProperties props) {
     final widget = RtspVideoPlayer(
       key: props.key,
       url: url,
+      timeout: props.getValue<Duration>('timeout') ?? const Duration(seconds: 30),
       width: props.width,
       height: props.height,
       fit: props.getValue<BoxFit>('fit') ?? BoxFit.contain,
